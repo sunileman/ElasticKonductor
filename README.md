@@ -1,14 +1,15 @@
 
-# 1ClickEckOnEks
+# 1ClickECK
 
-1ClickEckOnEks was built to rapidly deploy with ease an AWS EKS cluster, install ECK, and the ES Stack.   
+1ClickECK was built to rapidly deploy with ease an AWS EKS cluster, install ECK, and the ES Stack.   
 
-Total time from configuration to a fully launched ECK cluster generally should take less than 10 minutes.  The automation; 1ClickEckOnEks,  is idempotent.
+Total time from configuration to a fully launched ECK cluster generally should take less than 10 minutes.  The automation; 1ClickECK,  is idempotent.
 
-1ClickEckOnEks currently deploys
+1ClickECK currently deploys
 * ElasticSearch
 * Kibana
 * License loading (Bring your own ES license)
+* AWS ECK (Optional)
 
 Does not deploy
 * AutoScale Polices
@@ -39,14 +40,14 @@ Does not deploy
 
 Verify shell is executable.  
 ```bash
-  chmod 700 1ClickEckOnEKS.sh
+  chmod 700 1ClickECK.sh
 ```
 Set a few variables
 https://github.com/sunileman/1ClickEckOnEKS#terraform-variables
 
 To create AWS EKS and ECK
 ```bash
-  ./1ClickEckOnEKS.sh -c all
+  ./1ClickECK.sh -c all
 ```
 
 Create all assets on your VPC and subnets. This mode requires tagging your private and public subnets
@@ -57,22 +58,22 @@ tier=public
 #Tag private subnets
 tier=private
 
-1ClickEckOnEKS.sh -c byovpc
+1ClickECK.sh -c byovpc
 ```
 
 Create EKS without ECK
 ```
-1ClickEckOnEKS.sh -c eksonly
+1ClickECK.sh -c eksonly
 ```
 
 Create EKS without ECK on your VPC/Subnets
 ```
-1ClickEckOnEKS.sh -c byovpc-eksonly
+1ClickECK.sh -c byovpc-eksonly
 ```
 
 To run the automation in the background.  Output will be writen to nohup.out. 
 ```bash
-  nohup ./1ClickEckOnEKS.sh -c all &
+  nohup ./1ClickECK.sh -c all &
   tail -f nohup.out ##To see log output
 ```
 
