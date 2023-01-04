@@ -1,0 +1,33 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: eck
+spec:
+  version: 8.5.2
+  count: 1
+  elasticsearchRef:
+    name: eck
+  podTemplate:
+    spec:
+      nodeSelector:
+        nodetype: kibana 
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 1
+          limits:
+            memory: 1Gi
+            cpu: 1
+  http:
+   service:
+    metadata:
+         annotations:
+            service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    spec:
+         type: LoadBalancer
+   tls:
+    selfSignedCertificate:
+     subjectAltNames:
+     - dns: "*.us-east-1.elb.amazonaws.com"
