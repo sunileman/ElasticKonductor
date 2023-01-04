@@ -28,7 +28,7 @@ variable "availability_zones_count" {
 variable "project" {
   description = "ClickDeployment Name"
   type = string
-  default = "1ClickEckOnEks"
+  default = "1ClickECK"
 }
 
 variable "vpc_id" {
