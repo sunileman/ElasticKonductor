@@ -6,10 +6,11 @@
 Total time from configuration to a fully launched ECK cluster generally should take less than 10 minutes.  The automation; 1ClickECK,  is idempotent.
 
 1ClickECK currently deploys
-* ElasticSearch
-* Kibana
-* License loading (Bring your own ES license)
-* AWS ECK (Optional)
+* EKS
+* ECK (Optional)
+    * ElasticSearch 
+    * Kibana
+    * License loading (Bring your own ES license)
 
 Does not deploy
 * APM Server
