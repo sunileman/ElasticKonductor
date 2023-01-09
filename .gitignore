@@ -26,3 +26,11 @@ create-eks/eks-cluster.not-in-use
 create-eks/worker-nodes.not-in-use
 AWS/create-eck/terraform.tfvars
 AWS/create-eck/variables.tf
+AWS/create-eck/.terraform.lock.hcl
+AWS/create-eck/.terraform/
+AWS/create-eck/terraform.tfstate.backup
+AWS/create-eks/.terraform.lock.hcl
+AWS/create-eks/.terraform.tfstate.lock.info
+AWS/create-eks/.terraform/
+AWS/create-eks/terraform.tfstate.backup
+.terraform/
