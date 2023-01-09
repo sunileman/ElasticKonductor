@@ -110,7 +110,7 @@ fi
 echo
 echo
 echo
-echo verison .06
+echo verison .07
 echo author: sunile manjee
 echo last update: 12/22/2022
 echo
