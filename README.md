@@ -12,7 +12,6 @@ Total time from configuration to a fully launched ECK cluster generally should t
 * AWS ECK (Optional)
 
 Does not deploy
-* AutoScale Polices
 * APM Server
 * Fleet
 * Elastic Maps
@@ -247,10 +246,9 @@ Take this into consideration if the defaults aren't acceptables
 
 ## Troubleshooting
 ```bash
-1 node(s) didn't find available persistent volumes to bind
+OOMKilled
 ```
-This means the instance type select does not have localy attached disks which is required.
-Most likely the instance type choosen is EBS_ONLY.
+Pod JVM is requesting more memory than pod limits
 
 
 ```bash

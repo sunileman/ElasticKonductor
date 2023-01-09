@@ -86,7 +86,7 @@ resource "kubernetes_manifest" "elasticsearch_eck" {
                     "storage" = var.master_pod_storage
                   }
                 }
-                "storageClassName" = "local-storage"
+                "storageClassName" = "openebs-hostpath"
               }
             },
           ]
@@ -159,7 +159,7 @@ resource "kubernetes_manifest" "elasticsearch_eck" {
                     "storage" = var.hot_pod_storage
                   }
                 }
-                "storageClassName" = "local-storage"
+                "storageClassName" = "openebs-hostpath"
               }
             },
           ]
@@ -232,7 +232,7 @@ resource "kubernetes_manifest" "elasticsearch_eck" {
                     "storage" = var.warm_pod_storage
                   }
                 }
-                "storageClassName" = "local-storage"
+                "storageClassName" = "openebs-hostpath"
               }
             },
           ]
@@ -305,7 +305,7 @@ resource "kubernetes_manifest" "elasticsearch_eck" {
                     "storage" = var.cold_pod_storage
                   }
                 }
-                "storageClassName" = "local-storage"
+                "storageClassName" = "openebs-hostpath"
               }
             },
           ]
@@ -378,7 +378,7 @@ resource "kubernetes_manifest" "elasticsearch_eck" {
                     "storage" = var.frozen_pod_storage
                   }
                 }
-                "storageClassName" = "local-storage"
+                "storageClassName" = "openebs-hostpath"
               }
             },
           ]
@@ -451,7 +451,7 @@ resource "kubernetes_manifest" "elasticsearch_eck" {
                     "storage" = var.ml_pod_storage
                   }
                 }
-                "storageClassName" = "local-storage"
+                "storageClassName" = "openebs-hostpath"
               }
             },
           ]
@@ -468,5 +468,5 @@ resource "kubernetes_manifest" "elasticsearch_eck" {
       "version" = var.es_version
     }
   }
-depends_on = [kubernetes_manifest.createEckSecrets]
+depends_on = [kubernetes_manifest.createEckSecrets, helm_release.openebs, kubectl_manifest.iscsi]
 }

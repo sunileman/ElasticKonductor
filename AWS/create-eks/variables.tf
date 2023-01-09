@@ -13,6 +13,13 @@ variable "eks_version" {
   type        = string
   default = "1.24"
 }
+
+variable "eck_version" {
+  description = "ECK Version"
+  type        = string
+  default = "2.5.0"
+}
+
 variable "region" {
   description = "The aws region. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html"
   type        = string
@@ -70,13 +77,25 @@ variable "master_instance_count" {
 variable "master_instance_type" {
   description = "Master instance type"
   type = list(string)
-  default     = ["m6gd.2xlarge"]
+  default     = ["m6g.2xlarge"]
 }
 
 variable "master_capacity_type" {
   description = "Master capacity type"
   type = string
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+variable "master_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 500
+}
+
+variable "master_ami_type" {
+  description = "master AMI type"
+  type = string
+  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
 
 variable "kibana_instance_count" {
@@ -91,10 +110,22 @@ variable "kibana_instance_type" {
   default     = ["t2.medium"]
 }
 
+variable "kibana_ami_type" {
+  description = "kibana AMI type"
+  type = string
+  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+}
+
 variable "kibana_capacity_type" {
   description = "hot capacity type"
   type = string
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+variable "kibana_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 200
 }
 
 variable "hot_instance_count" {
@@ -106,7 +137,13 @@ variable "hot_instance_count" {
 variable "hot_instance_type" {
   description = "Hot instance type"
   type = list(string)
-  default     = ["c6gd.8xlarge"]
+  default     = ["c6g.8xlarge"]
+}
+
+variable "hot_ami_type" {
+  description = "hot AMI type"
+  type = string
+  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
 
 variable "hot_capacity_type" {
@@ -121,16 +158,34 @@ variable "warm_instance_count" {
   default     = 0
 }
 
+variable "hot_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 2000
+}
+
 variable "warm_instance_type" {
   description = "warm instance type"
   type = list(string)
-  default     = ["im4gn.4xlarge"]
+  default     = ["r6i.4xlarge"]
+}
+
+variable "warm_ami_type" {
+  description = "warm AMI type"
+  type = string
+  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
 
 variable "warm_capacity_type" {
   description = "warm capacity type"
   type = string
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+variable "warm_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 7500
 }
 
 
@@ -143,13 +198,26 @@ variable "cold_instance_count" {
 variable "cold_instance_type" {
   description = "Cold instance type"
   type = list(string)
-  default     = ["i3en.12xlarge"]
+  default     = ["r6i.12xlarge"]
 }
+
+variable "cold_ami_type" {
+  description = "cold AMI type"
+  type = string
+  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+}
+
 
 variable "cold_capacity_type" {
   description = "cold capacity type"
   type = string
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+variable "cold_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 7500
 }
 
 variable "frozen_instance_count" {
@@ -161,13 +229,26 @@ variable "frozen_instance_count" {
 variable "frozen_instance_type" {
   description = "frozen instance type"
   type = list(string)
-  default     = ["i3en.24xlarge"]
+  default     = ["r6i.24xlarge"]
 }
+
+variable "frozen_ami_type" {
+  description = "frozen AMI type"
+  type = string
+  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+}
+
 
 variable "frozen_capacity_type" {
   description = "frozen capacity type"
   type = string
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+variable "frozen_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 7500
 }
 
 variable "ml_instance_count" {
@@ -179,13 +260,26 @@ variable "ml_instance_count" {
 variable "ml_instance_type" {
   description = "ML instance type"
   type = list(string)
-  default     = ["c6id.4xlarge"]
+  default     = ["c6i.4xlarge"]
 }
+
+variable "ml_ami_type" {
+  description = "AMI type"
+  type = string
+  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+}
+
 
 variable "ml_capacity_type" {
   description = "ml capacity type"
   type = string
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+variable "ml_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 950
 }
 
 variable "util_instance_count" {
@@ -212,49 +306,12 @@ variable "util_ami_type" {
   default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
 
-
-variable "master_ami_type" {
-  description = "master AMI type"
-  type = string
-  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+variable "util_ebs_volume" {
+  description = "EBS Volume in GB"
+  type        = number
+  default     = 200
 }
 
-variable "kibana_ami_type" {
-  description = "kibana AMI type"
-  type = string
-  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-}
-
-variable "hot_ami_type" {
-  description = "hot AMI type"
-  type = string
-  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-}
-
-variable "warm_ami_type" {
-  description = "warm AMI type"
-  type = string
-  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-}
-
-variable "cold_ami_type" {
-  description = "cold AMI type"
-  type = string
-  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-}
-
-variable "frozen_ami_type" {
-  description = "frozen AMI type"
-  type = string
-  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-}
-
-
-variable "ml_ami_type" {
-  description = "AMI type"
-  type = string
-  default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-}
 
 variable "client_access_cidr" {
   description = "client access cidr to include in security group access clearnance"
@@ -334,7 +391,7 @@ variable "hot_pod_count" {
 variable "hot_pod_cpu" {
   description = "hot pod cpu request"
   type = string
-  default = "30000m" 
+  default = "30000m"
 }
 
 variable "hot_pod_memory" {
@@ -483,6 +540,4 @@ variable "eck_namespace" {
   type = string
   default = "default"
 }
-
-
 
