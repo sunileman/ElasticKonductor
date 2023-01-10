@@ -7,7 +7,7 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-c <all | byovpc | eksonly | byovpc-eksonly>] [-d for destroy] [-h for help]."
+     echo "Usage: $0 [-b <all | byovpc | eks | byovpc-eks>] [-d for destroy] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
@@ -46,9 +46,9 @@ setCreateAllTFs(){
 
 
 cleanup
-while getopts ':c:dh' OPTION; do
+while getopts ':b:dh' OPTION; do
   case "$OPTION" in
-    c)
+    b)
       createModeArg="$OPTARG"
       createmode=true
       resetTFs
@@ -58,16 +58,16 @@ while getopts ':c:dh' OPTION; do
       elif [[ "${OPTARG,,}" == "all" ]]; then
         echo "Create Mode = ALL"
 	setCreateAllTFs
-      elif [[ "${OPTARG,,}" == "byovpc-eksonly" ]]; then
+      elif [[ "${OPTARG,,}" == "byovpc-eks" ]]; then
         echo "Create Mode = BYOVPC and EKS Only"
 	setByovpcTFs
 	eksonly=true
-      elif [[ "${OPTARG,,}" == "eksonly" ]]; then
+      elif [[ "${OPTARG,,}" == "eks" ]]; then
         echo "Create Mode = EKS Only"
 	setCreateAllTFs
 	eksonly=true
       else
-	echo "Not a valid option.  Use: all, eksonly, byopvc, byovpc-eksonly"
+	echo "Not a valid option.  Use: all, eks, byopvc, byovpc-eks"
 	exit 1
       fi
       ;;
@@ -77,10 +77,10 @@ while getopts ':c:dh' OPTION; do
       ;;
     h)
       echo "Options"
-      echo "Create all EKS & ECK assets: $0 -c all"
-      echo "Create all EKS & ECK on your vpc/subnets: $0 -c byovpc" 
-      echo "Create EKS: $0 -c eksonly" 
-      echo "Create EKS on your vpc/subnes: $0 -c byovpc-eksonly" 
+      echo "Create all EKS & ECK assets: $0 -b all"
+      echo "Create all EKS & ECK on your vpc/subnets: $0 -b byovpc" 
+      echo "Create EKS: $0 -b eks" 
+      echo "Create EKS on your vpc/subnes: $0 -b byovpc-eks" 
       echo "Destroy all assets build by 1Click: $0 -d "
       exit 0
       ;;

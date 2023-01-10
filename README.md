@@ -47,7 +47,7 @@ https://github.com/sunileman/1ClickEckOnEKS#terraform-variables
 
 To create AWS EKS and ECK
 ```bash
-  ./1ClickECK.sh -c all
+  ./1ClickECK.sh -b all
 ```
 
 Create all assets on your VPC and subnets. This mode requires tagging your private and public subnets
@@ -58,22 +58,22 @@ tier=public
 #Tag private subnets
 tier=private
 
-1ClickECK.sh -c byovpc
+1ClickECK.sh -b byovpc
 ```
 
 Create EKS without ECK
 ```
-1ClickECK.sh -c eksonly
+1ClickECK.sh -b eks
 ```
 
 Create EKS without ECK on your VPC/Subnets
 ```
-1ClickECK.sh -c byovpc-eksonly
+1ClickECK.sh -b byovpc-eks
 ```
 
 To run the automation in the background.  Output will be writen to nohup.out. 
 ```bash
-  nohup ./1ClickECK.sh -c all &
+  nohup ./1ClickECK.sh -b all &
   tail -f nohup.out ##To see log output
 ```
 
