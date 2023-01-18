@@ -17,7 +17,7 @@ variable "eks_version" {
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.5.0"
+  default = "2.6.0"
 }
 
 variable "region" {
@@ -382,6 +382,12 @@ variable "kibana_pod_memory" {
   default = "1Gi"
 }
 
+variable "kibana_pod_count" {
+  description = "number of kibana pods"
+  type = number
+  default = 1
+}
+
 variable "hot_pod_count" {
   description = "number of hot pods"
   type = number
@@ -539,5 +545,42 @@ variable "eck_namespace" {
   description = "eck namespace"
   type = string
   default = "default"
+}
+
+
+variable "master_pod_roles" {
+  description = "master pod roles"
+  type = string
+  default = "master"
+}
+
+variable "hot_pod_roles" {
+  description = "hot pod roles"
+  type = string
+  default = "data_hot, data_content, ingest"
+}
+
+variable "warm_pod_roles" {
+  description = "warm pod roles"
+  type = string
+  default = "data_warm, data_content"
+}
+
+variable "cold_pod_roles" {
+  description = "cold pod roles"
+  type = string
+  default = "data_cold"
+}
+
+variable "frozen_pod_roles" {
+  description = "frozen pod roles"
+  type = string
+  default = "data_frozen"
+}
+
+variable "ml_pod_roles" {
+  description = "ml pod roles"
+  type = string
+  default = "ml, remote_cluster_client"
 }
 

@@ -34,3 +34,14 @@ AWS/create-eks/.terraform.tfstate.lock.info
 AWS/create-eks/.terraform/
 AWS/create-eks/terraform.tfstate.backup
 .terraform/
+aws/create-eck/.terraform.lock.hcl
+aws/create-eck/create-operator/.terraform.lock.hcl
+aws/create-eck/create-operator/terraform.tfstate.backup
+aws/create-eck/create-operator/terraform.tfvars
+aws/create-eck/create-operator/variables.tf
+aws/create-eck/terraform.tfstate.backup
+aws/create-eck/terraform.tfvars
+aws/create-eck/testing/
+aws/create-eck/variables.tf
+aws/create-eks/.terraform.lock.hcl
+aws/create-eks/terraform.tfstate.backup

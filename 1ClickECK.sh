@@ -1,6 +1,6 @@
 #!/bin/bash
-$(mkdir ./AWS/logs 2>/dev/null)
-LOG_LOCATION=./AWS/logs
+$(mkdir ./aws/logs 2>/dev/null)
+LOG_LOCATION=./aws/logs
 exec > >(tee -i $LOG_LOCATION/1Click.log)
 exec 2>&1
 
@@ -20,28 +20,28 @@ cleanup() {
 }
 
 resetTFs(){
-	$(mv ./AWS/create-eks/data-sources.tf ./AWS/create-eks/data-sources.not-in-use 2>/dev/null)
-	$(mv ./AWS/create-eks/worker-nodes.tf ./AWS/create-eks/worker-nodes.not-in-use 2>/dev/null)
-	$(mv ./AWS/create-eks/eks-cluster.tf ./AWS/create-eks/eks-cluster.not-in-use 2>/dev/null)
-	$(mv ./AWS/create-eks/vpc.tf ./AWS/create-eks/vpc.not-in-use 2>/dev/null)
-	$(mv ./AWS/create-eks/data-sources-byovpc.tf ./AWS/create-eks/data-sources-byovpc.not-in-use 2>/dev/null)
-	$(mv ./AWS/create-eks/worker-nodes-byovpc.tf ./AWS/create-eks/worker-nodes-byovpc.not-in-use 2>/dev/null)
-	$(mv ./AWS/create-eks/eks-cluster-byovpc.tf ./AWS/create-eks/eks-cluster-byovpc.not-in-use 2>/dev/null)
-	$(mv ./AWS/create-eks/tagsubnets-byovpc.tf ./AWS/create-eks/tagsubnets-byovpc.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/data-sources.tf ./aws/create-eks/data-sources.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/worker-nodes.tf ./aws/create-eks/worker-nodes.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/eks-cluster.tf ./aws/create-eks/eks-cluster.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/vpc.tf ./aws/create-eks/vpc.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/data-sources-byovpc.tf ./aws/create-eks/data-sources-byovpc.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/worker-nodes-byovpc.tf ./aws/create-eks/worker-nodes-byovpc.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/eks-cluster-byovpc.tf ./aws/create-eks/eks-cluster-byovpc.not-in-use 2>/dev/null)
+	$(mv ./aws/create-eks/tagsubnets-byovpc.tf ./aws/create-eks/tagsubnets-byovpc.not-in-use 2>/dev/null)
 }
 
 setByovpcTFs(){
-	$(mv ./AWS/create-eks/data-sources-byovpc.not-in-use ./AWS/create-eks/data-sources-byovpc.tf 2>/dev/null)
-        $(mv ./AWS/create-eks/worker-nodes-byovpc.not-in-use ./AWS/create-eks/worker-nodes-byovpc.tf 2>/dev/null)
-        $(mv ./AWS/create-eks/eks-cluster-byovpc.not-in-use ./AWS/create-eks/eks-cluster-byovpc.tf 2>/dev/null)
-        $(mv ./AWS/create-eks/tagsubnets-byovpc.not-in-use ./AWS/create-eks/tagsubnets-byovpc.tf 2>/dev/null)
+	$(mv ./aws/create-eks/data-sources-byovpc.not-in-use ./aws/create-eks/data-sources-byovpc.tf 2>/dev/null)
+        $(mv ./aws/create-eks/worker-nodes-byovpc.not-in-use ./aws/create-eks/worker-nodes-byovpc.tf 2>/dev/null)
+        $(mv ./aws/create-eks/eks-cluster-byovpc.not-in-use ./aws/create-eks/eks-cluster-byovpc.tf 2>/dev/null)
+        $(mv ./aws/create-eks/tagsubnets-byovpc.not-in-use ./aws/create-eks/tagsubnets-byovpc.tf 2>/dev/null)
 }
 
 setCreateAllTFs(){
-	$(mv ./AWS/create-eks/data-sources.not-in-use ./AWS/create-eks/data-sources.tf 2>/dev/null)
-        $(mv ./AWS/create-eks/worker-nodes.not-in-use ./AWS/create-eks/worker-nodes.tf 2>/dev/null)
-        $(mv ./AWS/create-eks/eks-cluster.not-in-use ./AWS/create-eks/eks-cluster.tf 2>/dev/null)
-        $(mv ./AWS/create-eks/vpc.not-in-use ./AWS/create-eks/vpc.tf 2>/dev/null)
+	$(mv ./aws/create-eks/data-sources.not-in-use ./aws/create-eks/data-sources.tf 2>/dev/null)
+        $(mv ./aws/create-eks/worker-nodes.not-in-use ./aws/create-eks/worker-nodes.tf 2>/dev/null)
+        $(mv ./aws/create-eks/eks-cluster.not-in-use ./aws/create-eks/eks-cluster.tf 2>/dev/null)
+        $(mv ./aws/create-eks/vpc.not-in-use ./aws/create-eks/vpc.tf 2>/dev/null)
 }
 
 
@@ -110,7 +110,7 @@ fi
 echo
 echo
 echo
-echo verison .07
+echo verison .08
 echo author: sunile manjee
 echo last update: 12/22/2022
 echo
@@ -130,29 +130,29 @@ echo "                                                                          
 
 #https://patorjk.com/software/taag/#p=display&h=1&v=1&c=echo&f=Chiseled&t=1ClickEckOnEKS#
 start=$SECONDS
-chmod 700 ./AWS/create-eks/1ClickEKSDeploy.sh
-chmod 700 ./AWS/create-eck/cleanup.sh
-chmod 700 ./AWS/create-eck/getKibanaInfo.sh
-chmod 700 ./AWS/create-eck/1ClickECKDeploy.sh
-chmod 700 ./AWS/create-eck/eck-add-license.sh
+chmod 700 ./aws/create-eks/1ClickEKSDeploy.sh
+chmod 700 ./aws/create-eck/cleanup.sh
+chmod 700 ./aws/create-eck/getKibanaInfo.sh
+chmod 700 ./aws/create-eck/1ClickECKDeploy.sh
+chmod 700 ./aws/create-eck/eck-add-license.sh
 
-cp -f ./AWS/create-eks/terraform.tfvars ./AWS/create-eck/
-cp -f ./AWS/create-eks/variables.tf ./AWS/create-eck/
+cp -f ./aws/create-eks/terraform.tfvars ./aws/create-eck/
+cp -f ./aws/create-eks/variables.tf ./aws/create-eck/
 
 
 if [ $createmode == true ] && [ $eksonly == false ]; then
-   (cd ./AWS/create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./AWS/create-eks ; sh ./1ClickEKSDeploy.sh)
-   (cd ./AWS/create-eck ; sh ./1ClickECKDeploy.sh)
+   (cd ./aws/create-eck ; sh ./cleanup.sh 2>/dev/null)
+   (cd ./aws/create-eks ; sh ./1ClickEKSDeploy.sh)
+   (cd ./aws/create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $eksonly == true ]; then
-   (cd ./AWS/create-eks ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./AWS/create-eks ; sh ./1ClickEKSDeploy.sh)
+   (cd ./aws/create-eks ; terraform destroy -auto-approve 2>/dev/null)
+   (cd ./aws/create-eks ; sh ./1ClickEKSDeploy.sh)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
-   (cd ./AWS/create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./AWS/create-eks ; terraform destroy -auto-approve 2>/dev/null)
+   (cd ./aws/create-eck ; sh ./cleanup.sh 2>/dev/null)
+   (cd ./aws/create-eks ; terraform destroy -auto-approve 2>/dev/null)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 else
