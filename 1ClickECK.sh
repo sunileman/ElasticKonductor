@@ -141,7 +141,7 @@ cp -f ./aws/create-eks/variables.tf ./aws/create-eck/
 
 
 if [ $createmode == true ] && [ $eksonly == false ]; then
-   (cd ./aws/create-eck ; sh ./cleanup.sh 2>/dev/null)
+   #(cd ./aws/create-eck ; sh ./cleanup.sh 2>/dev/null)
    (cd ./aws/create-eks ; sh ./1ClickEKSDeploy.sh)
    (cd ./aws/create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
