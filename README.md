@@ -213,6 +213,8 @@ ml_pod_ES_JAVA_OPTS=value
 Latest release of ES, if jvm arguments aren't spplied for heap size, half the available memory within the pod will be used for heap. 
 Take this into consideration if the defaults aren't acceptables
 
+## ECK/ES Updates
+The automation; 1ClickECK,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun 1ClickECK with the same -b arguments 
 ## Troubleshooting
 ```bash
 OOMKilled
