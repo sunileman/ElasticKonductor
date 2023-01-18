@@ -174,38 +174,6 @@ Set public subnets tag
 ```bash
 tier=public
 ```
-## Node Roles
-Node roles are defined in `./create-eck/locals.tf` and used `create-eck/eck-elasticsearch.tf` variable `node.roles`
-
-```
-locals {
-  master_pod_roles = ["master"]
-  hot_pod_roles =  ["data_hot", "data_content", "ingest"]
-  warm_pod_roles =  ["data_warm", "data_content"]
-  cold_pod_roles =  ["data_cold" ]
-  frozen_pod_roles =  ["data_frozen"]
-  ml_pod_roles =  ["ml", "remote_cluster_client"]
-}
-```
-
-For example. `create-eck/eck-elasticsearch.tf` defines how node roles will be applied to pods for each type
-```
- "nodeSets" = [
-        {
-          "config" = {
-            "node.roles" = local.master_pod_roles
-            "transport.compress" = true
-          }
-...
-{
-          "config" = {
-            "node.attr.data" = "hot"
-            "node.roles" =  local.hot_pod_roles
-            "transport.compress" = true
-          }
-
-```
-
 ##  Variables- Default Values
 `./create-eks/variables` file host all possible variables supported by this deployment.  
 If a varialble is not present in `./create-eks/terraform.tfvars`, the default value will be taken from `./create-eks/variables.tf`
