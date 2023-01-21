@@ -215,6 +215,8 @@ Take this into consideration if the defaults aren't acceptables
 
 ## ECK/ES Updates
 The automation; 1ClickECK,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun 1ClickECK with the same -b arguments 
+## kubectl manifest
+Automation will set local kube config (kubectl) after automation run.  If local kube config needs to be reset, simple rerun the automation (even if there is no change) to set local kube config.
 ## Troubleshooting
 ```bash
 OOMKilled
@@ -228,3 +230,9 @@ exec plugin: invalid apiversion "client.authentication.k8s.io/v1alpha1"
 The version of K8s does not match kubectl client.  Please refer to: https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
 
 All automation logs are stored in ./logs
+
+
+```bash
+Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
+```
+try:  export KUBE_CONFIG_PATH=~/.kube/config

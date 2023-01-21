@@ -17,7 +17,7 @@ variable "eks_version" {
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.6.0"
+  default = "2.6.1"
 }
 
 variable "region" {

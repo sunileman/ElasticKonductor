@@ -1,28 +1,32 @@
-data "aws_eks_node_group" "master" {
-  cluster_name    = local.project
-  node_group_name = "master"
-}
-data "aws_eks_node_group" "hot" {
-  cluster_name    = local.project
-  node_group_name = "hot"
-}
-data "aws_eks_node_group" "warm" {
-  cluster_name    = local.project
-  node_group_name = "warm"
-}
-data "aws_eks_node_group" "cold" { 
-  cluster_name    = local.project
-  node_group_name = "cold"
-}
-data "aws_eks_node_group" "frozen" {
-  cluster_name    = local.project
-  node_group_name = "frozen"
-}
-data "aws_eks_node_group" "ml" {
-  cluster_name    = local.project
-  node_group_name = "ml"
+data "azurerm_kubernetes_cluster_node_pool" "master" {
+  kubernetes_cluster_name    = local.project
+  name  = "master"
+  resource_group_name="1ClickECK-sunman-desired-snapper"
 }
 
+data "azurerm_kubernetes_cluster_node_pool" "hot" {
+  kubernetes_cluster_name    = local.project
+  name  = "hot"
+  resource_group_name="1ClickECK-sunman-desired-snapper"
+}
+
+
+data "azurerm_kubernetes_cluster_node_pool" "kibana" {
+  kubernetes_cluster_name    = local.project
+  name  = "kibana"
+  resource_group_name="1ClickECK-sunman-desired-snapper"
+}
+
+
+
+data "curl" "iscsi" {
+  http_method = "GET"
+  uri = "https://raw.githubusercontent.com/longhorn/longhorn/v1.4.0/deploy/prerequisite/longhorn-iscsi-installation.yaml"
+}
+
+data "kubectl_file_documents" "iscsi_doc" {
+  content = data.curl.iscsi.response
+}
 
 
 data "kubectl_path_documents" "es" {
@@ -79,6 +83,7 @@ data "kubectl_path_documents" "kibana" {
         kibana_pod_memory = var.kibana_pod_memory
         kibana_pod_cpu = var.kibana_pod_cpu
         kibana_pod_count = var.kibana_pod_count
+        lbname = var.lbname
     }
 }
 
@@ -87,17 +92,8 @@ data "kubectl_path_documents" "loadbalancer" {
     pattern = "./eck-yamls/loadbalancer.yaml"
     vars = {
         eck_namespace = var.eck_namespace
+        lb2name = var.lb2name
     }
 }
-
-
-data "kubectl_path_documents" "aws-secrets" {
-    pattern = "./eck-yamls/secrets.yaml"
-    vars = {
-        aws_access_key = var.aws_access_key
-        aws_secret_key= var.aws_secret_key
-    }
-}
-
 
 

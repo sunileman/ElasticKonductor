@@ -1,0 +1,266 @@
+# This sample sets up an Elasticsearch cluster with 3 nodes.
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: eck
+spec:
+  version: 8.5.2
+  secureSettings:
+  - secretName: aws-key
+  - secretName: aws-secret
+  nodeSets:
+  - name: master
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.roles: [ master ]
+      #node.master: true
+      #node.data: false
+      #node.ingest: false
+      #node.ml: false
+      # this allows ES to run on nodes even if their vm.max_map_count has not been increased, at a performance cost
+      #node.store.allow_mmap: false
+      transport.compress: true
+    podTemplate:
+      metadata:
+        labels:
+          # additional labels for pods
+          foo: compress
+        annotations:
+          #co.elastic.metrics/module: elasticsearch-xpack
+          #co.elastic.metrics/hosts: 'https://${data.host}:9200'
+          #co.elastic.metrics/username: beat
+          #co.elastic.metrics/password: beatbeatbeat
+          #co.elastic.metrics/ssl.verification_mode: none
+          co.elastic.metrics/raw: "[{\"enabled\":true,\"module\":\"elasticsearch\",\"period\":\"10s\",\"hosts\":\"https://${data.host}:9200\",\"username\":\"beat\",\"password\":\"beatbeatbeat\",\"ssl.verification_mode\":\"none\",\"xpack.enabled\": true}]"
+      spec:
+        initContainers:
+        - name: install-plugins
+          command:
+          - sh
+          - -c
+          - |
+            bin/elasticsearch-plugin install --batch repository-s3
+        nodeSelector:
+          nodetype: master
+        # this changes the kernel setting on the node to allow ES to use mmap
+        # if you uncomment this init container you will likely also want to remove the
+        # "node.store.allow_mmap: false" setting above
+        # initContainers:
+        # - name: sysctl
+        #   securityContext:
+        #     privileged: true
+        #   command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        ###
+        # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
+        # automountServiceAccountToken: true
+        containers:
+        - name: elasticsearch
+          # specify resource limits and requests
+          resources:
+            limits:
+              #memory: 11264Mi
+              memory: 2Gi
+              #cpu: 3700m
+              cpu: 1
+          env:
+          - name: ES_JAVA_OPTS
+            value: "-Xms8g -Xmx8g"
+    count: 1
+    volumeClaimTemplates:
+     - metadata:
+         name: elasticsearch-data
+       spec:
+         accessModes:
+         - ReadWriteOnce
+         resources:
+           requests:
+             storage: 140Gi
+         storageClassName: local-storage
+  # # inject secure settings into Elasticsearch nodes from k8s secrets references
+  # secureSettings:
+  # - secretName: ref-to-secret
+  # - secretName: another-ref-to-secret
+  #   # expose only a subset of the secret keys (optional)
+  #   entries:
+  #   - key: value1
+  #     path: newkey # project a key to a specific path (optional)
+  - name: hot
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.roles: [ data_hot, data_content, ingest, ml ]
+      #node.master: false
+      #node.data: true
+      #node.ingest: true
+      #node.ml: true
+      # this allows ES to run on nodes even if their vm.max_map_count has not been increased, at a performance cost
+      #node.store.allow_mmap: false
+      #hot node for ILM
+      node.attr.data: hot
+      transport.compress: true
+    podTemplate:
+      metadata:
+        labels:
+          # additional labels for pods
+          foo: compress
+        annotations:
+          #co.elastic.metrics/module: elasticsearch-xpack
+          #co.elastic.metrics/hosts: 'https://${data.host}:9200'
+          #co.elastic.metrics/username: beat
+          #co.elastic.metrics/password: beatbeatbeat
+          #co.elastic.metrics/ssl.verification_mode: none
+          co.elastic.metrics/raw: "[{\"enabled\":true,\"module\":\"elasticsearch\",\"period\":\"10s\",\"hosts\":\"https://${data.host}:9200\",\"username\":\"beat\",\"password\":\"beatbeatbeat\",\"ssl.verification_mode\":\"none\",\"xpack.enabled\": true}]"
+      spec:
+        initContainers:
+        - name: install-plugins
+          command:
+          - sh
+          - -c
+          - |
+            bin/elasticsearch-plugin install --batch repository-s3
+        nodeSelector:
+          nodetype: hot
+        # this changes the kernel setting on the node to allow ES to use mmap
+        # if you uncomment this init container you will likely also want to remove the
+        # "node.store.allow_mmap: false" setting above
+        # initContainers:
+        # - name: sysctl
+        #   securityContext:
+        #     privileged: true
+        #   command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        ###
+        # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
+        # automountServiceAccountToken: true
+        containers:
+        - name: elasticsearch
+          # specify resource limits and requests
+          resources:
+            limits:
+              memory: 53248Mi
+              cpu: 30000m
+          env:
+          - name: ES_JAVA_OPTS
+            value: "-Xms26g -Xmx26g"
+        #affinity:
+        # nodeAffinity:
+        #   requiredDuringSchedulingIgnoredDuringExecution:
+        #     nodeSelectorTerms:
+        #       - matchExpressions:
+        #         - key: kubernetes.io/e2e-az-name
+        #           operator: In
+        #           values:
+        #           - lolthisdoesntexist
+    count: 3
+    volumeClaimTemplates:
+     - metadata:
+         name: elasticsearch-data
+       spec:
+         accessModes:
+         - ReadWriteOnce
+         resources:
+           requests:
+             storage: 1600Gi
+         storageClassName: local-storage
+  # # inject secure settings into Elasticsearch nodes from k8s secrets references
+  # secureSettings:
+  # - secretName: ref-to-secret
+  # - secretName: another-ref-to-secret
+  #   # expose only a subset of the secret keys (optional)
+  #   entries:
+  #   - key: value1
+  #     path: newkey # project a key to a specific path (optional)
+  - name: warm
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.roles: [ data_content, data_warm, ml, ingest ]
+      #node.master: false
+      #node.data: true
+      #node.ingest: true
+      #node.ml: true
+      # this allows ES to run on nodes even if their vm.max_map_count has not been increased, at a performance cost
+      #node.store.allow_mmap: false
+      #hot node for ILM
+      node.attr.data: warm
+      transport.compress: true
+    podTemplate:
+      metadata:
+        labels:
+          # additional labels for pods
+          foo: compress
+        annotations:
+          #co.elastic.metrics/module: elasticsearch
+          #co.elastic.metrics/hosts: 'https://${data.host}:9200'
+          #co.elastic.metrics/username: beat
+          #co.elastic.metrics/password: beatbeatbeat
+          #co.elastic.metrics/ssl.verification_mode: none
+          co.elastic.metrics/raw: "[{\"enabled\":true,\"module\":\"elasticsearch\",\"period\":\"10s\",\"hosts\":\"https://${data.host}:9200\",\"username\":\"beat\",\"password\":\"beatbeatbeat\",\"ssl.verification_mode\":\"none\",\"xpack.enabled\": true}]"
+      spec:
+        initContainers:
+        - name: install-plugins
+          command:
+          - sh
+          - -c
+          - |
+            bin/elasticsearch-plugin install --batch repository-s3
+        nodeSelector:
+          nodetype: warm
+        # this changes the kernel setting on the node to allow ES to use mmap
+        # if you uncomment this init container you will likely also want to remove the
+        # "node.store.allow_mmap: false" setting above
+        # initContainers:
+        # - name: sysctl
+        #   securityContext:
+        #     privileged: true
+        #   command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        ###
+        # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
+        # automountServiceAccountToken: true
+        containers:
+        - name: elasticsearch
+          # specify resource limits and requests
+          resources:
+            limits:
+              memory: 53248Mi
+              cpu: 7500m
+          env:
+          - name: ES_JAVA_OPTS
+            value: "-Xms26g -Xmx26g"
+    count: 0
+    volumeClaimTemplates:
+     - metadata:
+         name: elasticsearch-data
+       spec:
+         accessModes:
+         - ReadWriteOnce
+         resources:
+           requests:
+             storage: 5000Gi
+         storageClassName: local-storage
+  # # inject secure settings into Elasticsearch nodes from k8s secrets references
+  # secureSettings:
+  # - secretName: ref-to-secret
+  # - secretName: another-ref-to-secret
+  #   # expose only a subset of the secret keys (optional)
+  #   entries:
+  #   - key: value1
+  #     path: newkey # project a key to a specific path (optional)
+
+  http:
+   #service:
+    #metadata:
+    #  annotations:
+    #    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    #spec:
+    #     type: LoadBalancer
+         #selector: 
+            # common.k8s.elastic.co/type: elasticsearch
+            # elasticsearch.k8s.elastic.co/cluster-name: rally
+            # elasticsearch.k8s.elastic.co/node-master: false
+   tls:
+    selfSignedCertificate:
+     subjectAltNames:
+  #       - ip: 192.xxx.1.2
+  #       - ip: 192.xxx.1.3
+     - dns: "*.us-east-1.elb.amazonaws.com"
+  #     certificate:
+  #       # provide your own certificate
+  #       secretName: my-cert

@@ -1,6 +1,4 @@
 #!/bin/bash
-export KUBE_CONFIG_PATH=~/.kube/config
-echo ECK Operator
 # initialize terraform configuration
 terraform init
 
@@ -8,7 +6,12 @@ terraform init
 terraform validate
 
 # create terraform plan
-terraform plan -out state.tfplan 
+terraform plan -out state.tfplan
 
 # apply terraform plan
 terraform apply state.tfplan
+
+bash ./setkubectl.sh
+bash ./setDataSourceRG.sh
+# cleanup
+#terraform destroy -auto-approve

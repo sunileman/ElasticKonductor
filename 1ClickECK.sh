@@ -7,46 +7,22 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-b <all | byovpc | eks | byovpc-eks>] [-d for destroy] [-h for help]."
+     echo "Usage: $0 [-c [aws | azure] [-b <all | k8s>] [-d for destroy] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
 
 cleanup() {
   createmode=false
-  eksonly=false
+  k8sonly=false
   destroy=false
   createModeArg=NA
-}
-
-resetTFs(){
-	$(mv ./aws/create-eks/data-sources.tf ./aws/create-eks/data-sources.not-in-use 2>/dev/null)
-	$(mv ./aws/create-eks/worker-nodes.tf ./aws/create-eks/worker-nodes.not-in-use 2>/dev/null)
-	$(mv ./aws/create-eks/eks-cluster.tf ./aws/create-eks/eks-cluster.not-in-use 2>/dev/null)
-	$(mv ./aws/create-eks/vpc.tf ./aws/create-eks/vpc.not-in-use 2>/dev/null)
-	$(mv ./aws/create-eks/data-sources-byovpc.tf ./aws/create-eks/data-sources-byovpc.not-in-use 2>/dev/null)
-	$(mv ./aws/create-eks/worker-nodes-byovpc.tf ./aws/create-eks/worker-nodes-byovpc.not-in-use 2>/dev/null)
-	$(mv ./aws/create-eks/eks-cluster-byovpc.tf ./aws/create-eks/eks-cluster-byovpc.not-in-use 2>/dev/null)
-	$(mv ./aws/create-eks/tagsubnets-byovpc.tf ./aws/create-eks/tagsubnets-byovpc.not-in-use 2>/dev/null)
-}
-
-setByovpcTFs(){
-	$(mv ./aws/create-eks/data-sources-byovpc.not-in-use ./aws/create-eks/data-sources-byovpc.tf 2>/dev/null)
-        $(mv ./aws/create-eks/worker-nodes-byovpc.not-in-use ./aws/create-eks/worker-nodes-byovpc.tf 2>/dev/null)
-        $(mv ./aws/create-eks/eks-cluster-byovpc.not-in-use ./aws/create-eks/eks-cluster-byovpc.tf 2>/dev/null)
-        $(mv ./aws/create-eks/tagsubnets-byovpc.not-in-use ./aws/create-eks/tagsubnets-byovpc.tf 2>/dev/null)
-}
-
-setCreateAllTFs(){
-	$(mv ./aws/create-eks/data-sources.not-in-use ./aws/create-eks/data-sources.tf 2>/dev/null)
-        $(mv ./aws/create-eks/worker-nodes.not-in-use ./aws/create-eks/worker-nodes.tf 2>/dev/null)
-        $(mv ./aws/create-eks/eks-cluster.not-in-use ./aws/create-eks/eks-cluster.tf 2>/dev/null)
-        $(mv ./aws/create-eks/vpc.not-in-use ./aws/create-eks/vpc.tf 2>/dev/null)
+  cloud=NA
 }
 
 
 cleanup
-while getopts ':b:dh' OPTION; do
+while getopts ':b:c:dh' OPTION; do
   case "$OPTION" in
     b)
       createModeArg="$OPTARG"
@@ -54,21 +30,33 @@ while getopts ':b:dh' OPTION; do
       resetTFs
       if [[ "${OPTARG,,}" == "byovpc" ]]; then
         echo "Create Mode = BYOVPC"
-	setByovpcTFs
+	      setByovpcTFs
       elif [[ "${OPTARG,,}" == "all" ]]; then
         echo "Create Mode = ALL"
-	setCreateAllTFs
+	      setCreateAllTFs
       elif [[ "${OPTARG,,}" == "byovpc-eks" ]]; then
         echo "Create Mode = BYOVPC and EKS Only"
-	setByovpcTFs
-	eksonly=true
-      elif [[ "${OPTARG,,}" == "eks" ]]; then
-        echo "Create Mode = EKS Only"
-	setCreateAllTFs
-	eksonly=true
+	      setByovpcTFs
+	      k8sonly=true
+      elif [[ "${OPTARG,,}" == "k8s" ]]; then
+        echo "Create Mode = K8s Only"
+	      setCreateAllTFs
+	      k8sonly=true
       else
-	echo "Not a valid option.  Use: all, eks, byopvc, byovpc-eks"
-	exit 1
+	      echo "Not a valid option.  Use: all, eks, byopvc, byovpc-eks"
+	      exit 1
+      fi
+      ;;
+    c)
+      if [[ "${OPTARG,,}" == "aws" ]]; then
+        echo "Cloud: AWS"
+      	cloud="aws"
+      elif [[ "${OPTARG,,}" == "azure" ]]; then
+        echo "Cloud: Azure"
+      	cloud="azure"
+      else
+      	echo "Not a valid option.  Use: aws or azuzre"
+        exit 1
       fi
       ;;
     d)
@@ -77,11 +65,9 @@ while getopts ':b:dh' OPTION; do
       ;;
     h)
       echo "Options"
-      echo "Create all EKS & ECK assets: $0 -b all"
-      echo "Create all EKS & ECK on your vpc/subnets: $0 -b byovpc" 
-      echo "Create EKS: $0 -b eks" 
-      echo "Create EKS on your vpc/subnes: $0 -b byovpc-eks" 
-      echo "Destroy all assets build by 1Click: $0 -d "
+      echo "Create all K8s & ECK assets: $0 -b all"
+      echo "Create K8s: $0 -b k8s"
+      echo "Destroy all assets built by 1Click: $0 -d [-c aws|azure] "
       exit 0
       ;;
     *)
@@ -91,7 +77,7 @@ while getopts ':b:dh' OPTION; do
 done
 shift "$(($OPTIND -1))"
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $eksonly != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ]; then
     usage
 fi
 
@@ -101,8 +87,17 @@ if [ $destroy == true ] && [ $createmode == true ] ; then
         exit 1
 fi
 
+if [ $destroy == true ] && [ $cloud == "NA" ] ; then
+        echo "Destroy requires -c" >&2
+        exit 1
+fi
 
-if [ $destroy == true ] && [ $eksonly == true ] ; then
+if [ $createmode == true ] && [ $cloud == "NA" ] ; then
+        echo "Build requires -c" >&2
+        exit 1
+fi
+
+if [ $destroy == true ] && [ $k8sonly == true ] ; then
         echo 'create and destroy cant be set together' >&2
         exit 1
 fi
@@ -110,7 +105,7 @@ fi
 echo
 echo
 echo
-echo verison .08
+echo verison .09
 echo author: sunile manjee
 echo last update: 12/22/2022
 echo
@@ -128,36 +123,48 @@ echo "                                                                          
 echo "                                                                                    ";
 
 
-#https://patorjk.com/software/taag/#p=display&h=1&v=1&c=echo&f=Chiseled&t=1ClickEckOnEKS#
+#https://patorjk.com/software/taag/#p=display&h=1&v=1&c=echo&f=Chiseled&t=1ClickECK#
+
+
 start=$SECONDS
-chmod 700 ./aws/create-eks/1ClickEKSDeploy.sh
-chmod 700 ./aws/create-eck/cleanup.sh
-chmod 700 ./aws/create-eck/getKibanaInfo.sh
-chmod 700 ./aws/create-eck/1ClickECKDeploy.sh
-chmod 700 ./aws/create-eck/eck-add-license.sh
 
-cp -f ./aws/create-eks/terraform.tfvars ./aws/create-eck/
-cp -f ./aws/create-eks/variables.tf ./aws/create-eck/
-
-
-if [ $createmode == true ] && [ $eksonly == false ]; then
-   #(cd ./aws/create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./aws/create-eks ; sh ./1ClickEKSDeploy.sh)
-   (cd ./aws/create-eck ; sh ./1ClickECKDeploy.sh)
-   duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
-elif [ $createmode == true ] && [ $eksonly == true ]; then
-   (cd ./aws/create-eks ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./aws/create-eks ; sh ./1ClickEKSDeploy.sh)
-   duration=$(( SECONDS - start ))
-elif [[ $destroy == true ]]; then
-   (cd ./aws/create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./aws/create-eks ; terraform destroy -auto-approve 2>/dev/null)
-   duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
+export KUBE_CONFIG_PATH=~/.kube/config
+if [ $cloud == "aws" ]; then
+    if [ $createmode == true ] && [ $k8sonly == false ]; then
+       (cd ./aws; bash ./1ClickAWS.sh -b all)
+       duration=$(( SECONDS - start ))
+       echo Total deployment time in seconds: $duration
+    elif [ $createmode == true ] && [ $k8sonly == true ]; then
+       (cd ./aws; bash ./1ClickAWS.sh -b eks)
+       duration=$(( SECONDS - start ))
+    elif [[ $destroy == true ]]; then
+       (cd ./aws; bash ./1ClickAWS.sh -d)
+       duration=$(( SECONDS - start ))
+       echo Total deployment time in seconds: $duration
+    else
+       echo "Please submit a valid argument"
+       echo "Valid arguments:"
+       echo "    create"
+       echo "    destroy"
+    fi
+elif [[ $cloud == azure ]]; then
+    if [ $createmode == true ] && [ $k8sonly == false ]; then
+       (cd ./azure; bash ./1ClickAzure.sh -b all)
+       duration=$(( SECONDS - start ))
+       echo Total deployment time in seconds: $duration
+    elif [ $createmode == true ] && [ $k8sonly == true ]; then
+       (cd ./azure; bash ./1ClickAzure.sh -b aks)
+       duration=$(( SECONDS - start ))
+    elif [[ $destroy == true ]]; then
+       (cd ./azure; bash ./1ClickAzure.sh -d )
+       duration=$(( SECONDS - start ))
+       echo Total deployment time in seconds: $duration
+    else
+       echo "Please submit a valid argument"
+       echo "Valid arguments:"
+       echo "    create"
+       echo "    destroy"
+    fi
 else
-   echo "Please submit a valid argument"
-   echo "Valid arguments:"
-   echo "    create"
-   echo "    destroy"
+  echo "Not a valid cloud provider"
 fi
