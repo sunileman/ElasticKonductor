@@ -7,8 +7,10 @@ resource "aws_vpc" "eksvpc" {
   enable_dns_support   = true
 
   tags = {
-    Name = "${local.project}-vpc",
-    "kubernetes.io/cluster/${local.project}" = "shared"
+    #Name = "${local.project}-vpc",
+    Name = "${random_pet.name.id}-vpc",
+    #"kubernetes.io/cluster/${local.project}" = "shared"
+    "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
   }
 }
 
@@ -21,8 +23,10 @@ resource "aws_subnet" "public" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    Name = "${local.project}-public-sg"
-    "kubernetes.io/cluster/${local.project}" = "shared"
+    #Name = "${local.project}-public-sg"
+    Name = "${random_pet.name.id}-public-sg"
+    #"kubernetes.io/cluster/${local.project}" = "shared"
+    "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
     "kubernetes.io/role/elb"                       = 1
   }
 
@@ -38,8 +42,10 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    Name = "${local.project}-private-sg"
-    "kubernetes.io/cluster/${local.project}" = "shared"
+    #Name = "${local.project}-private-sg"
+    Name = "${random_pet.name.id}-private-sg"
+    #"kubernetes.io/cluster/${local.project}" = "shared"
+    "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
     "kubernetes.io/role/internal-elb"              = 1
   }
 }
@@ -49,7 +55,8 @@ resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.eksvpc.id
 
   tags = {
-    "Name" = "${local.project}-igw"
+    #"Name" = "${local.project}-igw"
+    "Name" = "${random_pet.name.id}-igw"
   }
 
   depends_on = [aws_vpc.eksvpc]
@@ -66,7 +73,8 @@ resource "aws_route_table" "main" {
   }
 
   tags = {
-    Name = "${local.project}-Default-rt"
+    #Name = "${local.project}-Default-rt"
+    Name = "${random_pet.name.id}-Default-rt"
   }
 }
 
@@ -83,7 +91,8 @@ resource "aws_eip" "main" {
   vpc = true
 
   tags = {
-    Name = "${local.project}-ngw-ip"
+    #Name = "${local.project}-ngw-ip"
+    Name = "${random_pet.name.id}-ngw-ip"
   }
 }
 
@@ -93,7 +102,8 @@ resource "aws_nat_gateway" "main" {
   subnet_id     = aws_subnet.public[0].id
 
   tags = {
-    Name = "${local.project}-ngw"
+    #Name = "${local.project}-ngw"
+    Name = "${random_pet.name.id}-ngw"
   }
  depends_on = [aws_internet_gateway.this, aws_eip.main, aws_subnet.public]
 

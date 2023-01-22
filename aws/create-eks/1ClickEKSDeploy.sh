@@ -1,4 +1,9 @@
 #!/bin/bash
+
+echo "Copying variable files"
+cp -f ../variables.tf .
+cp -f ../terraform.tfvars .
+
 # initialize terraform configuration
 terraform init
 

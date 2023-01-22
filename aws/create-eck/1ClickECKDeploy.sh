@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#copy variables to operator directory
-cp ./variables.tf ./create-operator/
-cp ./terraform.tfvars ./create-operator/
+echo "Copying variable files"
+cp -f ../variables.tf .
+cp -f ../terraform.tfvars .
 
 ##create elastic CRDs and Operator
 echo Creating Elastic CRDS and Operator

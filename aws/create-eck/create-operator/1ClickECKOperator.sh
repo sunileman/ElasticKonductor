@@ -1,4 +1,10 @@
 #!/bin/bash
+
+echo "Copying variable files"
+cp -f ../../variables.tf .
+cp -f ../../terraform.tfvars .
+
+
 export KUBE_CONFIG_PATH=~/.kube/config
 echo ECK Operator
 # initialize terraform configuration

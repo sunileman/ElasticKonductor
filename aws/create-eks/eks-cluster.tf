@@ -1,6 +1,7 @@
 # EKS Cluster
 resource "aws_eks_cluster" "OneClick" {
-  name     = local.project
+  #name     = local.project
+  name     = random_pet.name.id
   role_arn = aws_iam_role.cluster.arn
   version  = var.eks_version
 
@@ -23,7 +24,8 @@ resource "aws_eks_cluster" "OneClick" {
 
 # EKS Cluster IAM Role
 resource "aws_iam_role" "cluster" {
-  name = "${local.project}-Cluster-Role"
+  #name = "${local.project}-Cluster-Role"
+  name = "${random_pet.name.id}-Cluster-Role"
 
   assume_role_policy = <<POLICY
 {

@@ -1,30 +1,10 @@
-data "aws_eks_node_group" "master" {
-  cluster_name    = local.project
-  node_group_name = "master"
-}
-data "aws_eks_node_group" "hot" {
-  cluster_name    = local.project
-  node_group_name = "hot"
-}
-data "aws_eks_node_group" "warm" {
-  cluster_name    = local.project
-  node_group_name = "warm"
-}
-data "aws_eks_node_group" "cold" { 
-  cluster_name    = local.project
-  node_group_name = "cold"
-}
-data "aws_eks_node_group" "frozen" {
-  cluster_name    = local.project
-  node_group_name = "frozen"
-}
-data "aws_eks_node_group" "ml" {
-  cluster_name    = local.project
-  node_group_name = "ml"
-}
+data "terraform_remote_state" "k8s" {
+  backend = "local"
 
-
-
+  config = {
+    path = "../create-eks/terraform.tfstate"
+  }
+}
 data "kubectl_path_documents" "es" {
     pattern = "./eck-yamls/es.yaml"
     vars = {
@@ -98,6 +78,4 @@ data "kubectl_path_documents" "aws-secrets" {
         aws_secret_key= var.aws_secret_key
     }
 }
-
-
 

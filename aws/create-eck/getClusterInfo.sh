@@ -1,4 +1,8 @@
 #!/bin/bash
+clusternameraw=$(terraform output clustername)
+clustername=${clusternameraw:1: -1}
+regionraw=$(terraform output region)
+region=${regionraw:1: -1}
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo Checking if license file is exists
 echo ...
@@ -12,6 +16,9 @@ fi
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo "Cluster Name: $clustername"
+echo "Region: $region"
+echo
 echo ES URL: https://$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '}):9200
 echo Kibana URL: https://$(kubectl get service eck-kb-http | tail -n -1 | awk {'print $4"" '}):5601
 echo Kibana UserName: elastic

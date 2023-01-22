@@ -27,24 +27,14 @@ while getopts ':b:c:dh' OPTION; do
     b)
       createModeArg="$OPTARG"
       createmode=true
-      resetTFs
-      if [[ "${OPTARG,,}" == "byovpc" ]]; then
-        echo "Create Mode = BYOVPC"
-	      setByovpcTFs
-      elif [[ "${OPTARG,,}" == "all" ]]; then
-        echo "Create Mode = ALL"
-	      setCreateAllTFs
-      elif [[ "${OPTARG,,}" == "byovpc-eks" ]]; then
-        echo "Create Mode = BYOVPC and EKS Only"
-	      setByovpcTFs
-	      k8sonly=true
+      if [[ "${OPTARG,,}" == "all" ]]; then
+        echo "Build Mode = ALL"
       elif [[ "${OPTARG,,}" == "k8s" ]]; then
-        echo "Create Mode = K8s Only"
-	      setCreateAllTFs
-	      k8sonly=true
+        echo "Build Mode = K8s Only"
+	k8sonly=true
       else
-	      echo "Not a valid option.  Use: all, eks, byopvc, byovpc-eks"
-	      exit 1
+        echo "Not a valid option.  Use: all or k8s"
+        exit 1
       fi
       ;;
     c)
