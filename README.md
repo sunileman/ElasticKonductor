@@ -111,7 +111,7 @@ To run the automation in the background.  Output will be writen to nohup.out.
 
 Once the automation completes, Kibana endpoints along with username and password should be displayed.  To retrieve again, simply run<br>
 ```bash
-  ./[aws|azure]/create-eck/getKibanaInfo.sh
+  ./[aws|azure]/create-eck/getClusterInfo.sh
 ```
 
 The automation will set your local kubectl manifest.  Verify by running
