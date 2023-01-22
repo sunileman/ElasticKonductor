@@ -5,6 +5,3 @@ tags = {
 }
 
 resource_group_location="eastus"
-
-lbname="willBeSetForYou"
-lb2name="willbeSetForYou"

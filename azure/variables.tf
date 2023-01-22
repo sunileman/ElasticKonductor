@@ -20,6 +20,7 @@ variable "dns_prefix" {
 
 variable "resource_group_location" {
   description = "Location of the resource group."
+  default = "eastus"
 }
 
 variable "resource_group_name_prefix" {

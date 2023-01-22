@@ -15,4 +15,3 @@ data "curl" "iscsi" {
 data "kubectl_file_documents" "iscsi_doc" {
   content = data.curl.iscsi.response
 }
-

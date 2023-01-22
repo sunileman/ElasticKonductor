@@ -1,13 +1,15 @@
 #!/bin/bash
-var1=$(grep lbname $"./terraform.tfvars" | awk -F= '{print $2}')
-lb1=`sed -e 's/^"//' -e 's/"$//' <<<"$var1"`
 
-var3=$(grep lb2name $"./terraform.tfvars" | awk -F= '{print $2}')
-lb2=`sed -e 's/^"//' -e 's/"$//' <<<"$var3"`
+##get variables from terraform state
+lbnameraw=$(terraform output lbname)
+lbname=${lbnameraw:1: -1}
+lb2nameraw=$(terraform output lb2name)
+lb2name=${lb2nameraw:1: -1}
+regionraw=$(terraform output region)
+region=${regionraw:1: -1}
+clusternameraw=$(terraform output clustername)
+clustername=${clusternameraw:1: -1}
 
-
-regionraw=$(grep resource_group_location $"./terraform.tfvars" | awk -F= '{print $2}')
-region=`sed -e 's/^"//' -e 's/"$//' <<<"$regionraw"`
 
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo Checking if license file is exists
@@ -22,13 +24,16 @@ fi
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo "K8s Cluster Name: $clustername"
+echo "K8s Region: $region"
+echo
 echo ES URL[IP]: https://$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '}):9200
 echo or
-echo ES URL[DNS]: https://$lb2.$region.cloudapp.azure.com:9200
+echo ES URL[DNS]: https://$lb2name.$region.cloudapp.azure.com:9200
 echo
 echo Kibana URL[IP]: https://$(kubectl get service eck-kb-http | tail -n -1 | awk {'print $4"" '}):5601
 echo or
-echo Kibana URL[DNS]: https://$lb1.$region.cloudapp.azure.com:5601
+echo Kibana URL[DNS]: https://$lbname.$region.cloudapp.azure.com:5601
 echo
 echo Kibana UserName: elastic
 echo Kibana Password: $(kubectl get secret eck-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode)

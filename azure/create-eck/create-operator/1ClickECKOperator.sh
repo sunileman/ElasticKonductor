@@ -1,5 +1,10 @@
 #!/bin/bash
 export KUBE_CONFIG_PATH=~/.kube/config
+
+echo "Coping variable files"
+cp -f ../../variables.tf .
+cp -f ../../terraform.tfvars .
+
 echo ECK Operator
 # initialize terraform configuration
 terraform init

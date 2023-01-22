@@ -92,13 +92,6 @@ chmod 700 ./create-eck/getKibanaInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
 chmod 700 ./create-eck/eck-add-license.sh
 
-echo "Moving variable files to sub directories"
-cp -f ./terraform.tfvars ./create-aks/
-cp -f ./variables.tf ./create-aks/
-cp -f ./terraform.tfvars ./create-eck/
-cp -f ./variables.tf ./create-eck/
-cp -f ./terraform.tfvars ./create-eck/create-operator/
-cp -f ./variables.tf ./create-eck/create-operator/
 
 if [ $createmode == true ] && [ $aksonly == false ]; then
    (cd ./create-aks ; sh ./1ClickAKSDeploy.sh)

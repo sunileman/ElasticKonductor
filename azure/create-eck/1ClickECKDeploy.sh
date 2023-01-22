@@ -2,11 +2,13 @@
 
 export KUBE_CONFIG_PATH=~/.kube/config
 ##Name Gen Util for AKS Kibana Load Balancer
-(cd ./namegen; sh ./1ClickNameGen.sh; sh ./set_TF_VAR_lbname.sh)
+#(cd ./namegen; bash ./1ClickNameGen.sh; sh ./set_TF_VAR_lbname.sh)
+(cd ./namegen; bash ./1ClickNameGen.sh )
 
 #copy variables to operator directory
-cp ./variables.tf ./create-operator/
-cp ./terraform.tfvars ./create-operator/
+echo "coping variable files"
+cp -f ../variables.tf .
+cp -f ../terraform.tfvars .
 
 ##create elastic CRDs and Operator
 echo Creating Elastic CRDS and Operator
@@ -29,4 +31,4 @@ terraform apply state.tfplan
 
 echo Please wait....
 sleep 60
-./getKibanaInfo.sh
+./getClusterInfo.sh

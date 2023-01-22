@@ -1,22 +1,18 @@
-data "azurerm_kubernetes_cluster_node_pool" "master" {
-  kubernetes_cluster_name    = local.project
-  name  = "master"
-  resource_group_name="1ClickECK-sunman-desired-snapper"
+data "terraform_remote_state" "k8s" {
+  backend = "local"
+
+  config = {
+    path = "../create-aks/terraform.tfstate"
+  }
 }
 
-data "azurerm_kubernetes_cluster_node_pool" "hot" {
-  kubernetes_cluster_name    = local.project
-  name  = "hot"
-  resource_group_name="1ClickECK-sunman-desired-snapper"
+data "terraform_remote_state" "namegen" {
+  backend = "local"
+
+  config = {
+    path = "${path.module}/namegen/terraform.tfstate"
+  }
 }
-
-
-data "azurerm_kubernetes_cluster_node_pool" "kibana" {
-  kubernetes_cluster_name    = local.project
-  name  = "kibana"
-  resource_group_name="1ClickECK-sunman-desired-snapper"
-}
-
 
 
 data "curl" "iscsi" {
@@ -83,7 +79,8 @@ data "kubectl_path_documents" "kibana" {
         kibana_pod_memory = var.kibana_pod_memory
         kibana_pod_cpu = var.kibana_pod_cpu
         kibana_pod_count = var.kibana_pod_count
-        lbname = var.lbname
+        #lbname = var.lbname
+        lbname = data.terraform_remote_state.namegen.outputs.lbname
     }
 }
 
@@ -92,7 +89,8 @@ data "kubectl_path_documents" "loadbalancer" {
     pattern = "./eck-yamls/loadbalancer.yaml"
     vars = {
         eck_namespace = var.eck_namespace
-        lb2name = var.lb2name
+        #lb2name = var.lb2name
+        lb2name = data.terraform_remote_state.namegen.outputs.lb2name
     }
 }
 

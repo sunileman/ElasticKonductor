@@ -1,18 +1,12 @@
-# Generate random resource group name
-resource "random_pet" "rg_name" {
-  #prefix = var.resource_group_name_prefix
-  prefix = local.project
-}
-
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
-  name     = random_pet.rg_name.id
+  name     = random_pet.name.id
 }
-
 
 resource "azurerm_kubernetes_cluster" "k8s" {
   location            = azurerm_resource_group.rg.location
-  name                = local.project
+  #name                = local.project
+  name                = random_pet.name.id
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = var.dns_prefix
   tags                = {
