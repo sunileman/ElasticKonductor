@@ -1,5 +1,5 @@
 resource "google_compute_network" "main" {
-  name                            = "sunmanvpc"
+  name                            = lower(replace("${random_pet.name.id}-vpc", "-", ""))
   routing_mode                    = "REGIONAL"
   auto_create_subnetworks         = false
   mtu                             = 1460
@@ -10,7 +10,7 @@ resource "google_compute_network" "main" {
 resource "google_compute_subnetwork" "private" {
   name                     = "private"
   ip_cidr_range            = "10.0.0.0/18"
-  region                   = "us-central1"
+  region                   = var.region
   network                  = google_compute_network.main.id
   private_ip_google_access = true
 
@@ -25,15 +25,15 @@ resource "google_compute_subnetwork" "private" {
 }
 
 resource "google_compute_router" "router" {
-  name    = "router"
-  region  = "us-central1"
+  name    = lower(replace("${random_pet.name.id}-router", "-", ""))
+  region  = var.region
   network = google_compute_network.main.id
 }
 
 resource "google_compute_router_nat" "nat" {
-  name   = "nat"
+  name   = lower(replace("${random_pet.name.id}-nat", "-", ""))
   router = google_compute_router.router.name
-  region = "us-central1"
+  region = var.region
 
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
   nat_ip_allocate_option             = "MANUAL_ONLY"
@@ -48,14 +48,14 @@ resource "google_compute_router_nat" "nat" {
 
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address
 resource "google_compute_address" "nat" {
-  name         = "nat"
+  name         = lower(replace("${random_pet.name.id}-nat", "-", ""))
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
 
 }
 
 resource "google_compute_firewall" "allow-ssh" {
-  name    = "allow-ssh"
+  name    = lower(replace("${random_pet.name.id}-vpc", "-", ""))
   network = google_compute_network.main.name
 
   allow {

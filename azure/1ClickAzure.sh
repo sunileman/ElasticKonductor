@@ -1,4 +1,5 @@
 #!/bin/bash
+export KUBE_CONFIG_PATH=~/.kube/config
 $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 exec > >(tee -i $LOG_LOCATION/1Click.log)
@@ -10,14 +11,12 @@ export KUBE_CONFIG_PATH=~/.kube/config
 chmod 700 ./create-aks/1ClickAKSDeploy.sh
 chmod 700 ./create-aks/setkubectl.sh
 chmod 700 ./create-eck/cleanup.sh
-chmod 700 ./create-eck/getKibanaInfo.sh
+chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
 chmod 700 ./create-eck/eck-add-license.sh
 chmod 700 ./create-aks/setDataSourceRG.sh
 chmod 700 ./create-eck/namegen/1ClickNameGen.sh
-chmod 700 ./create-eck/namegen/set_TF_VAR_lbname.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
-
 
 
 usage() {
@@ -86,11 +85,6 @@ fi
 
 
 start=$SECONDS
-chmod 700 ./create-aks/1ClickAKSDeploy.sh
-chmod 700 ./create-eck/cleanup.sh
-chmod 700 ./create-eck/getKibanaInfo.sh
-chmod 700 ./create-eck/1ClickECKDeploy.sh
-chmod 700 ./create-eck/eck-add-license.sh
 
 
 if [ $createmode == true ] && [ $aksonly == false ]; then

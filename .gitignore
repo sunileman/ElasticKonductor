@@ -70,3 +70,15 @@ aws/create-eks/terraform.tfvars
 aws/create-eks/variables.tf
 aws/logs/1Click.log
 azure/logs/1Click.log
+gcp/create-eck/.terraform.lock.hcl
+gcp/create-eck/create-operator/.terraform.lock.hcl
+gcp/create-eck/create-operator/terraform.tfstate.backup
+gcp/create-eck/create-operator/terraform.tfvars
+gcp/create-eck/create-operator/variables.tf
+gcp/create-eck/terraform.tfstate.backup
+gcp/create-eck/terraform.tfvars
+gcp/create-eck/variables.tf
+gcp/create-gke/.terraform.lock.hcl
+gcp/create-gke/terraform.tfstate.backup
+gcp/create-gke/terraform.tfvars
+gcp/create-gke/variables.tf

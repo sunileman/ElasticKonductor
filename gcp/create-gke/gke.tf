@@ -1,7 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster
-resource "google_container_cluster" "primary" {
-  name                     = "primary"
-  location                 = "us-central1-a"
+resource "google_container_cluster" "k8s" {
+  name                     = lower(random_pet.name.id)
+  location                 = var.region
   remove_default_node_pool = true
   initial_node_count       = 1
   network                  = google_compute_network.main.self_link
@@ -9,11 +9,12 @@ resource "google_container_cluster" "primary" {
   logging_service          = "logging.googleapis.com/kubernetes"
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   networking_mode          = "VPC_NATIVE"
+  min_master_version       = var.gke_version
 
   # Optional, if you want multi-zonal cluster
-  node_locations = [
-    "us-central1-b"
-  ]
+  #node_locations = [var.region]
+  node_locations = var.zones
+
 
   addons_config {
     http_load_balancing {
@@ -24,8 +25,9 @@ resource "google_container_cluster" "primary" {
     }
   }
 
+  #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#nested_release_channel
   release_channel {
-    channel = "REGULAR"
+    channel = "UNSPECIFIED"
   }
 
 
@@ -40,12 +42,5 @@ resource "google_container_cluster" "primary" {
     master_ipv4_cidr_block  = "172.16.0.0/28"
   }
 
-  #   Jenkins use case
-  #   master_authorized_networks_config {
-  #     cidr_blocks {
-  #       cidr_block   = "10.0.0.0/18"
-  #       display_name = "private-subnet-w-jenkins"
-  #     }
-  #   }
 }
 

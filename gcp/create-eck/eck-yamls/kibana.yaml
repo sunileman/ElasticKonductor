@@ -1,0 +1,31 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: eck
+  namespace: ${eck_namespace}
+spec:
+  version: ${es_version}
+  count: ${kibana_pod_count}
+  elasticsearchRef:
+    name: eck
+  podTemplate:
+    spec:
+      nodeSelector:
+        nodetype: kibana
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: ${kibana_pod_memory}
+            cpu: ${kibana_pod_cpu}
+  http:
+   service:
+    metadata:
+         annotations:
+           #service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    spec:
+         type: LoadBalancer
+   tls:
+    selfSignedCertificate:
+     subjectAltNames:
+     - dns: "*.googleusercontent.com"

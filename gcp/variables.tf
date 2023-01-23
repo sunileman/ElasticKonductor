@@ -2,71 +2,38 @@ variable "agent_count" {
   default = 3
 }
 
-# The following two variable declarations are placeholder references.
-# Set the values for these variable in terraform.tfvars
-variable "aks_service_principal_app_id" {
-  default = ""
-}
 
-variable "aks_service_principal_client_secret" {
-  default = ""
+variable "region" {
+  description = "region"
+  default = "us-central1"
 }
 
 
-variable "dns_prefix" {
-  default = "oneclickeck"
+variable "zones" {
+  description = "zones"
+  default = ["us-central1-a", "us-central1-b", "us-central1-c"]
 }
 
 
-variable "resource_group_location" {
-  description = "Location of the resource group."
-  default = "eastus"
-}
-
-variable "resource_group_name_prefix" {
-  default     = "rg"
-  description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
-}
-
-
-
-variable "aks_version" {
-  description = "AKS Version"
+variable "gke_version" {
+  description = "GKE Version"
   type        = string
-  default     = "1.24.6"
+  default     = "1.24.7-gke.900"
 }
 
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.6.0"
+  default = "2.6.1"
 }
 
 
 variable "project" {
   description = "ClickDeployment Name"
   type = string
-  default = "1ClickECK"
+  default = "oneClickECK"
 }
 
-variable "vpc_id" {
-  description = "vpc to be used during eks deployment"
-  type = string
-  default = "NA"
-}
-
-
-variable "vpc_cidr" {
-  description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "subnet_cidr_bits" {
-  description = "The number of subnet bits for the CIDR. For example, specifying a value 8 for this parameter will create a CIDR with a mask of /24."
-  type        = number
-  default     = 8
-}
 
 variable "tags" {
   description = "A map of tags to add to all resources"
@@ -80,30 +47,36 @@ variable "tags" {
 }
 
 
-variable "k8s_master_instance_type" {
-  description = "k8s Master instance type"
-  type        = string
-  default     = "Standard_D2_v2"
-}
-
 variable "master_instance_count" {
   description = "Number of master instances"
   type        = number
   default     = 1
 }
 
+
 variable "master_max_instance_count" {
   description = "Max Number of master instances"
   type        = number
-  default     = 3
+  default     = 1
 }
 
 variable "master_instance_type" {
   description = "Master instance type"
   type        = string
-  default     = "standard_D8ads_v5"
+  default     = "e2-standard-8"
 }
 
+variable "master_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 500
+}
+
+variable "master_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
 
 variable "kibana_instance_count" {
   description = "Number of kibana instances"
@@ -111,18 +84,30 @@ variable "kibana_instance_count" {
   default     = 2
 }
 
-
 variable "kibana_max_instance_count" {
   description = "Max Number of kibana instances"
   type        = number
   default     = 10
 }
+
 variable "kibana_instance_type" {
   description = "Kibana instance type"
   type        = string
-  default     = "standard_B2ms"
+  default     = "e2-standard-8"
 }
 
+
+variable "kibana_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 2000
+}
+
+variable "kibana_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
 
 variable "hot_instance_count" {
   description = "Number of hot instances"
@@ -130,18 +115,32 @@ variable "hot_instance_count" {
   default     = 3
 }
 
+
 variable "hot_max_instance_count" {
   description = "Max Number of hot instances"
   type        = number
   default     = 10
 }
 
+
 variable "hot_instance_type" {
   description = "Hot instance type"
   type        = string
-  default     =  "standard_D32pls_v5"
+  default     = "e2-standard-32"
 }
 
+
+variable "hot_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 2000
+}
+
+variable "hot_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
 
 variable "warm_instance_count" {
   description = "Number of warm instances"
@@ -152,15 +151,26 @@ variable "warm_instance_count" {
 variable "warm_max_instance_count" {
   description = "Max Number of warm instances"
   type        = number
-  default     = 10
+  default     = 1
 }
 
 variable "warm_instance_type" {
   description = "warm instance type"
   type = string
-  default     = "standard_E16ads_v5"
+  default     = "e2-standard-32"
 }
 
+variable "warm_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 7500
+}
+
+variable "warm_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
 
 variable "cold_instance_count" {
   description = "Number of cold instances"
@@ -172,13 +182,25 @@ variable "cold_instance_count" {
 variable "cold_max_instance_count" {
   description = "Max Number of cold instances"
   type        = number
-  default     = 10
+  default     = 1
 }
 
 variable "cold_instance_type" {
   description = "Cold instance type"
   type = string
-  default     = "standard_E48ads_v5"
+  default     = "e2-standard-32"
+}
+
+variable "cold_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 7500
+}
+
+variable "cold_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
 }
 
 
@@ -193,16 +215,26 @@ variable "frozen_instance_count" {
 variable "frozen_max_instance_count" {
   description = "Max Number of frozen instances"
   type        = number
-  default     = 10
+  default     = 1
 }
 
 variable "frozen_instance_type" {
   description = "frozen instance type"
   type = string
-  default     = "standard_E96ads_v5"
+  default     = "e2-standard-32"
 }
 
+variable "frozen_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 7500
+}
 
+variable "frozen_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
 
 variable "ml_instance_count" {
   description = "Number of ml instances"
@@ -210,19 +242,29 @@ variable "ml_instance_count" {
   default     = 0
 }
 
-
 variable "ml_max_instance_count" {
   description = "Max Number of ml instances"
   type        = number
-  default     = 10
+  default     = 1
 }
 
 variable "ml_instance_type" {
   description = "ML instance type"
-  type = string
-  default     = "standard_D16ads_v5"
+  type        = string
+  default     = "e2-standard-32"
 }
 
+variable "ml_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 2000
+}
+
+variable "ml_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
 
 variable "util_instance_count" {
   description = "Number of util instances"
@@ -232,11 +274,21 @@ variable "util_instance_count" {
 
 variable "util_instance_type" {
   description = "util instance type"
-  type = string
-  default     = "standard_B2s"
+  type        = string
+  default     = "e2-standard-4"
 }
 
+variable "util_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     =  200
+}
 
+variable "util_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
 
 variable "es_version" {
   description = "elasticsearch version"
@@ -491,14 +543,3 @@ variable "ml_pod_roles" {
 }
 
 
-variable "lbname" {
-  description = "Kibana Load Balancer Name"
-  type = string
-  default = "changeme"
-}
-
-variable "lb2name" {
-  description = "Kibana Load Balancer Name port 9200"
-  type = string
-  default = "changeme2"
-}

@@ -7,7 +7,7 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-c [aws | azure] [-b <all | k8s>] [-d for destroy] [-h for help]."
+     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
@@ -95,7 +95,7 @@ fi
 echo
 echo
 echo
-echo verison .09
+echo version .10
 echo author: sunile manjee
 echo last update: 12/22/2022
 echo
@@ -147,6 +147,24 @@ elif [[ $cloud == azure ]]; then
        duration=$(( SECONDS - start ))
     elif [[ $destroy == true ]]; then
        (cd ./azure; bash ./1ClickAzure.sh -d )
+       duration=$(( SECONDS - start ))
+       echo Total deployment time in seconds: $duration
+    else
+       echo "Please submit a valid argument"
+       echo "Valid arguments:"
+       echo "    create"
+       echo "    destroy"
+    fi
+elif [[ $cloud == gcp ]]; then
+    if [ $createmode == true ] && [ $k8sonly == false ]; then
+       (cd ./gcp; bash ./1ClickGCP.sh -b all)
+       duration=$(( SECONDS - start ))
+       echo Total deployment time in seconds: $duration
+    elif [ $createmode == true ] && [ $k8sonly == true ]; then
+       (cd ./gcp; bash ./1ClickGCP.sh -b gke)
+       duration=$(( SECONDS - start ))
+    elif [[ $destroy == true ]]; then
+       (cd ./gcp; bash ./1ClickGCP.sh -d )
        duration=$(( SECONDS - start ))
        echo Total deployment time in seconds: $duration
     else

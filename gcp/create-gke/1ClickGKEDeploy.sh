@@ -1,15 +1,9 @@
 #!/bin/bash
 
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
-
-##create elastic CRDs and Operator
-echo Creating Elastic CRDS and Operator
-(cd ./create-operator ; sh ./1ClickECKOperator.sh)
-
-#add license file
-./eck-add-license.sh
 
 # initialize terraform configuration
 terraform init
@@ -23,6 +17,6 @@ terraform plan -out state.tfplan
 # apply terraform plan
 terraform apply state.tfplan
 
-echo Please wait....
-sleep 60
-./getClusterInfo.sh
+(bash ./setkubectl.sh)
+# cleanup
+#terraform destroy -auto-approve

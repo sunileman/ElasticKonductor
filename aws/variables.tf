@@ -74,6 +74,8 @@ variable "master_instance_count" {
   default     = 1
 }
 
+
+
 variable "master_instance_type" {
   description = "Master instance type"
   type = list(string)
@@ -103,6 +105,7 @@ variable "kibana_instance_count" {
   type        = number
   default     = 2
 }
+
 
 variable "kibana_instance_type" {
   description = "Kibana instance type"
@@ -134,6 +137,7 @@ variable "hot_instance_count" {
   default     = 3
 }
 
+
 variable "hot_instance_type" {
   description = "Hot instance type"
   type = list(string)
@@ -157,6 +161,7 @@ variable "warm_instance_count" {
   type        = number
   default     = 0
 }
+
 
 variable "hot_ebs_volume" {
   description = "EBS Volume in GB"
@@ -195,6 +200,7 @@ variable "cold_instance_count" {
   default     = 0
 }
 
+
 variable "cold_instance_type" {
   description = "Cold instance type"
   type = list(string)
@@ -226,6 +232,7 @@ variable "frozen_instance_count" {
   default     = 0
 }
 
+
 variable "frozen_instance_type" {
   description = "frozen instance type"
   type = list(string)
@@ -256,6 +263,7 @@ variable "ml_instance_count" {
   type        = number
   default     = 0
 }
+
 
 variable "ml_instance_type" {
   description = "ML instance type"
