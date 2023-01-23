@@ -1,12 +1,12 @@
 
 # 1ClickECK
 
-1ClickECK was built to rapidly deploy with ease an K8s (AWS EKS/Azure AKS) cluster, install ECK, and the ES Stack.   
+1ClickECK was built to rapidly deploy with ease an K8s (AWS EKS/Azure AKS/GCP GKE) cluster, install ECK, and the ES Stack.   
 
 Total time from configuration to a fully launched ECK cluster generally should take less than 10 minutes.  The automation; 1ClickECK,  is idempotent.
 
 1ClickECK currently deploys
-* EKS or AKS
+* EKS, AKS, GKE
 * ECK (Optional)
     * ElasticSearch 
     * Kibana
@@ -27,8 +27,11 @@ Does not deploy
 * Install Terraform client
     * https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 * Install kubectl client
-    * https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
-    * The version of kubectl must match the version of eks/aks you plan on deploying.  The version number is set in terraform.tfvars, variable eks_version/aks_version
+    * AWS
+        * https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
+        * The version of kubectl must match the version of eks/aks you plan on deploying.  The version number is set in terraform.tfvars, variable eks_version/aks_version
+    * GCP
+        * https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#gcloud
 * Install git client
     * To clone this repo and when possible, contribute back :)
 * ElasticSearch Enterprise License
@@ -48,15 +51,18 @@ Does not deploy
 * Azure service principal
     * https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure?tabs=bash#create-a-service-principal
     * Make note of the `appId`, `display_name`, `password`, and `tenantID`
-* Set the following env variables
-```
-export ARM_CLIENT_ID="Your appID"
-export ARM_CLIENT_SECRET="Your app secret"
-export ARM_SUBSCRIPTION_ID="Your Azure SUBSCRIPTION"
-export ARM_TENANT_ID="Your tenantID"
-export TF_VAR_aks_service_principal_app_id="Your appID"
-export TF_VAR_aks_service_principal_client_secret="Your app secret"
-```
+    * Set the following env variables
+    ```
+    export ARM_CLIENT_ID="Your appID"
+    export ARM_CLIENT_SECRET="Your app secret"
+    export ARM_SUBSCRIPTION_ID="Your Azure SUBSCRIPTION"
+    export ARM_TENANT_ID="Your tenantID"
+    export TF_VAR_aks_service_principal_app_id="Your appID"
+    export TF_VAR_aks_service_principal_client_secret="Your app secret"
+    ```
+* `GCP`
+    * https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#gcloud
+
 ## Deployment
 
 Set a few variables to name your deployment
@@ -68,15 +74,21 @@ AWS
 Azure 
 
 `./azure/terraform.tfvars`
+
+GCP
+`./gcp/terraform.tfvars`
+
+Set username in tags as it append it to the assets deployed
 ```
 tags = {
     "Owner" = "your email"
     "username" = "superman" #Naming your deployment
 }
 ```
+
 Required Arguments 
 
--c [aws|azure]
+-c [aws|azure|gcp]
 
 -b [all|k8s]
 
@@ -111,7 +123,7 @@ To run the automation in the background.  Output will be writen to nohup.out.
 
 Once the automation completes, Kibana endpoints along with username and password should be displayed.  To retrieve again, simply run<br>
 ```bash
-  ./[aws|azure]/create-eck/getClusterInfo.sh
+  ./[aws|azure]/create-eck/getKibanaInfo.sh
 ```
 
 The automation will set your local kubectl manifest.  Verify by running

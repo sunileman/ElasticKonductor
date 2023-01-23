@@ -460,4 +460,4 @@ spec:
    tls:
     selfSignedCertificate:
      subjectAltNames:
-     - dns: "*.us-east-1.elb.amazonaws.com"
+     - dns: "*.cloudapp.azure.com"
