@@ -44,8 +44,11 @@ while getopts ':b:c:dh' OPTION; do
       elif [[ "${OPTARG,,}" == "azure" ]]; then
         echo "Cloud: Azure"
       	cloud="azure"
+      elif [[ "${OPTARG,,}" == "gcp" ]]; then
+        echo "Cloud: GCP"
+        cloud="gcp"
       else
-      	echo "Not a valid option.  Use: aws or azuzre"
+      	echo "Not a valid option.  Use: aws|azure|gcp"
         exit 1
       fi
       ;;
@@ -57,7 +60,7 @@ while getopts ':b:c:dh' OPTION; do
       echo "Options"
       echo "Create all K8s & ECK assets: $0 -b all"
       echo "Create K8s: $0 -b k8s"
-      echo "Destroy all assets built by 1Click: $0 -d [-c aws|azure] "
+      echo "Destroy all assets built by 1Click: $0 -d [-c aws|azure|gcp] "
       exit 0
       ;;
     *)
