@@ -73,6 +73,7 @@ fi
 
 start=$SECONDS
 chmod 700 ./create-eks/1ClickEKSDeploy.sh
+chmod 700 ./create-eks/addons/1ClickAddons.sh
 chmod 700 ./create-eck/cleanup.sh
 chmod 700 ./create-eck/getKibanaInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
@@ -92,6 +93,7 @@ elif [ $createmode == true ] && [ $eksonly == true ]; then
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
    (cd ./create-eck ; sh ./cleanup.sh 2>/dev/null)
+   (cd ./create-eks/addons ; terraform destroy -auto-approve 2>/dev/null)
    (cd ./create-eks ; terraform destroy -auto-approve 2>/dev/null)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
