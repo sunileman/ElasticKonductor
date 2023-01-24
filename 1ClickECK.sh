@@ -4,7 +4,8 @@ LOG_LOCATION=./aws/logs
 exec > >(tee -i $LOG_LOCATION/1Click.log)
 exec 2>&1
 
-echo "Log Location should be: [ $LOG_LOCATION ]"
+
+oneclickv=.11
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-h for help]."
@@ -20,9 +21,8 @@ cleanup() {
   cloud=NA
 }
 
-
 cleanup
-while getopts ':b:c:dh' OPTION; do
+while getopts ':b:c:dhv' OPTION; do
   case "$OPTION" in
     b)
       createModeArg="$OPTARG"
@@ -63,12 +63,19 @@ while getopts ':b:c:dh' OPTION; do
       echo "Destroy all assets built by 1Click: $0 -d [-c aws|azure|gcp] "
       exit 0
       ;;
+    v)
+      echo
+      echo "Version $oneclickv"
+      exit 0
+      ;;
     *)
       usage
       ;;
   esac
 done
 shift "$(($OPTIND -1))"
+
+echo "Log Location: [ $LOG_LOCATION ]"
 
 if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ]; then
     usage
@@ -98,7 +105,7 @@ fi
 echo
 echo
 echo
-echo version .10
+echo version $oneclickv
 echo author: sunile manjee
 echo last update: 12/22/2022
 echo

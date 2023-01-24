@@ -1,8 +1,11 @@
 #!/bin/bash
-
+export KUBE_CONFIG_PATH=~/.kube/config
 echo "coping variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
+
+echo "Running addons"
+(cd ./addons; bash ./1ClickAddons.sh)
 
 # initialize terraform configuration
 terraform init

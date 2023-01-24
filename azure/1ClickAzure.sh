@@ -98,6 +98,7 @@ elif [ $createmode == true ] && [ $aksonly == true ]; then
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
    (cd ./create-eck ; sh ./cleanup.sh 2>/dev/null)
+   (cd ./create-aks/addons ; terraform destroy -auto-approve 2>/dev/null)
    (cd ./create-aks ; terraform destroy -auto-approve 2>/dev/null)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration

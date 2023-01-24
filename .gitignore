@@ -82,3 +82,6 @@ gcp/create-gke/.terraform.lock.hcl
 gcp/create-gke/terraform.tfstate.backup
 gcp/create-gke/terraform.tfvars
 gcp/create-gke/variables.tf
+azure/create-aks/.terraform.tfstate.lock.info
+azure/create-aks/addons/.terraform.lock.hcl
+azure/create-aks/addons/terraform.tfstate.backup
