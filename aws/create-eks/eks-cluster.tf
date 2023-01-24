@@ -13,7 +13,8 @@ resource "aws_eks_cluster" "OneClick" {
   }
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   depends_on = [

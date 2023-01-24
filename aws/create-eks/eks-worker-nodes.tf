@@ -19,7 +19,8 @@ resource "aws_eks_node_group" "master" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {
@@ -55,7 +56,8 @@ resource "aws_eks_node_group" "kibana" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {
@@ -90,7 +92,8 @@ resource "aws_eks_node_group" "hot" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {
@@ -125,7 +128,8 @@ resource "aws_eks_node_group" "warm" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {
@@ -160,7 +164,8 @@ resource "aws_eks_node_group" "cold" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {
@@ -195,7 +200,8 @@ resource "aws_eks_node_group" "frozen" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {
@@ -230,7 +236,8 @@ resource "aws_eks_node_group" "ml" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {
@@ -265,7 +272,8 @@ resource "aws_eks_node_group" "util" {
   disk_size      = var.master_ebs_volume
 
   tags = merge(
-    var.tags
+    var.tags,
+    {env=random_pet.name.id}
   )
 
   labels = {

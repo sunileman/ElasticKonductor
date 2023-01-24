@@ -75,7 +75,7 @@ start=$SECONDS
 chmod 700 ./create-eks/1ClickEKSDeploy.sh
 chmod 700 ./create-eks/addons/1ClickAddons.sh
 chmod 700 ./create-eck/cleanup.sh
-chmod 700 ./create-eck/getKibanaInfo.sh
+chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
 chmod 700 ./create-eck/eck-add-license.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh

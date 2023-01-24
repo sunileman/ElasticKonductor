@@ -8,9 +8,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "master" {
   min_count           = var.master_instance_count
   max_count           = var.master_max_instance_count
   
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "master"
@@ -29,9 +30,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "kibana" {
   min_count           = var.kibana_instance_count
   max_count           = var.kibana_max_instance_count
 
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "kibana"
@@ -49,9 +51,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "hot" {
   min_count           = var.hot_instance_count
   max_count           = var.hot_max_instance_count
 
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "hot"
@@ -71,9 +74,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "warm" {
   min_count           = var.warm_instance_count
   max_count           = var.warm_max_instance_count
 
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "warm"
@@ -92,9 +96,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "cold" {
   min_count           = var.cold_instance_count
   max_count           = var.cold_max_instance_count
 
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "cold"
@@ -112,9 +117,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "frozen" {
   min_count           = var.frozen_instance_count
   max_count           = var.frozen_max_instance_count
 
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "frozen"
@@ -134,9 +140,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "ml" {
   max_count           = var.ml_max_instance_count
 
 
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "ml"
@@ -150,9 +157,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "util" {
   vm_size               = var.util_instance_type
   node_count            = var.util_instance_count
 
-  tags = {
-    Environment = "1ClickECK"
-  }
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
 
   node_labels = {
     "nodetype" = "util"

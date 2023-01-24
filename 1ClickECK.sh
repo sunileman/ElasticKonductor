@@ -5,7 +5,7 @@ exec > >(tee -i $LOG_LOCATION/1Click.log)
 exec 2>&1
 
 
-oneclickv=.12
+oneclickv=.13
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-h for help]."
