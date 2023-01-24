@@ -9,6 +9,7 @@ echo "Log Location should be: [ $LOG_LOCATION ]"
 
 export KUBE_CONFIG_PATH=~/.kube/config
 chmod 700 ./create-aks/1ClickAKSDeploy.sh
+chmod 700 ./create-aks/addons/1ClickAddons.sh
 chmod 700 ./create-aks/setkubectl.sh
 chmod 700 ./create-eck/cleanup.sh
 chmod 700 ./create-eck/getClusterInfo.sh

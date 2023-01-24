@@ -4,9 +4,6 @@ echo "coping variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
-echo "Running addons"
-(cd ./addons; bash ./1ClickAddons.sh)
-
 # initialize terraform configuration
 terraform init
 
@@ -21,5 +18,8 @@ terraform apply state.tfplan
 
 bash ./setkubectl.sh
 bash ./setDataSourceRG.sh
+
+echo "Running addons"
+(cd ./addons; bash ./1ClickAddons.sh)
 # cleanup
 #terraform destroy -auto-approve
