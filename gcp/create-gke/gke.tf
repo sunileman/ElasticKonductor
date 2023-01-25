@@ -10,11 +10,23 @@ resource "google_container_cluster" "k8s" {
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   networking_mode          = "VPC_NATIVE"
   min_master_version       = var.gke_version
+ 
+
+  release_channel {
+    channel           = var.release_channel
+  }
 
   # Optional, if you want multi-zonal cluster
   #node_locations = [var.region]
   node_locations = var.zones
-
+ 
+  resource_labels = {
+      "env" =  lower(random_pet.name.id),
+      "owner" = lower(var.tags["Owner"]),
+      "team" = lower(var.tags["Team"]),
+      "keepaliveuntil" = lower(var.tags["KeepAliveUntil"]),
+      "project" = lower(var.tags["Project"])
+  }
 
   addons_config {
     http_load_balancing {
@@ -23,11 +35,6 @@ resource "google_container_cluster" "k8s" {
     horizontal_pod_autoscaling {
       disabled = false
     }
-  }
-
-  #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#nested_release_channel
-  release_channel {
-    channel = "UNSPECIFIED"
   }
 
 

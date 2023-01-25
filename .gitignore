@@ -85,3 +85,12 @@ gcp/create-gke/variables.tf
 azure/create-aks/.terraform.tfstate.lock.info
 azure/create-aks/addons/.terraform.lock.hcl
 azure/create-aks/addons/terraform.tfstate.backup
+aws/create-eks/addons/.terraform.lock.hcl
+aws/create-eks/addons/terraform.tfstate.backup
+azure/test/
+gcp/create-gke/.terraform.tfstate.lock.info
+gcp/create-gke/addons/.terraform.lock.hcl
+gcp/create-gke/addons/terraform.tfstate.backup
+gcp/create-gke/output.json
+gcp/create-gke/state.out
+gcp/logs/1Click.log

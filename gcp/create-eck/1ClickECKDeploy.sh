@@ -25,4 +25,4 @@ terraform apply state.tfplan
 
 echo Please wait....
 sleep 60
-./getKibanaInfo.sh
+./getClusterInfo.sh

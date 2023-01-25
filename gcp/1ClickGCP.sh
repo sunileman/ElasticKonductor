@@ -72,9 +72,10 @@ fi
 
 
 start=$SECONDS
-chmod 700 ./create-gke/1ClickEKSDeploy.sh
+chmod 700 ./create-gke/1ClickGKEDeploy.sh
+chmod 700 ./create-gke/addons/1ClickAddons.sh
 chmod 700 ./create-eck/cleanup.sh
-chmod 700 ./create-eck/getKibanaInfo.sh
+chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
 chmod 700 ./create-eck/eck-add-license.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
@@ -82,16 +83,17 @@ chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
 
 
 if [ $createmode == true ] && [ $gkeonly == false ]; then
-   (cd ./create-gke ; sh ./1ClickEKSDeploy.sh)
+   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh)
    (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $gkeonly == true ]; then
    #(cd ./create-gke ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-gke ; sh ./1ClickEKSDeploy.sh)
+   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
    (cd ./create-eck ; sh ./cleanup.sh 2>/dev/null)
+   (cd ./create-gke/addons ; terraform destroy -auto-approve 2>/dev/null)
    (cd ./create-gke ; terraform destroy -auto-approve 2>/dev/null)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration

@@ -8,15 +8,24 @@ resource "google_container_node_pool" "master" {
   name       = "master"
   cluster    = google_container_cluster.k8s.id
   version    = var.gke_version
+ 
+  initial_node_count = var.master_instance_count
+  node_locations = [var.zones[0], var.zones[1]]
   
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
   autoscaling {
-    min_node_count = var.master_instance_count
-    max_node_count = var.master_max_instance_count
+    total_min_node_count = var.master_instance_count
+    total_max_node_count = var.master_max_instance_count
   }
 
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
 
   node_config {
@@ -25,9 +34,9 @@ resource "google_container_node_pool" "master" {
     image_type   = "UBUNTU_CONTAINERD"
     disk_size_gb = var.master_volume
     disk_type = var.master_volume_type
-
+   
     labels = {
-      nodetype = "master"
+      nodetype="master"
     }
 
     service_account = google_service_account.kubernetes.email
@@ -42,15 +51,24 @@ resource "google_container_node_pool" "kibana" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
+  initial_node_count = var.kibana_instance_count
+
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
  
+  node_locations = [var.zones[0]]
 
   autoscaling {
-    min_node_count = var.kibana_instance_count
-    max_node_count = var.kibana_max_instance_count
+    total_min_node_count = var.kibana_instance_count
+    total_max_node_count = var.kibana_max_instance_count
   }
 
 
@@ -60,9 +78,10 @@ resource "google_container_node_pool" "kibana" {
     image_type   = "UBUNTU_CONTAINERD"
     disk_size_gb = var.kibana_volume
     disk_type    = var.kibana_volume_type
+    
 
     labels = {
-      nodetype="kibana"
+      nodetype = "kibana"
     }
 
     service_account = google_service_account.kubernetes.email
@@ -77,14 +96,22 @@ resource "google_container_node_pool" "hot" {
   cluster = google_container_cluster.k8s.id
   version = var.gke_version
 
+  initial_node_count = var.hot_instance_count
+
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
 
   autoscaling {
-    min_node_count = var.hot_instance_count
-    max_node_count = var.hot_max_instance_count
+    total_min_node_count = var.hot_instance_count
+    total_max_node_count = var.hot_max_instance_count
   }
 
   node_config {
@@ -93,9 +120,9 @@ resource "google_container_node_pool" "hot" {
     image_type   = "UBUNTU_CONTAINERD"
     disk_size_gb = var.hot_volume
     disk_type    = var.hot_volume_type
-
+    
     labels = {
-      nodetype="hot"
+      nodetype = "hot"
     }
 
     service_account = google_service_account.kubernetes.email
@@ -110,14 +137,21 @@ resource "google_container_node_pool" "warm" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
+  initial_node_count = var.warm_instance_count
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
   
   autoscaling {
-    min_node_count = var.warm_instance_count
-    max_node_count = var.warm_max_instance_count
+    total_min_node_count = var.warm_instance_count
+    total_max_node_count = var.warm_max_instance_count
   }
 
   node_config {
@@ -126,9 +160,10 @@ resource "google_container_node_pool" "warm" {
     image_type   = "UBUNTU_CONTAINERD"
     disk_size_gb = var.warm_volume
     disk_type    = var.warm_volume_type
+    
 
     labels = {
-      nodetype="warm"
+      nodetype = "warm"
     }
 
     service_account = google_service_account.kubernetes.email
@@ -143,14 +178,22 @@ resource "google_container_node_pool" "cold" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
+  initial_node_count = var.cold_instance_count
+
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
 
   autoscaling {
-    min_node_count = var.cold_instance_count
-    max_node_count = var.cold_max_instance_count
+    total_min_node_count = var.cold_instance_count
+    total_max_node_count = var.cold_max_instance_count
   }
 
   node_config {
@@ -160,8 +203,9 @@ resource "google_container_node_pool" "cold" {
     disk_size_gb = var.cold_volume
     disk_type    = var.cold_volume_type
 
+
     labels = {
-      nodetype="cold"
+      nodetype = "cold",
     }
 
     service_account = google_service_account.kubernetes.email
@@ -177,12 +221,21 @@ resource "google_container_node_pool" "frozen" {
   version    = var.gke_version
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
 
+  initial_node_count = var.frozen_instance_count
+
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
+
   autoscaling {
-    min_node_count = var.frozen_instance_count
-    max_node_count = var.frozen_max_instance_count
+    total_min_node_count = var.frozen_instance_count
+    total_max_node_count = var.frozen_max_instance_count
   }
 
   node_config {
@@ -192,8 +245,9 @@ resource "google_container_node_pool" "frozen" {
     disk_size_gb = var.frozen_volume
     disk_type    = var.frozen_volume_type
 
+
     labels = {
-      nodetype="frozen"
+      nodetype = "frozen"
     }
 
     service_account = google_service_account.kubernetes.email
@@ -208,14 +262,22 @@ resource "google_container_node_pool" "ml" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
+  initial_node_count = var.ml_instance_count
+
+  lifecycle {
+    ignore_changes = [
+      initial_node_count
+    ]
+  }
+
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
 
   autoscaling {
-    min_node_count = var.ml_instance_count
-    max_node_count = var.ml_max_instance_count
+    total_min_node_count = var.ml_instance_count
+    total_max_node_count = var.ml_max_instance_count
   }
 
   node_config {
@@ -225,8 +287,9 @@ resource "google_container_node_pool" "ml" {
     disk_size_gb = var.ml_volume
     disk_type    = var.ml_volume_type
 
+
     labels = {
-      nodetype="ml"
+      nodetype = "ml"
     }
 
     service_account = google_service_account.kubernetes.email
@@ -242,16 +305,16 @@ resource "google_container_node_pool" "util" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
+
+  node_count = var.util_instance_count
+  node_locations = [var.zones[0]]
+
   management {
     auto_repair  = true
-    auto_upgrade = false
+    auto_upgrade = true
   }
 
 
-  autoscaling {
-    total_min_node_count = 1
-    total_max_node_count = 2
-  }
   node_config {
     preemptible  = true
     machine_type = var.util_instance_type
@@ -259,8 +322,9 @@ resource "google_container_node_pool" "util" {
     disk_size_gb = var.util_volume
     disk_type    = var.util_volume_type
 
+
     labels = {
-      nodetype="util"
+      nodetype = "util"
     }
 
     service_account = google_service_account.kubernetes.email

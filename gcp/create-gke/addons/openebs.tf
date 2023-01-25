@@ -5,8 +5,9 @@ resource "helm_release" "openebs" {
   chart          = "openebs"
   create_namespace = true
   set {
-    name  = "ocalprovisioner.basePath"
+    name  = "localprovisioner.basePath"
     value = "/srv/local"
   }
+  depends_on = [kubectl_manifest.iscsi]
 }
 

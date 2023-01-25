@@ -18,7 +18,13 @@ variable "zones" {
 variable "gke_version" {
   description = "GKE Version"
   type        = string
-  default     = "1.24.7-gke.900"
+  default     = "1.24.8-gke.401"
+}
+
+variable "release_channel" {
+  description = "GKE Release Channel"
+  type = string
+  default = "STABLE"
 }
 
 variable "eck_version" {
@@ -55,7 +61,7 @@ variable "master_instance_count" {
 
 
 variable "master_max_instance_count" {
-  description = "Max Number of master instances"
+  description = "Max Number of master instances per zone"
   type        = number
   default     = 1
 }
@@ -79,13 +85,13 @@ variable "master_volume_type" {
 }
 
 variable "kibana_instance_count" {
-  description = "Number of kibana instances"
+  description = "Number of kibana instances per zone"
   type        = number
   default     = 2
 }
 
 variable "kibana_max_instance_count" {
-  description = "Max Number of kibana instances"
+  description = "Max Number of kibana instances per zone"
   type        = number
   default     = 10
 }
@@ -110,16 +116,16 @@ variable "kibana_volume_type" {
 }
 
 variable "hot_instance_count" {
-  description = "Number of hot instances"
+  description = "Number of hot instances per zone"
   type        = number
-  default     = 3
+  default     = 1
 }
 
 
 variable "hot_max_instance_count" {
-  description = "Max Number of hot instances"
+  description = "Max Number of hot instances per zone"
   type        = number
-  default     = 10
+  default     = 20
 }
 
 
@@ -143,15 +149,15 @@ variable "hot_volume_type" {
 }
 
 variable "warm_instance_count" {
-  description = "Number of warm instances"
+  description = "Number of warm instances per zone"
   type        = number
   default     = 0
 }
 
 variable "warm_max_instance_count" {
-  description = "Max Number of warm instances"
+  description = "Max Number of warm instances per zone"
   type        = number
-  default     = 1
+  default     = 10
 }
 
 variable "warm_instance_type" {
@@ -173,16 +179,16 @@ variable "warm_volume_type" {
 }
 
 variable "cold_instance_count" {
-  description = "Number of cold instances"
+  description = "Number of cold instances per zone"
   type        = number
   default     = 0
 }
 
 
 variable "cold_max_instance_count" {
-  description = "Max Number of cold instances"
+  description = "Max Number of cold instances per zone"
   type        = number
-  default     = 1
+  default     = 10
 }
 
 variable "cold_instance_type" {
@@ -206,16 +212,16 @@ variable "cold_volume_type" {
 
 
 variable "frozen_instance_count" {
-  description = "Number of frozen instances"
+  description = "Number of frozen instances per zone"
   type        = number
   default     = 0
 }
 
 
 variable "frozen_max_instance_count" {
-  description = "Max Number of frozen instances"
+  description = "Max Number of frozen instances per zone"
   type        = number
-  default     = 1
+  default     = 10
 }
 
 variable "frozen_instance_type" {
@@ -237,15 +243,15 @@ variable "frozen_volume_type" {
 }
 
 variable "ml_instance_count" {
-  description = "Number of ml instances"
+  description = "Number of ml instances per zone"
   type        = number
   default     = 0
 }
 
 variable "ml_max_instance_count" {
-  description = "Max Number of ml instances"
+  description = "Max Number of ml instances per zone"
   type        = number
-  default     = 1
+  default     = 10
 }
 
 variable "ml_instance_type" {
