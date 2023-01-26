@@ -108,6 +108,11 @@ variable "kibana_instance_type" {
   default     = "e2-standard-8"
 }
 
+variable "kibana_instance_k8s_label" {
+  description = "kibana instance k8s label"
+  type        = map
+  default     = {"nodetype"="kibana"}
+}
 
 variable "kibana_volume" {
   description = "Volume in GB"
@@ -320,6 +325,12 @@ variable "util_instance_type" {
   description = "util instance type"
   type        = string
   default     = "e2-standard-4"
+}
+
+variable "util_instance_k8s_label" {
+  description = "util instance k8s label"
+  type        = map
+  default     = {"nodetype"="util"}
 }
 
 variable "util_volume" {
