@@ -59,6 +59,11 @@ variable "master_instance_count" {
   default     = 1
 }
 
+variable "master_instance_zones" {
+  description = "Zones to host master instance"
+  type   = list(string)
+  default = ["us-central1-a", "us-central1-b"]
+}
 
 variable "master_max_instance_count" {
   description = "Max Number of master instances per zone"

@@ -20,7 +20,7 @@ terraform apply state.tfplan
 (bash ./setkubectl.sh)
 
 echo "Running addons"
-#(cd addons; bash ./1ClickAddons.sh)
+(cd addons; bash ./1ClickAddons.sh)
 
 # cleanup
 #terraform destroy -auto-approve

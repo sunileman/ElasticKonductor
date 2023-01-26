@@ -10,7 +10,7 @@ resource "google_container_node_pool" "master" {
   version    = var.gke_version
  
   initial_node_count = var.master_instance_count
-  node_locations = [var.zones[0], var.zones[1]]
+  node_locations = var.master_instance_zones
   
   lifecycle {
     ignore_changes = [

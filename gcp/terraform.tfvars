@@ -32,6 +32,7 @@ tags = {
 
 #master_instance_count=1
 #master_max_instance_count=1
+#master_instance_zones=["us-central1-a", "us-central1-b"]
 #master_instance_type= "standard_D8ads_v5"
 #master_instance_k8s_label= {"nodetype"="master"}
 #master_volume_type= "pd-ssd"
