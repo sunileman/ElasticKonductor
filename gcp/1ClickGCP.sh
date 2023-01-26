@@ -30,6 +30,7 @@ while getopts ':b:dh' OPTION; do
       if [[ "${OPTARG,,}" == "all" ]]; then
         echo "Build Mode = ALL"
       elif [[ "${OPTARG,,}" == "gke" ]]; then
+	gkeonly=true
         echo "Create Mode = GKE Only"
       else
         echo "Not a valid option.  Use: all or gke"
