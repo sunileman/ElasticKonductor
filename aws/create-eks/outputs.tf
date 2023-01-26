@@ -10,6 +10,10 @@ output "cluster_ca_certificate" {
   value = aws_eks_cluster.OneClick.certificate_authority[0].data
 }
 
+output "cluster_resources" {
+  value = aws_eks_node_group.master.resources
+}
+
 output "master_autoscaling_group_name" {
   description = "master nodes autoscale group name"
   value = var.master_instance_count > 0 ? aws_eks_node_group.master.resources[0].autoscaling_groups[0].name : "NA"

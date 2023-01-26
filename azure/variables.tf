@@ -1,7 +1,3 @@
-variable "agent_count" {
-  default = 3
-}
-
 # The following two variable declarations are placeholder references.
 # Set the values for these variable in terraform.tfvars
 variable "aks_service_principal_app_id" {
@@ -49,24 +45,6 @@ variable "project" {
   default = "1ClickECK"
 }
 
-variable "vpc_id" {
-  description = "vpc to be used during eks deployment"
-  type = string
-  default = "NA"
-}
-
-
-variable "vpc_cidr" {
-  description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "subnet_cidr_bits" {
-  description = "The number of subnet bits for the CIDR. For example, specifying a value 8 for this parameter will create a CIDR with a mask of /24."
-  type        = number
-  default     = 8
-}
 
 variable "tags" {
   description = "A map of tags to add to all resources"
@@ -105,6 +83,12 @@ variable "master_instance_type" {
 }
 
 
+variable "master_instance_k8s_label" {
+  description = "Master instance k8s label"
+  type        = map
+  default     = {"nodetype"="master"}
+}
+
 variable "kibana_instance_count" {
   description = "Number of kibana instances"
   type        = number
@@ -117,12 +101,18 @@ variable "kibana_max_instance_count" {
   type        = number
   default     = 10
 }
+
 variable "kibana_instance_type" {
   description = "Kibana instance type"
   type        = string
   default     = "standard_B2ms"
 }
 
+variable "kibana_instance_k8s_label" {
+  description = "kibana instance k8s label"
+  type        = map
+  default     = {"nodetype"="kibana"}
+}
 
 variable "hot_instance_count" {
   description = "Number of hot instances"
@@ -142,6 +132,11 @@ variable "hot_instance_type" {
   default     =  "standard_D32pls_v5"
 }
 
+variable "hot_instance_k8s_label" {
+  description = "hot instance k8s label"
+  type        = map
+  default     = {"nodetype"="hot"}
+}
 
 variable "warm_instance_count" {
   description = "Number of warm instances"
@@ -161,6 +156,11 @@ variable "warm_instance_type" {
   default     = "standard_E16ads_v5"
 }
 
+variable "warm_instance_k8s_label" {
+  description = "warm instance k8s label"
+  type        = map
+  default     = {"nodetype"="warm"}
+}
 
 variable "cold_instance_count" {
   description = "Number of cold instances"
@@ -182,6 +182,11 @@ variable "cold_instance_type" {
 }
 
 
+variable "cold_instance_k8s_label" {
+  description = "cold instance k8s label"
+  type        = map
+  default     = {"nodetype"="cold"}
+}
 
 variable "frozen_instance_count" {
   description = "Number of frozen instances"
@@ -202,7 +207,11 @@ variable "frozen_instance_type" {
   default     = "standard_E96ads_v5"
 }
 
-
+variable "frozen_instance_k8s_label" {
+  description = "frozen instance k8s label"
+  type        = map
+  default     = {"nodetype"="frozen"}
+}
 
 variable "ml_instance_count" {
   description = "Number of ml instances"
@@ -223,6 +232,11 @@ variable "ml_instance_type" {
   default     = "standard_D16ads_v5"
 }
 
+variable "ml_instance_k8s_label" {
+  description = "ml instance k8s label"
+  type        = map
+  default     = {"nodetype"="ml"}
+}
 
 variable "util_instance_count" {
   description = "Number of util instances"
@@ -236,7 +250,11 @@ variable "util_instance_type" {
   default     = "standard_B2s"
 }
 
-
+variable "util_instance_k8s_label" {
+  description = "util instance k8s label"
+  type        = map
+  default     = {"nodetype"="util"}
+}
 
 variable "es_version" {
   description = "elasticsearch version"

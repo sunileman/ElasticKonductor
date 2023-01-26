@@ -1,9 +1,7 @@
 #!/bin/bash
-$(mkdir ./aws/logs 2>/dev/null)
-LOG_LOCATION=./aws/logs
-exec > >(tee -i $LOG_LOCATION/1Click.log)
-exec 2>&1
-
+$(mkdir ./logs 2>/dev/null)
+LOG_LOCATION=./logs
+nowtime=`date +"%m_%d_%Y_%s"`
 
 oneclickv=.14
 
@@ -75,6 +73,9 @@ while getopts ':b:c:dhv' OPTION; do
 done
 shift "$(($OPTIND -1))"
 
+
+exec > >(tee -i $LOG_LOCATION/1Click_$cloud_$nowtime.log)
+exec 2>&1
 echo "Log Location: [ $LOG_LOCATION ]"
 
 if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ]; then

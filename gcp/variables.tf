@@ -72,6 +72,12 @@ variable "master_instance_type" {
   default     = "e2-standard-8"
 }
 
+variable "master_instance_k8s_label" {
+  description = "master instance k8s label"
+  type        = map
+  default     = {"nodetype"="master"}
+}
+
 variable "master_volume" {
   description = "Volume in GB"
   type        = number
@@ -135,6 +141,11 @@ variable "hot_instance_type" {
   default     = "e2-standard-32"
 }
 
+variable "hot_instance_k8s_label" {
+  description = "hot instance k8s label"
+  type        = map
+  default     = {"nodetype"="hot"}
+}
 
 variable "hot_volume" {
   description = "Volume in GB"
@@ -164,6 +175,13 @@ variable "warm_instance_type" {
   description = "warm instance type"
   type = string
   default     = "e2-standard-32"
+}
+
+
+variable "warm_instance_k8s_label" {
+  description = "warm instance k8s label"
+  type        = map
+  default     = {"nodetype"="warm"}
 }
 
 variable "warm_volume" {
@@ -196,6 +214,14 @@ variable "cold_instance_type" {
   type = string
   default     = "e2-standard-32"
 }
+
+
+variable "cold_instance_k8s_label" {
+  description = "cold instance k8s label"
+  type        = map
+  default     = {"nodetype"="cold"}
+}
+
 
 variable "cold_volume" {
   description = "Volume in GB"
@@ -230,6 +256,12 @@ variable "frozen_instance_type" {
   default     = "e2-standard-32"
 }
 
+variable "frozen_instance_k8s_label" {
+  description = "frozen instance k8s label"
+  type        = map
+  default     = {"nodetype"="frozen"}
+}
+
 variable "frozen_volume" {
   description = "Volume in GB"
   type        = number
@@ -258,6 +290,12 @@ variable "ml_instance_type" {
   description = "ML instance type"
   type        = string
   default     = "e2-standard-32"
+}
+
+variable "ml_instance_k8s_label" {
+  description = "ml instance k8s label"
+  type        = map
+  default     = {"nodetype"="ml"}
 }
 
 variable "ml_volume" {

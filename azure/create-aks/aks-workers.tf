@@ -4,18 +4,17 @@ resource "azurerm_kubernetes_cluster_node_pool" "master" {
   vm_size               = var.master_instance_type
   #node_count            = var.master_instance_count
 
-  enable_auto_scaling = true
-  min_count           = var.master_instance_count
-  max_count           = var.master_max_instance_count
-  
+  enable_auto_scaling = false
+  #min_count           = var.master_instance_count
+  #max_count           = var.master_max_instance_count
+  node_count           = var.master_instance_count
+
   tags = merge(
     var.tags,
     {env=random_pet.name.id}
   )
 
-  node_labels = {
-    "nodetype" = "master"
-  }
+  node_labels = var.master_instance_k8s_label
   
 }
 
@@ -35,9 +34,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "kibana" {
     {env=random_pet.name.id}
   )
 
-  node_labels = {
-    "nodetype" = "kibana"
-  }
+  node_labels = var.kibana_instance_k8s_label 
 
 }
 
@@ -56,10 +53,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "hot" {
     {env=random_pet.name.id}
   )
 
-  node_labels = {
-    "nodetype" = "hot"
-  }
-
+  node_labels = var.hot_instance_k8s_label
 }
 
 
@@ -79,10 +73,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "warm" {
     {env=random_pet.name.id}
   )
 
-  node_labels = {
-    "nodetype" = "warm"
-  }
-
+  node_labels = var.warm_instance_k8s_label
 }
 
 
@@ -101,10 +92,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "cold" {
     {env=random_pet.name.id}
   )
 
-  node_labels = {
-    "nodetype" = "cold"
-  }
-
+  node_labels = var.cold_instance_k8s_label
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "frozen" {
@@ -122,10 +110,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "frozen" {
     {env=random_pet.name.id}
   )
 
-  node_labels = {
-    "nodetype" = "frozen"
-  }
-
+  node_labels = var.frozen_instance_k8s_label
 }
 
 
@@ -145,25 +130,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "ml" {
     {env=random_pet.name.id}
   )
 
-  node_labels = {
-    "nodetype" = "ml"
-  }
-
+  node_labels = var.ml_instance_k8s_label
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "util" {
-  name                  = "util"
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
-  vm_size               = var.util_instance_type
-  node_count            = var.util_instance_count
-
-  tags = merge(
-    var.tags,
-    {env=random_pet.name.id}
-  )
-
-  node_labels = {
-    "nodetype" = "util"
-  }
-
-}

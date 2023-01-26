@@ -5,7 +5,6 @@ resource "azurerm_resource_group" "rg" {
 
 resource "azurerm_kubernetes_cluster" "k8s" {
   location            = azurerm_resource_group.rg.location
-  #name                = local.project
   name                = random_pet.name.id
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = var.dns_prefix
@@ -20,11 +19,11 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   kubernetes_version = var.aks_version
 
   default_node_pool {
-    name       = "k8smaster"
-    vm_size    = var.k8s_master_instance_type
-    node_count = var.agent_count
+    name       = "util"
+    vm_size    = var.util_instance_type
+    node_count = var.util_instance_count
+    node_labels = var.util_instance_k8s_label
   }
-
 
   network_profile {
     network_plugin    = "kubenet"

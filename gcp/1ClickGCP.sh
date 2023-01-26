@@ -98,8 +98,5 @@ elif [[ $destroy == true ]]; then
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 else
-   echo "Please submit a valid argument"
-   echo "Valid arguments:"
-   echo "    create"
-   echo "    destroy"
+   echo "Please submit a valid arguments"
 fi

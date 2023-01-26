@@ -82,6 +82,12 @@ variable "master_instance_type" {
   default     = ["m6g.2xlarge"]
 }
 
+variable "master_instance_k8s_label" {
+  description = "Master instance k8s label"
+  type        = map
+  default     = {"nodetype"="master"}
+}
+
 variable "master_capacity_type" {
   description = "Master capacity type"
   type = string
@@ -111,6 +117,12 @@ variable "kibana_instance_type" {
   description = "Kibana instance type"
   type = list(string)
   default     = ["t2.medium"]
+}
+
+variable "kibana_instance_k8s_label" {
+  description = "kibana instance k8s label"
+  type        = map
+  default     = {"nodetype"="kibana"}
 }
 
 variable "kibana_ami_type" {
@@ -144,6 +156,12 @@ variable "hot_instance_type" {
   default     = ["c6g.8xlarge"]
 }
 
+variable "hot_instance_k8s_label" {
+  description = "hot instance k8s label"
+  type        = map
+  default     = {"nodetype"="hot"}
+}
+
 variable "hot_ami_type" {
   description = "hot AMI type"
   type = string
@@ -173,6 +191,12 @@ variable "warm_instance_type" {
   description = "warm instance type"
   type = list(string)
   default     = ["r6i.4xlarge"]
+}
+
+variable "warm_instance_k8s_label" {
+  description = "warm instance k8s label"
+  type        = map
+  default     = {"nodetype"="warm"}
 }
 
 variable "warm_ami_type" {
@@ -207,6 +231,12 @@ variable "cold_instance_type" {
   default     = ["r6i.12xlarge"]
 }
 
+variable "cold_instance_k8s_label" {
+  description = "cold instance k8s label"
+  type        = map
+  default     = {"nodetype"="cold"}
+}
+
 variable "cold_ami_type" {
   description = "cold AMI type"
   type = string
@@ -237,6 +267,12 @@ variable "frozen_instance_type" {
   description = "frozen instance type"
   type = list(string)
   default     = ["r6i.24xlarge"]
+}
+
+variable "frozen_instance_k8s_label" {
+  description = "frozen instance k8s label"
+  type        = map
+  default     = {"nodetype"="frozen"}
 }
 
 variable "frozen_ami_type" {
@@ -271,6 +307,12 @@ variable "ml_instance_type" {
   default     = ["c6i.4xlarge"]
 }
 
+variable "ml_instance_k8s_label" {
+  description = "ml instance k8s label"
+  type        = map
+  default     = {"nodetype"="ml"}
+}
+
 variable "ml_ami_type" {
   description = "AMI type"
   type = string
@@ -300,6 +342,12 @@ variable "util_instance_type" {
   description = "util instance type"
   type = list(string)
   default     = ["t2.medium"]
+}
+
+variable "util_instance_k8s_label" {
+  description = "util instance k8s label"
+  type        = map
+  default     = {"nodetype"="util"}
 }
 
 variable "util_capacity_type" {

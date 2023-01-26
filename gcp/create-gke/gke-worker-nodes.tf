@@ -35,9 +35,7 @@ resource "google_container_node_pool" "master" {
     disk_size_gb = var.master_volume
     disk_type = var.master_volume_type
    
-    labels = {
-      nodetype="master"
-    }
+    labels = var.master_instance_k8s_label 
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
@@ -80,9 +78,7 @@ resource "google_container_node_pool" "kibana" {
     disk_type    = var.kibana_volume_type
     
 
-    labels = {
-      nodetype = "kibana"
-    }
+    labels = var.kibana_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
@@ -121,9 +117,7 @@ resource "google_container_node_pool" "hot" {
     disk_size_gb = var.hot_volume
     disk_type    = var.hot_volume_type
     
-    labels = {
-      nodetype = "hot"
-    }
+    labels = var.hot_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
@@ -162,9 +156,7 @@ resource "google_container_node_pool" "warm" {
     disk_type    = var.warm_volume_type
     
 
-    labels = {
-      nodetype = "warm"
-    }
+    labels = var.warm_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
@@ -204,9 +196,7 @@ resource "google_container_node_pool" "cold" {
     disk_type    = var.cold_volume_type
 
 
-    labels = {
-      nodetype = "cold",
-    }
+    labels = var.cold_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
@@ -246,9 +236,7 @@ resource "google_container_node_pool" "frozen" {
     disk_type    = var.frozen_volume_type
 
 
-    labels = {
-      nodetype = "frozen"
-    }
+    labels = var.frozen_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
@@ -288,9 +276,7 @@ resource "google_container_node_pool" "ml" {
     disk_type    = var.ml_volume_type
 
 
-    labels = {
-      nodetype = "ml"
-    }
+    labels = var.ml_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
@@ -323,9 +309,7 @@ resource "google_container_node_pool" "util" {
     disk_type    = var.util_volume_type
 
 
-    labels = {
-      nodetype = "util"
-    }
+    labels = var.util_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
     oauth_scopes = [
