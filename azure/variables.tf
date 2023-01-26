@@ -52,8 +52,8 @@ variable "tags" {
   default = {
     "Project"     = "1ClickEckOnEks"
     "Environment" = "Development"
-    "Owner"       = "SA"
-    "Owner"       = "SA"
+    "Owner"       = "someone"
+    "Team"       = "somerteam"
   }
 }
 
