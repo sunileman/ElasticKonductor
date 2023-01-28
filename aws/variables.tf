@@ -61,9 +61,10 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default = {
-    "Project"     = "1ClickEckOnEks"
+    "Project"     = "1ClickECK"
     "Environment" = "Development"
-    "Owner"       = "SA"
+    "Owner"       = "someone"
+    "Team"       = "someteam"
   }
 }
 
