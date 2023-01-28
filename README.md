@@ -21,30 +21,6 @@ Does not deploy
 [![2023-01-27-19-39-42.jpg](https://i.postimg.cc/wBxBn6C7/2023-01-27-19-39-42.jpg)](https://postimg.cc/WdKjkPbv)
 
 
-[![2023-01-27-19-41-37.jpg](https://i.postimg.cc/jSxKSMZ1/2023-01-27-19-41-37.jpg)](https://postimg.cc/WhHx9wRm)
-
- 
- [![2023-01-27-19-43-18.jpg](https://i.postimg.cc/x8VVD5Xt/2023-01-27-19-43-18.jpg)](https://postimg.cc/MM5F1ybQ)
-
-
-
- [![2023-01-27-19-44-16.jpg](https://i.postimg.cc/NGRw83nV/2023-01-27-19-44-16.jpg)](https://postimg.cc/3Wr6YcYC)
-
-
-[![2023-01-27-19-46-49.jpg](https://i.postimg.cc/wTfH3hZT/2023-01-27-19-46-49.jpg)](https://postimg.cc/9r7snqcv)
-
-
-[![2023-01-27-19-49-28.jpg](https://i.postimg.cc/CKWb0nSc/2023-01-27-19-49-28.jpg)](https://postimg.cc/Z9xWFR9N)
-
-[![2023-01-27-19-50-00.jpg](https://i.postimg.cc/c4swdSGG/2023-01-27-19-50-00.jpg)](https://postimg.cc/w3G7knBw)
-
-[![aws.jpg](https://i.postimg.cc/Vs45B0p2/aws.jpg)](https://postimg.cc/5jYxfyxm)
-
-[![2023-01-27-19-52-08.jpg](https://i.postimg.cc/8P05xQ1H/2023-01-27-19-52-08.jpg)](https://postimg.cc/Lnj2ZWgY)
-
-
-[![2023-01-27-19-52-41.jpg](https://i.postimg.cc/rp6pF1RR/2023-01-27-19-52-41.jpg)](https://postimg.cc/MnDw9jDz)
-
 
 
 ## Prerequisites
@@ -90,6 +66,29 @@ Does not deploy
     * https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#gcloud
 
 ## Deployment
+[![2023-01-27-19-41-37.jpg](https://i.postimg.cc/jSxKSMZ1/2023-01-27-19-41-37.jpg)](https://postimg.cc/WhHx9wRm)
+
+ 
+ [![2023-01-27-19-43-18.jpg](https://i.postimg.cc/x8VVD5Xt/2023-01-27-19-43-18.jpg)](https://postimg.cc/MM5F1ybQ)
+
+
+
+ [![2023-01-27-19-44-16.jpg](https://i.postimg.cc/NGRw83nV/2023-01-27-19-44-16.jpg)](https://postimg.cc/3Wr6YcYC)
+
+
+[![2023-01-27-19-46-49.jpg](https://i.postimg.cc/wTfH3hZT/2023-01-27-19-46-49.jpg)](https://postimg.cc/9r7snqcv)
+
+
+[![2023-01-27-19-49-28.jpg](https://i.postimg.cc/CKWb0nSc/2023-01-27-19-49-28.jpg)](https://postimg.cc/Z9xWFR9N)
+
+[![2023-01-27-19-50-00.jpg](https://i.postimg.cc/c4swdSGG/2023-01-27-19-50-00.jpg)](https://postimg.cc/w3G7knBw)
+
+[![aws.jpg](https://i.postimg.cc/Vs45B0p2/aws.jpg)](https://postimg.cc/5jYxfyxm)
+
+[![2023-01-27-19-52-08.jpg](https://i.postimg.cc/8P05xQ1H/2023-01-27-19-52-08.jpg)](https://postimg.cc/Lnj2ZWgY)
+
+
+[![2023-01-27-19-52-41.jpg](https://i.postimg.cc/rp6pF1RR/2023-01-27-19-52-41.jpg)](https://postimg.cc/MnDw9jDz)
 
 Set a few variables to name your deployment
 
