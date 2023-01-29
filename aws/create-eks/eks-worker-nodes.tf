@@ -55,7 +55,7 @@ resource "aws_eks_node_group" "kibana" {
   ami_type       = var.kibana_ami_type
   capacity_type  = var.kibana_capacity_type
   instance_types = var.kibana_instance_type
-  disk_size      = var.master_ebs_volume
+  disk_size      = var.kibana_ebs_volume
 
   tags = merge(
     var.tags,
@@ -93,7 +93,7 @@ resource "aws_eks_node_group" "hot" {
   ami_type       = var.hot_ami_type
   capacity_type  = var.hot_capacity_type
   instance_types = var.hot_instance_type
-  disk_size      = var.master_ebs_volume
+  disk_size      = var.hot_ebs_volume
 
   tags = merge(
     var.tags,
@@ -131,7 +131,7 @@ resource "aws_eks_node_group" "warm" {
   ami_type       = var.warm_ami_type
   capacity_type  = var.warm_capacity_type
   instance_types = var.warm_instance_type
-  disk_size      = var.master_ebs_volume
+  disk_size      = var.warm_ebs_volume
 
   tags = merge(
     var.tags,
@@ -169,7 +169,7 @@ resource "aws_eks_node_group" "cold" {
   ami_type       = var.cold_ami_type
   capacity_type  = var.cold_capacity_type
   instance_types = var.cold_instance_type
-  disk_size      = var.master_ebs_volume
+  disk_size      = var.cold_ebs_volume
 
   tags = merge(
     var.tags,
@@ -207,7 +207,7 @@ resource "aws_eks_node_group" "frozen" {
   ami_type       = var.frozen_ami_type
   capacity_type  = var.frozen_capacity_type
   instance_types = var.frozen_instance_type
-  disk_size      = var.master_ebs_volume
+  disk_size      = var.frozen_ebs_volume
 
   tags = merge(
     var.tags,
@@ -245,7 +245,7 @@ resource "aws_eks_node_group" "ml" {
   ami_type       = var.ml_ami_type
   capacity_type  = var.ml_capacity_type
   instance_types = var.ml_instance_type
-  disk_size      = var.master_ebs_volume
+  disk_size      = var.ml_ebs_volume
 
   tags = merge(
     var.tags,
@@ -283,7 +283,7 @@ resource "aws_eks_node_group" "util" {
   ami_type       = var.util_ami_type
   capacity_type  = var.util_capacity_type
   instance_types = var.util_instance_type
-  disk_size      = var.master_ebs_volume
+  disk_size      = var.util_ebs_volume
 
   tags = merge(
     var.tags,
@@ -339,4 +339,5 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOn
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.node.name
 }
+
 
