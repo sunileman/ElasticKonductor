@@ -1,4 +1,5 @@
 resource "kubectl_manifest" "ElasticSearch" {
-    for_each  = toset(data.kubectl_path_documents.es.documents)
-    yaml_body = each.value
+    count     = length(data.kubectl_path_documents.es-count.documents)
+    yaml_body = element(data.kubectl_path_documents.es.documents, count.index)
+    ignore_fields = ["metadata.annotations"]
 }

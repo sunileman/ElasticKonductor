@@ -23,8 +23,6 @@ tags = {
 
 
 
-
-
 #######Compelete list of variables below. Uncomment and set to your liking.  The default values are table from variables.tf which should not be changed.  Override the default values here.
 
 #project= "1ClickECK"
