@@ -18,9 +18,6 @@ tags = {
 
 
 
-
-
-
 #######Compelete list of variables below. Uncomment and set to your liking.  The default values are table from variables.tf which should not be changed.  Override the default values here.
 
 
@@ -46,6 +43,7 @@ tags = {
 
 
 #master_instance_count=1
+#master_max_instance_count=2
 #master_instance_type= ["m6g.2xlarge"]
 #master_instance_k8s_label= {"nodetype"="master"}
 #master_capacity_type="ON_DEMAND"  # ON_DEMAND, SPOT
@@ -61,6 +59,7 @@ tags = {
 
 
 #kibana_instance_count= 2
+#kibana_max_instance_count=10
 #kibana_instance_type= ["t2.medium"]
 #kibana_instance_k8s_label= {"nodetype"="kibana"}
 #kibana_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -71,6 +70,7 @@ tags = {
 #kibana_pod_count= 1
 
 #hot_instance_count= 3
+#hot_max_instance_count=10
 #hot_instance_type= ["c6g.8xlarge"]
 #hot_instance_k8s_label= {"nodetype"="hot"}
 #hot_ami_type= "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -85,6 +85,7 @@ tags = {
 
 
 #warm_instance_count= 0
+#warm_max_instance_count=10
 #warm_instance_type= ["r6i.4xlarge"]
 #warm_instance_k8s_label= {"nodetype"="warm"}
 #warm_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -100,6 +101,7 @@ tags = {
 
 
 #cold_instance_count= 0
+#cold_max_instance_count=10
 #cold_instance_type= ["r6i.12xlarge"]
 #cold_instance_k8s_label= {"nodetype"="cold"}
 #cold_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -115,6 +117,7 @@ tags = {
 
 
 #frozen_instance_count= 0
+#frozen_max_instance_count=10
 #frozen_instance_type= ["r6i.24xlarge"]
 #frozen_instance_k8s_label= {"nodetype"="frozen"}
 #frozen_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -130,6 +133,7 @@ tags = {
 
 
 #ml_instance_count= 0
+#ml_max_instance_count=10
 #ml_instance_type= ["c6i.4xlarge"]
 #ml_instance_k8s_label= {"nodetype"="ml"}
 #ml_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM

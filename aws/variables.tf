@@ -75,6 +75,11 @@ variable "master_instance_count" {
   default     = 1
 }
 
+variable "master_max_instance_count" {
+  description = "Max Number of master instances"
+  type        = number
+  default     = 2
+}
 
 
 variable "master_instance_type" {
@@ -113,6 +118,11 @@ variable "kibana_instance_count" {
   default     = 2
 }
 
+variable "kibana_max_instance_count" {
+  description = "Max Number of kibana instances"
+  type        = number
+  default     = 10
+}
 
 variable "kibana_instance_type" {
   description = "Kibana instance type"
@@ -151,6 +161,12 @@ variable "hot_instance_count" {
 }
 
 
+variable "hot_max_instance_count" {
+  description = "max Number of hot instances"
+  type        = number
+  default     = 10
+}
+
 variable "hot_instance_type" {
   description = "Hot instance type"
   type = list(string)
@@ -179,6 +195,12 @@ variable "warm_instance_count" {
   description = "Number of warm instances"
   type        = number
   default     = 0
+}
+
+variable "warm_max_instance_count" {
+  description = "max Number of warm instances"
+  type        = number
+  default     = 10
 }
 
 
@@ -225,6 +247,11 @@ variable "cold_instance_count" {
   default     = 0
 }
 
+variable "cold_max_instance_count" {
+  description = "max number of cold instances"
+  type        = number
+  default     = 10
+}
 
 variable "cold_instance_type" {
   description = "Cold instance type"
@@ -263,6 +290,11 @@ variable "frozen_instance_count" {
   default     = 0
 }
 
+variable "frozen_max_instance_count" {
+  description = "max number of frozen  instances"
+  type        = number
+  default     = 10
+}
 
 variable "frozen_instance_type" {
   description = "frozen instance type"
@@ -301,6 +333,11 @@ variable "ml_instance_count" {
   default     = 0
 }
 
+variable "ml_max_instance_count" {
+  description = "max number of ml instances"
+  type        = number
+  default     = 10
+}
 
 variable "ml_instance_type" {
   description = "ML instance type"
@@ -480,7 +517,7 @@ variable "hot_pod_ES_JAVA_OPTS" {
 variable "warm_pod_count" {
   description = "number of warm pods"
   type = number
-  default = 1
+  default = 0
 }
 
 variable "warm_pod_cpu" {
@@ -511,7 +548,7 @@ variable "warm_pod_ES_JAVA_OPTS" {
 variable "cold_pod_count" {
   description = "number of cold pods"
   type = number
-  default = 1
+  default = 0
 }
 variable "cold_pod_cpu" {
   description = "cold pod cpu request"
@@ -541,7 +578,7 @@ variable "cold_pod_ES_JAVA_OPTS" {
 variable "frozen_pod_count" {
   description = "number of frozen pods"
   type = number
-  default = 1
+  default = 0
 }
 variable "frozen_pod_cpu" {
   description = "frozen pod cpu request"
@@ -571,7 +608,7 @@ variable "frozen_pod_ES_JAVA_OPTS" {
 variable "ml_pod_count" {
   description = "number of ml pods"
   type = number
-  default = 1
+  default = 0
 }
 variable "ml_pod_cpu" {
   description = "ml pod cpu request"

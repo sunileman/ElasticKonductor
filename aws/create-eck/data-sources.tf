@@ -5,6 +5,8 @@ data "terraform_remote_state" "k8s" {
     path = "../create-eks/terraform.tfstate"
   }
 }
+
+
 data "kubectl_path_documents" "es" {
     pattern = "./eck-yamls/es.yaml"
     vars = {
@@ -50,6 +52,50 @@ data "kubectl_path_documents" "es" {
 }
 
 
+data "kubectl_path_documents" "es-count" {
+  pattern = "./eck-yamls/es.yaml"
+  vars = {
+        es_version = ""
+        eck_namespace = ""
+        master_pod_ES_JAVA_OPTS = ""
+        hot_pod_ES_JAVA_OPTS = ""
+        warm_pod_ES_JAVA_OPTS = ""
+        cold_pod_ES_JAVA_OPTS = ""
+        frozen_pod_ES_JAVA_OPTS = ""
+        ml_pod_ES_JAVA_OPTS = ""
+        master_pod_roles = ""
+        hot_pod_roles = ""
+        warm_pod_roles = ""
+        cold_pod_roles = ""
+        frozen_pod_roles = ""
+        ml_pod_roles = ""
+        master_pod_cpu = ""
+        hot_pod_cpu = ""
+        warm_pod_cpu = ""
+        cold_pod_cpu = ""
+        frozen_pod_cpu = ""
+        ml_pod_cpu = ""
+        master_pod_memory = ""
+        hot_pod_memory = ""
+        warm_pod_memory = ""
+        cold_pod_memory = ""
+        frozen_pod_memory = ""
+        ml_pod_memory = ""
+        master_pod_count = ""
+        hot_pod_count = ""
+        warm_pod_count = ""
+        cold_pod_count = ""
+        frozen_pod_count = ""
+        ml_pod_count = ""
+        master_pod_storage = ""
+        hot_pod_storage = ""
+        warm_pod_storage = ""
+        cold_pod_storage = ""
+        frozen_pod_storage = ""
+        ml_pod_storage = ""
+  }
+}
+
 
 data "kubectl_path_documents" "kibana" {
     pattern = "./eck-yamls/kibana.yaml"
@@ -63,10 +109,30 @@ data "kubectl_path_documents" "kibana" {
 }
 
 
+data "kubectl_path_documents" "kibana-count" {
+    pattern = "./eck-yamls/kibana.yaml"
+    vars = {
+        es_version = ""
+        eck_namespace = ""
+        kibana_pod_memory = ""
+        kibana_pod_cpu = ""
+        kibana_pod_count = ""
+    }
+}
+
 data "kubectl_path_documents" "loadbalancer" {
     pattern = "./eck-yamls/loadbalancer.yaml"
     vars = {
         eck_namespace = var.eck_namespace
+    }
+}
+
+
+
+data "kubectl_path_documents" "loadbalancer-count" {
+    pattern = "./eck-yamls/loadbalancer.yaml"
+    vars = {
+        eck_namespace = ""
     }
 }
 

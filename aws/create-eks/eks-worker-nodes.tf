@@ -8,7 +8,7 @@ resource "aws_eks_node_group" "master" {
 
   scaling_config {
     desired_size = var.master_instance_count
-    max_size     = var.master_instance_count + 1
+    max_size     = var.master_max_instance_count
     min_size     = var.master_instance_count
   }
 
@@ -47,7 +47,7 @@ resource "aws_eks_node_group" "kibana" {
 
   scaling_config {
     desired_size = var.kibana_instance_count
-    max_size     = var.kibana_instance_count + 1
+    max_size     = var.kibana_max_instance_count
     min_size     = var.kibana_instance_count
   }
 
@@ -85,7 +85,7 @@ resource "aws_eks_node_group" "hot" {
   subnet_ids      = flatten([aws_subnet.private[*].id])
   scaling_config {
     desired_size = var.hot_instance_count
-    max_size     = var.hot_instance_count + 1
+    max_size     = var.hot_max_instance_count
     min_size     = var.hot_instance_count
   }
 
@@ -123,7 +123,7 @@ resource "aws_eks_node_group" "warm" {
   subnet_ids      = flatten([aws_subnet.private[*].id])
   scaling_config {
     desired_size = var.warm_instance_count
-    max_size     = var.warm_instance_count + 1
+    max_size     = var.warm_max_instance_count
     min_size     = var.warm_instance_count
   }
 
@@ -135,7 +135,8 @@ resource "aws_eks_node_group" "warm" {
 
   tags = merge(
     var.tags,
-    {env=random_pet.name.id}
+    {env=random_pet.name.id},
+    {"k8s.io/cluster-autoscaler/node-template/label/nodetype"="warm"}
   )
 
   labels = merge (
@@ -161,7 +162,7 @@ resource "aws_eks_node_group" "cold" {
   subnet_ids      = flatten([aws_subnet.private[*].id]) 
   scaling_config {
     desired_size = var.cold_instance_count
-    max_size     = var.cold_instance_count + 1
+    max_size     = var.cold_max_instance_count
     min_size     = var.cold_instance_count
   }
 
@@ -199,7 +200,7 @@ resource "aws_eks_node_group" "frozen" {
   subnet_ids      = flatten([aws_subnet.private[*].id])
   scaling_config {
     desired_size = var.frozen_instance_count
-    max_size     = var.frozen_instance_count + 1
+    max_size     = var.frozen_max_instance_count
     min_size     = var.frozen_instance_count
   }
 
@@ -237,7 +238,7 @@ resource "aws_eks_node_group" "ml" {
   subnet_ids      = flatten([aws_subnet.private[*].id])
   scaling_config {
     desired_size = var.ml_instance_count
-    max_size     = var.ml_instance_count + 1
+    max_size     = var.ml_max_instance_count
     min_size     = var.ml_instance_count
   }
 
@@ -340,4 +341,93 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOn
   role       = aws_iam_role.node.name
 }
 
+resource "aws_iam_role_policy_attachment" "oneclick-workernodes-autoscale-policy" {
+  role       = aws_iam_role.node.name
+  policy_arn = aws_iam_policy.oneclick-autoscale-policy.arn
+}
 
+
+resource "aws_autoscaling_group_tag" "master_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.master.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "master"
+    propagate_at_launch = false
+  }
+}
+
+
+resource "aws_autoscaling_group_tag" "kibana_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.kibana.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "kibana"
+    propagate_at_launch = false
+  }
+}
+
+
+resource "aws_autoscaling_group_tag" "hot_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.hot.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "hot"
+    propagate_at_launch = false
+  }
+}
+
+resource "aws_autoscaling_group_tag" "warm_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.warm.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "warm"
+    propagate_at_launch = false
+  }
+}
+
+
+resource "aws_autoscaling_group_tag" "cold_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.cold.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "cold"
+    propagate_at_launch = false
+  }
+}
+
+resource "aws_autoscaling_group_tag" "frozen_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.frozen.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "frozen"
+    propagate_at_launch = false
+  }
+}
+
+
+resource "aws_autoscaling_group_tag" "ml_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.ml.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "ml"
+    propagate_at_launch = false
+  }
+}
+
+
+resource "aws_autoscaling_group_tag" "util_asg_tag" {
+  autoscaling_group_name = aws_eks_node_group.util.resources[0].autoscaling_groups[0].name
+
+  tag {
+    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
+    value               = "util"
+    propagate_at_launch = false
+  }
+}
