@@ -5,6 +5,8 @@
 
 Total time from configuration to a fully launched ECK cluster generally should take less than 10 minutes.  The automation; 1ClickECK,  is idempotent.
 
+Note - Automation deploys OpenEBS which exposes and uses locally attached storage. More info, go to the OpenEBS section
+
 1ClickECK currently deploys
 * EKS, AKS, GKE
 * ECK (Optional)
@@ -257,3 +259,14 @@ All automation logs are stored in ./logs
 Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
 ```
 try:  export KUBE_CONFIG_PATH=~/.kube/config
+## OpenEBS
+OpenEBS is a automatic disk provisioner for K8s.  There may be scanerios the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
+
+```
+./1ClickECK -c gcp -b k8s -r
+```
+
+If openEBS exist on K8s cluster and to remove run this
+```
+./1ClickECK/<aws|gcp|azure>/create-gke/addons/openebs/1ClickRemoveOpenEBS.sh
+```
