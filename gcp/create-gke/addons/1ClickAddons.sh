@@ -1,14 +1,18 @@
 #!/bin/bash
-export KUBE_CONFIG_PATH=~/.kube/config
+##terraform logs
 
-# initialize terraform configuration
-terraform init
+##option to disable openebs
+echo "openebs option: $1"
+openebs=$1
 
-# validate terraform configuration
-terraform validate
+if [[ "$1" == "openebs-disabled" ]]; then
+    echo "openebs-disabled"
+    echo "Running KSM addon"
+    (cd ksm; bash ./1ClickAddons.sh)
+else
+    echo "Running OpenEBS addon"
+    (cd openebs; bash ./1ClickAddons.sh)
 
-# create terraform plan
-terraform plan -out state.tfplan 
-
-# apply terraform plan
-terraform apply state.tfplan
+    echo "Running KSM addon"
+    (cd ksm; bash ./1ClickAddons.sh)
+fi

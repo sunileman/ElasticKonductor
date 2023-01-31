@@ -1,4 +1,5 @@
 resource "kubectl_manifest" "loadbalancer" {
-    for_each  = toset(data.kubectl_path_documents.loadbalancer.documents)
-    yaml_body = each.value
+    count     = length(data.kubectl_path_documents.loadbalancer-count.documents)
+    yaml_body = element(data.kubectl_path_documents.loadbalancer.documents, count.index)
+    ignore_fields = ["metadata.annotations"]
 }

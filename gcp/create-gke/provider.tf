@@ -8,6 +8,6 @@ terraform {
 }
 
 provider "google" {
-  project = "elastic-sa"
-  region  = "us-central1"
+  project = var.gcp_project
+  region  = var.region
 }

@@ -9,18 +9,16 @@ resource "google_container_node_pool" "master" {
   cluster    = google_container_cluster.k8s.id
   version    = var.gke_version
  
-  initial_node_count = var.master_instance_count
-  node_locations = var.master_instance_zones
+  initial_node_count = var.master_initial_node_count_per_zone
   
-  lifecycle {
-    ignore_changes = [
-      initial_node_count
-    ]
-  }
-
   autoscaling {
-    total_min_node_count = var.master_instance_count
-    total_max_node_count = var.master_max_instance_count
+    min_node_count = var.master_instance_count_per_zone
+    max_node_count = var.master_max_instance_count_per_zone
+  }
+ 
+
+  upgrade_settings {
+    max_surge = var.master_surge_count
   }
 
   management {
@@ -33,7 +31,7 @@ resource "google_container_node_pool" "master" {
     machine_type = var.master_instance_type
     image_type   = "UBUNTU_CONTAINERD"
     disk_size_gb = var.master_volume
-    disk_type = var.master_volume_type
+    disk_type    = var.master_volume_type
    
     labels = var.master_instance_k8s_label 
 
@@ -44,29 +42,25 @@ resource "google_container_node_pool" "master" {
   }
 }
 
+
 resource "google_container_node_pool" "kibana" {
   name    = "kibana"
   cluster = google_container_cluster.k8s.id
-  version    = var.gke_version
+  version = var.gke_version
 
-  initial_node_count = var.kibana_instance_count
-
-  lifecycle {
-    ignore_changes = [
-      initial_node_count
-    ]
-  }
 
   management {
     auto_repair  = true
     auto_upgrade = true
   }
  
-  node_locations = [var.zones[0]]
+  initial_node_count = var.kibana_initial_node_count_per_zone
+
+  node_locations = var.kibana_node_zones
 
   autoscaling {
-    total_min_node_count = var.kibana_instance_count
-    total_max_node_count = var.kibana_max_instance_count
+    min_node_count = var.kibana_instance_count_per_zone
+    max_node_count = var.kibana_max_instance_count_per_zone
   }
 
 
@@ -87,27 +81,26 @@ resource "google_container_node_pool" "kibana" {
   }
 }
 
+
 resource "google_container_node_pool" "hot" {
   name    = "hot"
   cluster = google_container_cluster.k8s.id
   version = var.gke_version
-
-  initial_node_count = var.hot_instance_count
-
-  lifecycle {
-    ignore_changes = [
-      initial_node_count
-    ]
-  }
 
   management {
     auto_repair  = true
     auto_upgrade = true
   }
 
+  initial_node_count = var.kibana_initial_node_count_per_zone 
+
   autoscaling {
-    total_min_node_count = var.hot_instance_count
-    total_max_node_count = var.hot_max_instance_count
+    min_node_count = var.hot_instance_count_per_zone
+    max_node_count = var.hot_max_instance_count_per_zone
+  }
+
+  upgrade_settings {
+    max_surge = var.hot_surge_count
   }
 
   node_config {
@@ -131,22 +124,23 @@ resource "google_container_node_pool" "warm" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
-  initial_node_count = var.warm_instance_count
-  lifecycle {
-    ignore_changes = [
-      initial_node_count
-    ]
-  }
+  initial_node_count = var.warm_initial_node_count_per_zone 
 
   management {
     auto_repair  = true
     auto_upgrade = true
   }
-  
+
   autoscaling {
-    total_min_node_count = var.warm_instance_count
-    total_max_node_count = var.warm_max_instance_count
+    min_node_count = var.warm_instance_count_per_zone
+    max_node_count = var.warm_max_instance_count_per_zone
   }
+
+  upgrade_settings {
+    max_surge = var.warm_surge_count
+  }
+
+
 
   node_config {
     preemptible  = true
@@ -170,13 +164,7 @@ resource "google_container_node_pool" "cold" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
-  initial_node_count = var.cold_instance_count
-
-  lifecycle {
-    ignore_changes = [
-      initial_node_count
-    ]
-  }
+  initial_node_count = var.cold_initial_node_count_per_zone
 
   management {
     auto_repair  = true
@@ -184,8 +172,12 @@ resource "google_container_node_pool" "cold" {
   }
 
   autoscaling {
-    total_min_node_count = var.cold_instance_count
-    total_max_node_count = var.cold_max_instance_count
+    min_node_count = var.cold_instance_count_per_zone
+    max_node_count = var.cold_max_instance_count_per_zone
+  }
+
+  upgrade_settings {
+    max_surge = var.cold_surge_count
   }
 
   node_config {
@@ -209,23 +201,22 @@ resource "google_container_node_pool" "frozen" {
   name    = "frozen"
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
+
+  initial_node_count = var.frozen_initial_node_count_per_zone
+
   management {
     auto_repair  = true
     auto_upgrade = true
   }
 
-  initial_node_count = var.frozen_instance_count
-
-  lifecycle {
-    ignore_changes = [
-      initial_node_count
-    ]
-  }
-
 
   autoscaling {
-    total_min_node_count = var.frozen_instance_count
-    total_max_node_count = var.frozen_max_instance_count
+    min_node_count = var.frozen_instance_count_per_zone
+    max_node_count = var.frozen_max_instance_count_per_zone
+  }
+
+  upgrade_settings {
+    max_surge = var.frozen_surge_count
   }
 
   node_config {
@@ -250,13 +241,7 @@ resource "google_container_node_pool" "ml" {
   cluster = google_container_cluster.k8s.id
   version    = var.gke_version
 
-  initial_node_count = var.ml_instance_count
-
-  lifecycle {
-    ignore_changes = [
-      initial_node_count
-    ]
-  }
+  initial_node_count = var.ml_initial_node_count_per_zone
 
   management {
     auto_repair  = true
@@ -264,8 +249,12 @@ resource "google_container_node_pool" "ml" {
   }
 
   autoscaling {
-    total_min_node_count = var.ml_instance_count
-    total_max_node_count = var.ml_max_instance_count
+    min_node_count = var.ml_instance_count_per_zone
+    max_node_count = var.ml_max_instance_count_per_zone
+  }
+
+  upgrade_settings {
+    max_surge = var.ml_surge_count
   }
 
   node_config {
@@ -293,7 +282,7 @@ resource "google_container_node_pool" "util" {
 
 
   node_count = var.util_instance_count
-  node_locations = [var.zones[0]]
+  node_locations = var.util_node_zones
 
   management {
     auto_repair  = true

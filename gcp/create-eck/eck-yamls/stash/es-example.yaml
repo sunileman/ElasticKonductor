@@ -1,0 +1,149 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: eck
+  namespace: default
+spec:
+  version: 8.5.3
+  secureSettings:
+  nodeSets:
+  - name: master
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.roles:  [ master ]
+      #node.master: true
+      #node.data: false
+      #node.ingest: false
+      #node.ml: false
+      # this allows ES to run on nodes even if their vm.max_map_count has not been increased, at a performance cost
+      #node.store.allow_mmap: false
+      transport.compress: true
+    podTemplate:
+      metadata:
+        labels:
+          # additional labels for pods
+          foo: compress
+        annotations:
+          #co.elastic.metrics/module: elasticsearch-xpack
+          #co.elastic.metrics/username: beat
+          #co.elastic.metrics/password: beatbeatbeat
+          #co.elastic.metrics/ssl.verification_mode: none
+      spec:
+        initContainers:
+        nodeSelector:
+          nodetype: master
+        # this changes the kernel setting on the node to allow ES to use mmap
+        # if you uncomment this init container you will likely also want to remove the
+        # "node.store.allow_mmap: false" setting above
+        # initContainers:
+        # - name: sysctl
+        #   securityContext:
+        #     privileged: true
+        #   command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        ###
+        # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
+        # automountServiceAccountToken: true
+        containers:
+        - name: elasticsearch
+          # specify resource limits and requests
+          resources:
+            limits:
+              memory: 20Gi
+              cpu: 1
+    count: 1
+    volumeClaimTemplates:
+     - metadata:
+         name: elasticsearch-data
+       spec:
+         accessModes:
+         - ReadWriteOnce
+         resources:
+           requests:
+             storage: 140Gi
+         storageClassName: gold
+  - name: hot
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.roles: [ data_hot, data_content, ingest, ml ]
+      #node.master: false
+      #node.data: true
+      #node.ingest: true
+      #node.ml: true
+      # this allows ES to run on nodes even if their vm.max_map_count has not been increased, at a performance cost
+      #node.store.allow_mmap: false
+      #hot node for ILM
+      node.attr.data: hot
+      transport.compress: true
+    podTemplate:
+      metadata:
+        labels:
+          # additional labels for pods
+          foo: compress
+        annotations:
+          #co.elastic.metrics/module: elasticsearch-xpack
+          #co.elastic.metrics/username: beat
+          #co.elastic.metrics/password: beatbeatbeat
+          #co.elastic.metrics/ssl.verification_mode: none
+      spec:
+        nodeSelector:
+          nodetype: hot
+        # this changes the kernel setting on the node to allow ES to use mmap
+        # if you uncomment this init container you will likely also want to remove the
+        # "node.store.allow_mmap: false" setting above
+        # initContainers:
+        # - name: sysctl
+        #   securityContext:
+        #     privileged: true
+        #   command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        ###
+        # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
+        # automountServiceAccountToken: true
+        containers:
+        - name: elasticsearch
+          # specify resource limits and requests
+          resources:
+            limits:
+              memory: 20Gi
+              cpu: 3
+        #affinity:
+        # nodeAffinity:
+        #   requiredDuringSchedulingIgnoredDuringExecution:
+        #     nodeSelectorTerms:
+        #       - matchExpressions:
+        #         - key: kubernetes.io/e2e-az-name
+        #           operator: In
+        #           values:
+        #           - lolthisdoesntexist
+    count: 2
+    volumeClaimTemplates:
+     - metadata:
+         name: elasticsearch-data
+       spec:
+         accessModes:
+         - ReadWriteOnce
+         resources:
+           requests:
+             storage: 500Gi
+         storageClassName: gold
+  # # inject secure settings into Elasticsearch nodes from k8s secrets references
+  # secureSettings:
+  # - secretName: ref-to-secret
+  # - secretName: another-ref-to-secret
+  #   # expose only a subset of the secret keys (optional)
+  #   entries:
+  #   - key: value1
+  #     path: newkey # project a key to a specific path (optional)
+  # # inject secure settings into Elasticsearch nodes from k8s secrets references
+  # secureSettings:
+  # - secretName: ref-to-secret
+  # - secretName: another-ref-to-secret
+  #   # expose only a subset of the secret keys (optional)
+  #   entries:
+  #   - key: value1
+  #     path: newkey # project a key to a specific path (optional)
+
+  http:
+   tls:
+    selfSignedCertificate:
+     subjectAltNames:
+     - dns: "*.googleusercontent.com"

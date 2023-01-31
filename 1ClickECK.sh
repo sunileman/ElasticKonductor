@@ -6,7 +6,7 @@ nowtime=`date +"%m_%d_%Y_%s"`
 oneclickv=.19
 
 usage() {
-     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-h for help]."
+     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-r for create without openebs] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
@@ -17,10 +17,11 @@ cleanup() {
   destroy=false
   createModeArg=NA
   cloud=NA
+  openebs_enabled=""
 }
 
 cleanup
-while getopts ':b:c:dhv' OPTION; do
+while getopts ':b:c:drhv' OPTION; do
   case "$OPTION" in
     b)
       createModeArg="$OPTARG"
@@ -54,10 +55,15 @@ while getopts ':b:c:dhv' OPTION; do
       echo "Destroy all"
       destroy=true
       ;;
+    r)
+      echo "Disable OpenEBS"
+      openebs_enabled="-r"
+      ;;
     h)
       echo "Options"
       echo "Create all K8s & ECK assets: $0 -b all"
       echo "Create K8s: $0 -b k8s"
+      echo "Create without OpenEBS: $0 -r"
       echo "Destroy all assets built by 1Click: $0 -d [-c aws|azure|gcp] "
       exit 0
       ;;
@@ -73,8 +79,7 @@ while getopts ':b:c:dhv' OPTION; do
 done
 shift "$(($OPTIND -1))"
 
-
-exec > >(tee -i $LOG_LOCATION/1Click_$cloud_$nowtime.log)
+exec > >(tee -i $LOG_LOCATION/1Click_${cloud}_${nowtime}.log)
 exec 2>&1
 echo "Log Location: [ $LOG_LOCATION ]"
 
@@ -168,14 +173,14 @@ elif [[ $cloud == azure ]]; then
     fi
 elif [[ $cloud == gcp ]]; then
     if [ $createmode == true ] && [ $k8sonly == false ]; then
-       (cd ./gcp; bash ./1ClickGCP.sh -b all)
+       (cd ./gcp; bash ./1ClickGCP.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
        echo Total deployment time in seconds: $duration
     elif [ $createmode == true ] && [ $k8sonly == true ]; then
-       (cd ./gcp; bash ./1ClickGCP.sh -b gke)
+       (cd ./gcp; bash ./1ClickGCP.sh -b gke $openebs_enabled)
        duration=$(( SECONDS - start ))
     elif [[ $destroy == true ]]; then
-       (cd ./gcp; bash ./1ClickGCP.sh -d )
+       (cd ./gcp; bash ./1ClickGCP.sh -d)
        duration=$(( SECONDS - start ))
        echo Total deployment time in seconds: $duration
     else

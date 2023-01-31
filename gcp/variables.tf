@@ -3,6 +3,11 @@ variable "agent_count" {
 }
 
 
+variable "gcp_project" {
+  description = "gcp project"
+  type        = string
+}
+
 variable "region" {
   description = "region"
   default = "us-central1"
@@ -12,6 +17,16 @@ variable "region" {
 variable "zones" {
   description = "zones"
   default = ["us-central1-a", "us-central1-b", "us-central1-c"]
+}
+
+variable "kibana_node_zones" {
+  description = "zones"
+  default = ["us-central1-a", ]
+}
+
+variable "util_node_zones" {
+  description = "zones"
+  default = ["us-central1-a", ]
 }
 
 
@@ -53,19 +68,30 @@ variable "tags" {
 }
 
 
-variable "master_instance_count" {
-  description = "Number of master instances"
+
+
+variable "master_initial_node_count_per_zone" {
+  description = "Number total initial instances per zone"
   type        = number
   default     = 1
 }
 
-variable "master_instance_zones" {
-  description = "Zones to host master instance"
-  type   = list(string)
-  default = ["us-central1-a", "us-central1-b"]
+
+variable "master_surge_count" {
+  description = "autoscale surge count"
+  type        = number
+  default     = 10
 }
 
-variable "master_max_instance_count" {
+
+variable "master_instance_count_per_zone" {
+  description = "Number of master instances per zone"
+  type        = number
+  default     = 1
+}
+
+
+variable "master_max_instance_count_per_zone" {
   description = "Max Number of master instances per zone"
   type        = number
   default     = 1
@@ -95,13 +121,25 @@ variable "master_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "kibana_instance_count" {
-  description = "Number of kibana instances per zone"
+variable "kibana_initial_node_count_per_zone" {
+  description = "Number total initial instances per zone"
   type        = number
-  default     = 2
+  default     = 1
 }
 
-variable "kibana_max_instance_count" {
+variable "kibana_surge_count" {
+  description = "autoscale surge count"
+  type        = number
+  default     = 10
+}
+
+variable "kibana_instance_count_per_zone" {
+  description = "Number of kibana instances per zone"
+  type        = number
+  default     = 1
+}
+
+variable "kibana_max_instance_count_per_zone" {
   description = "Max Number of kibana instances per zone"
   type        = number
   default     = 10
@@ -131,14 +169,26 @@ variable "kibana_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "hot_instance_count" {
+variable "hot_surge_count" {
+  description = "autoscale surge count"
+  type        = number
+  default     = 10
+}
+
+variable "hot_initial_node_count_per_zone" {
+  description = "Number total initial instances, not per zone"
+  type        = number
+  default     = 1
+}
+
+variable "hot_instance_count_per_zone" {
   description = "Number of hot instances per zone"
   type        = number
   default     = 1
 }
 
 
-variable "hot_max_instance_count" {
+variable "hot_max_instance_count_per_zone" {
   description = "Max Number of hot instances per zone"
   type        = number
   default     = 20
@@ -169,13 +219,25 @@ variable "hot_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "warm_instance_count" {
+variable "warm_surge_count" {
+  description = "autoscale surge count"
+  type        = number
+  default     = 10
+}
+
+variable "warm_initial_node_count_per_zone" {
+  description = "Number total initial instances per zone"
+  type        = number
+  default     = 0
+}
+
+variable "warm_instance_count_per_zone" {
   description = "Number of warm instances per zone"
   type        = number
   default     = 0
 }
 
-variable "warm_max_instance_count" {
+variable "warm_max_instance_count_per_zone" {
   description = "Max Number of warm instances per zone"
   type        = number
   default     = 10
@@ -206,14 +268,26 @@ variable "warm_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "cold_instance_count" {
+variable "cold_surge_count" {
+  description = "autoscale surge count"
+  type        = number
+  default     = 10
+}
+
+variable "cold_initial_node_count_per_zone" {
+  description = "Number total initial instances per zone"
+  type        = number
+  default     = 0
+}
+
+variable "cold_instance_count_per_zone" {
   description = "Number of cold instances per zone"
   type        = number
   default     = 0
 }
 
 
-variable "cold_max_instance_count" {
+variable "cold_max_instance_count_per_zone" {
   description = "Max Number of cold instances per zone"
   type        = number
   default     = 10
@@ -245,16 +319,27 @@ variable "cold_volume_type" {
   default     = "pd-ssd"
 }
 
+variable "frozen_surge_count" {
+  description = "autoscale surge count"
+  type        = number
+  default     = 10
+}
+
+variable "frozen_initial_node_count_per_zone" {
+  description = "Number total initial instances per zone"
+  type        = number
+  default     = 0
+}
 
 
-variable "frozen_instance_count" {
+variable "frozen_instance_count_per_zone" {
   description = "Number of frozen instances per zone"
   type        = number
   default     = 0
 }
 
 
-variable "frozen_max_instance_count" {
+variable "frozen_max_instance_count_per_zone" {
   description = "Max Number of frozen instances per zone"
   type        = number
   default     = 10
@@ -284,13 +369,26 @@ variable "frozen_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "ml_instance_count" {
+variable "ml_surge_count" {
+  description = "autoscale surge count"
+  type        = number
+  default     = 10
+}
+
+variable "ml_initial_node_count_per_zone" {
+  description = "Number total initial instances per zone"
+  type        = number
+  default     = 0
+}
+
+
+variable "ml_instance_count_per_zone" {
   description = "Number of ml instances per zone"
   type        = number
   default     = 0
 }
 
-variable "ml_max_instance_count" {
+variable "ml_max_instance_count_per_zone" {
   description = "Max Number of ml instances per zone"
   type        = number
   default     = 10

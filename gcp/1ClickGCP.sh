@@ -8,7 +8,7 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-b <all | gke >] [-d for destroy] [-h for help]."
+     echo "Usage: $0 [-b <all | gke >] [-d for destroy] [-r disable openebs] [-h for help]."
      echo "Hit enter to try again with correct arguments" exit 0;
 }
 
@@ -17,12 +17,13 @@ cleanup() {
   gkeonly=false
   destroy=false
   createModeArg=NA
+  openebs="openebs-enabled"
 }
 
 
 
 cleanup
-while getopts ':b:dh' OPTION; do
+while getopts ':b:dhr' OPTION; do
   case "$OPTION" in
     b)
       createModeArg="$OPTARG"
@@ -41,10 +42,15 @@ while getopts ':b:dh' OPTION; do
       echo "Destroy all"
       destroy=true
       ;;
+    r)
+      echo "Disable OpenEBS"
+      openebs="openebs-disabled"
+      ;;
     h)
       echo "Options"
       echo "Create all GKE & ECK assets: $0 -b all"
       echo "Create EKS: $0 -b gke" 
+      echo "Create without OpenEBS: $0 -r" 
       echo "Destroy all assets build by 1Click: $0 -d "
       exit 0
       ;;
@@ -84,17 +90,17 @@ chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
 
 
 if [ $createmode == true ] && [ $gkeonly == false ]; then
-   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh)
+   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh $openebs)
    (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $gkeonly == true ]; then
-   #(cd ./create-gke ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh)
+   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
    (cd ./create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./create-gke/addons ; terraform destroy -auto-approve 2>/dev/null)
+   (cd ./create-gke/addons/openebs ; terraform destroy -auto-approve 2>/dev/null)
+   (cd ./create-gke/addons/ksm ; terraform destroy -auto-approve 2>/dev/null)
    (cd ./create-gke ; terraform destroy -auto-approve 2>/dev/null)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
