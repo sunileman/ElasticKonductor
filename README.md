@@ -240,6 +240,17 @@ Take this into consideration if the defaults aren't acceptables
 The automation; 1ClickECK,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun 1ClickECK with the same -b -c arguments 
 ## kubectl manifest
 Automation will set local kube config (kubectl) after automation run.  If local kube config needs to be reset, simple rerun the automation (even if there is no change) to set local kube config.
+## OpenEBS
+OpenEBS is a automatic disk provisioner for K8s.  There may be scanerios the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
+
+```
+./1ClickECK -c gcp -b k8s -r
+```
+
+If openEBS exist on K8s cluster and to remove run this
+```
+./1ClickECK/<aws|gcp|azure>/create-gke/addons/openebs/1ClickRemoveOpenEBS.sh
+```
 ## Troubleshooting
 ```bash
 OOMKilled
@@ -259,14 +270,3 @@ All automation logs are stored in ./logs
 Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
 ```
 try:  export KUBE_CONFIG_PATH=~/.kube/config
-## OpenEBS
-OpenEBS is a automatic disk provisioner for K8s.  There may be scanerios the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
-
-```
-./1ClickECK -c gcp -b k8s -r
-```
-
-If openEBS exist on K8s cluster and to remove run this
-```
-./1ClickECK/<aws|gcp|azure>/create-gke/addons/openebs/1ClickRemoveOpenEBS.sh
-```
