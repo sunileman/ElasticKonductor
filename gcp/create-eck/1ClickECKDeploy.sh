@@ -24,5 +24,5 @@ terraform plan -out state.tfplan
 terraform apply state.tfplan
 
 echo Please wait....
-sleep 60
+sleep 120
 ./getClusterInfo.sh

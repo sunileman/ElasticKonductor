@@ -25,7 +25,9 @@ Does not deploy
 
 ## Prerequisites
 
+
 `General`
+* Ubuntu host to install all clients listed below (terraform, aws cli, etc).  Automation has been tested on ONLY on Ubuntu host
 * Install Terraform client
     * https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 * Install kubectl client
@@ -64,6 +66,7 @@ Does not deploy
     ```
 * `GCP`
     * https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#gcloud
+    * run gcloud init to initialize your client
 
 ## Deployment
 [![2023-01-27-19-41-37.jpg](https://i.postimg.cc/jSxKSMZ1/2023-01-27-19-41-37.jpg)](https://postimg.cc/WhHx9wRm)
@@ -163,6 +166,8 @@ Tear Down all assets built by the automation
 ```
 
 
+## Autoscaling
+[![2023-01-30-11-26-51.jpg](https://i.postimg.cc/HszXV6xj/2023-01-30-11-26-51.jpg)](https://postimg.cc/HVJVN4bC)
 ## Terraform Variables
 
 The automation requires a few variables to be set in the `.[aws|azure]/terraform.tfvars` file<br>
