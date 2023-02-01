@@ -6,8 +6,6 @@ nowtime=`date +"%m_%d_%Y_%s"`
 export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
-
-
 echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
@@ -16,8 +14,6 @@ cp -f ../terraform.tfvars .
 echo Creating Elastic CRDS and Operator
 (cd ./create-operator ; sh ./1ClickECKOperator.sh)
 
-#add license file
-./eck-add-license.sh
 
 # initialize terraform configuration
 terraform init
@@ -30,6 +26,10 @@ terraform plan -out state.tfplan
 
 # apply terraform plan
 terraform apply state.tfplan
+
+#add license file
+./license/1ClickAddLicense.sh
+
 
 echo Please wait....
 sleep 120

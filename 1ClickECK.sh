@@ -3,7 +3,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.19
+oneclickv=.21
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-r for create without openebs] [-h for help]."
@@ -21,45 +21,53 @@ cleanup() {
 }
 
 cleanup
-while getopts ':b:c:drhv' OPTION; do
-  case "$OPTION" in
-    b)
-      createModeArg="$OPTARG"
-      createmode=true
-      if [[ "${OPTARG,,}" == "all" ]]; then
-        echo "Build Mode = ALL"
-      elif [[ "${OPTARG,,}" == "k8s" ]]; then
-        echo "Build Mode = K8s Only"
-	k8sonly=true
-      else
-        echo "Not a valid option.  Use: all or k8s"
-        exit 1
-      fi
-      ;;
-    c)
-      if [[ "${OPTARG,,}" == "aws" ]]; then
+# process command line arguments
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -c|--cloud)
+      shift
+      if [[ "$1" == "aws" ]]; then
         echo "Cloud: AWS"
       	cloud="aws"
-      elif [[ "${OPTARG,,}" == "azure" ]]; then
+      elif [[ "$1" == "azure" ]]; then
         echo "Cloud: Azure"
       	cloud="azure"
-      elif [[ "${OPTARG,,}" == "gcp" ]]; then
+      elif [[ "$1" == "gcp" ]]; then
         echo "Cloud: GCP"
         cloud="gcp"
       else
-      	echo "Not a valid option.  Use: aws|azure|gcp"
+      	echo "Not a valid cloud provider. Use: aws|azure|gcp"
         exit 1
       fi
+      shift
       ;;
-    d)
-      echo "Destroy all"
-      destroy=true
+    -b|--build)
+      shift
+      createModeArg="$1"
+      createmode=true
+      if [[ "$1" == "all" ]]; then
+        echo "Build Mode = ALL"
+      elif [[ "$1" == "k8s" ]]; then
+        echo "Build Mode = K8s Only"
+	      k8sonly=true
+      else
+        echo "Not a valid build option. Use: all or k8s"
+        exit 1
+      fi
+      shift
       ;;
-    r)
+    -r|--removeopenebs)
       echo "Disable OpenEBS"
       openebs_enabled="-r"
+      shift
       ;;
-    h)
+    -d|--destroy)
+      shift
+      echo "Destroy all"
+      destroy=true
+      shift
+      ;;
+    -h|--help)
       echo "Options"
       echo "Create all K8s & ECK assets: $0 -b all"
       echo "Create K8s: $0 -b k8s"
@@ -67,17 +75,18 @@ while getopts ':b:c:drhv' OPTION; do
       echo "Destroy all assets built by 1Click: $0 -d [-c aws|azure|gcp] "
       exit 0
       ;;
-    v)
+    -v|--version)
       echo
       echo "Version $oneclickv"
       exit 0
       ;;
     *)
       usage
+      break
       ;;
   esac
 done
-shift "$(($OPTIND -1))"
+
 
 exec > >(tee -i $LOG_LOCATION/1Click_${cloud}_${nowtime}.log)
 exec 2>&1
@@ -155,11 +164,11 @@ if [ $cloud == "aws" ]; then
     fi
 elif [[ $cloud == azure ]]; then
     if [ $createmode == true ] && [ $k8sonly == false ]; then
-       (cd ./azure; bash ./1ClickAzure.sh -b all)
+       (cd ./azure; bash ./1ClickAzure.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
        echo Total deployment time in seconds: $duration
     elif [ $createmode == true ] && [ $k8sonly == true ]; then
-       (cd ./azure; bash ./1ClickAzure.sh -b aks)
+       (cd ./azure; bash ./1ClickAzure.sh -b aks $openebs_enabled)
        duration=$(( SECONDS - start ))
     elif [[ $destroy == true ]]; then
        (cd ./azure; bash ./1ClickAzure.sh -d )

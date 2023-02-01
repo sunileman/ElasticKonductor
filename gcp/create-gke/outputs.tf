@@ -5,3 +5,7 @@ output "cluster_name" {
 output "region" {
   value = google_container_cluster.k8s.location
 }
+
+output "gke_count" {
+  value = length(google_container_cluster.k8s)
+}

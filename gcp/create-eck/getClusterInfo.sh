@@ -1,8 +1,8 @@
 #!/bin/bash
 clusternameraw=$(terraform output clustername)
-clustername=${clusternameraw:1: -1}
+clustername=${clusternameraw//\"/}
 regionraw=$(terraform output region)
-region=${regionraw:1: -1}
+region=${regionraw//\"/}
 
 ipsplit() { local IFS=.; echo $*; }
 kurl=$(kubectl get service eck-kb-http | tail -n -1 | awk {'print $4"" '})

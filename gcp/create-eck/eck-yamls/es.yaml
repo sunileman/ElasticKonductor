@@ -30,12 +30,6 @@ spec:
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
         initContainers:
-        - name: install-plugins
-          command:
-          - sh
-          - -c
-          - |
-            bin/elasticsearch-plugin install --batch repository-s3
         nodeSelector:
           nodetype: master
         # this changes the kernel setting on the node to allow ES to use mmap
@@ -95,12 +89,6 @@ spec:
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
         initContainers:
-        - name: install-plugins
-          command:
-          - sh
-          - -c
-          - |
-            bin/elasticsearch-plugin install --batch repository-s3
         nodeSelector:
           nodetype: hot
         # this changes the kernel setting on the node to allow ES to use mmap
@@ -169,12 +157,6 @@ spec:
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
         initContainers:
-        - name: install-plugins
-          command:
-          - sh
-          - -c
-          - |
-            bin/elasticsearch-plugin install --batch repository-s3
         nodeSelector:
           nodetype: warm
         # this changes the kernel setting on the node to allow ES to use mmap
@@ -243,12 +225,6 @@ spec:
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
         initContainers:
-        - name: install-plugins
-          command:
-          - sh
-          - -c
-          - |
-            bin/elasticsearch-plugin install --batch repository-s3
         nodeSelector:
           nodetype: cold
         # this changes the kernel setting on the node to allow ES to use mmap
@@ -317,12 +293,6 @@ spec:
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
         initContainers:
-        - name: install-plugins
-          command:
-          - sh
-          - -c
-          - |
-            bin/elasticsearch-plugin install --batch repository-s3
         nodeSelector:
           nodetype: frozen
         # this changes the kernel setting on the node to allow ES to use mmap
@@ -391,12 +361,6 @@ spec:
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
         initContainers:
-        - name: install-plugins
-          command:
-          - sh
-          - -c
-          - |
-            bin/elasticsearch-plugin install --batch repository-s3
         nodeSelector:
           nodetype: ml
         # this changes the kernel setting on the node to allow ES to use mmap

@@ -1,8 +1,9 @@
 #!/bin/bash
 clusternameraw=$(terraform output clustername)
-clustername=${clusternameraw:1: -1}
+clustername=${clusternameraw//\"/}
 regionraw=$(terraform output region)
-region=${regionraw:1: -1}
+region=${regionraw//\"/}
+
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo Checking if license file is exists
 echo ...

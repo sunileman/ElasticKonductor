@@ -9,7 +9,8 @@ echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
      echo "Usage: $0 [-b <all | gke >] [-d for destroy] [-r disable openebs] [-h for help]."
-     echo "Hit enter to try again with correct arguments" exit 0;
+     echo "Hit enter to try again with correct arguments" 
+     exit 0;
 }
 
 cleanup() {
@@ -23,43 +24,52 @@ cleanup() {
 
 
 cleanup
-while getopts ':b:dhr' OPTION; do
-  case "$OPTION" in
-    b)
-      createModeArg="$OPTARG"
+
+# process command line arguments
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -b|--build)
+      shift
+      createModeArg="$1"
       createmode=true
-      if [[ "${OPTARG,,}" == "all" ]]; then
+      if [[ "$1" == "all" ]]; then
         echo "Build Mode = ALL"
-      elif [[ "${OPTARG,,}" == "gke" ]]; then
+      elif [[ "$1" == "gke" ]]; then
 	gkeonly=true
         echo "Create Mode = GKE Only"
       else
         echo "Not a valid option.  Use: all or gke"
         exit 1
       fi
+      shift
       ;;
-    d)
+    -d|--destroy)
       echo "Destroy all"
       destroy=true
+      shift
       ;;
-    r)
+    -r|--removeopenebs)    
       echo "Disable OpenEBS"
       openebs="openebs-disabled"
+      shift
       ;;
-    h)
+    -h|--help)
       echo "Options"
       echo "Create all GKE & ECK assets: $0 -b all"
-      echo "Create EKS: $0 -b gke" 
+      echo "Create GKE: $0 -b gke" 
       echo "Create without OpenEBS: $0 -r" 
       echo "Destroy all assets build by 1Click: $0 -d "
       exit 0
       ;;
     *)
       usage
+      break
       ;;
   esac
 done
-shift "$(($OPTIND -1))"
+
+
+
 
 if [ $createmode != true ] && [ $destroy != true ] && [ $gkeonly != true ]; then
     usage
@@ -81,7 +91,7 @@ fi
 start=$SECONDS
 chmod 700 ./create-gke/1ClickGKEDeploy.sh
 chmod 700 ./create-gke/addons/1ClickAddons.sh
-chmod 700 ./create-eck/cleanup.sh
+chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
 chmod 700 ./create-eck/eck-add-license.sh
@@ -98,10 +108,8 @@ elif [ $createmode == true ] && [ $gkeonly == true ]; then
    (cd ./create-gke ; sh ./1ClickGKEDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
-   (cd ./create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./create-gke/addons/openebs ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-gke/addons/ksm ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-gke ; terraform destroy -auto-approve 2>/dev/null)
+   (cd ./create-eck ; bash ./1ClickECKDestroy.sh 2>/dev/null)
+   (cd ./create-gke; bash ./1ClickGKEDestroy.sh 2>/dev/null)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 else

@@ -2,14 +2,16 @@
 
 ##get variables from terraform state
 lbnameraw=$(terraform output lbname)
-lbname=${lbnameraw:1: -1}
-lb2nameraw=$(terraform output lb2name)
-lb2name=${lb2nameraw:1: -1}
-regionraw=$(terraform output region)
-region=${regionraw:1: -1}
-clusternameraw=$(terraform output clustername)
-clustername=${clusternameraw:1: -1}
+lbname=${lbnameraw//\"/}
 
+lb2nameraw=$(terraform output lb2name)
+lb2name=${lb2nameraw//\"/}
+
+clusternameraw=$(terraform output clustername)
+clustername=${clusternameraw//\"/}
+
+regionraw=$(terraform output region)
+region=${regionraw//\"/}
 
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo Checking if license file is exists

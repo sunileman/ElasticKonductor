@@ -13,6 +13,7 @@ openebs=$1
 
 export KUBE_CONFIG_PATH=~/.kube/config
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
 echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .

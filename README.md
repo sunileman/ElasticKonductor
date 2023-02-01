@@ -54,6 +54,7 @@ Does not deploy
 `Azure`
 * AZ CLI CLI installed fully configured
     * https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+    * run az login
 * Azure service principal
     * https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure?tabs=bash#create-a-service-principal
     * Make note of the `appId`, `display_name`, `password`, and `tenantID`
@@ -69,6 +70,7 @@ Does not deploy
 * `GCP`
     * https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#gcloud
     * run gcloud init to initialize your client
+    * Note - project must be set in terraform.tfvars.  Project value within tags variable is used to tag instances with project value.  Not the same as gcp project which is set in terrform.tfvars.
 
 ## Deployment
 [![2023-01-27-19-41-37.jpg](https://i.postimg.cc/jSxKSMZ1/2023-01-27-19-41-37.jpg)](https://postimg.cc/WhHx9wRm)
@@ -270,3 +272,17 @@ All automation logs are stored in ./logs
 Error: Kubernetes cluster unreachable: invalid configuration: no configuration has been provided, try setting KUBERNETES_MASTER environment variable
 ```
 try:  export KUBE_CONFIG_PATH=~/.kube/config
+
+
+
+```
+Error: Error from server (Forbidden): error when creating “operator.yaml”: clusterroles.rbac.authorization.k8s.io “elastic-operator” is forbidden: user “xxxxx” (groups=[“system:authenticated”]) is attempting to grant RBAC permissions not currently held:
+```
+
+Add cluser-admin role
+```
+kubectl create clusterrolebinding \
+cluster-admin-binding \
+--clusterrole=cluster-admin \
+--user=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
+```
