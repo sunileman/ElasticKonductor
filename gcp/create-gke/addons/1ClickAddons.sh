@@ -1,6 +1,9 @@
 #!/bin/bash
 ##terraform logs
 
+echo "Runnig custom addons"
+(./1ClickCustomAddons.sh)
+
 ##option to disable openebs
 echo "openebs option: $1"
 openebs=$1
