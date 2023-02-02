@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 ##terraform logs
 nowtime=`date +"%m_%d_%Y_%s"`
 (mkdir -p ./tflogs)

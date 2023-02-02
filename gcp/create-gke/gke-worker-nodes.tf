@@ -1,6 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_service_account
 resource "google_service_account" "kubernetes" {
-  account_id = "oneclick"
+  account_id = lower(replace("${random_pet.name.id}", var.project, "oce"))
 }
 
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool
@@ -21,24 +21,18 @@ resource "google_container_node_pool" "master" {
     max_surge = var.master_surge_count
   }
 
-  management {
-    auto_repair  = true
-    auto_upgrade = true
-  }
 
   node_config {
     preemptible  = false
     machine_type = var.master_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.master_volume
     disk_type    = var.master_volume_type
    
     labels = var.master_instance_k8s_label 
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 
@@ -49,25 +43,14 @@ resource "google_container_node_pool" "kibana" {
   version = var.gke_version
 
 
-  management {
-    auto_repair  = true
-    auto_upgrade = true
-  }
- 
-  initial_node_count = var.kibana_initial_node_count_per_zone
 
-  node_locations = var.kibana_node_zones
-
-  autoscaling {
-    min_node_count = var.kibana_instance_count_per_zone
-    max_node_count = var.kibana_max_instance_count_per_zone
-  }
+  node_count = var.kibana_instance_count
 
 
   node_config {
     preemptible  = true
     machine_type = var.kibana_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.kibana_volume
     disk_type    = var.kibana_volume_type
     
@@ -75,9 +58,7 @@ resource "google_container_node_pool" "kibana" {
     labels = var.kibana_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 
@@ -88,11 +69,11 @@ resource "google_container_node_pool" "hot" {
   version = var.gke_version
 
   management {
-    auto_repair  = true
-    auto_upgrade = true
+    auto_repair  = var.gke_auto_repair
+    auto_upgrade = var.gke_auto_upgrade
   }
 
-  initial_node_count = var.kibana_initial_node_count_per_zone 
+  initial_node_count = var.hot_initial_node_count_per_zone 
 
   autoscaling {
     min_node_count = var.hot_instance_count_per_zone
@@ -106,16 +87,14 @@ resource "google_container_node_pool" "hot" {
   node_config {
     preemptible  = true
     machine_type = var.hot_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.hot_volume
     disk_type    = var.hot_volume_type
     
     labels = var.hot_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 
@@ -126,9 +105,10 @@ resource "google_container_node_pool" "warm" {
 
   initial_node_count = var.warm_initial_node_count_per_zone 
 
+
   management {
-    auto_repair  = true
-    auto_upgrade = true
+    auto_repair  = var.gke_auto_repair
+    auto_upgrade = var.gke_auto_upgrade
   }
 
   autoscaling {
@@ -145,7 +125,7 @@ resource "google_container_node_pool" "warm" {
   node_config {
     preemptible  = true
     machine_type = var.warm_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.warm_volume
     disk_type    = var.warm_volume_type
     
@@ -153,9 +133,7 @@ resource "google_container_node_pool" "warm" {
     labels = var.warm_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 
@@ -166,9 +144,10 @@ resource "google_container_node_pool" "cold" {
 
   initial_node_count = var.cold_initial_node_count_per_zone
 
+
   management {
-    auto_repair  = true
-    auto_upgrade = true
+    auto_repair  = var.gke_auto_repair
+    auto_upgrade = var.gke_auto_upgrade
   }
 
   autoscaling {
@@ -183,7 +162,7 @@ resource "google_container_node_pool" "cold" {
   node_config {
     preemptible  = true
     machine_type = var.cold_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.cold_volume
     disk_type    = var.cold_volume_type
 
@@ -191,9 +170,7 @@ resource "google_container_node_pool" "cold" {
     labels = var.cold_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 
@@ -205,10 +182,9 @@ resource "google_container_node_pool" "frozen" {
   initial_node_count = var.frozen_initial_node_count_per_zone
 
   management {
-    auto_repair  = true
-    auto_upgrade = true
+    auto_repair  = var.gke_auto_repair
+    auto_upgrade = var.gke_auto_upgrade
   }
-
 
   autoscaling {
     min_node_count = var.frozen_instance_count_per_zone
@@ -222,7 +198,7 @@ resource "google_container_node_pool" "frozen" {
   node_config {
     preemptible  = true
     machine_type = var.frozen_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.frozen_volume
     disk_type    = var.frozen_volume_type
 
@@ -230,9 +206,7 @@ resource "google_container_node_pool" "frozen" {
     labels = var.frozen_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 
@@ -244,8 +218,8 @@ resource "google_container_node_pool" "ml" {
   initial_node_count = var.ml_initial_node_count_per_zone
 
   management {
-    auto_repair  = true
-    auto_upgrade = true
+    auto_repair  = var.gke_auto_repair
+    auto_upgrade = var.gke_auto_upgrade
   }
 
   autoscaling {
@@ -260,7 +234,7 @@ resource "google_container_node_pool" "ml" {
   node_config {
     preemptible  = true
     machine_type = var.ml_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.ml_volume
     disk_type    = var.ml_volume_type
 
@@ -268,9 +242,7 @@ resource "google_container_node_pool" "ml" {
     labels = var.ml_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 
@@ -282,18 +254,17 @@ resource "google_container_node_pool" "util" {
 
 
   node_count = var.util_instance_count
-  node_locations = var.util_node_zones
+  node_locations = [var.zones[0]]
 
   management {
-    auto_repair  = true
-    auto_upgrade = true
+    auto_repair  = var.gke_auto_repair
+    auto_upgrade = var.gke_auto_upgrade
   }
-
 
   node_config {
     preemptible  = true
     machine_type = var.util_instance_type
-    image_type   = "UBUNTU_CONTAINERD"
+    image_type   = var.gke_image_type
     disk_size_gb = var.util_volume
     disk_type    = var.util_volume_type
 
@@ -301,9 +272,7 @@ resource "google_container_node_pool" "util" {
     labels = var.util_instance_k8s_label
 
     service_account = google_service_account.kubernetes.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
+    oauth_scopes = var.gke_oauth_scopes
   }
 }
 

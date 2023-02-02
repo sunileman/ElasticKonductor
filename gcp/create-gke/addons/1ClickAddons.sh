@@ -1,14 +1,16 @@
 #!/bin/bash
+
 ##terraform logs
 nowtime=`date +"%m_%d_%Y_%s"`
 (mkdir -p ./tflogs)
 export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
-
+set +e 
 echo "Running custom addons"
 (bash ./custom/1ClickAddons.sh)
 
+set -e
 echo "Running KSM addon"
 (cd ksm; bash ./1ClickAddons.sh)
 

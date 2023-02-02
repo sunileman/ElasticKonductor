@@ -10,6 +10,7 @@ echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
+set -e
 ##create elastic CRDs and Operator
 echo Creating Elastic CRDS and Operator
 (cd ./create-operator ; sh ./1ClickECKOperator.sh)

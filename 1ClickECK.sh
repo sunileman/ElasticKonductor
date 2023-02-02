@@ -1,9 +1,10 @@
 #!/bin/bash
+
 $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.21
+oneclickv=.22
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-r for create without openebs] [-h for help]."
@@ -19,6 +20,7 @@ cleanup() {
   cloud=NA
   openebs_enabled=""
 }
+
 
 cleanup
 # process command line arguments
@@ -62,7 +64,6 @@ while [[ "$#" -gt 0 ]]; do
       shift
       ;;
     -d|--destroy)
-      shift
       echo "Destroy all"
       destroy=true
       shift
@@ -86,6 +87,7 @@ while [[ "$#" -gt 0 ]]; do
       ;;
   esac
 done
+
 
 
 exec > >(tee -i $LOG_LOCATION/1Click_${cloud}_${nowtime}.log)
@@ -140,7 +142,7 @@ echo "                                                                          
 
 #https://patorjk.com/software/taag/#p=display&h=1&v=1&c=echo&f=Chiseled&t=1ClickECK#
 
-
+set -e
 start=$SECONDS
 
 export KUBE_CONFIG_PATH=~/.kube/config

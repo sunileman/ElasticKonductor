@@ -87,14 +87,13 @@ if [ $destroy == true ] && [ $gkeonly == true ] ; then
         exit 1
 fi
 
-
+set -e
 start=$SECONDS
 chmod 700 ./create-gke/1ClickGKEDeploy.sh
 chmod 700 ./create-gke/addons/1ClickAddons.sh
 chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
-chmod 700 ./create-eck/eck-add-license.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
 
 

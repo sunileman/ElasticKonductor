@@ -3,7 +3,7 @@
 ##your gcp cloud cli must set with your creds for the automatino to run
 
 
-##gcp_projct="your-gcp-project"
+##gcp_project="your-gcp-project"
 
 ##house keeping tags.  Set please
 tags = {
@@ -21,8 +21,10 @@ tags = {
 
 #######Compelete list of variables below. Uncomment and set to your liking.  The default values are table from variables.tf which should not be changed.  Override the default values here.
 
-#project= "1ClickECK"
 
+#project= "1ClickECK"
+#region= "us-central1"
+#zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
 
 #gke_version="1.24.8-gke.401"
@@ -31,8 +33,11 @@ tags = {
 #eck_namespace= "default"
 #release_channel= "STABLE"
 
-#region= "us-central1"
-#zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
+
+
+#gke_auto_upgrade=true
+#gke_auto_repair=false
+#gke_image_type="UBUNTU_CONTAINERD"
 
 
 #master_initial_node_count_per_zone=1
@@ -50,11 +55,7 @@ tags = {
 #master_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #master_pod_roles= "master"
 
-#kibana_initial_node_count_per_zone=1
-#kibana_instance_count_per_zone=1
-#kibana_max_instance_count_per_zone=10
-#kibana_surge_count=10
-#kibana_node_zones=["us-central1-a", ]
+#kibana_instance_count=1
 #kibana_instance_type= ""
 #kibana_instance_k8s_label= {"nodetype"="kibana"}
 #kibana_volume_type= "pd-ssd"

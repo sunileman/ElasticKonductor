@@ -19,16 +19,6 @@ variable "zones" {
   default = ["us-central1-a", "us-central1-b", "us-central1-c"]
 }
 
-variable "kibana_node_zones" {
-  description = "zones"
-  default = ["us-central1-a", ]
-}
-
-variable "util_node_zones" {
-  description = "zones"
-  default = ["us-central1-a", ]
-}
-
 
 variable "gke_version" {
   description = "GKE Version"
@@ -40,6 +30,31 @@ variable "release_channel" {
   description = "GKE Release Channel"
   type = string
   default = "STABLE"
+}
+
+
+variable "gke_auto_upgrade" {
+  description = "auto upgrade"
+  default = true
+}
+
+variable "gke_auto_repair" {
+  description = "auto repair"
+  default = false
+}
+
+
+variable "gke_image_type" {
+  description = "gke container image type"
+  type        = string
+  default     = "UBUNTU_CONTAINERD"
+}
+
+
+variable "gke_oauth_scopes" {
+  description = "gke oauth scopes"
+  type        = list(string)
+  default     = ["https://www.googleapis.com/auth/cloud-platform"]
 }
 
 variable "eck_version" {
@@ -121,29 +136,13 @@ variable "master_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "kibana_initial_node_count_per_zone" {
-  description = "Number total initial instances per zone"
+
+variable "kibana_instance_count" {
+  description = "Number of kibana instances"
   type        = number
   default     = 1
 }
 
-variable "kibana_surge_count" {
-  description = "autoscale surge count"
-  type        = number
-  default     = 10
-}
-
-variable "kibana_instance_count_per_zone" {
-  description = "Number of kibana instances per zone"
-  type        = number
-  default     = 1
-}
-
-variable "kibana_max_instance_count_per_zone" {
-  description = "Max Number of kibana instances per zone"
-  type        = number
-  default     = 10
-}
 
 variable "kibana_instance_type" {
   description = "Kibana instance type"

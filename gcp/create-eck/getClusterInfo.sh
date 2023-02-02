@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 clusternameraw=$(terraform output clustername)
 clustername=${clusternameraw//\"/}
 regionraw=$(terraform output region)

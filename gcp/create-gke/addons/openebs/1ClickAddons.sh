@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 ##terraform logs
 nowtime=`date +"%m_%d_%Y_%s"`
 (mkdir -p ./tflogs)
@@ -7,7 +8,7 @@ export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 
 export KUBE_CONFIG_PATH=~/.kube/config
-
+set -e
 # initialize terraform configuration
 terraform init
 
