@@ -11,7 +11,7 @@ export KUBE_CONFIG_PATH=~/.kube/config
 chmod 700 ./create-aks/1ClickAKSDeploy.sh
 chmod 700 ./create-aks/addons/1ClickAddons.sh
 chmod 700 ./create-aks/setkubectl.sh
-chmod 700 ./create-eck/cleanup.sh
+chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
 chmod 700 ./create-eck/eck-add-license.sh
@@ -21,52 +21,65 @@ chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
 
 
 usage() {
-     echo "Usage: $0 [-b <all | aks> ] [-d for destroy] [-h for help]."
+     echo "Usage: $0 [-b <all | aks >] [-d for destroy] [-r disable openebs] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
+
 
 cleanup() {
   createmode=false
   destroy=false
   aksonly=false
   createModeArg=NA
+  openebs="openebs-enabled"
 }
 
 
 cleanup
-while getopts ':b:dh' OPTION; do
-  case "$OPTION" in
-    b)
-      createModeArg="$OPTARG"
+
+# process command line arguments
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -b|--build)
+      shift
+      createModeArg="$1"
       createmode=true
-      if [[ "${OPTARG,,}" == "all" ]]; then
-        echo "Create Mode = ALL"
-      elif [[ "${OPTARG,,}" == "aks" ]]; then
+      if [[ "$1" == "all" ]]; then
+        echo "Build Mode = ALL"
+      elif [[ "$1" == "aks" ]]; then
 	aksonly=true
         echo "Create Mode = AKS Only"
       else
-	echo "Not a valid option.  Use: all or aks"
-	exit 1
+        echo "Not a valid option.  Use: all or aks"
+        exit 1
       fi
+      shift
       ;;
-    d)
+    -d|--destroy)
       echo "Destroy all"
       destroy=true
+      shift
       ;;
-    h)
-
+    -r|--removeopenebs)
+      echo "Disable OpenEBS"
+      openebs="openebs-disabled"
+      shift
+      ;;
+    -h|--help)
+      echo "Options"
       echo "Create all AKS & ECK assets: $0 -b all"
-      echo "Create AKS: $0 -b aks" 
+      echo "Create AKS: $0 -b aks"
+      echo "Create without OpenEBS: $0 -r"
       echo "Destroy all assets build by 1Click: $0 -d "
       exit 0
       ;;
     *)
       usage
+      break
       ;;
   esac
 done
-shift "$(($OPTIND -1))"
 
 if [ $createmode != true ] && [ $destroy != true ] && [ $aksonly != true ]; then
     usage
@@ -87,20 +100,19 @@ fi
 
 start=$SECONDS
 
+set -e
 
 if [ $createmode == true ] && [ $aksonly == false ]; then
-   (cd ./create-aks ; sh ./1ClickAKSDeploy.sh)
+   (cd ./create-aks ; sh ./1ClickAKSDeploy.sh $openebs)
    (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $aksonly == true ]; then
-   #(cd ./create-aks ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-aks ; sh ./1ClickAKSDeploy.sh)
+   (cd ./create-aks ; sh ./1ClickAKSDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
-   (cd ./create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./create-aks/addons ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-aks ; terraform destroy -auto-approve 2>/dev/null)
+   (cd ./create-eck ; sh ./1ClickECKDestroy.sh 2>/dev/null)
+   (cd ./create-aks; bash ./1ClickAKSDestroy.sh 2>/dev/null)
    duration=$(( SECONDS - start ))
    echo Total deployment time in seconds: $duration
 else

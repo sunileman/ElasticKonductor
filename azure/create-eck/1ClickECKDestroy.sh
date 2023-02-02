@@ -1,6 +1,7 @@
 #!/bin/bash
 export KUBE_CONFIG_PATH=~/.kube/config
 
+set -e
 echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 ##get variables from terraform state
 regionraw=$(terraform output region)
 region=${regionraw:1: -1}

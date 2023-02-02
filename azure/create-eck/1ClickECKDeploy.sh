@@ -5,6 +5,7 @@ export KUBE_CONFIG_PATH=~/.kube/config
 #(cd ./namegen; bash ./1ClickNameGen.sh; sh ./set_TF_VAR_lbname.sh)
 (cd ./namegen; bash ./1ClickNameGen.sh )
 
+set -e
 #copy variables to operator directory
 echo "coping variable files"
 cp -f ../variables.tf .
@@ -28,6 +29,7 @@ terraform plan -out state.tfplan
 terraform apply state.tfplan
 
 #add license file
+echo "Adding trial license"
 ./license/1ClickAddLicense.sh
 
 echo Please wait....
