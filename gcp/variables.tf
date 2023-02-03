@@ -1,7 +1,9 @@
+# DO NOT MODIFIY
+# Set any changes or customizations in terraform.tfvars
+
 variable "agent_count" {
   default = 3
 }
-
 
 variable "gcp_project" {
   description = "gcp project"
@@ -13,12 +15,10 @@ variable "region" {
   default = "us-central1"
 }
 
-
 variable "zones" {
   description = "zones"
   default = ["us-central1-a", "us-central1-b", "us-central1-c"]
 }
-
 
 variable "gke_version" {
   description = "GKE Version"
@@ -32,7 +32,6 @@ variable "release_channel" {
   default = "STABLE"
 }
 
-
 variable "gke_auto_upgrade" {
   description = "auto upgrade"
   default = true
@@ -43,13 +42,11 @@ variable "gke_auto_repair" {
   default = false
 }
 
-
 variable "gke_image_type" {
   description = "gke container image type"
   type        = string
   default     = "UBUNTU_CONTAINERD"
 }
-
 
 variable "gke_oauth_scopes" {
   description = "gke oauth scopes"
@@ -70,7 +67,6 @@ variable "automation_name" {
   default = "oneClickECK"
 }
 
-
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
@@ -82,15 +78,11 @@ variable "tags" {
   }
 }
 
-
-
-
 variable "master_initial_node_count_per_zone" {
   description = "Number total initial instances per zone"
   type        = number
   default     = 1
 }
-
 
 variable "master_surge_count" {
   description = "autoscale surge count"
@@ -98,13 +90,11 @@ variable "master_surge_count" {
   default     = 10
 }
 
-
 variable "master_instance_count_per_zone" {
   description = "Number of master instances per zone"
   type        = number
   default     = 1
 }
-
 
 variable "master_max_instance_count_per_zone" {
   description = "Max Number of master instances per zone"
@@ -136,13 +126,11 @@ variable "master_volume_type" {
   default     = "pd-ssd"
 }
 
-
 variable "kibana_instance_count" {
   description = "Number of kibana instances"
   type        = number
   default     = 1
 }
-
 
 variable "kibana_instance_type" {
   description = "Kibana instance type"
@@ -186,13 +174,11 @@ variable "hot_instance_count_per_zone" {
   default     = 1
 }
 
-
 variable "hot_max_instance_count_per_zone" {
   description = "Max Number of hot instances per zone"
   type        = number
   default     = 20
 }
-
 
 variable "hot_instance_type" {
   description = "Hot instance type"
@@ -248,7 +234,6 @@ variable "warm_instance_type" {
   default     = "e2-standard-32"
 }
 
-
 variable "warm_instance_k8s_label" {
   description = "warm instance k8s label"
   type        = map
@@ -285,7 +270,6 @@ variable "cold_instance_count_per_zone" {
   default     = 0
 }
 
-
 variable "cold_max_instance_count_per_zone" {
   description = "Max Number of cold instances per zone"
   type        = number
@@ -298,13 +282,11 @@ variable "cold_instance_type" {
   default     = "e2-standard-32"
 }
 
-
 variable "cold_instance_k8s_label" {
   description = "cold instance k8s label"
   type        = map
   default     = {"nodetype"="cold"}
 }
-
 
 variable "cold_volume" {
   description = "Volume in GB"
@@ -330,13 +312,11 @@ variable "frozen_initial_node_count_per_zone" {
   default     = 0
 }
 
-
 variable "frozen_instance_count_per_zone" {
   description = "Number of frozen instances per zone"
   type        = number
   default     = 0
 }
-
 
 variable "frozen_max_instance_count_per_zone" {
   description = "Max Number of frozen instances per zone"
@@ -379,7 +359,6 @@ variable "ml_initial_node_count_per_zone" {
   type        = number
   default     = 0
 }
-
 
 variable "ml_instance_count_per_zone" {
   description = "Number of ml instances per zone"
@@ -484,7 +463,6 @@ variable "master_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
-
 variable "kibana_pod_cpu" {
   description = "kibana pod cpu request"
   type = string
@@ -534,7 +512,6 @@ variable "hot_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
-
 variable "warm_pod_count" {
   description = "number of warm pods"
   type = number
@@ -571,6 +548,7 @@ variable "cold_pod_count" {
   type = number
   default = 0
 }
+
 variable "cold_pod_cpu" {
   description = "cold pod cpu request"
   type = string
@@ -601,6 +579,7 @@ variable "frozen_pod_count" {
   type = number
   default = 0
 }
+
 variable "frozen_pod_cpu" {
   description = "frozen pod cpu request"
   type = string
@@ -631,6 +610,7 @@ variable "ml_pod_count" {
   type = number
   default = 0
 }
+
 variable "ml_pod_cpu" {
   description = "ml pod cpu request"
   type = string
@@ -661,7 +641,6 @@ variable "eck_namespace" {
   type = string
   default = "default"
 }
-
 
 variable "master_pod_roles" {
   description = "master pod roles"
@@ -698,5 +677,4 @@ variable "ml_pod_roles" {
   type = string
   default = "ml, remote_cluster_client"
 }
-
 
