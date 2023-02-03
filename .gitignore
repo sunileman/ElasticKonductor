@@ -19,7 +19,10 @@ create-eks/nohup.out
 create-eks/stash/
 create-eks/terraform.tfstate.backup
 nohup.out
-logs/1Click.log
+logs/*
+aws/logs/*
+azure/logs/*
+gcp/logs/*
 create-eks/vpc.not-in-use
 create-eks/data-sources.not-in-use
 create-eks/eks-cluster.not-in-use
@@ -68,8 +71,6 @@ gcp/.terraform.lock.hcl
 gcp/terraform.tfstate.backup
 aws/create-eks/terraform.tfvars
 aws/create-eks/variables.tf
-aws/logs/1Click.log
-azure/logs/1Click.log
 gcp/create-eck/.terraform.lock.hcl
 gcp/create-eck/create-operator/.terraform.lock.hcl
 gcp/create-eck/create-operator/terraform.tfstate.backup
@@ -93,8 +94,6 @@ gcp/create-gke/addons/.terraform.lock.hcl
 gcp/create-gke/addons/terraform.tfstate.backup
 gcp/create-gke/output.json
 gcp/create-gke/state.out
-gcp/logs/1Click.log
-aws/logs/*
 gcp/create-gke/addons/ksm/.terraform.lock.hcl
 gcp/create-gke/addons/ksm/terraform.tfstate.backup
 gcp/create-gke/addons/ksm/tflogs/
@@ -103,7 +102,6 @@ gcp/create-gke/addons/openebs/terraform.tfstate.backup
 gcp/create-gke/addons/openebs/tflogs/
 gcp/create-gke/addons/tflogs/
 gcp/create-gke/tflogs/
-logs/
 gcp/create-eck/create-operator/tflogs/
 gcp/create-eck/create-operator/variables.tfvars
 gcp/create-eck/license/.terraform.lock.hcl
