@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 ##get variables from terraform state
 lbnameraw=$(terraform output lbname)
 lbname=${lbnameraw//\"/}

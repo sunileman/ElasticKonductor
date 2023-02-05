@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+
+echo "1ClickNameGen.sh: generating name"
 # initialize terraform configuration
 terraform init
 

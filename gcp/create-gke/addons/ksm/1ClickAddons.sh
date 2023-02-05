@@ -10,6 +10,8 @@ export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 export KUBE_CONFIG_PATH=~/.kube/config
 
 set -e
+
+echo "ksm/1ClickAddons.sh: creating addons"
 # initialize terraform configuration
 terraform init
 
@@ -21,3 +23,4 @@ terraform plan -out state.tfplan
 
 # apply terraform plan
 terraform apply state.tfplan
+echo "ksm/1ClickAddons.sh: finished creating addons"

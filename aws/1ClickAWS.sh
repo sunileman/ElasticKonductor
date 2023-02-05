@@ -8,52 +8,65 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-b <all | eks >] [-d for destroy] [-h for help]."
-     echo "Hit enter to try again with correct arguments" exit 0;
+     echo "Usage: $0 [-b <all | eks >] [-d for destroy] [-r disable openebs] [-h for help]."
+     echo "Hit enter to try again with correct arguments"
+     exit 0;
 }
+
 
 cleanup() {
   createmode=false
   eksonly=false
   destroy=false
   createModeArg=NA
+  openebs="openebs-enabled"
 }
 
 
 
 cleanup
-while getopts ':b:dh' OPTION; do
-  case "$OPTION" in
-    b)
-      createModeArg="$OPTARG"
+# process command line arguments
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -b|--build)
+      shift
+      createModeArg="$1"
       createmode=true
-      if [[ "${OPTARG,,}" == "all" ]]; then
+      if [[ "$1" == "all" ]]; then
         echo "Build Mode = ALL"
-      elif [[ "${OPTARG,,}" == "eks" ]]; then
+      elif [[ "$1" == "eks" ]]; then
 	eksonly=true
         echo "Create Mode = EKS Only"
       else
-        echo "Not a valid option.  Use: all or eks "
+        echo "Not a valid option.  Use: all or eks"
         exit 1
       fi
+      shift
       ;;
-    d)
+    -d|--destroy)
       echo "Destroy all"
       destroy=true
+      shift
       ;;
-    h)
+    -r|--removeopenebs)
+      echo "Disable OpenEBS"
+      openebs="openebs-disabled"
+      shift
+      ;;
+    -h|--help)
       echo "Options"
       echo "Create all EKS & ECK assets: $0 -b all"
-      echo "Create EKS: $0 -b eks" 
+      echo "Create EKS: $0 -b eks"
+      echo "Create without OpenEBS: $0 -r"
       echo "Destroy all assets build by 1Click: $0 -d "
       exit 0
       ;;
     *)
       usage
+      break
       ;;
   esac
 done
-shift "$(($OPTIND -1))"
 
 if [ $createmode != true ] && [ $destroy != true ] && [ $eksonly != true ]; then
     usage
@@ -74,30 +87,35 @@ fi
 
 start=$SECONDS
 chmod 700 ./create-eks/1ClickEKSDeploy.sh
+chmod 700 ./create-eks/1ClickEKSDestroy.sh
+chmod 700 ./create-eks/1ClickEKSDestroy.sh
 chmod 700 ./create-eks/addons/1ClickAddons.sh
-chmod 700 ./create-eck/cleanup.sh
+chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
-chmod 700 ./create-eck/eck-add-license.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
 
 
+set -e
 
 if [ $createmode == true ] && [ $eksonly == false ]; then
-   (cd ./create-eks ; sh ./1ClickEKSDeploy.sh)
+   echo "1ClickAWS.sh: invoking 1ClickEKSDeploy.sh"   
+   (cd ./create-eks ; sh ./1ClickEKSDeploy.sh $openebs)
+   echo "1ClickAWS.sh: invoking 1ClickECKDeploy.sh"   
    (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
+   echo 1ClickAWS.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $eksonly == true ]; then
-   #(cd ./create-eks ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-eks ; sh ./1ClickEKSDeploy.sh)
+   echo "1ClickAWS.sh: invoking 1ClickEKSDeploy.sh"   
+   (cd ./create-eks ; sh ./1ClickEKSDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
-   (cd ./create-eck ; sh ./cleanup.sh 2>/dev/null)
-   (cd ./create-eks/addons ; terraform destroy -auto-approve 2>/dev/null)
-   (cd ./create-eks ; terraform destroy -auto-approve 2>/dev/null)
+   echo "1ClickAWS.sh: invoking 1ClickECKDestroy.sh"   
+   (cd ./create-eck; bash ./1ClickECKDestroy.sh)
+   echo "1ClickAWS.sh: invoking 1ClickEKSDestroy.sh"   
+   (cd ./create-eks; bash ./1ClickEKSDestroy.sh)
    duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
+   echo 1ClickAWS.sh: Total deployment time in seconds: $duration
 else
    echo "Please submit a valid arguments"
 fi

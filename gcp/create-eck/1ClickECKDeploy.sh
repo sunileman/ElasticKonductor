@@ -6,16 +6,17 @@ nowtime=`date +"%m_%d_%Y_%s"`
 export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
-echo "Copying variable files"
+echo "1ClickECKDeploy.sh: Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
 set -e
 ##create elastic CRDs and Operator
-echo Creating Elastic CRDS and Operator
+echo "1ClickECKDeploy.sh: Creating Elastic CRDS and Operator"
 (cd ./create-operator ; sh ./1ClickECKOperator.sh)
 
 
+echo "1ClickECKDeploy.sh Creating ElasticSearch Pods"
 # initialize terraform configuration
 terraform init
 
@@ -28,6 +29,7 @@ terraform plan -out state.tfplan
 # apply terraform plan
 terraform apply state.tfplan
 
+echo "1ClickECKDeploy.sh: Appling license"
 #add license file
 ./license/1ClickAddLicense.sh
 

@@ -68,6 +68,14 @@ variable "tags" {
   }
 }
 
+variable "k8s_all_worker_labels" {
+   description = "Labels applied to all worker nodes"
+   type        = map(string)
+   default = {
+       "aws.amazon.com/eks-local-ssd" = "true"
+       eks-local-ssd = "true"
+   }
+}
 
 variable "master_instance_count" {
   description = "Number of master instances"

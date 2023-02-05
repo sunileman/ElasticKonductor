@@ -7,4 +7,7 @@ export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 
 export KUBE_CONFIG_PATH=~/.kube/config
+set +e
+echo "1ClickRemoveOpenEBS.sh: destroy openebs"
 terraform destroy -auto-approve
+set -e

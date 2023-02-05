@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+echo "getClusterInfo.sh: parsing cluster and region names"
 clusternameraw=$(terraform output cluster_name)
 clustername=${clusternameraw:1: -1}
 regionraw=$(terraform output region)

@@ -10,8 +10,9 @@ tags = {
     "Owner" = "sunilemanjee"
     "KeepAliveUntil" = "12312023"
     "Project" = "1ClickECK"
-    "Team" = "sa"
-    "username" = "sunman" #This can be anything you call yourself
+    "Org"     = "field"
+    "Division" = "sa"
+    "username" = "sunman" #Required.  This will be appended to the clustername
 }
 
 

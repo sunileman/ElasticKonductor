@@ -1,15 +1,18 @@
 #!/bin/bash
 set -e
+echo "getClusterInfo.sh"
 clusternameraw=$(terraform output clustername)
 clustername=${clusternameraw//\"/}
 regionraw=$(terraform output region)
 region=${regionraw//\"/}
 
+echo "getClusterInfo.sh: ip parsing"
 ipsplit() { local IFS=.; echo $*; }
 kurl=$(kubectl get service eck-kb-http | tail -n -1 | awk {'print $4"" '})
 set -- `ipsplit $kurl`
 k1=$4.$3.$2.$1
 
+echo "getClusterInfo.sh: get eck-external-es-http"
 kurl=$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '})
 set -- `ipsplit $kurl`
 k2=$4.$3.$2.$1

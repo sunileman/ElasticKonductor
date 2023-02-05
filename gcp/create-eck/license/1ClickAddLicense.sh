@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-echo "appling enterprise trial license"
+echo "1ClickAddLicense.sh: appling enterprise trial license"
 # initialize terraform configuration
 terraform init
 
@@ -13,6 +13,7 @@ terraform plan -out state.tfplan
 # apply terraform plan
 terraform apply state.tfplan
 
+echo "1ClickAddLicense.sh: finished appling enterprise trial license"
 
 echo Checking if license file is exists
 echo ...

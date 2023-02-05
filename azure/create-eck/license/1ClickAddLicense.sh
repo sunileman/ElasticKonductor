@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-echo "appling enterprise trial license"
+echo "1ClickAddLicense.sh: appling enterprise trial license"
 # initialize terraform configuration
 terraform init
 

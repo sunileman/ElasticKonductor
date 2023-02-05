@@ -2,11 +2,11 @@
 export KUBE_CONFIG_PATH=~/.kube/config
 
 set -e
-echo "Coping variable files"
+echo "1ClickECKOperator.sh: Coping variable files"
 cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
-echo ECK Operator
+echo "1ClickECKOperator.sh: creating ECK Operator"
 # initialize terraform configuration
 terraform init
 

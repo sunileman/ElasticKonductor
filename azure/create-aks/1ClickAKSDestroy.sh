@@ -1,7 +1,15 @@
 #!/bin/bash
 export KUBE_CONFIG_PATH=~/.kube/config
-echo Terraform Destroy
+echo "1ClickAKSDestroy.sh: Terraform Destroy"
 set -e
-(cd ./addons/ksm; terraform destroy -auto-approve 2>/dev/null)
-(cd ./addons/openebs; terraform destroy -auto-approve 2>/dev/null)
-terraform destroy -auto-approve 2>/dev/null
+
+echo "1ClickAKSDestroy.sh: destroying ksm addon"
+(cd ./addons/ksm; terraform destroy -auto-approve)
+
+set +e
+echo "1ClickAKSDestroy.sh: destroying openebs addon"
+(cd ./addons/openebs; terraform destroy -auto-approve)
+set -e
+
+echo "1ClickAKSDestroy.sh: destroying AKS"
+terraform destroy -auto-approve

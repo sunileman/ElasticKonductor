@@ -99,18 +99,23 @@ chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
 
 
 if [ $createmode == true ] && [ $gkeonly == false ]; then
+   echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
    (cd ./create-gke ; sh ./1ClickGKEDeploy.sh $openebs)
+   echo "1ClickGCP.sh: invoking 1ClickECKDeploy.sh"
    (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
+   echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $gkeonly == true ]; then
+   echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
    (cd ./create-gke ; sh ./1ClickGKEDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
-   (cd ./create-eck ; bash ./1ClickECKDestroy.sh 2>/dev/null)
-   (cd ./create-gke; bash ./1ClickGKEDestroy.sh 2>/dev/null)
+   echo "1ClickGCP.sh: invoking 1ClickECKDestroy.sh"
+   (cd ./create-eck ; bash ./1ClickECKDestroy.sh)
+   echo "1ClickGCP.sh: invoking 1ClickGKEDestroy.sh"
+   (cd ./create-gke; bash ./1ClickGKEDestroy.sh)
    duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
+   echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 else
    echo "Please submit a valid arguments"
 fi

@@ -103,18 +103,23 @@ start=$SECONDS
 set -e
 
 if [ $createmode == true ] && [ $aksonly == false ]; then
+   echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
    (cd ./create-aks ; sh ./1ClickAKSDeploy.sh $openebs)
+   echo "1ClickAzure.sh: invoking 1ClickECKDeploy.sh"
    (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
+   echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $aksonly == true ]; then
+   echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
    (cd ./create-aks ; sh ./1ClickAKSDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
-   (cd ./create-eck ; sh ./1ClickECKDestroy.sh 2>/dev/null)
-   (cd ./create-aks; bash ./1ClickAKSDestroy.sh 2>/dev/null)
+   echo "1ClickAzure.sh: invoking 1ClickECKDestroy.sh"
+   (cd ./create-eck ; sh ./1ClickECKDestroy.sh)
+   echo "1ClickAzure.sh: invoking 1ClickAKSDestroy.sh"
+   (cd ./create-aks; bash ./1ClickAKSDestroy.sh)
    duration=$(( SECONDS - start ))
-   echo Total deployment time in seconds: $duration
+   echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 else
    echo "Please submit a valid arguments"
 fi

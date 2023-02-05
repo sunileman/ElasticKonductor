@@ -23,10 +23,12 @@ resource "google_container_cluster" "k8s" {
   resource_labels = {
       "env" =  lower(random_pet.name.id),
       "owner" = lower(var.tags["Owner"]),
-      "team" = lower(var.tags["Team"]),
+      "org" = lower(var.tags["Org"]),
+      "division" = lower(var.tags["Division"]),
       "keepaliveuntil" = lower(var.tags["KeepAliveUntil"]),
       "project" = lower(var.tags["Project"])
   }
+
 
   addons_config {
     http_load_balancing {

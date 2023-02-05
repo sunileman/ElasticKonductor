@@ -23,13 +23,7 @@ resource "aws_eks_node_group" "master" {
     {env=random_pet.name.id}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.master_instance_k8s_label
-  )
+  labels = merge(var.k8s_all_worker_labels, var.master_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
@@ -62,13 +56,7 @@ resource "aws_eks_node_group" "kibana" {
     {env=random_pet.name.id}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.kibana_instance_k8s_label
-  )
+  labels = merge (var.k8s_all_worker_labels, var.kibana_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
@@ -100,13 +88,7 @@ resource "aws_eks_node_group" "hot" {
     {env=random_pet.name.id}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.hot_instance_k8s_label
-  )
+  labels = merge (var.k8s_all_worker_labels, var.hot_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
@@ -139,13 +121,7 @@ resource "aws_eks_node_group" "warm" {
     {"k8s.io/cluster-autoscaler/node-template/label/nodetype"="warm"}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.warm_instance_k8s_label
-  )
+  labels = merge (var.k8s_all_worker_labels, var.warm_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
@@ -177,13 +153,7 @@ resource "aws_eks_node_group" "cold" {
     {env=random_pet.name.id}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.cold_instance_k8s_label
-  )
+  labels = merge(var.k8s_all_worker_labels, var.cold_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
@@ -215,13 +185,7 @@ resource "aws_eks_node_group" "frozen" {
     {env=random_pet.name.id}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.frozen_instance_k8s_label
-  )
+  labels = merge(var.k8s_all_worker_labels, var.frozen_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
@@ -253,13 +217,7 @@ resource "aws_eks_node_group" "ml" {
     {env=random_pet.name.id}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.ml_instance_k8s_label
-  )
+  labels = merge(var.k8s_all_worker_labels, var.ml_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
@@ -291,13 +249,7 @@ resource "aws_eks_node_group" "util" {
     {env=random_pet.name.id}
   )
 
-  labels = merge (
-     {
-       "aws.amazon.com/eks-local-ssd" = "true"
-       eks-local-ssd = "true"
-     },
-     var.util_instance_k8s_label
-  )
+  labels = merge(var.k8s_all_worker_labels, var.util_instance_k8s_label)
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,

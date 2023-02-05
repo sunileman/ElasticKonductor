@@ -7,9 +7,7 @@ resource "aws_vpc" "eksvpc" {
   enable_dns_support   = true
 
   tags = {
-    #Name = "${local.project}-vpc",
     Name = "${random_pet.name.id}-vpc",
-    #"kubernetes.io/cluster/${local.project}" = "shared"
     "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
   }
 }
@@ -23,9 +21,7 @@ resource "aws_subnet" "public" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    #Name = "${local.project}-public-sg"
     Name = "${random_pet.name.id}-public-sg"
-    #"kubernetes.io/cluster/${local.project}" = "shared"
     "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
     "kubernetes.io/role/elb"                       = 1
   }
@@ -42,9 +38,7 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    #Name = "${local.project}-private-sg"
     Name = "${random_pet.name.id}-private-sg"
-    #"kubernetes.io/cluster/${local.project}" = "shared"
     "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
     "kubernetes.io/role/internal-elb"              = 1
   }
@@ -55,7 +49,6 @@ resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.eksvpc.id
 
   tags = {
-    #"Name" = "${local.project}-igw"
     "Name" = "${random_pet.name.id}-igw"
   }
 
@@ -73,7 +66,6 @@ resource "aws_route_table" "main" {
   }
 
   tags = {
-    #Name = "${local.project}-Default-rt"
     Name = "${random_pet.name.id}-Default-rt"
   }
 }
@@ -91,7 +83,6 @@ resource "aws_eip" "main" {
   vpc = true
 
   tags = {
-    #Name = "${local.project}-ngw-ip"
     Name = "${random_pet.name.id}-ngw-ip"
   }
 }
@@ -102,7 +93,6 @@ resource "aws_nat_gateway" "main" {
   subnet_id     = aws_subnet.public[0].id
 
   tags = {
-    #Name = "${local.project}-ngw"
     Name = "${random_pet.name.id}-ngw"
   }
  depends_on = [aws_internet_gateway.this, aws_eip.main, aws_subnet.public]
@@ -112,7 +102,6 @@ resource "aws_nat_gateway" "main" {
 # Add route to route table
 resource "aws_route" "main" {
   route_table_id         = aws_vpc.eksvpc.default_route_table_id
-  #route_table_id         = aws_vpc.eksvpc.main_route_table_id
   nat_gateway_id         = aws_nat_gateway.main.id
   destination_cidr_block = "0.0.0.0/0"
 }

@@ -7,21 +7,24 @@ export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 set +e 
-echo "Running custom addons"
+echo "1ClickAddons.sh: Running custom addons"
 (bash ./custom/1ClickAddons.sh)
+echo "1ClickAddons.sh: Finished running custom addons"
 
 set -e
-echo "Running KSM addon"
+echo "1ClickAddons.sh: Running KSM addon"
 (cd ksm; bash ./1ClickAddons.sh)
+echo "1ClickAddons.sh: Finished running KSM addon"
 
 ##option to disable openebs
-echo "openebs option: $1"
+echo "1ClickAddons.sh: openebs option: $1"
 openebs=$1
 
 if [[ "$1" == "openebs-disabled" ]]; then
-    echo "openebs-disabled"
+    echo "1ClickAddons.sh: openebs-disabled"
 else
-    echo "Running OpenEBS addon"
+    echo "1ClickAddons.sh: Running OpenEBS addon"
     (cd openebs; bash ./1ClickAddons.sh)
+    echo "1ClickAddons.sh: Finished running OpenEBS addon"
 
 fi

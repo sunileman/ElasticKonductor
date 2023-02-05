@@ -2,9 +2,12 @@
 
 ##house keeping tags.  Set please
 tags = {
-    "Owner" = "sunile.manjee@.co"
+    "Owner" = "sunilemanjee"
     "KeepAliveUntil" = "12312023"
-    "username" = "sunman" #This can be anything you call yourself
+    "Project" = "1ClickECK"
+    "Org"     = "field"
+    "Division" = "sa"
+    "username" = "sunman" #Required.  This will be appended to the clustername
 }
 
 ####Set aws creds here or as env variables which is more secure#### 
@@ -16,6 +19,9 @@ tags = {
 #export TF_VAR_aws_secret_key="your-secret"
 #export TF_VAR_aws_secret_key="your-secret"
 
+master_instance_type=["m6g.4xlarge"]
+
+region="us-west-1"
 
 
 #######Compelete list of variables below. Uncomment and set to your liking.  The default values are table from variables.tf which should not be changed.  Override the default values here.

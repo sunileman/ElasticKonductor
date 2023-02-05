@@ -10,7 +10,17 @@ cp -f ../terraform.tfvars ./create-operator/variables.tfvars
 
 
 echo Terraform Destroy
-(cd ./license; terraform destroy -auto-approve 2>/dev/null)
-(cd ./namegen ; terraform destroy -auto-approve 2>/dev/null)
-terraform destroy -auto-approve 2>/dev/null
-(cd ./create-operator ; terraform destroy -auto-approve 2>/dev/null)
+echo "Destroying License"
+(cd ./license; terraform destroy -auto-approve)
+
+
+echo "Destroying ES Pods"
+terraform destroy -auto-approve
+
+
+echo "Destroying Operator" 
+(cd ./create-operator ; terraform destroy -auto-approve)
+
+
+echo "Destroying NameGen"
+(cd ./namegen ; terraform destroy -auto-approve)

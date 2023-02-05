@@ -10,13 +10,13 @@ export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 set -e
 
-echo "Copying variable files"
+echo "1ClickECKOperator.sh: Copying variable files"
 cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
 
 export KUBE_CONFIG_PATH=~/.kube/config
-echo ECK Operator
+echo "1ClickECKOperator.sh creating ECK Operator"
 # initialize terraform configuration
 terraform init
 
@@ -28,3 +28,5 @@ terraform plan -out state.tfplan
 
 # apply terraform plan
 terraform apply state.tfplan
+
+echo "1ClickECKOperator.sh: Finished creating ECK Operator"
