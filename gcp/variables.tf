@@ -23,7 +23,7 @@ variable "zones" {
 variable "gke_version" {
   description = "GKE Version"
   type        = string
-  default     = "1.24.8-gke.401"
+  default     = "1.24.9-gke.1500"
 }
 
 variable "release_channel" {
