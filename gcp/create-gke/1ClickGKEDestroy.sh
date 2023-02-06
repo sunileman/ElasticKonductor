@@ -11,7 +11,6 @@ echo "1ClickGKEDestroy.sh: destroying addons"
 (cd ./addons; ./1ClickAddonsDestroy.sh)
 
 
-
 echo "1ClickGKEDestroy.sh: destroying GKE node pools"
 (cd ./gke-workers; bash ./1ClickGKEWorkersDestroy.sh)
 echo "1ClickGKEDestroy.sh: finished GKE node pools"
