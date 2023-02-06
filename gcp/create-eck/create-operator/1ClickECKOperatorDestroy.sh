@@ -8,11 +8,11 @@ export TF_LOG_PATH="./tflogs/terraform-destroy-$nowtime.log"
 
 set -e
 
-echo "1ClickMasterDestroy.sh: Copying variable files"
+echo "1CLickECKOperatorDestroy.sh: Copying variable files"
 cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
 terraform init
 
-echo "1ClickGKEMasterDestroy.sh: Terraform Destroy"
+echo "1CLickECKOperatorDestroy.sh: Terraform Destroy"
 terraform destroy -auto-approve

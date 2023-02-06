@@ -1,16 +1,16 @@
 #!/bin/bash
 
 export KUBE_CONFIG_PATH=~/.kube/config
+
+terraform init
+
 echo "1ClickGKEDestroy.sh: Terraform Destroy"
 set -e
 
-echo "1ClickGKEDestroy.sh: destroying ksm"
-(cd ./addons/ksm; terraform destroy -auto-approve)
-echo "1ClickGKEDestroy.sh: finish destroying ksm"
+echo "1ClickGKEDestroy.sh: destroying addons"
+(cd ./addons; ./1ClickAddonsDestroy.sh)
 
-echo "1ClickGKEDestroy.sh: destroying openEBS"
-(cd ./addons/openebs; terraform destroy -auto-approve)
-echo "1ClickGKEDestroy.sh: finished destroying openEBS"
+
 
 echo "1ClickGKEDestroy.sh: destroying GKE node pools"
 (cd ./gke-workers; bash ./1ClickGKEWorkersDestroy.sh)

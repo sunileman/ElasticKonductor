@@ -6,7 +6,13 @@ nowtime=`date +"%m_%d_%Y_%s"`
 export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-destroy-$nowtime.log"
 
-echo "1ClickGKEColdDestroy.sh: Terraform Destroy"
 set -e
 
+echo "1ClickColdDestroy.sh: Copying variable files"
+cp -f ../../variables.tf .
+cp -f ../../terraform.tfvars .
+
+terraform init
+
+echo "1ClickGKEColdDestroy.sh: Terraform Destroy"
 terraform destroy -auto-approve
