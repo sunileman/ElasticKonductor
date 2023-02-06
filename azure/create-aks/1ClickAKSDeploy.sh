@@ -32,10 +32,10 @@ terraform apply state.tfplan
 echo "1ClickAKSDeploy.sh: finished coping variable files"
 
 
-echo "1ClickAKSDeploy.sh: calling setkubectl.sh""
+echo "1ClickAKSDeploy.sh: calling setkubectl.sh"
 bash ./setkubectl.sh
 
-echo "1ClickAKSDeploy.sh: calling setDataSourceRG.sh""
+echo "1ClickAKSDeploy.sh: calling setDataSourceRG.sh"
 bash ./setDataSourceRG.sh
 
 echo "1ClickAKSDeploy.sh: Running addons"

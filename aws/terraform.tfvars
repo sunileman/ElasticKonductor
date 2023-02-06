@@ -2,12 +2,10 @@
 
 ##house keeping tags.  Set please
 tags = {
-    "Owner" = "sunilemanjee"
-    "KeepAliveUntil" = "12312023"
-    "Project" = "1ClickECK"
-    "Org"     = "field"
-    "Division" = "sa"
-    "username" = "sunman" #Required.  This will be appended to the clustername
+    "Division" = "field"
+    "Org" = "sa"
+    "Team" = "amer"
+    "Project" = "sunman" # Project name (shared) or username (individual)
 }
 
 ####Set aws creds here or as env variables which is more secure#### 

@@ -1,4 +1,3 @@
 locals {
-  project = "${var.project}-${var.tags["username"]}"
+  project = "${var.automation_name}-${var.tags["Project"]}"
 }
-

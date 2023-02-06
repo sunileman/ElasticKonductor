@@ -32,7 +32,7 @@ variable "availability_zones_count" {
   default     = 2
 }
 
-variable "project" {
+variable "automation_name" {
   description = "ClickDeployment Name"
   type = string
   default = "1ClickECK"
@@ -61,11 +61,13 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default = {
-    "Project"     = "1ClickECK"
-    "Environment" = "Development"
-    "Owner"       = "someone"
-    "Team"       = "someteam"
-  }
+    "Division" = "field"
+    "Org" = "sa"
+    "Team" = "amer"
+    "Project" = "sunman" # Project name (shared) or username (individual)
+}
+
+  
 }
 
 variable "k8s_all_worker_labels" {

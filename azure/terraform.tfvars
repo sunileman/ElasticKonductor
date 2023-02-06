@@ -1,8 +1,8 @@
 tags = {
-    "Owner" = "sunile.manjee@.co"
-    "KeepAliveUntil" = "12312022"
-    "username" = "sunman" #This can be anything you call yourself
-    "team" = "sa"
+    "Division" = "field"
+    "Org" = "sa"
+    "Team" = "amer"
+    "Project" = "sunman" # Project name (shared) or username (individual)
 }
 
 

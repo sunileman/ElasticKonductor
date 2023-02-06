@@ -7,12 +7,10 @@
 
 ##house keeping tags.  Set please
 tags = {
-    "Owner" = "sunilemanjee"
-    "KeepAliveUntil" = "12312023"
-    "Project" = "1ClickECK"
     "Org"     = "field"
     "Division" = "sa"
-    "username" = "sunman" #Required.  This will be appended to the clustername
+    "Project" = "sunman" # Project name (shared) or username (individual)
+    "Team" = "amer"
 }
 
 
@@ -23,7 +21,6 @@ tags = {
 #######Compelete list of variables below. Uncomment and set to your liking.  The default values are table from variables.tf which should not be changed.  Override the default values here.
 
 
-#project= "1ClickECK"
 #region= "us-central1"
 #zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 

@@ -22,11 +22,10 @@ resource "google_container_cluster" "k8s" {
  
   resource_labels = {
       "env" =  lower(random_pet.name.id),
-      "owner" = lower(var.tags["Owner"]),
       "org" = lower(var.tags["Org"]),
       "division" = lower(var.tags["Division"]),
-      "keepaliveuntil" = lower(var.tags["KeepAliveUntil"]),
-      "project" = lower(var.tags["Project"])
+      "project" = lower(var.tags["Project"]),
+      "team"    = lower(var.tags["Team"])
   }
 
 

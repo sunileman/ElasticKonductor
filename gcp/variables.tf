@@ -64,7 +64,7 @@ variable "eck_version" {
 }
 
 
-variable "project" {
+variable "automation_name" {
   description = "ClickDeployment Name"
   type = string
   default = "oneClickECK"
@@ -75,10 +75,10 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default = {
-    "Project"     = "1ClickECK"
-    "Environment" = "Development"
-    "Owner"       = "someone"
-    "Team"       = "SA"
+    "Division" = "field"
+    "Org" = "sa"
+    "Team" = "amer"
+    "Project" = "username" # Project name (shared) or username (individual)
   }
 }
 
