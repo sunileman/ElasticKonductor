@@ -67,6 +67,7 @@ variable "tags" {
     "Org" = "sa"
     "Team" = "amer"
     "Project" = "somename" # Project name (shared) or username (individual)
+  }
 }
 
 variable "k8s_all_worker_labels" {
