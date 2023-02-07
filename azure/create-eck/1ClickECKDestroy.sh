@@ -5,22 +5,23 @@ set -e
 echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
-cp -f ../variables.tf ./create-operator/variables.tf
-cp -f ../terraform.tfvars ./create-operator/variables.tfvars
+
+terraform init
+terraform refresh
 
 
 echo Terraform Destroy
-echo "Destroying License"
-(cd ./license; terraform destroy -auto-approve)
+echo "1ClickECKDestroy: Destroying license"
+(cd ./license; bash ./1ClickAddLicenseDestroy.sh)
 
 
-echo "Destroying ES Pods"
+echo "1ClickECKDestroy: Destroying ES Pods"
 terraform destroy -auto-approve
 
 
-echo "Destroying Operator" 
-(cd ./create-operator ; terraform destroy -auto-approve)
+echo "1ClickECKDestroy:  Destroying Operator" 
+(cd ./create-operator ; bash ./1ClickECKOperatorDestroy.sh)
 
 
-echo "Destroying NameGen"
-(cd ./namegen ; terraform destroy -auto-approve)
+echo "1ClickECKDestroy: Destroying NameGen"
+(cd ./namegen; bash ./1ClickNameGenDestroy.sh)

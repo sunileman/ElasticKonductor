@@ -22,6 +22,9 @@ echo "1ClickEKSDeploy.sh: applying plan"
 # apply terraform plan
 terraform apply state.tfplan
 
+echo "1ClickEKSDeploy.sh: setting local kube config"
+(bash ./setkubectl.sh)
+
 echo "1ClickEKSDeploy.sh: Running addons"
 (cd addons; bash ./1ClickAddons.sh)
 

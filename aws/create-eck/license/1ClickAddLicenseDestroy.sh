@@ -12,5 +12,5 @@ terraform init
 terraform refresh
 
 
-echo "custom/1CLickaddonsDestroy.sh: Terraform Destroy"
+echo "1CLickAddLicenseDestroy.sh: Terraform Destroy"
 terraform destroy -auto-approve

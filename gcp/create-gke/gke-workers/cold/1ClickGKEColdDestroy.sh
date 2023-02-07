@@ -13,6 +13,8 @@ cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
 terraform init
+terraform refresh
+
 
 echo "1ClickGKEColdDestroy.sh: Terraform Destroy"
 terraform destroy -auto-approve

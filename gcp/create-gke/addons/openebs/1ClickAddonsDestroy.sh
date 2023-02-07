@@ -7,6 +7,8 @@ export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 terraform init
+terraform refresh
+
 
 export KUBE_CONFIG_PATH=~/.kube/config
 echo "openebs/1ClickAddonsDestroy.sh Terraform Destroy"

@@ -3,9 +3,9 @@ set -e
 echo "getClusterInfo.sh: parsing region and cluster name"
 ##get variables from terraform state
 regionraw=$(terraform output region)
-region=${regionraw:1: -1}
+region=${regionraw//\"/}
 clusternameraw=$(terraform output cluster_name)
-clustername=${clusternameraw:1: -1}
+clustername=${clusternameraw//\"/}
 
 
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

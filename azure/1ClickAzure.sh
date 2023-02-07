@@ -14,7 +14,6 @@ chmod 700 ./create-aks/setkubectl.sh
 chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
-chmod 700 ./create-eck/eck-add-license.sh
 chmod 700 ./create-aks/setDataSourceRG.sh
 chmod 700 ./create-eck/namegen/1ClickNameGen.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh

@@ -10,10 +10,11 @@ resource "google_container_cluster" "k8s" {
   monitoring_service       = "monitoring.googleapis.com/kubernetes"
   networking_mode          = "VPC_NATIVE"
   min_master_version       = var.gke_version
- 
+  node_version             = var.gke_version
 
+  
   release_channel {
-    channel           = var.release_channel
+    channel   = var.release_channel
   }
 
   # Optional, if you want multi-zonal cluster

@@ -21,7 +21,7 @@ tags = {
     "Project" = "username" # Project name (shared) or username (individual)
 }
 
-#project= "1ClickECK"
+#automation_name= "1ClickECK"
 
 #----------------------- Cloud Provider ----------------------------------------
 
