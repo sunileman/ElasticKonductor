@@ -73,50 +73,15 @@ Does not deploy
     * Note - project must be set in terraform.tfvars.  Project value within tags variable is used to tag instances with project value.  Not the same as gcp project which is set in terrform.tfvars.
 
 ## Deployment
-[![2023-01-27-19-41-37.jpg](https://i.postimg.cc/jSxKSMZ1/2023-01-27-19-41-37.jpg)](https://postimg.cc/WhHx9wRm)
 
- 
- [![2023-01-27-19-43-18.jpg](https://i.postimg.cc/x8VVD5Xt/2023-01-27-19-43-18.jpg)](https://postimg.cc/MM5F1ybQ)
+[![2023-02-07-15-28-54.jpg](https://i.postimg.cc/QCkVvX99/2023-02-07-15-28-54.jpg)](https://postimg.cc/1VX9q1Ks)
 
 
 
- [![2023-01-27-19-44-16.jpg](https://i.postimg.cc/NGRw83nV/2023-01-27-19-44-16.jpg)](https://postimg.cc/3Wr6YcYC)
+[![2023-02-07-15-29-55.jpg](https://i.postimg.cc/BbsnTdYq/2023-02-07-15-29-55.jpg)](https://postimg.cc/qhbr0ZHY)
 
 
-[![2023-01-27-19-46-49.jpg](https://i.postimg.cc/wTfH3hZT/2023-01-27-19-46-49.jpg)](https://postimg.cc/9r7snqcv)
 
-
-[![2023-01-27-19-49-28.jpg](https://i.postimg.cc/CKWb0nSc/2023-01-27-19-49-28.jpg)](https://postimg.cc/Z9xWFR9N)
-
-[![2023-01-27-19-50-00.jpg](https://i.postimg.cc/c4swdSGG/2023-01-27-19-50-00.jpg)](https://postimg.cc/w3G7knBw)
-
-[![aws.jpg](https://i.postimg.cc/Vs45B0p2/aws.jpg)](https://postimg.cc/5jYxfyxm)
-
-[![2023-01-27-19-52-08.jpg](https://i.postimg.cc/8P05xQ1H/2023-01-27-19-52-08.jpg)](https://postimg.cc/Lnj2ZWgY)
-
-
-[![2023-01-27-19-52-41.jpg](https://i.postimg.cc/rp6pF1RR/2023-01-27-19-52-41.jpg)](https://postimg.cc/MnDw9jDz)
-
-Set a few variables to name your deployment
-
-AWS
-
-`./aws/terraform.tfvars`
-
-Azure 
-
-`./azure/terraform.tfvars`
-
-GCP
-`./gcp/terraform.tfvars`
-
-Set username in tags as it append it to the assets deployed
-```
-tags = {
-    "Owner" = "your email"
-    "username" = "superman" #Naming your deployment
-}
-```
 
 Required Arguments 
 
@@ -128,35 +93,15 @@ Required Arguments
 
 Examples
 
-To create AWS EKS and ECK
-```bash
-  ./1ClickECK.sh -b all -c aws
-```
-
-To create EKS
-```bash
-  ./1ClickECK.sh -b k8s -c aws
-```
-
-To create AKS and ECK
-```bash
-  ./1ClickECK.sh -b all -c azure
-```
-
-To create AKS
-```bash
-  ./1ClickECK.sh -b k8s -c azure
-```
+[![2023-02-07-15-36-07.jpg](https://i.postimg.cc/3N72kf2G/2023-02-07-15-36-07.jpg)](https://postimg.cc/r0nDbJny)
 
 To run the automation in the background.  Output will be writen to nohup.out. 
 ```bash
-  nohup ./1ClickECK.sh -b all -c aws &
+  nohup ./1ClickECK.sh -b all -c [aws|gcp|azure] &
 ```
 
 Once the automation completes, Kibana endpoints along with username and password should be displayed.  To retrieve again, simply run<br>
-```bash
-  ./[aws|azure]/create-eck/getKibanaInfo.sh
-```
+[![2023-02-07-15-32-42.jpg](https://i.postimg.cc/qBtPwbVr/2023-02-07-15-32-42.jpg)](https://postimg.cc/dDYNt9VN)
 
 The automation will set your local kubectl manifest.  Verify by running
 ```bash
@@ -166,7 +111,7 @@ The automation will set your local kubectl manifest.  Verify by running
 
 Tear Down all assets built by the automation
 ```bash
-  ./1ClickEckOnEKS.sh -d -c aws
+  ./1ClickEckOnEKS.sh -d -c [aws|gcp|azure]
 ```
 
 
@@ -200,6 +145,7 @@ Pod count = Number of pods per type (hot/warm/etc) which will be deployed on the
 For example you can 
 deploy 4 hot pods on 1 hot K8s instance type.
 ##  Variables- Default Values
+[![2023-02-07-15-31-29.jpg](https://i.postimg.cc/nLZSt2PX/2023-02-07-15-31-29.jpg)](https://postimg.cc/v4qtrrMy)
 `./[aws|azure]/variables` file host all possible variables supported by this deployment.  
 If a varialble is not present in `./[aws|azure]/terraform.tfvars`, the default value will be taken from `./[aws|azure]/variables.tf`
 If default value is not acceptable, set the varialble value in `./[aws|azure]/terraform.tfvars`
@@ -217,10 +163,10 @@ Another example.  The default instance type for warm is `im4gn.4xlarge`.  To cha
  This deployment only supports **DAS, not EBS**
 ## Apply ES License
 Deployment without a license will use a basic license configuration.  
-If a ES license is available to you, place it under `./[aws|azure]/create-eck/license` and name the license file `es-license.json`.
+If a ES license is available to you, place it under `./[aws|azure|gcp]/create-eck/license` and name the license file `es-license.json`.
 The deployment will pick up license file 
 
-If a license file needs to be applied or changed after deployment, simply run `./[aws|azure]/create-eck/eck-add-license.sh`
+If a license file needs to be applied or changed after deployment, simply run `./[aws|azure|gpc]/create-eck/eck-add-license.sh`
 ## Pod Configuration
 Once EKS is deployed, ES pods will be deployed leveraging resources defined in the K8s manifest.
 Each node type (master, hot, warm, ml, etc) spec is defined within `./[aws|azure]/variables.tf`. 
@@ -242,6 +188,11 @@ Take this into consideration if the defaults aren't acceptables
 The automation; 1ClickECK,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun 1ClickECK with the same -b -c arguments 
 ## kubectl manifest
 Automation will set local kube config (kubectl) after automation run.  If local kube config needs to be reset, simple rerun the automation (even if there is no change) to set local kube config.
+
+To reset your local kubeclt, run
+```bash
+  /1ClickECK/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
+```
 ## OpenEBS
 OpenEBS is a automatic disk provisioner for K8s.  There may be scanerios the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
 
@@ -275,14 +226,22 @@ try:  export KUBE_CONFIG_PATH=~/.kube/config
 
 
 
+If one of the pods is stuck in `init` stage run
 ```
-Error: Error from server (Forbidden): error when creating “operator.yaml”: clusterroles.rbac.authorization.k8s.io “elastic-operator” is forbidden: user “xxxxx” (groups=[“system:authenticated”]) is attempting to grant RBAC permissions not currently held:
+kubectl describe pod <podname>
+```
+That should give you an idea on what went wrong.  If the mount fails due to `srv/local` not available, rerun openEBS.  
+
+
+How to ssh into GKE nodes
+```
+gcloud compute ssh <NODE_NAME> --zone <ZONE>
 ```
 
-Add cluser-admin role
-```
-kubectl create clusterrolebinding \
-cluster-admin-binding \
---clusterrole=cluster-admin \
---user=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
-```
+Logs showing markup
+Use lnav to view logs: https://lnav.org/
+
+
+Azure Error
+``` Error: building AzureRM Client: Authenticating using the Azure CLI is only supported as a User (not a Service Principal).```
+Set your azure creds prior to launching the automation

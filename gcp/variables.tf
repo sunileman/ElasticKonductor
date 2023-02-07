@@ -26,6 +26,67 @@ variable "gke_version" {
   default     = "1.24.9-gke.1500"
 }
 
+variable "gke_logging_service" {
+  description = "GKE logging service"
+  type        = string
+  default     = "logging.googleapis.com/kubernetes"
+}
+
+variable "gke_monitoring_service" {
+  description = "GKE monitoring service"
+  type        = string
+  default     = "monitoring.googleapis.com/kubernetes"
+}
+
+variable "gke_networking_mode" {
+  description = "GKE networking mode"
+  type        = string
+  default     = "VPC_NATIVE"
+}
+
+variable "gke_http_load_balancing_disabled" {
+  description = "http load balancing disabled"
+  type        = bool
+  default     = true
+}
+
+variable "gke_horizontal_pod_autoscaling" {
+  description = "hps"
+  type        = bool
+  default     = false
+}
+
+variable "gke_cluster_secondary_range_name" {
+  description = "cluster secondary range name"
+  type        = string
+  default     = "k8s-pod-range"
+}
+
+variable "gke_services_secondary_range_name" {
+  description = "services secondary range name"
+  type        = string
+  default     = "k8s-service-range"
+}
+
+
+variable "gke_enable_private_nodes" {
+  description = "enable private nodes"
+  type        = bool
+  default     = true
+}
+
+variable "gke_enable_private_endpoint" {
+  description = "end private endpoint"
+  type        = bool
+  default     = false
+}
+
+variable "gke_master_ipv4_cidr_block" {
+  description = "master ip ranger"
+  type        = string
+  default     = "172.16.0.0/28"
+}
+
 variable "release_channel" {
   description = "GKE Release Channel"
   type = string

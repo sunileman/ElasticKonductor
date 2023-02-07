@@ -6,11 +6,10 @@ resource "google_container_cluster" "k8s" {
   initial_node_count       = 1
   network                  = google_compute_network.main.self_link
   subnetwork               = google_compute_subnetwork.private.self_link
-  logging_service          = "logging.googleapis.com/kubernetes"
-  monitoring_service       = "monitoring.googleapis.com/kubernetes"
-  networking_mode          = "VPC_NATIVE"
+  logging_service          = var.gke_logging_service
+  monitoring_service       = var.gke_monitoring_service
+  networking_mode          = var.gke_networking_mode
   min_master_version       = var.gke_version
-  node_version             = var.gke_version
 
   
   release_channel {
@@ -32,23 +31,23 @@ resource "google_container_cluster" "k8s" {
 
   addons_config {
     http_load_balancing {
-      disabled = true
+      disabled = var.gke_http_load_balancing_disabled
     }
     horizontal_pod_autoscaling {
-      disabled = false
+      disabled = var.gke_horizontal_pod_autoscaling
     }
   }
 
 
   ip_allocation_policy {
-    cluster_secondary_range_name  = "k8s-pod-range"
-    services_secondary_range_name = "k8s-service-range"
+    cluster_secondary_range_name  = var.gke_cluster_secondary_range_name
+    services_secondary_range_name = var.gke_services_secondary_range_name
   }
 
   private_cluster_config {
-    enable_private_nodes    = true
-    enable_private_endpoint = false
-    master_ipv4_cidr_block  = "172.16.0.0/28"
+    enable_private_nodes    = var.gke_enable_private_nodes
+    enable_private_endpoint = var.gke_enable_private_endpoint
+    master_ipv4_cidr_block  = var.gke_master_ipv4_cidr_block
   }
 
 }
