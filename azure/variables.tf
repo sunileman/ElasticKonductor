@@ -1,5 +1,8 @@
+# DO NOT MODIFIY
+# Put any changes or customizations in terraform.tfvars
+
 # The following two variable declarations are placeholder references.
-# Set the values for these variable in terraform.tfvars
+
 variable "aks_service_principal_app_id" {
   default = ""
 }
@@ -8,11 +11,9 @@ variable "aks_service_principal_client_secret" {
   default = ""
 }
 
-
 variable "dns_prefix" {
   default = "oneclickeck"
 }
-
 
 variable "resource_group_location" {
   description = "Location of the resource group."
@@ -23,8 +24,6 @@ variable "resource_group_name_prefix" {
   default     = "rg"
   description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
 }
-
-
 
 variable "aks_version" {
   description = "AKS Version"
@@ -38,13 +37,11 @@ variable "eck_version" {
   default = "2.6.0"
 }
 
-
 variable "project" {
   description = "ClickDeployment Name"
   type = string
   default = "1ClickECK"
 }
-
 
 variable "tags" {
   description = "A map of tags to add to all resources"
@@ -56,7 +53,6 @@ variable "tags" {
     "Division" = "field"
   }
 }
-
 
 variable "k8s_master_instance_type" {
   description = "k8s Master instance type"
@@ -82,7 +78,6 @@ variable "master_instance_type" {
   default     = "standard_D8ads_v5"
 }
 
-
 variable "master_instance_k8s_label" {
   description = "Master instance k8s label"
   type        = map
@@ -94,7 +89,6 @@ variable "kibana_instance_count" {
   type        = number
   default     = 2
 }
-
 
 variable "kibana_max_instance_count" {
   description = "Max Number of kibana instances"
@@ -168,7 +162,6 @@ variable "cold_instance_count" {
   default     = 0
 }
 
-
 variable "cold_max_instance_count" {
   description = "Max Number of cold instances"
   type        = number
@@ -181,7 +174,6 @@ variable "cold_instance_type" {
   default     = "standard_E48ads_v5"
 }
 
-
 variable "cold_instance_k8s_label" {
   description = "cold instance k8s label"
   type        = map
@@ -193,7 +185,6 @@ variable "frozen_instance_count" {
   type        = number
   default     = 0
 }
-
 
 variable "frozen_max_instance_count" {
   description = "Max Number of frozen instances"
@@ -218,7 +209,6 @@ variable "ml_instance_count" {
   type        = number
   default     = 0
 }
-
 
 variable "ml_max_instance_count" {
   description = "Max Number of ml instances"
@@ -293,7 +283,6 @@ variable "master_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
-
 variable "kibana_pod_cpu" {
   description = "kibana pod cpu request"
   type = string
@@ -343,7 +332,6 @@ variable "hot_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
-
 variable "warm_pod_count" {
   description = "number of warm pods"
   type = number
@@ -380,6 +368,7 @@ variable "cold_pod_count" {
   type = number
   default = 0
 }
+
 variable "cold_pod_cpu" {
   description = "cold pod cpu request"
   type = string
@@ -410,6 +399,7 @@ variable "frozen_pod_count" {
   type = number
   default = 0
 }
+
 variable "frozen_pod_cpu" {
   description = "frozen pod cpu request"
   type = string
@@ -440,6 +430,7 @@ variable "ml_pod_count" {
   type = number
   default = 0
 }
+
 variable "ml_pod_cpu" {
   description = "ml pod cpu request"
   type = string
@@ -470,7 +461,6 @@ variable "eck_namespace" {
   type = string
   default = "default"
 }
-
 
 variable "master_pod_roles" {
   description = "master pod roles"
@@ -507,7 +497,6 @@ variable "ml_pod_roles" {
   type = string
   default = "ml, remote_cluster_client"
 }
-
 
 variable "lbname" {
   description = "Kibana Load Balancer Name"

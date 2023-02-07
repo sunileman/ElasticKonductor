@@ -1,3 +1,6 @@
+# DO NOT MODIFIY
+# Put any changes or customizations in terraform.tfvars
+
 variable "aws_access_key" {
   description = "AWS access key"
   type        = string
@@ -44,7 +47,6 @@ variable "vpc_id" {
   default = "NA"
 }
 
-
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden"
   type        = string
@@ -64,10 +66,8 @@ variable "tags" {
     "Division" = "field"
     "Org" = "sa"
     "Team" = "amer"
-    "Project" = "sunman" # Project name (shared) or username (individual)
-}
-
-  
+    "Project" = "somename" # Project name (shared) or username (individual)
+  }
 }
 
 variable "k8s_all_worker_labels" {
@@ -90,7 +90,6 @@ variable "master_max_instance_count" {
   type        = number
   default     = 2
 }
-
 
 variable "master_instance_type" {
   description = "Master instance type"
@@ -170,7 +169,6 @@ variable "hot_instance_count" {
   default     = 3
 }
 
-
 variable "hot_max_instance_count" {
   description = "max Number of hot instances"
   type        = number
@@ -213,7 +211,6 @@ variable "warm_max_instance_count" {
   default     = 10
 }
 
-
 variable "hot_ebs_volume" {
   description = "EBS Volume in GB"
   type        = number
@@ -250,7 +247,6 @@ variable "warm_ebs_volume" {
   default     = 7500
 }
 
-
 variable "cold_instance_count" {
   description = "Number of cold instances"
   type        = number
@@ -280,7 +276,6 @@ variable "cold_ami_type" {
   type = string
   default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
-
 
 variable "cold_capacity_type" {
   description = "cold capacity type"
@@ -324,7 +319,6 @@ variable "frozen_ami_type" {
   default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
 
-
 variable "frozen_capacity_type" {
   description = "frozen capacity type"
   type = string
@@ -366,7 +360,6 @@ variable "ml_ami_type" {
   type = string
   default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
-
 
 variable "ml_capacity_type" {
   description = "ml capacity type"
@@ -416,7 +409,6 @@ variable "util_ebs_volume" {
   default     = 200
 }
 
-
 variable "client_access_cidr" {
   description = "client access cidr to include in security group access clearnance"
   type = list(string)
@@ -434,7 +426,6 @@ variable "endpoint_public_access" {
   type = string
   default = "true"
 }
-
 
 variable "es_version" {
   description = "elasticsearch version"
@@ -472,7 +463,6 @@ variable "master_pod_ES_JAVA_OPTS" {
   default = " "
   #default = "-Xms8g -Xmx8g"
 }
-
 
 variable "kibana_pod_cpu" {
   description = "kibana pod cpu request"
@@ -523,7 +513,6 @@ variable "hot_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
-
 variable "warm_pod_count" {
   description = "number of warm pods"
   type = number
@@ -560,6 +549,7 @@ variable "cold_pod_count" {
   type = number
   default = 0
 }
+
 variable "cold_pod_cpu" {
   description = "cold pod cpu request"
   type = string
@@ -590,6 +580,7 @@ variable "frozen_pod_count" {
   type = number
   default = 0
 }
+
 variable "frozen_pod_cpu" {
   description = "frozen pod cpu request"
   type = string
@@ -620,6 +611,7 @@ variable "ml_pod_count" {
   type = number
   default = 0
 }
+
 variable "ml_pod_cpu" {
   description = "ml pod cpu request"
   type = string
@@ -650,7 +642,6 @@ variable "eck_namespace" {
   type = string
   default = "default"
 }
-
 
 variable "master_pod_roles" {
   description = "master pod roles"
