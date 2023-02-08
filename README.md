@@ -238,10 +238,15 @@ How to ssh into GKE nodes
 gcloud compute ssh <NODE_NAME> --zone <ZONE>
 ```
 
-Logs showing markup
+-Logs showing markup
 Use lnav to view logs: https://lnav.org/
 
 
 Azure Error
 ``` Error: building AzureRM Client: Authenticating using the Azure CLI is only supported as a User (not a Service Principal).```
 Set your azure creds prior to launching the automation
+
+
+-Connection refused when trying to reach ES API port 9200
+Verify at least 1 pod has role which does inclue master.  The load balancer deployed selects nodes based on
+`elasticsearch.k8s.elastic.co/node-master: "false"`

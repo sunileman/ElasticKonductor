@@ -58,7 +58,6 @@ tags = {
 #master_surge_count=10
 #master_volume_type= "pd-ssd"
 
-#kibana_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
 #kibana_instance_count=1
 #kibana_instance_k8s_label= {"nodetype"="kibana"}
 #kibana_instance_type= ""
