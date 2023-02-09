@@ -1,8 +1,12 @@
 resource "google_container_node_pool" "kibana" {
-  name    = "kibana"
+  
+  name       = "kibana"
+
+  #will create node pool if 1
+  count = var.kibana_create_node_pool == true ? 1 : 0
+
   cluster = data.terraform_remote_state.k8s.outputs.gke_cluster_id
   version = var.gke_version
-
 
 
   node_count = var.kibana_instance_count

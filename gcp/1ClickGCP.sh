@@ -90,11 +90,42 @@ fi
 set -e
 start=$SECONDS
 chmod 700 ./create-gke/1ClickGKEDeploy.sh
+chmod 700 ./create-gke/1ClickGKEDestroy.sh
+chmod 700 ./create-eck/license/1ClickAddLicense.sh
+chmod 700 ./create-eck/license/1ClickAddLicenseDestroy.sh
 chmod 700 ./create-gke/addons/1ClickAddons.sh
+chmod 700 ./create-gke/addons/1ClickAddonsDestroy.sh
+chmod 700 ./create-gke/gke-workers/1ClickGKEWorkersDeploy.sh
+chmod 700 ./create-gke/gke-workers/1ClickGKEWorkersDestroy.sh
+chmod 700 ./create-gke/gke-workers/cold/1ClickGKEColdDeploy.sh
+chmod 700 ./create-gke/gke-workers/cold/1ClickGKEColdDestroy.sh
+chmod 700 ./create-gke/gke-workers/frozen/1ClickGKEFrozenDeploy.sh
+chmod 700 ./create-gke/gke-workers/frozen/1ClickGKEFrozenDestroy.sh
+chmod 700 ./create-gke/gke-workers/hot/1ClickGKEHotDeploy.sh
+chmod 700 ./create-gke/gke-workers/hot/1ClickGKEHotDestroy.sh
+chmod 700 ./create-gke/gke-workers/kibana/1ClickGKEKibanaDeploy.sh
+chmod 700 ./create-gke/gke-workers/kibana/1ClickGKEKibanaDestroy.sh
+chmod 700 ./create-gke/gke-workers/master/1ClickGKEMasterDeploy.sh
+chmod 700 ./create-gke/gke-workers/master/1ClickGKEMasterDestroy.sh
+chmod 700 ./create-gke/gke-workers/ml/1ClickGKEMLDeploy.sh
+chmod 700 ./create-gke/gke-workers/ml/1ClickGKEMLDestroy.sh
+chmod 700 ./create-gke/gke-workers/util/1ClickGKEUtilDeploy.sh
+chmod 700 ./create-gke/gke-workers/util/1ClickGKEUtilDestroy.sh
+chmod 700 ./create-gke/gke-workers/warm/1ClickGKEWarmDeploy.sh
+chmod 700 ./create-gke/gke-workers/warm/1ClickGKEWarmDestroy.sh
 chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
+chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
+chmod 700 ./create-eck/create-operator/1ClickECKOperatorDestroy.sh
+chmod 700 ./create-gke/addons/custom/1ClickAddons.sh
+chmod 700 ./create-gke/addons/custom/1ClickAddonsDestroy.sh
+chmod 700 ./create-gke/addons/ksm/1ClickAddons.sh
+chmod 700 ./create-gke/addons/ksm/1ClickAddonsDestroy.sh
+chmod 700 ./create-gke/addons/openebs/1ClickAddons.sh
+chmod 700 ./create-gke/addons/openebs/1ClickAddonsDestroy.sh
+chmod 700 ./create-gke/setkubectl.sh
 
 
 

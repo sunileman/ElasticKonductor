@@ -46,6 +46,12 @@ data "kubectl_path_documents" "es" {
         cold_pod_storage = var.cold_pod_storage
         frozen_pod_storage = var.frozen_pod_storage
         ml_pod_storage = var.ml_pod_storage
+        master_accept_ingest = var.master_accept_ingest
+        hot_accept_ingest = var.hot_accept_ingest
+        warm_accept_ingest = var.warm_accept_ingest
+        cold_accept_ingest = var.cold_accept_ingest
+        frozen_accept_ingest = var.frozen_accept_ingest
+        ml_accept_ingest = var.ml_accept_ingest
     }
 }
 
@@ -111,6 +117,12 @@ data "kubectl_path_documents" "es-count" {
         cold_pod_storage = ""
         frozen_pod_storage = ""
         ml_pod_storage = ""
+        master_accept_ingest = ""
+        hot_accept_ingest = ""
+        warm_accept_ingest = ""
+        cold_accept_ingest = ""
+        frozen_accept_ingest =""
+        ml_accept_ingest = ""
   }
 }
 

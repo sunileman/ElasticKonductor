@@ -94,6 +94,22 @@ chmod 700 ./create-eck/1ClickECKDestroy.sh
 chmod 700 ./create-eck/getClusterInfo.sh
 chmod 700 ./create-eck/1ClickECKDeploy.sh
 chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
+chmod 700 ./create-eck/create-operator/1ClickECKOperatorDestroy.sh
+chmod 700 ./create-eck/license/1ClickAddLicense.sh
+chmod 700 ./create-eck/license/1ClickAddLicenseDestroy.sh
+chmod 700 ./getClusterInfo.sh
+chmod 700 ./create-eck/getClusterInfo.sh
+chmod 700 ./create-eks/setkubectl.sh
+chmod 700 ./create-eks/addons/1ClickAddons.sh
+chmod 700 ./create-eks/addons/1ClickAddonsDestroy.sh
+chmod 700 ./create-eks/addons/autoscaler/1ClickAddons.sh
+chmod 700 ./create-eks/addons/autoscaler/1ClickAddonsDestroy.sh
+chmod 700 ./create-eks/addons/custom/1ClickAddons.sh
+chmod 700 ./create-eks/addons/custom/1ClickAddonsDestroy.sh
+chmod 700 ./create-eks/addons/ksm/1ClickAddons.sh
+chmod 700 ./create-eks/addons/ksm/1ClickAddonsDestroy.sh
+chmod 700 ./create-eks/addons/openebs/1ClickAddons.sh
+chmod 700 ./create-eks/addons/openebs/1ClickAddonsDestroy.sh
 
 
 set -e

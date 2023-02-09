@@ -1,6 +1,11 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool
 resource "google_container_node_pool" "hot" {
+  
+  #will create node pool if 1
+  count = var.hot_create_node_pool == true ? 1 : 0
+
   name       = "hot"
+
   cluster    = data.terraform_remote_state.k8s.outputs.gke_cluster_id
   version    = var.gke_version
  

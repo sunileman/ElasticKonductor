@@ -57,11 +57,14 @@ tags = {
 #master_max_instance_count_per_zone=10
 #master_surge_count=10
 #master_volume_type= "pd-ssd"
+#master_accept_ingest=false
+#master_create_node_pool=true
 
 #kibana_instance_count=1
 #kibana_instance_k8s_label= {"nodetype"="kibana"}
 #kibana_instance_type= ""
 #kibana_volume_type= "pd-ssd"
+#kibana_create_node_pool=true
 
 #hot_initial_node_count_per_zone=1
 #hot_instance_count_per_zone=1
@@ -70,6 +73,8 @@ tags = {
 #hot_max_instance_count_per_zone=10
 #hot_surge_count=10
 #hot_volume_type= "pd-ssd"
+#hot_accept_ingest=true
+#hot_create_node_pool=true
 
 #warm_initial_node_count_per_zone=1
 #warm_instance_count_per_zone=1
@@ -77,6 +82,8 @@ tags = {
 #warm_max_instance_count_per_zone=10
 #warm_surge_count=10#warm_instance_type= ""
 #warm_volume_type= "pd-ssd"
+#warm_accept_ingest=true
+#warm_create_node_pool=true
 
 #cold_initial_node_count_per_zone=1
 #cold_instance_count_per_zone=1
@@ -85,6 +92,8 @@ tags = {
 #cold_max_instance_count_per_zone=10
 #cold_surge_count=10
 #cold_volume_type= "pd-ssd"
+#cold_accept_ingest=false
+#cold_create_node_pool=true
 
 #frozen_initial_node_count_per_zone=1
 #frozen_instance_count_per_zone=1
@@ -93,6 +102,8 @@ tags = {
 #frozen_max_instance_count_per_zone=10
 #frozen_surge_count=10
 #frozen_volume_type= "pd-ssd"
+#frozen_accept_ingest=false
+#frozen_create_node_pool=true
 
 #ml_initial_node_count_per_zone=1
 #ml_instance_count_per_zone=1
@@ -101,6 +112,8 @@ tags = {
 #ml_max_instance_count_per_zone=10
 #ml_surge_count=10
 #ml_volume_type= "pd-ssd"
+#ml_accept_ingest=false
+#ml_create_node_pool=true
 
 #util_instance_count= 1
 #util_instance_k8s_label= {"nodetype"="util"}

@@ -61,6 +61,7 @@ tags = {
 #master_max_instance_count=1
 #master_instance_type= "standard_D8ads_v5"
 #master_instance_k8s_label= {"nodetype"="master"}
+#master_accept_ingest=false
 
 #kibana_instance_count= 2
 #kibana_max_instance_count= 2
@@ -72,26 +73,36 @@ tags = {
 #hot_max_instance_count= 3
 #hot_instance_type=  "standard_D32pls_v5"
 #hot_instance_k8s_label= {"nodetype"="hot"}
+#hot_accept_ingest=true
+
 
 #warm_instance_count= 0
 #warm_max_instance_count= 0
 #warm_instance_type= "standard_E16ads_v5"
 #warm_instance_k8s_label= {"nodetype"="warm"}
+#warm_accept_ingest=true
+
 
 #cold_instance_count= 0
 #cold_max_instance_count= 0
 #cold_instance_type= "standard_E48ads_v5"
 #cold_instance_k8s_label= {"nodetype"="cold"}
+#cold_accept_ingest=false
+
 
 #frozen_instance_count= 0
 #frozen_max_instance_count= 0
 #frozen_instance_type= "standard_E96ads_v5"
 #frozen_instance_k8s_label= {"nodetype"="frozen"}
+#frozen_accept_ingest=false
+
 
 #ml_instance_count= 0
 #ml_max_instance_count= 0
 #ml_instance_type= "standard_D16ads_v5"
 #ml_instance_k8s_label= {"nodetype"="ml"}
+#ml_accept_ingest=false
+
 
 #util_instance_count= 1
 #util_instance_type= "standard_B2s"

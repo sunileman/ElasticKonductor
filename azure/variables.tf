@@ -283,6 +283,13 @@ variable "master_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "master_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+
 variable "kibana_pod_cpu" {
   description = "kibana pod cpu request"
   type = string
@@ -332,6 +339,12 @@ variable "hot_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "hot_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "true"
+}
+
 variable "warm_pod_count" {
   description = "number of warm pods"
   type = number
@@ -362,6 +375,13 @@ variable "warm_pod_ES_JAVA_OPTS" {
   default = " "
   #default = "-Xms8g -Xmx8g"
 }
+
+variable "warm_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "true"
+}
+
 
 variable "cold_pod_count" {
   description = "number of cold pods"
@@ -394,6 +414,13 @@ variable "cold_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "cold_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+
 variable "frozen_pod_count" {
   description = "number of frozen pods"
   type = number
@@ -425,6 +452,13 @@ variable "frozen_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "frozen_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+
 variable "ml_pod_count" {
   description = "number of ml pods"
   type = number
@@ -455,6 +489,14 @@ variable "ml_pod_ES_JAVA_OPTS" {
   default = " "
   #default = "-Xms8g -Xmx8g"
 }
+
+variable "ml_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+
 
 variable "eck_namespace" {
   description = "eck namespace"

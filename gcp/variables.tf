@@ -187,11 +187,19 @@ variable "master_volume_type" {
   default     = "pd-ssd"
 }
 
+variable "master_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
 variable "kibana_instance_count" {
   description = "Number of kibana instances"
   type        = number
   default     = 1
 }
+
+
 
 variable "kibana_instance_type" {
   description = "Kibana instance type"
@@ -216,6 +224,13 @@ variable "kibana_volume_type" {
   type        = string
   default     = "pd-ssd"
 }
+
+variable "kibana_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
 
 variable "hot_surge_count" {
   description = "autoscale surge count"
@@ -263,6 +278,12 @@ variable "hot_volume_type" {
   description = "disk type"
   type        = string
   default     = "pd-ssd"
+}
+
+variable "hot_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
 }
 
 variable "warm_surge_count" {
@@ -313,6 +334,12 @@ variable "warm_volume_type" {
   default     = "pd-ssd"
 }
 
+variable "warm_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
 variable "cold_surge_count" {
   description = "autoscale surge count"
   type        = number
@@ -360,6 +387,13 @@ variable "cold_volume_type" {
   type        = string
   default     = "pd-ssd"
 }
+
+variable "cold_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
 
 variable "frozen_surge_count" {
   description = "autoscale surge count"
@@ -409,6 +443,13 @@ variable "frozen_volume_type" {
   default     = "pd-ssd"
 }
 
+variable "frozen_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
+
 variable "ml_surge_count" {
   description = "autoscale surge count"
   type        = number
@@ -456,6 +497,13 @@ variable "ml_volume_type" {
   type        = string
   default     = "pd-ssd"
 }
+
+variable "ml_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
 
 variable "util_instance_count" {
   description = "Number of util instances"
@@ -524,6 +572,12 @@ variable "master_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "master_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
 variable "kibana_pod_cpu" {
   description = "kibana pod cpu request"
   type = string
@@ -573,6 +627,12 @@ variable "hot_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "hot_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "true"
+}
+
 variable "warm_pod_count" {
   description = "number of warm pods"
   type = number
@@ -602,6 +662,12 @@ variable "warm_pod_ES_JAVA_OPTS" {
   type = string
   default = " "
   #default = "-Xms8g -Xmx8g"
+}
+
+variable "warm_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "true"
 }
 
 variable "cold_pod_count" {
@@ -635,6 +701,13 @@ variable "cold_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "cold_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+
 variable "frozen_pod_count" {
   description = "number of frozen pods"
   type = number
@@ -666,6 +739,12 @@ variable "frozen_pod_ES_JAVA_OPTS" {
   #default = "-Xms8g -Xmx8g"
 }
 
+variable "frozen_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
 variable "ml_pod_count" {
   description = "number of ml pods"
   type = number
@@ -695,6 +774,12 @@ variable "ml_pod_ES_JAVA_OPTS" {
   type = string
   default = " "
   #default = "-Xms8g -Xmx8g"
+}
+
+variable "ml_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
 }
 
 variable "eck_namespace" {

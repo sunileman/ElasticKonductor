@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.31
+oneclickv=.32
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-r for create without openebs] [-h for help]."
@@ -88,7 +88,12 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-
+chmod 700 ./aws/1ClickAWS.sh
+chmod 700 ./aws/getClusterInfo.sh
+chmod 700 ./gcp/1ClickGCP.sh
+chmod 700 ./gcp/getClusterInfo.sh
+chmod 700 ./azure/1ClickAzure.sh
+chmod 700 ./azure/getClusterInfo.sh
 
 exec > >(tee -i $LOG_LOCATION/1Click_${cloud}_${nowtime}.log)
 exec 2>&1

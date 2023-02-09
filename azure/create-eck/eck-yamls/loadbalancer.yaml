@@ -18,6 +18,6 @@ spec:
   selector:
     common.k8s.elastic.co/type: elasticsearch
     elasticsearch.k8s.elastic.co/cluster-name: "eck"
-    elasticsearch.k8s.elastic.co/node-master: "false"
+    acceptIngest: "true"
   sessionAffinity: None
   type: LoadBalancer
