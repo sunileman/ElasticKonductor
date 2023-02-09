@@ -161,6 +161,13 @@ Another example.  The default instance type for warm is `im4gn.4xlarge`.  To cha
 
  **Instance types <br>
  This deployment only supports **DAS, not EBS**
+
+
+Ingest to pods are set by the following variables
+`[master|hot|warm|cold|frozen|ml]_accept_ingest=false`
+
+GCP - To skip node pool creation
+`[master|hot|warm|cold|frozen|ml]_create_node_pool=false`
 ## Apply ES License
 Deployment without a license will use a basic license configuration.  
 If a ES license is available to you, place it under `./[aws|azure|gcp]/create-eck/license` and name the license file `es-license.json`.
@@ -250,3 +257,16 @@ Set your azure creds prior to launching the automation
 -Connection refused when trying to reach ES API port 9200
 Verify at least 1 pod has role which does inclue master.  The load balancer deployed selects nodes based on
 `elasticsearch.k8s.elastic.co/node-master: "false"`
+
+
+Error
+```
+│ Error: Failed to query available provider packages
+│ 
+│ Could not retrieve the list of available versions for provider
+│ anschoewe/curl: could not connect to registry.terraform.io: Failed to
+│ request discovery document: Get
+│ "https://registry.terraform.io/.well-known/terraform.json": read tcp
+│ xxxx:54284->xxxx:443: read: connection reset by peer
+```
+Rerun automation.  Terraform api (target side) was reset.  
