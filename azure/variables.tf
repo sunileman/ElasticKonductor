@@ -123,7 +123,7 @@ variable "hot_max_instance_count" {
 variable "hot_instance_type" {
   description = "Hot instance type"
   type        = string
-  default     =  "standard_D32pls_v5"
+  default     =  "standard_F32s_v2"
 }
 
 variable "hot_instance_k8s_label" {
@@ -244,6 +244,30 @@ variable "util_instance_k8s_label" {
   description = "util instance k8s label"
   type        = map
   default     = {"nodetype"="util"}
+}
+
+variable "logstash_instance_count" {
+  description = "Number of logstash instances"
+  type        = number
+  default     = 0
+}
+
+variable "logstash_max_instance_count" {
+  description = "Max Number of logstash instances"
+  type        = number
+  default     = 10
+}
+
+variable "logstash_instance_type" {
+  description = "logstash instance type"
+  type        = string
+  default     =  "standard_F32s_v2"
+}
+
+variable "logstash_instance_k8s_label" {
+  description = "logstash instance k8s label"
+  type        = map
+  default     = {"nodetype"="logstash"}
 }
 
 variable "es_version" {

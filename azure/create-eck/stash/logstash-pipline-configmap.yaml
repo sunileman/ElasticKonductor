@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-pipeline
+  labels:
+    app.kubernetes.io/name: eck-logstash
+    app.kubernetes.io/component: logstash
+data:
+  pipelines.yml: | 
+    - pipeline.id: test 
+      pipeline.workers: 1
+      pipeline.batch.size: 1
+      config.string: "input { generator {} } filter { sleep { time => 1 } } output { stdout { codec => dots } }"

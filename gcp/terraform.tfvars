@@ -18,11 +18,12 @@ tags = {
     "Division" = "field"
     "Org" = "sa"
     "Team" = "amer"
-    "Project" = "username" # Project name (shared) or username (individual)
+    "Project" = "sunman" # Project name (shared) or username (individual)
 }
 
 #automation_name= "oneClickECK"
 
+logstash_create_node_pool=true
 
 #----------------------- Cloud Provider ----------------------------------------
 

@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: logstash
+  labels:
+    app.kubernetes.io/name: eck-logstash
+    app.kubernetes.io/component: logstash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: eck-logstash
+      app.kubernetes.io/component: logstash
+  serviceName: logstash
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: eck-logstash
+        app.kubernetes.io/component: logstash
+    spec:
+      nodeSelector:
+        nodetype: logstash
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ["sh", "-c", "chown -R 1000:0 /usr/share/logstash/data"]
+        securityContext:
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["all"]
+            add: ["CHOWN"]
+          runAsUser: 0
+          runAsNonRoot: false
+        volumeMounts:
+        - name: logstash-data
+          mountPath: /usr/share/logstash/data
+      containers:
+        - name: logstash
+          image: docker.elastic.co/logstash/logstash:8.6.1
+          env:
+            - name: LS_JAVA_OPTS
+              value: "-Xmx1g -Xms1g"
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 2Gi
+            requests:
+              cpu: 1000m
+              memory: 2Gi
+          ports:
+            - containerPort: 9600
+              name: stats
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9600
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9600
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: logstash-data
+              mountPath: /usr/share/logstash/data
+            - name: config-volume
+              mountPath: /usr/share/logstash/config
+            - name: pipeline-volume
+              mountPath: /usr/share/logstash/pipeline
+      volumes:
+        - name: config-volume
+          configMap:
+            name: logstash-config
+        - name: pipeline-volume
+          configMap:
+            name: logstash-pipeline
+  volumeClaimTemplates: 
+    - metadata:
+        name: logstash-data
+        labels:
+          app.kubernetes.io/name: eck-logstash
+          app.kubernetes.io/component: logstash
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 2Gi
+        storageClassName: premium-rwo

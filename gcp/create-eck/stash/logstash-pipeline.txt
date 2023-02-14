@@ -1,0 +1,38 @@
+input {
+    generator {
+        type => 'metrics'
+        message => '2015-09-29 09:36:28,574 metrics-memory-stat 2036334592;2147483648;2036334592;439658224'
+        count => 500
+    }
+}
+filter {
+  if [type] == 'metrics' {
+    grok {
+        match => { 'message' => '(?<datetime>(%{TIMESTAMP_ISO8601})) (?<stat>(.*)) (?<data>(.*))' }
+    }
+    if [stat] == "metrics-memory-stat" {
+        csv {
+            source => "data"
+            columns => ['heap-committed', 'heap-init', 'heap-max', 'heap-used']
+            separator => ";"
+        }
+        mutate {
+            convert => {
+                "heap-committed" => "integer"
+                "heap-init" => "integer"
+                "heap-max" => "integer"
+                "heap-used" => "integer"
+            }
+        }
+    }
+    date {
+        match => [ 'datetime', 'yyyy-MM-dd HH:mm:ss,SSS', 'HH:mm:ss,SSS', 'ISO8601' ]
+        remove_field => [ 'message', 'datetime', 'ISO8601_TIMEZONE', 'data' ]
+    }
+  }
+}
+output {
+    stdout {
+        codec => rubydebug{}
+    }
+}

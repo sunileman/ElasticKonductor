@@ -2,7 +2,7 @@
 export KUBE_CONFIG_PATH=~/.kube/config
 
 set -e
-echo "Copying variable files"
+echo "1ClickECKDestroy: Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
@@ -21,7 +21,3 @@ terraform destroy -auto-approve
 
 echo "1ClickECKDestroy:  Destroying Operator" 
 (cd ./create-operator ; bash ./1ClickECKOperatorDestroy.sh)
-
-
-echo "1ClickECKDestroy: Destroying NameGen"
-(cd ./namegen; bash ./1ClickNameGenDestroy.sh)

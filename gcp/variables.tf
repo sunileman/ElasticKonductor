@@ -193,6 +193,7 @@ variable "master_create_node_pool" {
   default     = true
 }
 
+
 variable "kibana_instance_count" {
   description = "Number of kibana instances"
   type        = number
@@ -337,7 +338,7 @@ variable "warm_volume_type" {
 variable "warm_create_node_pool" {
   description = "Whether to create the K8s node pool"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "cold_surge_count" {
@@ -391,7 +392,7 @@ variable "cold_volume_type" {
 variable "cold_create_node_pool" {
   description = "Whether to create the K8s node pool"
   type        = bool
-  default     = true
+  default     = false
 }
 
 
@@ -446,7 +447,7 @@ variable "frozen_volume_type" {
 variable "frozen_create_node_pool" {
   description = "Whether to create the K8s node pool"
   type        = bool
-  default     = true
+  default     = false
 }
 
 
@@ -501,7 +502,7 @@ variable "ml_volume_type" {
 variable "ml_create_node_pool" {
   description = "Whether to create the K8s node pool"
   type        = bool
-  default     = true
+  default     = false
 }
 
 
@@ -533,6 +534,42 @@ variable "util_volume_type" {
   description = "disk type"
   type        = string
   default     = "pd-ssd"
+}
+
+variable "logstash_instance_count" {
+  description = "Number of logstash instances"
+  type        = number
+  default     = 1
+}
+
+variable "logstash_instance_type" {
+  description = "logstash instance type"
+  type        = string
+  default     = "e2-standard-32"
+}
+
+variable "logstash_instance_k8s_label" {
+  description = "logstash instance k8s label"
+  type        = map
+  default     = {"nodetype"="logstash"}
+}
+
+variable "logstash_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     =  200
+}
+
+variable "logstash_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
+
+variable "logstash_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = false
 }
 
 variable "es_version" {

@@ -21,7 +21,6 @@ terraform.tfstate.backup
 *.not-in-use
 nohup.out
 output.json
-stash/
 state.out
 testing/
 *es-license.json

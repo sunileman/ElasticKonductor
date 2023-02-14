@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logstash
+  labels:
+    app.kubernetes.io/name: eck-logstash
+    app.kubernetes.io/component: logstash
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: eck-logstash
+      app.kubernetes.io/component: logstash
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: eck-logstash
+        app.kubernetes.io/component: logstash
+    spec:
+      nodeSelector:
+        nodetype: logstash
+      containers:
+        - name: logstash
+          image: docker.elastic.co/logstash/logstash:8.6.1
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/logstash/config
+            - name: pipeline-volume
+              mountPath: /usr/share/logstash/pipeline
+      volumes:
+        - name: config-volume
+          configMap:
+            name: logstash-config
+        - name: pipeline-volume
+          configMap:
+            name: logstash-pipeline

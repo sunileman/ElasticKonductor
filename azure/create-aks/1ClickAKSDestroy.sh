@@ -2,7 +2,7 @@
 export KUBE_CONFIG_PATH=~/.kube/config
 set -e
 
-echo "1ClickAKSDeploy.sh: coping variable files"
+echo "1ClickAKSDestroy.sh: coping variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
@@ -15,3 +15,6 @@ echo "1ClickAKSDestroy.sh: destroying addons"
 
 echo "1ClickAKSDestroy.sh: destroying AKS"
 terraform destroy -auto-approve
+
+echo "1ClickAKDestroy: Destroying NameGen"
+(cd ../create-eck/namegen/; bash ./1ClickNameGenDestroy.sh)

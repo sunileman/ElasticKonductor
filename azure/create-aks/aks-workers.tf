@@ -133,3 +133,21 @@ resource "azurerm_kubernetes_cluster_node_pool" "ml" {
   node_labels = var.ml_instance_k8s_label
 }
 
+
+resource "azurerm_kubernetes_cluster_node_pool" "logstash" {
+  name                  = "logstash"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = var.logstash_instance_type
+  #node_count            = var.logstash_instance_count
+
+  enable_auto_scaling = true
+  min_count           = var.logstash_instance_count
+  max_count           = var.logstash_max_instance_count
+
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
+
+  node_labels = var.logstash_instance_k8s_label
+}
