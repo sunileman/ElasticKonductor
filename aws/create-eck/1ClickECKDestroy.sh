@@ -1,9 +1,9 @@
 #!/bin/bash
 export KUBE_CONFIG_PATH=~/.kube/config
 
--e
+set -e
 
-terrform init 
+terraform init 
 terraform refresh
 
 echo "Copying variable files"
@@ -12,7 +12,7 @@ cp -f ../terraform.tfvars .
 
 
 echo "1ClickECKDestroy: Destroying license"
-(cd ./license; bash .1ClickAddLicenseDestroy.sh)
+(cd ./license; bash ./1ClickAddLicenseDestroy.sh)
 
 echo "Destroying ES Pods"
 terraform destroy -auto-approve

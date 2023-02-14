@@ -22,7 +22,7 @@ spec:
       metadata:
         labels:
           # additional labels for pods
-          foo: compress
+          acceptIngest: "${master_accept_ingest}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -87,7 +87,7 @@ spec:
       metadata:
         labels:
           # additional labels for pods
-          foo: compress
+          acceptIngest: "${hot_accept_ingest}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -161,7 +161,7 @@ spec:
       metadata:
         labels:
           # additional labels for pods
-          foo: compress
+          acceptIngest: "${warm_accept_ingest}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -235,7 +235,7 @@ spec:
       metadata:
         labels:
           # additional labels for pods
-          foo: compress
+          acceptIngest: "${cold_accept_ingest}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -309,7 +309,7 @@ spec:
       metadata:
         labels:
           # additional labels for pods
-          foo: compress
+          acceptIngest: "${frozen_accept_ingest}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -383,7 +383,7 @@ spec:
       metadata:
         labels:
           # additional labels for pods
-          foo: compress
+          acceptIngest: "${ml_accept_ingest}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat

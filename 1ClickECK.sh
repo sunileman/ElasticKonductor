@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.32
+oneclickv=.33
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-r for create without openebs] [-h for help]."
@@ -154,12 +154,12 @@ export KUBE_CONFIG_PATH=~/.kube/config
 if [ $cloud == "aws" ]; then
     if [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickAWS.sh with all"
-       (cd ./aws; bash ./1ClickAWS.sh -b all)
+       (cd ./aws; bash ./1ClickAWS.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
     elif [ $createmode == true ] && [ $k8sonly == true ]; then
        echo "1ClickECK.sh: calling 1ClickAWS.sh eks only"
-       (cd ./aws; bash ./1ClickAWS.sh -b eks)
+       (cd ./aws; bash ./1ClickAWS.sh -b eks $openebs_enabled)
        duration=$(( SECONDS - start ))
     elif [[ $destroy == true ]]; then
        echo "1ClickECK.sh: calling 1ClickAWS.sh destroy"

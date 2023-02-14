@@ -35,7 +35,7 @@ while [[ "$#" -gt 0 ]]; do
       if [[ "$1" == "all" ]]; then
         echo "Build Mode = ALL"
       elif [[ "$1" == "eks" ]]; then
-	eksonly=true
+	      eksonly=true
         echo "Create Mode = EKS Only"
       else
         echo "Not a valid option.  Use: all or eks"
@@ -84,6 +84,7 @@ if [ $destroy == true ] && [ $eksonly == true ] ; then
         exit 1
 fi
 
+echo "1ClickAWS.sh openEBS option set to $openebs"
 
 start=$SECONDS
 chmod 700 ./create-eks/1ClickEKSDeploy.sh
