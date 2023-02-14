@@ -6,6 +6,10 @@ nowtime=`date +"%m_%d_%Y_%s"`
 export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
+echo "openebs/1ClickAddonsDestroy.sh: coping variable files"
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
+
 terraform init
 terraform refresh
 

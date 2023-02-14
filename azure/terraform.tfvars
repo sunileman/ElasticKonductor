@@ -21,7 +21,7 @@ tags = {
     "Project" = "username" # Project name (shared) or username (individual)
 }
 
-resource_group_location=eastus
+resource_group_location="eastus"
 
 
 
@@ -111,6 +111,8 @@ resource_group_location=eastus
 #util_instance_count= 1
 #util_instance_type= "standard_B2s"
 #util_instance_k8s_label= {"nodetype"="util"}
+
+#openebs_helm_chart_version="3.3.1"
 
 #======================= Elastic Stack =========================================
 

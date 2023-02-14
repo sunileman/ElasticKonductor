@@ -575,3 +575,10 @@ variable "lb2name" {
   type = string
   default = "changeme2"
 }
+
+variable "openebs_helm_chart_version" {
+  description = "OpenEBS chart version"
+  type = string
+  default = "3.3.1"
+}
+

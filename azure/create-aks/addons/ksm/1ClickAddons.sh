@@ -9,6 +9,11 @@ export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 export KUBE_CONFIG_PATH=~/.kube/config
 set -e
+
+echo "ksm/1ClickAddons.sh: coping variable files"
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
+
 echo "ksm/1ClickAddons.sh: creating ksm"
 ##terraform logs
 # initialize terraform configuration

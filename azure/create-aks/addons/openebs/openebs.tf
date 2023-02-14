@@ -3,6 +3,7 @@ resource "helm_release" "openebs" {
   namespace      = "openebs"
   repository     = "https://openebs.github.io/charts"
   chart          = "openebs"
+  version        = var.openebs_helm_chart_version
   create_namespace = true
   set {
     name  = "localprovisioner.basePath"
