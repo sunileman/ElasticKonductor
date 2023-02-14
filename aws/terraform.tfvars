@@ -18,12 +18,15 @@ tags = {
     "Division" = "field"
     "Org" = "sa"
     "Team" = "amer"
-    "Project" = "username" # Project name (shared) or username (individual)
+    "Project" = "sunman" # Project name (shared) or username (individual)
 }
 
-#automation_name= "1ClickECK"
+region= "us-east-1"
+
+
 
 #----------------------- Cloud Provider ----------------------------------------
+#automation_name= "1ClickECK"
 
 # Optinally set aws creds here (less secure) 
 #aws_access_key="your-key"
@@ -56,6 +59,7 @@ tags = {
 #master_instance_k8s_label= {"nodetype"="master"}
 #master_instance_type= ["m6g.2xlarge"]
 #master_max_instance_count=2
+#master_accept_ingest=false
 
 #kibana_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #kibana_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -72,6 +76,8 @@ tags = {
 #hot_instance_k8s_label= {"nodetype"="hot"}
 #hot_instance_type= ["c6g.8xlarge"]
 #hot_max_instance_count=10
+#hot_accept_ingest=true
+
 
 #warm_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #warm_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -80,6 +86,8 @@ tags = {
 #warm_instance_k8s_label= {"nodetype"="warm"}
 #warm_instance_type= ["r6i.4xlarge"]
 #warm_max_instance_count=10
+#warm_accept_ingest=true
+
 
 #cold_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #cold_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -88,6 +96,8 @@ tags = {
 #cold_instance_k8s_label= {"nodetype"="cold"}
 #cold_instance_type= ["r6i.12xlarge"]
 #cold_max_instance_count=10
+#cold_accept_ingest=false
+
 
 #frozen_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #frozen_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -96,6 +106,8 @@ tags = {
 #frozen_instance_k8s_label= {"nodetype"="frozen"}
 #frozen_instance_type= ["r6i.24xlarge"]
 #frozen_max_instance_count=10
+#frozen_accept_ingest=false
+
 
 #ml_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #ml_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -104,6 +116,8 @@ tags = {
 #ml_instance_k8s_label= {"nodetype"="ml"}
 #ml_instance_type= ["c6i.4xlarge"]
 #ml_max_instance_count=10
+#ml_accept_ingest=false
+
 
 #util_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #util_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT

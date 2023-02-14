@@ -21,9 +21,13 @@ tags = {
     "Project" = "username" # Project name (shared) or username (individual)
 }
 
-#automation_name= "1ClickECK"
+resource_group_location=eastus
+
+
 
 #----------------------- Cloud Provider ----------------------------------------
+
+#automation_name= "1ClickECK"
 
 # Set these Azure variables 
 

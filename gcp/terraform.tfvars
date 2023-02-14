@@ -21,11 +21,13 @@ tags = {
     "Project" = "sunman" # Project name (shared) or username (individual)
 }
 
-#automation_name= "oneClickECK"
 
-logstash_create_node_pool=true
+region= "us-central1"
+zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
 #----------------------- Cloud Provider ----------------------------------------
+
+#automation_name= "oneClickECK"
 
 # Defines where 1ClickECK will deploy the new Kubernetes cluster
 
