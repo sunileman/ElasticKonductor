@@ -8,6 +8,10 @@ export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 export KUBE_CONFIG_PATH=~/.kube/config
 
+echo "openebs/1ClickAddons.sh: coping variable files"
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
+
 echo "openebs/1ClickAddons.sh: Creating OpenEBS"
 set +e
 # initialize terraform configuration

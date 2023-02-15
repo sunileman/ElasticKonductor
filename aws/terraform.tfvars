@@ -18,7 +18,7 @@ tags = {
     "Division" = "field"
     "Org" = "sa"
     "Team" = "amer"
-    "Project" = "sunman" # Project name (shared) or username (individual)
+    "Project" = "username" # Project name (shared) or username (individual)
 }
 
 region= "us-east-1"
@@ -125,6 +125,8 @@ region= "us-east-1"
 #util_instance_count= 1
 #util_instance_k8s_label= {"nodetype"="util"}
 #util_instance_type= ["t2.medium"]
+
+#openebs_helm_chart_version="3.3.1"
 
 #======================= Elastic Stack =========================================
 

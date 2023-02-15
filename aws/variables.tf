@@ -724,3 +724,8 @@ variable "ml_pod_roles" {
   default = "ml, remote_cluster_client"
 }
 
+variable "openebs_helm_chart_version" {
+  description = "OpenEBS chart version"
+  type = string
+  default = "3.3.1"
+}

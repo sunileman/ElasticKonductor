@@ -10,6 +10,9 @@ export TF_LOG_PATH="./tflogs/terraform-destroy-$nowtime.log"
 
 set -e
 
+echo "autoscaler/1ClickAddonsDestroy.sh: coping variable files"
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
 
 terraform init
 terraform refresh

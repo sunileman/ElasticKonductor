@@ -10,6 +10,10 @@ export KUBE_CONFIG_PATH=~/.kube/config
 
 set -e
 
+echo "autoscaler/1ClickAddons.sh: coping variable files"
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
+
 echo "autoscaler/1ClickAddons.sh: Creating Autoscaler"
 # initialize terraform configuration
 terraform init
