@@ -31,7 +31,7 @@ terraform apply state.tfplan
 
 echo "1ClickECKDeploy.sh: Appling license"
 #add license file
-./license/1ClickAddLicense.sh
+(cd ./license ; bash ./1ClickAddLicense.sh) 
 
 
 echo Please wait....
