@@ -270,3 +270,11 @@ Error
 │ xxxx:54284->xxxx:443: read: connection reset by peer
 ```
 Rerun automation.  Terraform api (target side) was reset.  
+
+
+Error
+```An error occurred (UnrecognizedClientException) when calling the DescribeCluster operation: The security token included in the request is invalid.
+```
+Try: aws creds are invalid.  Verify by running
+`aws sts get-caller-identity`
+
