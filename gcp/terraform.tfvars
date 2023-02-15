@@ -52,6 +52,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #
 # This determines the hardware footprint, or billiable size, of the deployment.
 
+
 #master_initial_node_count_per_zone=1
 #master_instance_count_per_zone=1
 #master_instance_k8s_label= {"nodetype"="master"}
@@ -122,6 +123,9 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #util_instance_k8s_label= {"nodetype"="util"}
 #util_instance_type= ""
 #util_volume_type= "pd-ssd"
+
+
+#openebs_helm_chart_version="3.3.1"
 
 #======================= Elastic Stack =========================================
 
