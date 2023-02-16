@@ -25,6 +25,7 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
+
 #----------------------- Cloud Provider ----------------------------------------
 
 #automation_name= "oneClickECK"
@@ -150,6 +151,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #master_pod_memory= "11264Mi"
 #master_pod_roles= "master"
 #master_pod_storage= "140Gi"
+#master_pod_storage_class = "openebs-hostpath"
 
 #hot_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #hot_pod_count= 3
@@ -157,6 +159,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #hot_pod_memory= "53248Mi"
 #hot_pod_roles= "data_hot, data_content, ingest"
 #hot_pod_storage= "1600Gi"
+#hot_pod_storage_class = "openebs-hostpath"
 
 #warm_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #warm_pod_count= 1
@@ -164,6 +167,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #warm_pod_memory= "53248Mi"
 #warm_pod_roles= "data_warm, data_content"
 #warm_pod_storage= "5000Gi"
+#warm_pod_storage_class = "openebs-hostpath"
 
 #cold_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #cold_pod_count= 1
@@ -171,6 +175,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #cold_pod_memory= "11264Mi"
 #cold_pod_roles= "data_cold"
 #cold_pod_storage= "140Gi"
+#cold_pod_storage_class = "openebs-hostpath"
 
 #frozen_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #frozen_pod_count= 1
@@ -178,6 +183,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #frozen_pod_memory= "11264Mi"
 #frozen_pod_roles= "data_frozen"
 #frozen_pod_storage= "140Gi"
+#frozen_pod_storage_class = "openebs-hostpath"
 
 #ml_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #ml_pod_count= 1
@@ -185,6 +191,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #ml_pod_memory= "11264Mi"
 #ml_pod_roles= "ml, remote_cluster_client"
 #ml_pod_storage= "140Gi"
+#ml_pod_storage_class = "openebs-hostpath"
 
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"

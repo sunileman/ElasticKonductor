@@ -24,7 +24,6 @@ tags = {
 resource_group_location="eastus"
 
 
-
 #----------------------- Cloud Provider ----------------------------------------
 
 #automation_name= "1ClickECK"

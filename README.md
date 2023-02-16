@@ -28,6 +28,12 @@ Does not deploy
 ## Prerequisites
 
 
+`Quick Start`
+Details regarding clients required to run the automtaion are outlined in the following sections.  However if a ubuntu 20.+ instance is available, a quick start client install script is available here 
+`https://github.com/sunileman/1ClickECK/blob/main/scripts/1ClickECK-client-install.sh`
+This will install all the required libaries and CLIs for the automation. 
+
+
 `General`
 * Ubuntu host to install all clients listed below (terraform, aws cli, etc).  Automation has been tested on ONLY on Ubuntu host
 * Install Terraform client
@@ -49,6 +55,9 @@ Does not deploy
     * aws configure
     * https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions
 
+`GIT`
+* Not required.  If interested in pulling the repo via ssh to keep up with updates applied to this automation
+`https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent`
 
 
 `Azure`
@@ -200,7 +209,7 @@ To reset your local kubeclt, run
 ```bash
   /1ClickECK/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
 ```
-## OpenEBS
+## OpenEBS / Storage Options
 OpenEBS is a automatic disk provisioner for K8s.  There may be scanerios the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
 
 ```
@@ -210,6 +219,18 @@ OpenEBS is a automatic disk provisioner for K8s.  There may be scanerios the def
 If openEBS exist on K8s cluster and to remove run this
 ```
 ./1ClickECK/<aws|gcp|azure>/create-gke/addons/openebs/1ClickRemoveOpenEBS.sh
+```
+
+If additional storage classes are available and need to be leverage, set the following variables with the storage class name
+
+```
+[master|hot|warm|cold|frozen|ml]_pod_storage_class = <Storage Class Name>
+```
+
+`AWS GPE`
+The automation installs EBS CSI along with required IAM permissions. Additionally the automation will create a stroage calls `gp3`.  It can be used by setting 
+```
+[master|hot|warm|cold|frozen|ml]_pod_storage_class = gp3
 ```
 ## Troubleshooting
 ```bash

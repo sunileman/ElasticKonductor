@@ -52,6 +52,12 @@ data "kubectl_path_documents" "es" {
         cold_accept_ingest = var.cold_accept_ingest
         frozen_accept_ingest = var.frozen_accept_ingest
         ml_accept_ingest = var.ml_accept_ingest
+        master_pod_storage_class = var.master_pod_storage_class
+        hot_pod_storage_class = var.hot_pod_storage_class
+        warm_pod_storage_class = var.warm_pod_storage_class
+        cold_pod_storage_class = var.cold_pod_storage_class
+        frozen_pod_storage_class = var.frozen_pod_storage_class
+        ml_pod_storage_class = var.ml_pod_storage_class
     }
 }
 
@@ -123,6 +129,12 @@ data "kubectl_path_documents" "es-count" {
         cold_accept_ingest = ""
         frozen_accept_ingest =""
         ml_accept_ingest = ""
+        master_pod_storage_class = ""
+        hot_pod_storage_class = ""
+        warm_pod_storage_class = ""
+        cold_pod_storage_class = ""
+        frozen_pod_storage_class =""
+        ml_pod_storage_class = ""
   }
 }
 

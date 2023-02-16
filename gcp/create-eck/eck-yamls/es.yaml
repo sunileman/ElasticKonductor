@@ -63,7 +63,7 @@ spec:
          resources:
            requests:
              storage: ${master_pod_storage}
-         storageClassName: openebs-hostpath
+         storageClassName: ${master_pod_storage_class}
   - name: hot
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -199,7 +199,7 @@ spec:
          resources:
            requests:
              storage: ${warm_pod_storage}
-         storageClassName: openebs-hostpath
+         storageClassName: ${warm_pod_storage_class}
   - name: cold
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -267,7 +267,7 @@ spec:
          resources:
            requests:
              storage: ${cold_pod_storage}
-         storageClassName: openebs-hostpath
+         storageClassName: ${cold_pod_storage_class}
   - name: frozen
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -335,7 +335,7 @@ spec:
          resources:
            requests:
              storage: ${frozen_pod_storage}
-         storageClassName: openebs-hostpath
+         storageClassName: ${frozen_pod_storage_class}
   - name: ml
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -403,7 +403,7 @@ spec:
          resources:
            requests:
              storage: ${ml_pod_storage}
-         storageClassName: openebs-hostpath
+         storageClassName: ${ml_pod_storage_class}
   # # inject secure settings into Elasticsearch nodes from k8s secrets references
   # secureSettings:
   # - secretName: ref-to-secret

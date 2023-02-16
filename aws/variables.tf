@@ -470,6 +470,12 @@ variable "master_accept_ingest" {
   default = "false"
 }
 
+variable "master_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "openebs-hostpath"
+}
+
 variable "kibana_pod_cpu" {
   description = "kibana pod cpu request"
   type = string
@@ -525,6 +531,11 @@ variable "hot_accept_ingest" {
   default = "true"
 }
 
+variable "hot_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "openebs-hostpath"
+}
 
 variable "warm_pod_count" {
   description = "number of warm pods"
@@ -563,7 +574,11 @@ variable "warm_accept_ingest" {
   default = "true"
 }
 
-
+variable "warm_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "openebs-hostpath"
+}
 
 variable "cold_pod_count" {
   description = "number of cold pods"
@@ -602,7 +617,11 @@ variable "cold_accept_ingest" {
   default = "false"
 }
 
-
+variable "cold_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "openebs-hostpath"
+}
 
 variable "frozen_pod_count" {
   description = "number of frozen pods"
@@ -641,6 +660,11 @@ variable "frozen_accept_ingest" {
   default = "false"
 }
 
+variable "frozen_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "openebs-hostpath"
+}
 
 
 variable "ml_pod_count" {
@@ -678,6 +702,12 @@ variable "ml_accept_ingest" {
   description = "pod accepts ingest"
   type = string
   default = "false"
+}
+
+variable "ml_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "openebs-hostpath"
 }
 
 
