@@ -1,5 +1,5 @@
 #!/bin/bash
--e
+set -e
 
 echo "appling enterprise trial license"
 # initialize terraform configuration
