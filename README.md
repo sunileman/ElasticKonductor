@@ -205,7 +205,7 @@ The automation; 1ClickECK,  is idempotent.  Therefore if updates to ECK or ES ha
 ## kubectl manifest
 Automation will set local kube config (kubectl) after automation run.  If local kube config needs to be reset, simple rerun the automation (even if there is no change) to set local kube config.
 
-To reset your local kubeclt, run
+To reset your local kubectl, run
 ```bash
   /1ClickECK/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
 ```
