@@ -35,4 +35,4 @@ sudo apt-get update && sudo apt-get install google-cloud-cli
 sudo apt update
 sudo apt install snapd
 sudo snap install kubectl --channel=1.24/stable --classic
-snap install helm --classic
+sudo snap install helm --classic
