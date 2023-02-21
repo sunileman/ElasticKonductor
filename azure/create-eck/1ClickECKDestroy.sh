@@ -6,6 +6,13 @@ echo "1ClickECKDestroy: Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
+
+echo "1ClickECKDestroy.sh calling nameGen"
+(cd ./namegen; bash ./1ClickNameGen.sh)
+
+echo "1ClickECKDestroy.sh setting kubectl"
+(cd ../create-aks; bash ./setkubectl.sh)
+
 terraform init
 terraform refresh
 
@@ -21,3 +28,6 @@ terraform destroy -auto-approve
 
 echo "1ClickECKDestroy:  Destroying Operator" 
 (cd ./create-operator ; bash ./1ClickECKOperatorDestroy.sh)
+
+echo "1ClickAKSDestroy: Destroying NameGen"
+(cd ./namegen/; bash ./1ClickNameGenDestroy.sh)
