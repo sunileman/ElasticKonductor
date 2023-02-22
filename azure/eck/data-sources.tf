@@ -2,7 +2,7 @@ data "terraform_remote_state" "k8s" {
   backend = "local"
 
   config = {
-    path = "../create-aks/terraform.tfstate"
+    path = "../aks/terraform.tfstate"
   }
 }
 

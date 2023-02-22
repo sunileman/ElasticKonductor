@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "getClusterInfo.sh: calling ./create-eck/getClusterInfo.sh"
-(cd ./create-eck; bash ./getClusterInfo.sh)
+echo "getClusterInfo.sh: calling ./eck/getClusterInfo.sh"
+(cd ./eck; bash ./getClusterInfo.sh)

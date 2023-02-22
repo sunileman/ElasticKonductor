@@ -8,15 +8,15 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 export KUBE_CONFIG_PATH=~/.kube/config
-chmod 700 ./create-aks/1ClickAKSDeploy.sh
-chmod 700 ./create-aks/addons/1ClickAddons.sh
-chmod 700 ./create-aks/setkubectl.sh
-chmod 700 ./create-eck/1ClickECKDestroy.sh
-chmod 700 ./create-eck/getClusterInfo.sh
-chmod 700 ./create-eck/1ClickECKDeploy.sh
-chmod 700 ./create-aks/setDataSourceRG.sh
-chmod 700 ./create-eck/namegen/1ClickNameGen.sh
-chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
+chmod 700 ./aks/1ClickAKSDeploy.sh
+chmod 700 ./aks/addons/1ClickAddons.sh
+chmod 700 ./aks/setkubectl.sh
+chmod 700 ./eck/1ClickECKDestroy.sh
+chmod 700 ./eck/getClusterInfo.sh
+chmod 700 ./eck/1ClickECKDeploy.sh
+chmod 700 ./aks/setDataSourceRG.sh
+chmod 700 ./eck/namegen/1ClickNameGen.sh
+chmod 700 ./eck/create-operator/1ClickECKOperator.sh
 
 
 usage() {
@@ -103,20 +103,20 @@ set -e
 
 if [ $createmode == true ] && [ $aksonly == false ]; then
    echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
-   (cd ./create-aks ; sh ./1ClickAKSDeploy.sh $openebs)
+   (cd ./aks ; sh ./1ClickAKSDeploy.sh $openebs)
    echo "1ClickAzure.sh: invoking 1ClickECKDeploy.sh"
-   (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
+   (cd ./eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $aksonly == true ]; then
    echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
-   (cd ./create-aks ; sh ./1ClickAKSDeploy.sh $openebs)
+   (cd ./aks ; sh ./1ClickAKSDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
    echo "1ClickAzure.sh: invoking 1ClickECKDestroy.sh"
-   (cd ./create-eck ; sh ./1ClickECKDestroy.sh)
+   (cd ./eck ; sh ./1ClickECKDestroy.sh)
    echo "1ClickAzure.sh: invoking 1ClickAKSDestroy.sh"
-   (cd ./create-aks; bash ./1ClickAKSDestroy.sh)
+   (cd ./aks; bash ./1ClickAKSDestroy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 else

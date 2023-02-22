@@ -1,0 +1,87 @@
+# This sample sets up an Elasticsearch cluster with 3 nodes.
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: eck
+spec:
+  version: 8.5.2
+  secureSettings:
+  nodeSets:
+  - name: master
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.roles: [ master ]
+      transport.compress: true
+    podTemplate:
+      metadata:
+        labels:
+          # additional labels for pods
+          acceptIngest: "true"
+        annotations:
+      spec:
+        nodeSelector:
+          nodetype: master
+        containers:
+        - name: elasticsearch
+          # specify resource limits and requests
+          resources:
+            limits:
+              #memory: 11264Mi
+              memory: 11264Mi
+              #cpu: 3700m
+              cpu: 6500m
+          env:
+          - name: ES_JAVA_OPTS
+            value: " "
+    count: 1
+    volumeClaimTemplates:
+     - metadata:
+         name: elasticsearch-data
+       spec:
+         accessModes:
+         - ReadWriteOnce
+         resources:
+           requests:
+             storage: 140Gi
+         storageClassName: managed-premium
+  - name: hot
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.roles: [ data_hot, data_content, ingest, ml ]
+      node.attr.data: hot
+      transport.compress: true
+    podTemplate:
+      metadata:
+        labels:
+          # additional labels for pods
+          acceptIngest: "true"
+        annotations:
+      spec:
+        nodeSelector:
+          nodetype: hot
+        containers:
+        - name: elasticsearch
+          # specify resource limits and requests
+          resources:
+            limits:
+              memory: 53248Mi
+              cpu: 30000m
+          env:
+          - name: ES_JAVA_OPTS
+            value: " "
+    count: 1
+    volumeClaimTemplates:
+     - metadata:
+         name: elasticsearch-data
+       spec:
+         accessModes:
+         - ReadWriteOnce
+         resources:
+           requests:
+             storage: 1600Gi
+         storageClassName: managed-premium
+  http:
+   tls:
+    selfSignedCertificate:
+     subjectAltNames:
+     - dns: "*.cloudapp.azure.com"
