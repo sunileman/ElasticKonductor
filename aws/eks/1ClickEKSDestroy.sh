@@ -3,6 +3,9 @@ export KUBE_CONFIG_PATH=~/.kube/config
 echo T1ClickEKSDestroy.sh: Terraform Destroy
 set -e
 
+echo "1ClickEKSDestroy.sh setting kubectl"
+(bash ./setkubectl.sh)
+
 terraform init
 terraform refresh
 

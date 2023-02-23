@@ -13,7 +13,7 @@ cp -f ../terraform.tfvars .
 set -e
 ##create elastic CRDs and Operator
 echo "1ClickECKDeploy.sh: Creating Elastic CRDS and Operator"
-(cd ./create-operator ; sh ./1ClickECKOperator.sh)
+(cd ./es-operator ; sh ./1ClickECKOperator.sh)
 
 
 echo "1ClickECKDeploy.sh Creating ElasticSearch Pods"

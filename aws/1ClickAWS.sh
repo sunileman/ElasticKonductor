@@ -87,50 +87,50 @@ fi
 echo "1ClickAWS.sh openEBS option set to $openebs"
 
 start=$SECONDS
-chmod 700 ./create-eks/1ClickEKSDeploy.sh
-chmod 700 ./create-eks/1ClickEKSDestroy.sh
-chmod 700 ./create-eks/1ClickEKSDestroy.sh
-chmod 700 ./create-eks/addons/1ClickAddons.sh
-chmod 700 ./create-eck/1ClickECKDestroy.sh
-chmod 700 ./create-eck/getClusterInfo.sh
-chmod 700 ./create-eck/1ClickECKDeploy.sh
-chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
-chmod 700 ./create-eck/create-operator/1ClickECKOperatorDestroy.sh
-chmod 700 ./create-eck/license/1ClickAddLicense.sh
-chmod 700 ./create-eck/license/1ClickAddLicenseDestroy.sh
+chmod 700 ./eks/1ClickEKSDeploy.sh
+chmod 700 ./eks/1ClickEKSDestroy.sh
+chmod 700 ./eks/1ClickEKSDestroy.sh
+chmod 700 ./eks/addons/1ClickAddons.sh
+chmod 700 ./eck/1ClickECKDestroy.sh
+chmod 700 ./eck/getClusterInfo.sh
+chmod 700 ./eck/1ClickECKDeploy.sh
+chmod 700 ./eck/create-operator/1ClickECKOperator.sh
+chmod 700 ./eck/create-operator/1ClickECKOperatorDestroy.sh
+chmod 700 ./eck/license/1ClickAddLicense.sh
+chmod 700 ./eck/license/1ClickAddLicenseDestroy.sh
 chmod 700 ./getClusterInfo.sh
-chmod 700 ./create-eck/getClusterInfo.sh
-chmod 700 ./create-eks/setkubectl.sh
-chmod 700 ./create-eks/addons/1ClickAddons.sh
-chmod 700 ./create-eks/addons/1ClickAddonsDestroy.sh
-chmod 700 ./create-eks/addons/autoscaler/1ClickAddons.sh
-chmod 700 ./create-eks/addons/autoscaler/1ClickAddonsDestroy.sh
-chmod 700 ./create-eks/addons/custom/1ClickAddons.sh
-chmod 700 ./create-eks/addons/custom/1ClickAddonsDestroy.sh
-chmod 700 ./create-eks/addons/ksm/1ClickAddons.sh
-chmod 700 ./create-eks/addons/ksm/1ClickAddonsDestroy.sh
-chmod 700 ./create-eks/addons/openebs/1ClickAddons.sh
-chmod 700 ./create-eks/addons/openebs/1ClickAddonsDestroy.sh
+chmod 700 ./eck/getClusterInfo.sh
+chmod 700 ./eks/setkubectl.sh
+chmod 700 ./eks/addons/1ClickAddons.sh
+chmod 700 ./eks/addons/1ClickAddonsDestroy.sh
+chmod 700 ./eks/addons/autoscaler/1ClickAddons.sh
+chmod 700 ./eks/addons/autoscaler/1ClickAddonsDestroy.sh
+chmod 700 ./eks/addons/custom/1ClickAddons.sh
+chmod 700 ./eks/addons/custom/1ClickAddonsDestroy.sh
+chmod 700 ./eks/addons/ksm/1ClickAddons.sh
+chmod 700 ./eks/addons/ksm/1ClickAddonsDestroy.sh
+chmod 700 ./eks/addons/openebs/1ClickAddons.sh
+chmod 700 ./eks/addons/openebs/1ClickAddonsDestroy.sh
 
 
 set -e
 
 if [ $createmode == true ] && [ $eksonly == false ]; then
    echo "1ClickAWS.sh: invoking 1ClickEKSDeploy.sh"   
-   (cd ./create-eks ; sh ./1ClickEKSDeploy.sh $openebs)
+   (cd ./eks ; sh ./1ClickEKSDeploy.sh $openebs)
    echo "1ClickAWS.sh: invoking 1ClickECKDeploy.sh"   
-   (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
+   (cd ./eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickAWS.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $eksonly == true ]; then
    echo "1ClickAWS.sh: invoking 1ClickEKSDeploy.sh"   
-   (cd ./create-eks ; sh ./1ClickEKSDeploy.sh $openebs)
+   (cd ./eks ; sh ./1ClickEKSDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
    echo "1ClickAWS.sh: invoking 1ClickECKDestroy.sh"   
-   (cd ./create-eck; bash ./1ClickECKDestroy.sh)
+   (cd ./eck; bash ./1ClickECKDestroy.sh)
    echo "1ClickAWS.sh: invoking 1ClickEKSDestroy.sh"   
-   (cd ./create-eks; bash ./1ClickEKSDestroy.sh)
+   (cd ./eks; bash ./1ClickEKSDestroy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickAWS.sh: Total deployment time in seconds: $duration
 else

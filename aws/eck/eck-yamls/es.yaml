@@ -29,6 +29,15 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - master
         initContainers:
         - name: install-plugins
           command:
@@ -36,8 +45,6 @@ spec:
           - -c
           - |
             bin/elasticsearch-plugin install --batch repository-s3
-        nodeSelector:
-          nodetype: master
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -94,6 +101,15 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - hot
         initContainers:
         - name: install-plugins
           command:
@@ -101,8 +117,6 @@ spec:
           - -c
           - |
             bin/elasticsearch-plugin install --batch repository-s3
-        nodeSelector:
-          nodetype: hot
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -168,6 +182,15 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - warm
         initContainers:
         - name: install-plugins
           command:
@@ -175,8 +198,6 @@ spec:
           - -c
           - |
             bin/elasticsearch-plugin install --batch repository-s3
-        nodeSelector:
-          nodetype: warm
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -242,6 +263,15 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - cold
         initContainers:
         - name: install-plugins
           command:
@@ -249,8 +279,6 @@ spec:
           - -c
           - |
             bin/elasticsearch-plugin install --batch repository-s3
-        nodeSelector:
-          nodetype: cold
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -316,6 +344,15 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - frozen
         initContainers:
         - name: install-plugins
           command:
@@ -323,8 +360,6 @@ spec:
           - -c
           - |
             bin/elasticsearch-plugin install --batch repository-s3
-        nodeSelector:
-          nodetype: frozen
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -390,6 +425,15 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - ml
         initContainers:
         - name: install-plugins
           command:
@@ -397,8 +441,6 @@ spec:
           - -c
           - |
             bin/elasticsearch-plugin install --batch repository-s3
-        nodeSelector:
-          nodetype: ml
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above

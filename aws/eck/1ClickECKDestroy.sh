@@ -10,6 +10,8 @@ echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
+echo "1ClickECKDestroy.sh setting kubectl"
+(cd ../eks; bash ./setkubectl.sh)
 
 echo "1ClickECKDestroy: Destroying license"
 (cd ./license; bash ./1ClickAddLicenseDestroy.sh)
@@ -17,4 +19,4 @@ echo "1ClickECKDestroy: Destroying license"
 echo "Destroying ES Pods"
 terraform destroy -auto-approve
 
-(cd ./create-operator ; bash ./1ClickECKOperatorDestroy.sh)
+(cd ./es-operator ; bash ./1ClickECKOperatorDestroy.sh)
