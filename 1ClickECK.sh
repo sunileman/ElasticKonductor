@@ -7,7 +7,7 @@ nowtime=`date +"%m_%d_%Y_%s"`
 oneclickv=.45
 
 usage() {
-     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-r for create without openebs] [-h for help]."
+     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-de for destroy eck] [-r for create without openebs] [-i cluster info] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
@@ -19,6 +19,8 @@ cleanup() {
   createModeArg=NA
   cloud=NA
   openebs_enabled=""
+  getClusterInfo=false
+  destroyeck=false
 }
 
 
@@ -63,9 +65,19 @@ while [[ "$#" -gt 0 ]]; do
       openebs_enabled="-r"
       shift
       ;;
+    -i|--getClusterInfo)
+      echo "Get Cluster Info"
+      getClusterInfo=true
+      shift
+      ;;
     -d|--destroy)
       echo "Destroy all"
       destroy=true
+      shift
+      ;;
+    -de|--destroyeck)
+      echo "Destroy ECK"
+      destroyeck=true
       shift
       ;;
     -h|--help)
@@ -99,7 +111,9 @@ exec > >(tee -i $LOG_LOCATION/1Click_${cloud}_${nowtime}.log)
 exec 2>&1
 echo "Log Location: [ $LOG_LOCATION ]"
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ]; then
+
+
+if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $destroyeck != true ]; then
     usage
 fi
 
@@ -108,6 +122,12 @@ if [ $destroy == true ] && [ $createmode == true ] ; then
         echo "create and destroy cant be set together" >&2
         exit 1
 fi
+
+if [ $destroyeck == true ] && [ $createmode == true ] ; then
+        echo "create and destroy cant be set together" >&2
+        exit 1
+fi
+
 
 if [ $destroy == true ] && [ $cloud == "NA" ] ; then
         echo "Destroy requires -c" >&2
@@ -123,6 +143,7 @@ if [ $destroy == true ] && [ $k8sonly == true ] ; then
         echo 'create and destroy cant be set together' >&2
         exit 1
 fi
+
 
 echo
 echo
@@ -152,7 +173,11 @@ start=$SECONDS
 
 export KUBE_CONFIG_PATH=~/.kube/config
 if [ $cloud == "aws" ]; then
-    if [ $createmode == true ] && [ $k8sonly == false ]; then
+    if [ $getClusterInfo == true ]; then
+       echo "Get cluster Info"
+       (cd ./aws; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+    elif [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickAWS.sh with all"
        (cd ./aws; bash ./1ClickAWS.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
@@ -173,7 +198,11 @@ if [ $cloud == "aws" ]; then
        echo "    destroy"
     fi
 elif [[ $cloud == azure ]]; then
-    if [ $createmode == true ] && [ $k8sonly == false ]; then
+    if [ $getClusterInfo == true ]; then
+       echo "Get cluster Info"
+       (cd ./azure; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+    elif [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh with all"
        (cd ./azure; bash ./1ClickAzure.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
@@ -194,7 +223,11 @@ elif [[ $cloud == azure ]]; then
        echo "    destroy"
     fi
 elif [[ $cloud == gcp ]]; then
-    if [ $createmode == true ] && [ $k8sonly == false ]; then
+    if [ $getClusterInfo == true ]; then
+       echo "Get cluster Info"
+       (cd ./gcp; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+    elif [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh with all"
        (cd ./gcp; bash ./1ClickGCP.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
@@ -204,8 +237,13 @@ elif [[ $cloud == gcp ]]; then
        (cd ./gcp; bash ./1ClickGCP.sh -b gke $openebs_enabled)
        duration=$(( SECONDS - start ))
     elif [[ $destroy == true ]]; then
-       echo "1ClickECK.sh: calling 1ClickGCP.sh destroy"
+       echo "1ClickECK.sh: calling 1ClickGCP.sh destroy all"
        (cd ./gcp; bash ./1ClickGCP.sh -d)
+       duration=$(( SECONDS - start ))
+       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+    elif [[ $destroyeck == true ]]; then
+       echo "1ClickECK.sh: calling 1ClickGCP.sh destroy ECK"
+       (cd ./gcp; bash ./1ClickGCP.sh -de)
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
     else
@@ -215,5 +253,5 @@ elif [[ $cloud == gcp ]]; then
        echo "    destroy"
     fi
 else
-  echo "Not a valid cloud provider"
+  echo "Not a valid cloud provider.  Use: -c aws|azure|gcp"
 fi

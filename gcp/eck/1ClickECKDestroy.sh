@@ -6,8 +6,15 @@ set -e
 echo "1ClickECKDestroy.sh Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
-cp -f ../variables.tf ./create-operator/variables.tf
-cp -f ../terraform.tfvars ./create-operator/variables.tfvars
+cp -f ../variables.tf ./es-operator/variables.tf
+cp -f ../terraform.tfvars ./es-operator/variables.tfvars
+
+
+set +e
+echo "1ClickECKDestroy.sh setting kubectl"
+(cd ../gke; bash ./setkubectl.sh)
+
+set -e
 
 terraform init
 
@@ -21,5 +28,5 @@ terraform destroy -auto-approve
 echo "1ClickECKDestroy.sh finished Destroying ES Pods"
 
 echo "1ClickECKDestroy.sh Destroying Operator"
-(cd ./create-operator; ./1ClickECKOperatorDestroy.sh)
+(cd ./es-operator; ./1ClickECKOperatorDestroy.sh)
 echo "1ClickECKDestroy.sh finished Destroying Operator"

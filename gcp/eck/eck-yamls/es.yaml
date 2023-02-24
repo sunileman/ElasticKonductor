@@ -29,9 +29,16 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - master
         initContainers:
-        nodeSelector:
-          nodetype: master
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -88,9 +95,16 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - hot
         initContainers:
-        nodeSelector:
-          nodetype: hot
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -131,7 +145,7 @@ spec:
          resources:
            requests:
              storage: ${hot_pod_storage}
-         storageClassName: openebs-hostpath
+         storageClassName: ${hot_pod_storage_class}
   - name: warm
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -156,9 +170,16 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - warm
         initContainers:
-        nodeSelector:
-          nodetype: warm
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -224,9 +245,16 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - cold
         initContainers:
-        nodeSelector:
-          nodetype: cold
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -292,9 +320,16 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - frozen
         initContainers:
-        nodeSelector:
-          nodetype: frozen
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -360,9 +395,16 @@ spec:
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - ml
         initContainers:
-        nodeSelector:
-          nodetype: ml
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above

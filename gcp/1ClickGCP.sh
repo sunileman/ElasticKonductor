@@ -8,7 +8,7 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-b <all | gke >] [-d for destroy] [-r disable openebs] [-h for help]."
+     echo "Usage: $0 [-b <all | gke >] [-d for destroy] [-de for destroy eck] [-r disable openebs] [-h for help]."
      echo "Hit enter to try again with correct arguments" 
      exit 0;
 }
@@ -19,6 +19,7 @@ cleanup() {
   destroy=false
   createModeArg=NA
   openebs="openebs-enabled"
+  destroyeck=false
 }
 
 
@@ -35,7 +36,7 @@ while [[ "$#" -gt 0 ]]; do
       if [[ "$1" == "all" ]]; then
         echo "Build Mode = ALL"
       elif [[ "$1" == "gke" ]]; then
-	gkeonly=true
+	      gkeonly=true
         echo "Create Mode = GKE Only"
       else
         echo "Not a valid option.  Use: all or gke"
@@ -46,6 +47,11 @@ while [[ "$#" -gt 0 ]]; do
     -d|--destroy)
       echo "Destroy all"
       destroy=true
+      shift
+      ;;
+    -de|--destroyeck)
+      echo "Destroy ECK"
+      destroyeck=true
       shift
       ;;
     -r|--removeopenebs)    
@@ -71,7 +77,7 @@ done
 
 
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $gkeonly != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $gkeonly != true ] && [ $destroyeck != true ]; then
     usage
 fi
 
@@ -89,63 +95,69 @@ fi
 
 set -e
 start=$SECONDS
-chmod 700 ./create-gke/1ClickGKEDeploy.sh
-chmod 700 ./create-gke/1ClickGKEDestroy.sh
-chmod 700 ./create-eck/license/1ClickAddLicense.sh
-chmod 700 ./create-eck/license/1ClickAddLicenseDestroy.sh
-chmod 700 ./create-gke/addons/1ClickAddons.sh
-chmod 700 ./create-gke/addons/1ClickAddonsDestroy.sh
-chmod 700 ./create-gke/gke-workers/1ClickGKEWorkersDeploy.sh
-chmod 700 ./create-gke/gke-workers/1ClickGKEWorkersDestroy.sh
-chmod 700 ./create-gke/gke-workers/cold/1ClickGKEColdDeploy.sh
-chmod 700 ./create-gke/gke-workers/cold/1ClickGKEColdDestroy.sh
-chmod 700 ./create-gke/gke-workers/frozen/1ClickGKEFrozenDeploy.sh
-chmod 700 ./create-gke/gke-workers/frozen/1ClickGKEFrozenDestroy.sh
-chmod 700 ./create-gke/gke-workers/hot/1ClickGKEHotDeploy.sh
-chmod 700 ./create-gke/gke-workers/hot/1ClickGKEHotDestroy.sh
-chmod 700 ./create-gke/gke-workers/kibana/1ClickGKEKibanaDeploy.sh
-chmod 700 ./create-gke/gke-workers/kibana/1ClickGKEKibanaDestroy.sh
-chmod 700 ./create-gke/gke-workers/master/1ClickGKEMasterDeploy.sh
-chmod 700 ./create-gke/gke-workers/master/1ClickGKEMasterDestroy.sh
-chmod 700 ./create-gke/gke-workers/ml/1ClickGKEMLDeploy.sh
-chmod 700 ./create-gke/gke-workers/ml/1ClickGKEMLDestroy.sh
-chmod 700 ./create-gke/gke-workers/util/1ClickGKEUtilDeploy.sh
-chmod 700 ./create-gke/gke-workers/util/1ClickGKEUtilDestroy.sh
-chmod 700 ./create-gke/gke-workers/warm/1ClickGKEWarmDeploy.sh
-chmod 700 ./create-gke/gke-workers/warm/1ClickGKEWarmDestroy.sh
-chmod 700 ./create-eck/1ClickECKDestroy.sh
-chmod 700 ./create-eck/getClusterInfo.sh
-chmod 700 ./create-eck/1ClickECKDeploy.sh
-chmod 700 ./create-eck/1ClickECKDestroy.sh
-chmod 700 ./create-eck/create-operator/1ClickECKOperator.sh
-chmod 700 ./create-eck/create-operator/1ClickECKOperatorDestroy.sh
-chmod 700 ./create-gke/addons/custom/1ClickAddons.sh
-chmod 700 ./create-gke/addons/custom/1ClickAddonsDestroy.sh
-chmod 700 ./create-gke/addons/ksm/1ClickAddons.sh
-chmod 700 ./create-gke/addons/ksm/1ClickAddonsDestroy.sh
-chmod 700 ./create-gke/addons/openebs/1ClickAddons.sh
-chmod 700 ./create-gke/addons/openebs/1ClickAddonsDestroy.sh
-chmod 700 ./create-gke/setkubectl.sh
+chmod 700 ./gke/1ClickGKEDeploy.sh
+chmod 700 ./gke/1ClickGKEDestroy.sh
+chmod 700 ./eck/license/1ClickAddLicense.sh
+chmod 700 ./eck/license/1ClickAddLicenseDestroy.sh
+chmod 700 ./gke/addons/1ClickAddons.sh
+chmod 700 ./gke/addons/1ClickAddonsDestroy.sh
+chmod 700 ./gke/gke-workers/1ClickGKEWorkersDeploy.sh
+chmod 700 ./gke/gke-workers/1ClickGKEWorkersDestroy.sh
+chmod 700 ./gke/gke-workers/cold/1ClickGKEColdDeploy.sh
+chmod 700 ./gke/gke-workers/cold/1ClickGKEColdDestroy.sh
+chmod 700 ./gke/gke-workers/frozen/1ClickGKEFrozenDeploy.sh
+chmod 700 ./gke/gke-workers/frozen/1ClickGKEFrozenDestroy.sh
+chmod 700 ./gke/gke-workers/hot/1ClickGKEHotDeploy.sh
+chmod 700 ./gke/gke-workers/hot/1ClickGKEHotDestroy.sh
+chmod 700 ./gke/gke-workers/kibana/1ClickGKEKibanaDeploy.sh
+chmod 700 ./gke/gke-workers/kibana/1ClickGKEKibanaDestroy.sh
+chmod 700 ./gke/gke-workers/master/1ClickGKEMasterDeploy.sh
+chmod 700 ./gke/gke-workers/master/1ClickGKEMasterDestroy.sh
+chmod 700 ./gke/gke-workers/ml/1ClickGKEMLDeploy.sh
+chmod 700 ./gke/gke-workers/ml/1ClickGKEMLDestroy.sh
+chmod 700 ./gke/gke-workers/util/1ClickGKEUtilDeploy.sh
+chmod 700 ./gke/gke-workers/util/1ClickGKEUtilDestroy.sh
+chmod 700 ./gke/gke-workers/warm/1ClickGKEWarmDeploy.sh
+chmod 700 ./gke/gke-workers/warm/1ClickGKEWarmDestroy.sh
+chmod 700 ./eck/1ClickECKDestroy.sh
+chmod 700 ./eck/getClusterInfo.sh
+chmod 700 ./eck/1ClickECKDeploy.sh
+chmod 700 ./eck/1ClickECKDestroy.sh
+chmod 700 ./eck/es-operator/1ClickECKOperator.sh
+chmod 700 ./eck/es-operator/1ClickECKOperatorDestroy.sh
+chmod 700 ./gke/addons/custom/1ClickAddons.sh
+chmod 700 ./gke/addons/custom/1ClickAddonsDestroy.sh
+chmod 700 ./gke/addons/ksm/1ClickAddons.sh
+chmod 700 ./gke/addons/ksm/1ClickAddonsDestroy.sh
+chmod 700 ./gke/addons/openebs/1ClickAddons.sh
+chmod 700 ./gke/addons/openebs/1ClickAddonsDestroy.sh
+chmod 700 ./gke/setkubectl.sh
 
 
 
 if [ $createmode == true ] && [ $gkeonly == false ]; then
    echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
-   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh $openebs)
+   (cd ./gke ; sh ./1ClickGKEDeploy.sh $openebs)
    echo "1ClickGCP.sh: invoking 1ClickECKDeploy.sh"
-   (cd ./create-eck ; sh ./1ClickECKDeploy.sh)
+   (cd ./eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $gkeonly == true ]; then
    echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
-   (cd ./create-gke ; sh ./1ClickGKEDeploy.sh $openebs)
+   (cd ./gke ; sh ./1ClickGKEDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
 elif [[ $destroy == true ]]; then
+   echo "1ClickGCP.sh destroy all"
    echo "1ClickGCP.sh: invoking 1ClickECKDestroy.sh"
-   (cd ./create-eck ; bash ./1ClickECKDestroy.sh)
+   (cd ./eck ; bash ./1ClickECKDestroy.sh)
    echo "1ClickGCP.sh: invoking 1ClickGKEDestroy.sh"
-   (cd ./create-gke; bash ./1ClickGKEDestroy.sh)
+   (cd ./gke; bash ./1ClickGKEDestroy.sh)
    duration=$(( SECONDS - start ))
+   echo 1ClickGCP.sh: Total deployment time in seconds: $duration
+elif [[ $destroyeck == true ]]; then
+   echo "1ClickGCP.sh destroy eck"
+   echo "1ClickGCP.sh: invoking 1ClickECKDestroy.sh"
+   (cd ./eck ; bash ./1ClickECKDestroy.sh)
    echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 else
    echo "Please submit a valid arguments"

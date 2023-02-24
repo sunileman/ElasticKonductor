@@ -6,6 +6,11 @@ terraform init
 terraform refresh
 
 echo "1ClickGKEDestroy.sh: Terraform Destroy"
+
+set +e
+echo "1ClickGKEDestroy.sh setting kubectl"
+(bash ./setkubectl.sh)
+
 set -e
 
 echo "1ClickGKEDestroy.sh: destroying addons"

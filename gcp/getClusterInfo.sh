@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-(cd ./create-eck; ./getClusterInfo.sh)
+(cd ./eck; ./getClusterInfo.sh)

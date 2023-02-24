@@ -2,7 +2,7 @@ data "terraform_remote_state" "k8s" {
   backend = "local"
 
   config = {
-    path = "../create-gke/terraform.tfstate"
+    path = "../gke/terraform.tfstate"
   }
 }
 data "kubectl_path_documents" "es" {
