@@ -94,11 +94,17 @@ This will install all the required libaries and CLIs for the automation.
 
 Required Arguments 
 
--c [aws|azure|gcp]
+`-c` [aws|azure|gcp]
 
--b [all|k8s]
+`-b` [all|k8s]
 
--d <Destroy all assets created by the automation>
+`-d` <Destroy all assets created by the automation>
+
+`-r` disable openebs
+
+`de` destroy ECK
+
+`i` get cluster info 
 
 Examples
 
@@ -134,7 +140,7 @@ Name of your deployment/project<br>
 `tags.Project`<br>
 Name of owner<br>
 `tags.Owner`<br>
-Name which will be appended to the EKS deployment<br>
+Name which will be appended to the EKS deployment.  Max 6 characters<br>
 `tags.username`<br>
 
 
@@ -200,12 +206,31 @@ ml_pod_ES_JAVA_OPTS=value
 Latest release of ES, if jvm arguments aren't spplied for heap size, half the available memory within the pod will be used for heap. 
 Take this into consideration if the defaults aren't acceptables
 
+## Storage Class
+By default ECK will mount openebs storage class to ES pods.  To use a different storage class is simple
+
+Run `kubeclt get sc` to retrieve available storage classes.  
+
+GKE Example
+`[master|hot|warm|cold|frozen|ml]_pod_storage_class = "premium-rwo"`
+
+AWS Example
+`[master|hot|warm|cold|frozen|ml]_pod_storage_class = "gp3"`
+
+
+Azure Example
+`[master|hot|warm|cold|frozen|ml]_pod_storage_class = "managed-csi-premium"`
+
+Run the automation with `r` option to disable openebs
+
+
+
 ## ECK/ES Updates
 The automation; 1ClickECK,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun 1ClickECK with the same -b -c arguments 
 ## kubectl manifest
 Automation will set local kube config (kubectl) after automation run.  If local kube config needs to be reset, simple rerun the automation (even if there is no change) to set local kube config.
 
-To reset your local kubectl, run
+To reset your local kubeclt, run
 ```bash
   /1ClickECK/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
 ```
@@ -233,6 +258,13 @@ The automation installs EBS CSI along with required IAM permissions. Additionall
 [master|hot|warm|cold|frozen|ml]_pod_storage_class = gp3
 ```
 ## Troubleshooting
+
+Azure AKS bash into pod
+`https://learn.microsoft.com/en-us/azure/aks/node-access`
+
+GCP GKE bash into pod
+`https://cloud.google.com/migrate/containers/docs/troubleshooting/executing-shell-commands`
+
 ```bash
 OOMKilled
 ```
@@ -261,10 +293,13 @@ kubectl describe pod <podname>
 That should give you an idea on what went wrong.  If the mount fails due to `srv/local` not available, rerun openEBS.  
 
 
-How to ssh into GKE nodes
+How to enter pod within GKE nodes
 ```
 gcloud compute ssh <NODE_NAME> --zone <ZONE>
 ```
+
+
+
 
 -Logs showing markup
 Use lnav to view logs: https://lnav.org/

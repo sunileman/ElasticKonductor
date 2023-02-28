@@ -17,6 +17,9 @@ echo "1ClickAddons.sh: Running Destroy KSM addon"
 echo "1ClickAddons.sh: Finished running KSM addon"
 
 
+echo "1ClickAddons.sh: Running Destroy iscsi addon"
+(cd iscsi; bash ./1ClickAddonsDestroy.sh)
+
 echo "1ClickAddons.sh: Running Destroy OpenEBS addon"
 (cd openebs; bash ./1ClickAddonsDestroy.sh)
 

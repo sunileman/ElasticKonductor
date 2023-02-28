@@ -8,7 +8,7 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-b <all | gke >] [-d for destroy] [-de for destroy eck] [-r disable openebs] [-h for help]."
+     echo "Usage: $0 [-b <all | gke >] [-d for destroy] [-de for destroy eck] [-i for clusterinfo] [-r disable openebs] [-h for help]."
      echo "Hit enter to try again with correct arguments" 
      exit 0;
 }
@@ -131,6 +131,8 @@ chmod 700 ./gke/addons/ksm/1ClickAddons.sh
 chmod 700 ./gke/addons/ksm/1ClickAddonsDestroy.sh
 chmod 700 ./gke/addons/openebs/1ClickAddons.sh
 chmod 700 ./gke/addons/openebs/1ClickAddonsDestroy.sh
+chmod 700 ./gke/addons/iscsi/1ClickAddons.sh
+chmod 700 ./gke/addons/iscsi/1ClickAddonsDestroy.sh
 chmod 700 ./gke/setkubectl.sh
 
 
@@ -146,6 +148,7 @@ elif [ $createmode == true ] && [ $gkeonly == true ]; then
    echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
    (cd ./gke ; sh ./1ClickGKEDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
+   echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 elif [[ $destroy == true ]]; then
    echo "1ClickGCP.sh destroy all"
    echo "1ClickGCP.sh: invoking 1ClickECKDestroy.sh"

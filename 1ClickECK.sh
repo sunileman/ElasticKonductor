@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.45
+oneclickv=.46
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-de for destroy eck] [-r for create without openebs] [-i cluster info] [-h for help]."
@@ -191,6 +191,11 @@ if [ $cloud == "aws" ]; then
        (cd ./aws; bash ./1ClickAWS.sh -d)
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
+    elif [[ $destroyeck == true ]]; then
+       echo "1ClickECK.sh: calling 1ClickAWS.sh destroy ECK"
+       (cd ./aws; bash ./1ClickAWS.sh -de)
+       duration=$(( SECONDS - start ))
+       echo 1ClickECK.sh: Total deployment time in seconds: $duration
     else
        echo "Please submit a valid argument"
        echo "Valid arguments:"
@@ -214,6 +219,11 @@ elif [[ $cloud == azure ]]; then
     elif [[ $destroy == true ]]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh destroy"
        (cd ./azure; bash ./1ClickAzure.sh -d )
+       duration=$(( SECONDS - start ))
+       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+    elif [[ $destroyeck == true ]]; then
+       echo "1ClickECK.sh: calling 1ClickAzure.sh destroy ECK"
+       (cd ./azure; bash ./1ClickAzure.sh -de)
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
     else

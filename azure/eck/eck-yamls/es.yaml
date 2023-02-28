@@ -45,10 +45,6 @@ spec:
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
         # initContainers:
-        # - name: sysctl
-        #   securityContext:
-        #     privileged: true
-        #   command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
         ###
         # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
         # automountServiceAccountToken: true
