@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.46
+oneclickv=.47
 
 usage() {
      echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-de for destroy eck] [-r for create without openebs] [-i cluster info] [-h for help]."
@@ -207,25 +207,27 @@ elif [[ $cloud == azure ]]; then
        echo "Get cluster Info"
        (cd ./azure; bash ./getClusterInfo.sh)
        duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh with all"
        (cd ./azure; bash ./1ClickAzure.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
-       echo Total deployment time in seconds: $duration
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == true ]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh aks only"
        (cd ./azure; bash ./1ClickAzure.sh -b aks $openebs_enabled)
        duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroy == true ]]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh destroy"
        (cd ./azure; bash ./1ClickAzure.sh -d )
        duration=$(( SECONDS - start ))
-       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroyeck == true ]]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh destroy ECK"
        (cd ./azure; bash ./1ClickAzure.sh -de)
        duration=$(( SECONDS - start ))
-       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     else
        echo "Please submit a valid argument"
        echo "Valid arguments:"
@@ -241,21 +243,22 @@ elif [[ $cloud == gcp ]]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh with all"
        (cd ./gcp; bash ./1ClickGCP.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
-       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == true ]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh gke only"
        (cd ./gcp; bash ./1ClickGCP.sh -b gke $openebs_enabled)
        duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroy == true ]]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh destroy all"
        (cd ./gcp; bash ./1ClickGCP.sh -d)
        duration=$(( SECONDS - start ))
-       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroyeck == true ]]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh destroy ECK"
        (cd ./gcp; bash ./1ClickGCP.sh -de)
        duration=$(( SECONDS - start ))
-       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     else
        echo "Please submit a valid argument"
        echo "Valid arguments:"

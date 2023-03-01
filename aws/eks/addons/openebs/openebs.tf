@@ -9,6 +9,5 @@ resource "helm_release" "openebs" {
     name  = "localprovisioner.basePath"
     value = "/srv/local"
   }
-  depends_on = [kubectl_manifest.iscsi]
 }
 

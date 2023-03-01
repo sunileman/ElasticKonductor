@@ -8,7 +8,7 @@ exec 2>&1
 echo "Log Location should be: [ $LOG_LOCATION ]"
 
 usage() {
-     echo "Usage: $0 [-b <all | eks >] [-d for destroy] [-r disable openebs] [-h for help]."
+     echo "Usage: $0 [-b <all | eks >] [-d for destroy] [-de for destroy eck] [-i for clusterinfo] [-r disable openebs] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
@@ -20,6 +20,7 @@ cleanup() {
   destroy=false
   createModeArg=NA
   openebs="openebs-enabled"
+  destroyeck=false
 }
 
 
@@ -48,6 +49,11 @@ while [[ "$#" -gt 0 ]]; do
       destroy=true
       shift
       ;;
+    -de|--destroyeck)
+      echo "Destroy ECK"
+      destroyeck=true
+      shift
+      ;;
     -r|--removeopenebs)
       echo "Disable OpenEBS"
       openebs="openebs-disabled"
@@ -68,7 +74,7 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $eksonly != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $eksonly != true ] && [ $destroyeck != true ]; then
     usage
 fi
 
@@ -94,8 +100,8 @@ chmod 700 ./eks/addons/1ClickAddons.sh
 chmod 700 ./eck/1ClickECKDestroy.sh
 chmod 700 ./eck/getClusterInfo.sh
 chmod 700 ./eck/1ClickECKDeploy.sh
-chmod 700 ./eck/create-operator/1ClickECKOperator.sh
-chmod 700 ./eck/create-operator/1ClickECKOperatorDestroy.sh
+chmod 700 ./eck/es-operator/1ClickECKOperator.sh
+chmod 700 ./eck/es-operator/1ClickECKOperatorDestroy.sh
 chmod 700 ./eck/license/1ClickAddLicense.sh
 chmod 700 ./eck/license/1ClickAddLicenseDestroy.sh
 chmod 700 ./getClusterInfo.sh
@@ -126,12 +132,18 @@ elif [ $createmode == true ] && [ $eksonly == true ]; then
    echo "1ClickAWS.sh: invoking 1ClickEKSDeploy.sh"   
    (cd ./eks ; sh ./1ClickEKSDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
+   echo 1ClickAWS.sh: Total deployment time in seconds: $duration
 elif [[ $destroy == true ]]; then
    echo "1ClickAWS.sh: invoking 1ClickECKDestroy.sh"   
    (cd ./eck; bash ./1ClickECKDestroy.sh)
    echo "1ClickAWS.sh: invoking 1ClickEKSDestroy.sh"   
    (cd ./eks; bash ./1ClickEKSDestroy.sh)
    duration=$(( SECONDS - start ))
+   echo 1ClickAWS.sh: Total deployment time in seconds: $duration
+elif [[ $destroyeck == true ]]; then
+   echo "1ClickAWS.sh destroy eck"
+   echo "1ClickAWS.sh: invoking 1ClickECKDestroy.sh"
+   (cd ./eck ; bash ./1ClickECKDestroy.sh)
    echo 1ClickAWS.sh: Total deployment time in seconds: $duration
 else
    echo "Please submit a valid arguments"
