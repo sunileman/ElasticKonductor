@@ -28,6 +28,8 @@ openebs=$1
 
 if [[ "$1" == "openebs-disabled" ]]; then
     echo "1ClickAddons.sh: openebs-disabled"
+    echo "1ClickAddons.sh: Running Destroy OpenEBS addon"
+    (cd openebs; bash ./1ClickAddonsDestroy.sh)
 else
     echo "1ClickAddons.sh: Running OpenEBS addon"
     set +e

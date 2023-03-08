@@ -19,6 +19,7 @@ tags = {
     "Org" = "sa"
     "Team" = "amer"
     "Project" = "sunman" # Project name (shared) or username (individual)
+    "Owner" = "owner@something.com" #Owner email address
 }
 
 
@@ -39,7 +40,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
 #release_channel= "STABLE"
 
-#gke_version="1.24.8-gke.401"
+#gke_version="1.24." ##must have dot after major release number as the automation fetches minor version
 
 #gke_auto_upgrade=true
 #gke_auto_repair=false

@@ -19,9 +19,12 @@ tags = {
     "Org" = "sa"
     "Team" = "amer"
     "Project" = "username" # Project name (shared) or username (individual)
+    #"Owner" = "owner@something.com" #Owner email address
+    "Owner" = "sunile.manjee@elastic.co" #Owner email address
 }
 
 region= "us-east-1"
+
 
 #----------------------- Cloud Provider ----------------------------------------
 #automation_name= "1ClickECK"
@@ -31,8 +34,8 @@ region= "us-east-1"
 #aws_access_key="your-key"
 
 # Or export these environment variables (more secure)
-#export TF_VAR_aws_secret_key="your-secret"
-#export TF_VAR_aws_secret_key="your-secret"
+#export TF_VAR_aws_access_key="your access key"
+#export TF_VAR_aws_secret_key="your secret yet"
 
 #eks_version="1.24"
 

@@ -34,4 +34,5 @@ python3 -m pip install --user esrally
 
 
 ##Git clone
-git clone https://github.com/elastic/rally-internal-tracks
+git clone git@github.com:elastic/rally-internal-tracks.git
+git clone git@github.com:elastic/rally-tracks.git

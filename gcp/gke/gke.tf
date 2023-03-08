@@ -9,7 +9,8 @@ resource "google_container_cluster" "k8s" {
   logging_service          = var.gke_logging_service
   monitoring_service       = var.gke_monitoring_service
   networking_mode          = var.gke_networking_mode
-  min_master_version       = var.gke_version
+
+  min_master_version       = data.google_container_engine_versions.zone.latest_master_version
 
   
   release_channel {

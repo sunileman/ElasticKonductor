@@ -19,6 +19,8 @@ tags = {
     "Org" = "sa"
     "Team" = "amer"
     "Project" = "username" # Project name (shared) or username (individual)
+    "Owner" = "owner@something.com" #Owner email address
+
 }
 
 resource_group_location="eastus"

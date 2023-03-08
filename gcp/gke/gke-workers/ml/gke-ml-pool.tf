@@ -6,7 +6,7 @@ resource "google_container_node_pool" "ml" {
 
   name       = "ml"
   cluster    = data.terraform_remote_state.k8s.outputs.gke_cluster_id
-  version    = var.gke_version
+  version = "${data.google_container_engine_versions.zone.latest_node_version}"
  
   initial_node_count = var.ml_initial_node_count_per_zone
   
