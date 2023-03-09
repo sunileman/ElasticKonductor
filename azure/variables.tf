@@ -615,3 +615,19 @@ variable "openebs_helm_chart_version" {
   default = "3.3.1"
 }
 
+variable "otel_chart_version" {
+  description = "Otel chart version"
+  type = string
+  #https://github.com/open-telemetry/opentelemetry-helm-charts/releases
+  default = "0.19.5"
+}
+
+variable "es_apm_token" {
+  description = "ElasticSearch APM Token"
+  type = string
+}
+
+variable "es_apm_url" {
+  description = "ElasticSearch APM URL"
+  type = string
+}

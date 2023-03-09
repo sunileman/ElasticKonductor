@@ -25,10 +25,6 @@ tags = {
 
 resource_group_location="eastus"
 
-master_pod_storage_class = "managed-premium"
-hot_pod_storage_class = "managed-premium"
-
-
 #----------------------- Cloud Provider ----------------------------------------
 
 #automation_name= "1ClickECK"
@@ -188,3 +184,13 @@ hot_pod_storage_class = "managed-premium"
 #kibana_pod_cpu= "1000m"
 #kibana_pod_memory= "1Gi"
 
+
+#----------------------- Open Telemetry ---------------------------------
+
+##high recommended to use env variables instead of setting the url and token in a file
+#export TF_VAR_es_apm_url="xxxx"
+#export TF_VAR_es_apm_token="xxxx"
+
+#es_apm_url= "xxxelastic-cloud.com:443"
+#es_apm_token="xxx"
+#otel_chart_version= "0.19.5"

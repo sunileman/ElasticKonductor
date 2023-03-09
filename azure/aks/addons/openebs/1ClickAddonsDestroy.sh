@@ -7,7 +7,6 @@ export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 export KUBE_CONFIG_PATH=~/.kube/config
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 echo "openebs/1ClickAddonsDestroy.sh: coping variable files"
 cp -f ../../../variables.tf .

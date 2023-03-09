@@ -53,6 +53,8 @@ cleanup() {
   createModeArg=NA
   openebs="openebs-enabled"
   destroyeck=false
+  createOtel=false
+  destroyOtel=false
 
 }
 
@@ -69,8 +71,12 @@ while [[ "$#" -gt 0 ]]; do
       if [[ "$1" == "all" ]]; then
         echo "Build Mode = ALL"
       elif [[ "$1" == "aks" ]]; then
-	aksonly=true
+	      aksonly=true
         echo "Create Mode = AKS Only"
+      elif [[ "$1" == "otel" ]]; then
+	      aksonly=true
+        createOtel=true
+        echo "Create Mode = AKS & Otel"
       else
         echo "Not a valid option.  Use: all or aks"
         exit 1
@@ -85,6 +91,11 @@ while [[ "$#" -gt 0 ]]; do
     -de|--destroyeck)
       echo "Destroy ECK"
       destroyeck=true
+      shift
+      ;;
+    -do|--destroyotel)
+      echo "Destroy ECK"
+      destroyOtel=true
       shift
       ;;
     -r|--removeopenebs)
@@ -107,7 +118,7 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $aksonly != true ]  && [ $destroyeck != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $aksonly != true ]  && [ $destroyeck != true ] && [ $destroyOtel != true ]; then
     usage
 fi
 
@@ -135,7 +146,14 @@ if [ $createmode == true ] && [ $aksonly == false ]; then
    (cd ./eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickAzure.sh: Total deployment time in seconds: $duration
-elif [ $createmode == true ] && [ $aksonly == true ]; then
+elif [ $createmode == true ] && [ $aksonly == true ] && [ $createOtel == true ]; then
+   echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
+   (cd ./aks ; bash ./1ClickAKSDeploy.sh $openebs)
+   echo "1ClickAzure.sh: invoking Otel Demo"
+   (cd ./aks/addons/opentelemetry-demo; bash ./1ClickAddons.sh)
+   duration=$(( SECONDS - start ))
+   echo 1ClickAzure.sh: Total deployment time in seconds: $duration
+elif [ $createmode == true ] && [ $aksonly == true ] && [ $createOtel == false ]; then
    echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
    (cd ./aks ; bash ./1ClickAKSDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
@@ -151,6 +169,10 @@ elif [[ $destroyeck == true ]]; then
    echo "1ClickAzure.sh destroy eck"
    echo "1ClickAzure.sh: invoking 1ClickECKDestroy.sh"
    (cd ./eck ; bash ./1ClickECKDestroy.sh)
+   echo 1ClickAzure.sh: Total deployment time in seconds: $duration
+elif [[ $destroyOtel == true ]]; then
+   echo "1ClickAzure.sh destroy Otel"
+   (cd ./aks/addons/opentelemetry-demo ; bash ./1ClickAddonsDestroy.sh)
    echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 else
    echo "Please submit a valid arguments"

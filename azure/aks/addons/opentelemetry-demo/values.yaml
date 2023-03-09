@@ -1,0 +1,72 @@
+opentelemetry-collector:
+  resources:
+    limits:
+      memory: "2Gi"
+    requests:
+      memory: "1Gi"
+  config: 
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+            cors:
+              allowed_origins:
+                - "http://*"
+                - "https://*"
+      hostmetrics:
+        scrapers:
+          cpu:
+          disk:
+          load:
+          filesystem:
+          memory:
+          network:
+          paging:
+          processes:
+
+    exporters:
+      otlphttp/elastic:
+        #endpoint: "https://xxxxx.elastic-cloud.com:443"
+        endpoint: "${es_apm_url}"
+        compression: none
+        headers:
+          #Authorization: "Bearer xxxx"
+          Authorization: "Bearer ${es_apm_token}"
+
+      logging:
+
+    processors:
+      batch:
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [logging, otlphttp/elastic]
+        metrics:
+          receivers: [otlp, hostmetrics]
+          processors: [batch]
+          exporters: [logging, otlphttp/elastic]
+        logs:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [logging, otlphttp/elastic]
+components:
+  quoteService:
+    resources:
+      limits:
+        memory: 1Gi
+  checkoutService:
+    resources:
+      limits:
+        memory: 1Gi
+  frontendProxy:
+    resources:
+      limits:
+        memory: 1Gi
+  accountingService:
+    resources:
+      limits:
+        memory: 1Gi

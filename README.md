@@ -96,13 +96,16 @@ Required Arguments
 
 `-c` [aws|azure|gcp]
 
-`-b` [all|k8s]
+`-b` [all|k8s|otel] 
+#otel option will create K8s and open telemetry demo
 
 `-d` <Destroy all assets created by the automation>
 
 `-r` disable openebs
 
 `de` destroy ECK
+
+`do` destroy Open Telemetry
 
 `i` get cluster info 
 
@@ -130,6 +133,23 @@ Tear Down all assets built by the automation
 ```
 
 
+## Open Telemetry
+The automation also has the ability to launch the Open Telemetry Demo found here: `https://opentelemetry.io/docs/demo/kubernetes-deployment/`
+
+Use `-b otel` during the launch process
+For example (Use -r to disable openEBS)
+`./1ClickECK.sh -c azure -b otel -r`
+
+The demo can send data to ElasticSearch by setting the following env variables
+
+```
+export TF_VAR_es_apm_url="https://xxxxxx.elastic-cloud.com:443"
+
+export TF_VAR_es_apm_token="xxxxxx"
+```
+
+To destroy/tear down Open Telemetry Demo 
+`./1ClickECK.sh -c azure -do -r`
 ## Autoscaling
 [![2023-01-30-11-26-51.jpg](https://i.postimg.cc/HszXV6xj/2023-01-30-11-26-51.jpg)](https://postimg.cc/HVJVN4bC)
 ## Terraform Variables

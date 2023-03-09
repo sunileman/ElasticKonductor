@@ -10,8 +10,9 @@ echo "1ClickAKSDestroy.sh setting kubectl"
 (bash ./setkubectl.sh)
 
 terraform init
+set +e
 terraform refresh
-
+set -e
 echo "1ClickAKSDestroy.sh: destroying addons"
 (cd ./addons; bash ./1ClickAddonsDestroy.sh)
 

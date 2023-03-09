@@ -4,10 +4,10 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.48
+oneclickv=.49
 
 usage() {
-     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s>] [-d for destroy] [-de for destroy eck] [-r for create without openebs] [-i cluster info] [-h for help]."
+     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s | otel>] [-d for destroy] [-de for destroy eck] [-do for destroy otel] [-r for create without openebs] [-i cluster info] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
@@ -21,6 +21,8 @@ cleanup() {
   openebs_enabled=""
   getClusterInfo=false
   destroyeck=false
+  createOtel=false
+  destroyOtel=false
 }
 
 
@@ -51,9 +53,14 @@ while [[ "$#" -gt 0 ]]; do
       createmode=true
       if [[ "$1" == "all" ]]; then
         echo "Build Mode = ALL"
+        createAll=true
       elif [[ "$1" == "k8s" ]]; then
         echo "Build Mode = K8s Only"
 	      k8sonly=true
+      elif [[ "$1" == "otel" ]]; then
+        echo "Build Mode = K8s & Otel"
+	      k8sonly=true
+        createOtel=true
       else
         echo "Not a valid build option. Use: all or k8s"
         exit 1
@@ -78,6 +85,11 @@ while [[ "$#" -gt 0 ]]; do
     -de|--destroyeck)
       echo "Destroy ECK"
       destroyeck=true
+      shift
+      ;;
+    -do|--destroyotel)
+      echo "Destroy Otel"
+      destroyOtel=true
       shift
       ;;
     -h|--help)
@@ -113,7 +125,7 @@ echo "Log Location: [ $LOG_LOCATION ]"
 
 
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $destroyeck != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $destroyeck != true ]  && [ $destroyOtel != true ]; then
     usage
 fi
 
@@ -171,6 +183,18 @@ echo "                                                                          
 set -e
 start=$SECONDS
 
+  echo "createmode $createmode"
+  echo "k8sonly $k8sonly"
+  echo "destroy $destroy"
+  echo "createModeArg $createModeArg"
+  echo "cloud $cloud"
+  echo "openebs_enabled $openebs_enabled"
+  echo "getClusterInfo $getClusterInfo"
+  echo "destroyeck $destroyeck"
+  echo "createOtel $createOtel"
+  echo "destroyOtel $destroyOtel"
+
+
 export KUBE_CONFIG_PATH=~/.kube/config
 if [ $cloud == "aws" ]; then
     if [ $getClusterInfo == true ]; then
@@ -212,8 +236,13 @@ elif [[ $cloud == azure ]]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh with all"
        (cd ./azure; bash ./1ClickAzure.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
+       echo 1ClickECK.sh: Total deployment time in seconds: $duration
+    elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == true ]; then
+       echo "1ClickECK.sh: calling 1ClickAzure.sh with otel"
+       (cd ./azure; bash ./1ClickAzure.sh -b otel $openebs_enabled)
+       duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
-    elif [ $createmode == true ] && [ $k8sonly == true ]; then
+    elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == false ]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh aks only"
        (cd ./azure; bash ./1ClickAzure.sh -b aks $openebs_enabled)
        duration=$(( SECONDS - start ))
@@ -226,6 +255,11 @@ elif [[ $cloud == azure ]]; then
     elif [[ $destroyeck == true ]]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh destroy ECK"
        (cd ./azure; bash ./1ClickAzure.sh -de)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [[ $destroyOtel == true ]]; then
+       echo "1ClickECK.sh: Destroying Otel"
+       (cd ./azure; bash ./1ClickAzure.sh -do)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     else
