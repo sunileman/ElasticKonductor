@@ -7,8 +7,16 @@ nowtime=`date +"%m_%d_%Y_%s"`
 oneclickv=.50
 
 usage() {
-     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s | otel>] [-d for destroy] [-de for destroy eck] [-do for destroy otel] [-r for create without openebs] [-inf cluster info] [-ii infra info] [-h for help]."
-     echo "Hit enter to try again with correct arguments"
+     echo "Usage: $0 "
+     echo "[-c [aws | azure | gcp ]"
+     echo "[-b <all | k8s | otel>] "
+     echo "[-d for destroy]"
+     echo "[-de for destroy eck]"
+     echo "[-do for destroy otel]"
+     echo "[-r for create without openebs]"
+     echo "[-inf cluster info]"
+     echo "[-ii infra info]"
+     echo "[-h for help]"
      exit 0;
 }
 
@@ -99,12 +107,7 @@ while [[ "$#" -gt 0 ]]; do
       shift
       ;;
     -h|--help)
-      echo "Options"
-      echo "Create all K8s & ECK assets: $0 -b all"
-      echo "Create K8s: $0 -b k8s"
-      echo "Create without OpenEBS: $0 -r"
-      echo "Destroy all assets built by 1Click: $0 -d [-c aws|azure|gcp] "
-      exit 0
+      usage
       ;;
     -v|--version)
       echo
