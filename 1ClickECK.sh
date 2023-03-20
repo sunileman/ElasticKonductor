@@ -4,10 +4,10 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.49
+oneclickv=.50
 
 usage() {
-     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s | otel>] [-d for destroy] [-de for destroy eck] [-do for destroy otel] [-r for create without openebs] [-i cluster info] [-h for help]."
+     echo "Usage: $0 [-c [aws | azure | gcp ] [-b <all | k8s | otel>] [-d for destroy] [-de for destroy eck] [-do for destroy otel] [-r for create without openebs] [-inf cluster info] [-ii infra info] [-h for help]."
      echo "Hit enter to try again with correct arguments"
      exit 0;
 }
@@ -20,6 +20,7 @@ cleanup() {
   cloud=NA
   openebs_enabled=""
   getClusterInfo=false
+  getInfraInfo=false
   destroyeck=false
   createOtel=false
   destroyOtel=false
@@ -77,6 +78,11 @@ while [[ "$#" -gt 0 ]]; do
       getClusterInfo=true
       shift
       ;;
+    -inf|--getInfraInfo)
+      echo "Get Infra Info"
+      getInfraInfo=true
+      shift
+      ;;
     -d|--destroy)
       echo "Destroy all"
       destroy=true
@@ -125,7 +131,7 @@ echo "Log Location: [ $LOG_LOCATION ]"
 
 
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $destroyeck != true ]  && [ $destroyOtel != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $getInfraInfo != true ] && [ $destroyeck != true ]  && [ $destroyOtel != true ]; then
     usage
 fi
 
@@ -230,6 +236,11 @@ elif [[ $cloud == azure ]]; then
     if [ $getClusterInfo == true ]; then
        echo "Get cluster Info"
        (cd ./azure; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [ $getInfraInfo == true ]; then
+       echo "Get Infra Info"
+       (cd ./azure/aks; bash ./getClusterInfo.sh)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == false ]; then

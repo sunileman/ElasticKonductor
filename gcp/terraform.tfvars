@@ -14,12 +14,12 @@
 # House keeping tags. For internal Elastic projects, please follow the cloud
 # resource tagging guidelines.
 
+##gcp has strick enforcement on naming. please use lower case with no special characters
 tags = {
-    "Division" = "field"
-    "Org" = "sa"
-    "Team" = "amer"
-    "Project" = "sunman" # Project name (shared) or username (individual)
-    "Owner" = "owner@something.com" #Owner email address
+    "division" = "field"
+    "org" = "sa"
+    "team" = "amer"
+    "project" = "username" # Project name (shared) or username (individual)
 }
 
 

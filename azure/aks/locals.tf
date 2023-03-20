@@ -1,4 +1,4 @@
 locals {
-  project = "${var.project}-${var.tags["Project"]}"
+  project = "${var.project}-${var.tags["project"]}"
 }
 

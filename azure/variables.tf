@@ -625,9 +625,11 @@ variable "otel_chart_version" {
 variable "es_apm_token" {
   description = "ElasticSearch APM Token"
   type = string
+  default = ""
 }
 
 variable "es_apm_url" {
   description = "ElasticSearch APM URL"
   type = string
+  default = ""
 }

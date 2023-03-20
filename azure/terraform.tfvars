@@ -15,12 +15,10 @@
 # resource tagging guidelines.
 
 tags = {
-    "Division" = "field"
-    "Org" = "sa"
-    "Team" = "amer"
-    "Project" = "username" # Project name (shared) or username (individual)
-    "Owner" = "owner@something.com" #Owner email address
-
+    "division" = "field"
+    "org" = "sa"
+    "team" = "amer"
+    "project" = "username" # Project name (shared) or username (individual)
 }
 
 resource_group_location="eastus"
@@ -67,7 +65,7 @@ resource_group_location="eastus"
 #master_instance_k8s_label= {"nodetype"="master"}
 #master_accept_ingest=false
 
-#kibana_instance_count= 2
+#kibana_instance_count= 10
 #kibana_max_instance_count= 2
 #kibana_instance_type= "standard_B2ms"
 #kibana_instance_k8s_label= {"nodetype"="kibana"}

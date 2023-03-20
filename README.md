@@ -326,7 +326,9 @@ Use lnav to view logs: https://lnav.org/
 
 
 Azure Error
-``` Error: building AzureRM Client: Authenticating using the Azure CLI is only supported as a User (not a Service Principal).```
+``` 
+Error: building AzureRM Client: Authenticating using the Azure CLI is only supported as a User (not a Service Principal).
+```
 Set your azure creds prior to launching the automation
 
 
@@ -349,8 +351,22 @@ Rerun automation.  Terraform api (target side) was reset.
 
 
 Error
-```An error occurred (UnrecognizedClientException) when calling the DescribeCluster operation: The security token included in the request is invalid.
 ```
+An error occurred (UnrecognizedClientException) when calling the DescribeCluster operation: The security token included in the request is invalid.
+```
+
 Try: aws creds are invalid.  Verify by running
 `aws sts get-caller-identity`
+
+Error
+```
+Error: Get "https://oneclickeck-eyawmryu.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/ksm-kube-state-metrics": dial tcp 40.88.241.57:443: connect: connection refused - error from a previous attempt: read tcp 10.0.9.248:46760->40.88.241.57:443: read: connection reset by peer
+│ 
+│   with helm_release.ksm,
+│   on ksm.tf line 1, in resource "helm_release" "ksm":
+│    1: resource "helm_release" "ksm" {
+ ```
+Rerun the automation
+
+
 

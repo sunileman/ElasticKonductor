@@ -15,12 +15,11 @@
 # resource tagging guidelines.
 
 tags = {
-    "Division" = "field"
-    "Org" = "sa"
-    "Team" = "amer"
-    "Project" = "username" # Project name (shared) or username (individual)
-    #"Owner" = "owner@something.com" #Owner email address
-    "Owner" = "sunile.manjee@elastic.co" #Owner email address
+    "division" = "field"
+    "org" = "sa"
+    "team" = "amer"
+    "project" = "username" # Project name (shared) or username (individual)
+
 }
 
 region= "us-east-1"
@@ -160,7 +159,7 @@ region= "us-east-1"
 #hot_pod_memory= "53248Mi"
 #hot_pod_roles= "data_hot, data_content, ingest"
 #hot_pod_storage= "1600Gi"
-#hot_pod_storage_class = "openebs-hostpath"
+#hot_pod_storage_class = "gp3"
 
 #warm_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #warm_pod_count= 1
