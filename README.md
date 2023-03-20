@@ -63,7 +63,9 @@ This will install all the required libaries and CLIs for the automation.
 `Azure`
 * AZ CLI CLI installed fully configured
     * https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
-    * run az login
+    * run az login with your creds
+    * `az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID`
+
 * Azure service principal
     * https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure?tabs=bash#create-a-service-principal
     * Make note of the `appId`, `display_name`, `password`, and `tenantID`
