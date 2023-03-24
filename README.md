@@ -101,7 +101,7 @@ Required Arguments
 `-b` [all|k8s|otel] 
 #otel option will create K8s and open telemetry demo
 
-`-d` <Destroy all assets created by the automation>
+`-d` Destroy all assets created by the automation
 
 `-r` disable openebs
 
@@ -111,6 +111,7 @@ Required Arguments
 
 `i` get cluster info 
 
+`int` get cluster infra info 
 Examples
 
 [![2023-02-07-15-36-07.jpg](https://i.postimg.cc/3N72kf2G/2023-02-07-15-36-07.jpg)](https://postimg.cc/r0nDbJny)
