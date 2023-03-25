@@ -3,12 +3,12 @@ export KUBE_CONFIG_PATH=~/.kube/config
 
 set -e
 
-terraform init 
-terraform refresh
-
 echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
+
+terraform init 
+terraform refresh
 
 echo "1ClickECKDestroy.sh setting kubectl"
 (cd ../eks; bash ./setkubectl.sh)

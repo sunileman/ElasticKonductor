@@ -35,7 +35,7 @@ This will install all the required libaries and CLIs for the automation.
 
 
 `General`
-* Ubuntu host to install all clients listed below (terraform, aws cli, etc).  Automation has been tested on ONLY on Ubuntu host
+* Ubuntu host to install all clients listed below (terraform, aws cli, etc).  Automation has been tested on ONLY on Ubuntu x86 host as root user
 * Install Terraform client
     * https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 * Install kubectl client

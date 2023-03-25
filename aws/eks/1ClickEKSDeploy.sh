@@ -2,7 +2,7 @@
 export KUBE_CONFIG_PATH=~/.kube/config
 
 set -e
-echo "C1ClickEKSDeploy.shopying variable files"
+echo "1ClickEKSDeploy.shopying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 

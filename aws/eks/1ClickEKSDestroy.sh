@@ -3,6 +3,10 @@ export KUBE_CONFIG_PATH=~/.kube/config
 echo T1ClickEKSDestroy.sh: Terraform Destroy
 set -e
 
+echo "1ClickEKSDeploy.shopying variable files"
+cp -f ../variables.tf .
+cp -f ../terraform.tfvars .
+
 echo "1ClickEKSDestroy.sh setting kubectl"
 (bash ./setkubectl.sh)
 
