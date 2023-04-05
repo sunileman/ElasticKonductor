@@ -1,0 +1,36 @@
+# extra settings to be merged into OpenTelemetry Collector configuration
+# do not delete this file
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+        cors:
+          allowed_origins:
+            - "http://localhost:8080"
+
+exporters:
+  otlphttp/elastic:
+    endpoint: "https://<Your ESS APM Endpoint>:443"
+    compression: none
+    headers:
+      Authorization: "Bearer <Your APM Token>"
+  logging:
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, otlphttp/elastic]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, otlphttp/elastic]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [logging, otlphttp/elastic]
