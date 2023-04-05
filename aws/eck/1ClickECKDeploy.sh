@@ -18,7 +18,7 @@ echo "1ClickECKDeploy.sh: Creating Elastic CRDS and Operator"
 
 echo "1ClickECKDeploy.sh Creating ElasticSearch Pods"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

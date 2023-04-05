@@ -10,13 +10,15 @@ cp -f ../variables.tf ./es-operator/variables.tf
 cp -f ../terraform.tfvars ./es-operator/variables.tfvars
 
 
-set +e
+echo "1ClickECKDestroy.sh Refreshing GKE state"
+(cd ../gke; terraform init; terraform refresh)
+
+echo "1ClickECKDestroy.sh Refresh ECK state"
+terraform init
+terraform refresh
+
 echo "1ClickECKDestroy.sh setting kubectl"
 (cd ../gke; bash ./setkubectl.sh)
-
-set -e
-
-terraform init
 
 echo "1ClickECKDestroy.sh Terraform Destroy"
 echo "1ClickECKDestroy.sh Destroying License"

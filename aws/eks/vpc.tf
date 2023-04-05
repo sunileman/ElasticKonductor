@@ -7,7 +7,8 @@ resource "aws_vpc" "eksvpc" {
   enable_dns_support   = true
 
   tags = {
-    Name = "${random_pet.name.id}-vpc",
+    Name = "${random_pet.name.id}-vpc"
+    "createdate" = local.current_datetime
     "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
   }
 }
@@ -24,6 +25,7 @@ resource "aws_subnet" "public" {
     Name = "${random_pet.name.id}-public-sg"
     "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
     "kubernetes.io/role/elb"                       = 1
+    "createdate" = local.current_datetime
   }
 
   map_public_ip_on_launch = true
@@ -41,6 +43,7 @@ resource "aws_subnet" "private" {
     Name = "${random_pet.name.id}-private-sg"
     "kubernetes.io/cluster/${random_pet.name.id}" = "shared"
     "kubernetes.io/role/internal-elb"              = 1
+    "createdate" = local.current_datetime
   }
 }
 
@@ -50,6 +53,7 @@ resource "aws_internet_gateway" "this" {
 
   tags = {
     "Name" = "${random_pet.name.id}-igw"
+    "createdate" = local.current_datetime
   }
 
   depends_on = [aws_vpc.eksvpc]
@@ -67,6 +71,7 @@ resource "aws_route_table" "main" {
 
   tags = {
     Name = "${random_pet.name.id}-Default-rt"
+    "createdate" = local.current_datetime
   }
 }
 
@@ -84,6 +89,7 @@ resource "aws_eip" "main" {
 
   tags = {
     Name = "${random_pet.name.id}-ngw-ip"
+    "createdate" = local.current_datetime
   }
 }
 
@@ -94,6 +100,7 @@ resource "aws_nat_gateway" "main" {
 
   tags = {
     Name = "${random_pet.name.id}-ngw"
+    "createdate" = local.current_datetime
   }
  depends_on = [aws_internet_gateway.this, aws_eip.main, aws_subnet.public]
 

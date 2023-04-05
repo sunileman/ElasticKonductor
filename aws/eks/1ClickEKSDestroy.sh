@@ -7,11 +7,15 @@ echo "1ClickEKSDeploy.shopying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
+set +e
 echo "1ClickEKSDestroy.sh setting kubectl"
 (bash ./setkubectl.sh)
+set -e
 
-terraform init
+terraform init -upgrade
+set +e
 terraform refresh
+set -e
 
 echo "1ClickEKSDestroy.sh: Destroying addons"
 (cd ./addons; bash ./1ClickAddonsDestroy.sh )

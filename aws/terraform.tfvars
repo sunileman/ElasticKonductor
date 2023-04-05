@@ -19,7 +19,7 @@ tags = {
     "org" = "sa"
     "team" = "amer"
     "project" = "username" # Project name (shared) or username (individual)
-
+    "enddate" = "05012023" #MMDDYYYY
 }
 
 region= "us-east-1"
@@ -200,3 +200,15 @@ region= "us-east-1"
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"
 #kibana_pod_memory= "1Gi"
+
+
+
+#----------------------- Terraform providers ---------------------------------
+
+
+#tf_aws_provider_version= "4.61.0"
+#tf_k8s_provider_version = "2.16.1"
+#tf_kubectl_provider_version = "1.14.0
+#tf_curl_provider_version = "1.0.2"
+#tf_helm_provider_version = "2.9.0"
+

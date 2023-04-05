@@ -36,3 +36,32 @@ sudo apt update
 sudo apt install snapd
 sudo snap install kubectl --channel=1.24/stable --classic
 sudo snap install helm --classic
+
+
+##Install required packages
+sudo apt-get -y update; sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev python3-openssl pbzip2 git htop
+
+##get pyenv package
+curl https://pyenv.run | bash
+
+##set some variables
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:~/.local/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+exec "$SHELL"
+
+##Check yor pyenv version
+pyenv --version
+
+##install pyton 3.8.13
+pyenv install 3.8.13
+pyenv global 3.8.13
+
+
+##Install rally
+python3 -m pip install --user --upgrade pip
+python3 -m pip install --user python-hcl2
+python3 -m pip install --user boto3
+python3 -m pip install --user argparse

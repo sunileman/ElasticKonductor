@@ -8,7 +8,7 @@ export TF_LOG_PATH="./tflogs/terraform-destroy-$nowtime.log"
 
 set -e
 
-terraform init
+terraform init -upgrade
 terraform refresh
 
 

@@ -1,0 +1,65 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "owners": ["099720109477"],
+        "most_recent": true
+      },
+      "instance_type": "t2.medium",
+      "ssh_username": "ubuntu",
+      "ami_name": "sunman-otel-ami {{timestamp}}",
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 500,
+          "volume_type": "gp3",
+          "delete_on_termination": true
+        }
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo apt-get update -y",
+        "sudo apt-get upgrade -y",
+        "sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common",
+        "sudo snap install docker",
+        "sudo groupadd docker",
+        "sudo usermod -a -G docker ubuntu",
+        "docker-compose --version",
+        "sudo apt-get install -y git",
+        "git clone https://github.com/open-telemetry/opentelemetry-demo.git"      
+      ]
+    },
+    {
+      "type": "shell",
+      "expect_disconnect": true,
+      "inline": [
+        "sudo reboot"
+      ]
+    },
+    {
+      "type": "shell",
+      "pause_before": "2m",
+      "inline": [
+        "echo 'Waiting for 2 minutes before reconnecting...'"
+      ]
+    }
+  ]
+}

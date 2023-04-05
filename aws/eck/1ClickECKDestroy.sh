@@ -7,11 +7,20 @@ echo "Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
-terraform init 
+echo "1ClickECKDestroy.sh Refreshing EKS state"
+(cd ../eks; terraform init -upgrade; terraform refresh)
+
+echo "1ClickECKDestroy.sh Refresh ECK state"
+terraform init -upgrade 
+
+set +e
 terraform refresh
+
 
 echo "1ClickECKDestroy.sh setting kubectl"
 (cd ../eks; bash ./setkubectl.sh)
+
+set -e
 
 echo "1ClickECKDestroy: Destroying license"
 (cd ./license; bash ./1ClickAddLicenseDestroy.sh)

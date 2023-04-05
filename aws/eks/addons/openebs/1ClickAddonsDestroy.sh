@@ -10,7 +10,7 @@ echo "openebs/1ClickAddons.sh: coping variable files"
 cp -f ../../../variables.tf .
 cp -f ../../../terraform.tfvars .
 
-terraform init
+terraform init -upgrade
 terraform refresh
 
 

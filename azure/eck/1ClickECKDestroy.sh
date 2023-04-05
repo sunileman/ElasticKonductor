@@ -10,8 +10,12 @@ cp -f ../terraform.tfvars .
 echo "1ClickECKDestroy.sh calling nameGen"
 (cd ./namegen; bash ./1ClickNameGen.sh)
 
+echo "1ClickECKDestroy.sh Refreshing AKS state"
+(cd ../aks; terraform init; terraform refresh)
+
 echo "1ClickECKDestroy.sh setting kubectl"
 (cd ../aks; bash ./setkubectl.sh)
+
 
 terraform init
 terraform refresh

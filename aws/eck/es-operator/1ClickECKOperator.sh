@@ -17,7 +17,7 @@ cp -f ../../terraform.tfvars .
 export KUBE_CONFIG_PATH=~/.kube/config
 echo "1ClickECKOperator.sh creating ECK Operator"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

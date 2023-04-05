@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.52
+oneclickv=.53
 
 usage() {
      echo "Usage: $0 "
@@ -16,6 +16,7 @@ usage() {
      echo "[-r for create without openebs]"
      echo "[-inf cluster info]"
      echo "[-ii infra info]"
+     echo "[-ic install 1ClickECK client]"
      echo "[-h for help]"
      exit 0;
 }
@@ -32,6 +33,7 @@ cleanup() {
   destroyeck=false
   createOtel=false
   destroyOtel=false
+  installclient=false
 }
 
 
@@ -91,6 +93,11 @@ while [[ "$#" -gt 0 ]]; do
       getInfraInfo=true
       shift
       ;;
+    -ic|--installclient)
+      echo "Install Client"
+      installclient=true
+      shift
+      ;;
     -d|--destroy)
       echo "Destroy all"
       destroy=true
@@ -132,7 +139,15 @@ exec > >(tee -i $LOG_LOCATION/1Click_${cloud}_${nowtime}.log)
 exec 2>&1
 echo "Log Location: [ $LOG_LOCATION ]"
 
+set -e
 
+if [ $installclient == true ] ; then
+  echo "Installing 1ClickECK Client"
+  (cd scripts; bash ./1ClickECK-client-install.sh)
+  exit 0
+fi
+
+set +e 
 
 if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $getInfraInfo != true ] && [ $destroyeck != true ]  && [ $destroyOtel != true ]; then
     usage

@@ -16,7 +16,7 @@ cp -f ../../../terraform.tfvars .
 
 echo "autoscaler/1ClickAddons.sh: Creating Autoscaler"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

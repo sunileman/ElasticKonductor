@@ -13,6 +13,7 @@ resource "aws_eks_cluster" "OneClick" {
 
   tags = merge(
     var.tags,
+    {"createdate" = local.current_datetime},
     {env=random_pet.name.id}
   )
 

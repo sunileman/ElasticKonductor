@@ -388,3 +388,71 @@ resource "aws_autoscaling_group_tag" "util_asg_tag" {
     propagate_at_launch = false
   }
 }
+
+
+
+resource "null_resource" "apply_master_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.master]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.master.resources[0].autoscaling_groups[0].name}"
+  }
+}
+
+
+resource "null_resource" "apply_kibana_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.kibana]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.kibana.resources[0].autoscaling_groups[0].name}"
+  }
+}
+
+resource "null_resource" "apply_hot_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.hot]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.hot.resources[0].autoscaling_groups[0].name}"
+  }
+}
+
+
+resource "null_resource" "apply_warm_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.warm]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.warm.resources[0].autoscaling_groups[0].name}"
+  }
+}
+
+resource "null_resource" "apply_cold_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.cold]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.cold.resources[0].autoscaling_groups[0].name}"
+  }
+}
+
+resource "null_resource" "apply_frozen_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.frozen]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.frozen.resources[0].autoscaling_groups[0].name}"
+  }
+}
+
+resource "null_resource" "apply_ml_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.ml]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.ml.resources[0].autoscaling_groups[0].name}"
+  }
+}
+
+resource "null_resource" "apply_util_ini_asg_tags" {
+  depends_on = [aws_eks_node_group.util]
+
+  provisioner "local-exec" {
+    command = "python ini-add-tags.py ${aws_eks_node_group.util.resources[0].autoscaling_groups[0].name}"
+  }
+}

@@ -11,7 +11,7 @@ echo "1ClickEKSDeploy.sh: openebs option: $1"
 openebs=$1
 
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 echo "1ClickEKSDeploy.sh: Creating AWS EKS Infra" 
 echo "1ClickEKSDeploy.sh: validating configuration"

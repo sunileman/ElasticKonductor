@@ -12,7 +12,7 @@ echo "1CLickECKOperatorDestroy.sh: Copying variable files"
 cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
-terraform init
+terraform init -upgrade
 terraform refresh
 
 echo "1CLickECKOperatorDestroy.sh: Terraform Destroy"
