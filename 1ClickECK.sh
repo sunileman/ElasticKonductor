@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.53
+oneclickv=.54
 
 usage() {
      echo "Usage: $0 "
@@ -15,7 +15,7 @@ usage() {
      echo "[-do for destroy otel]"
      echo "[-r for create without openebs]"
      echo "[-inf cluster info]"
-     echo "[-ii infra info]"
+     echo "[-i infra info]"
      echo "[-ic install 1ClickECK client]"
      echo "[-h for help]"
      exit 0;
