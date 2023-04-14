@@ -690,3 +690,22 @@ variable "es_apm_url" {
   type = string
   default = ""
 }
+
+
+variable "network_plugin" {
+  description = "Network plugin"
+  type = string
+  default = "azure"
+}
+
+variable "load_balancer_sku" {
+  description = "Load balancer sku"
+  type = string
+  default = "standard"
+}
+
+variable "identity_type" {
+  description = "Ddentity Type"
+  type = string
+  default = "SystemAssigned"
+}
