@@ -26,9 +26,18 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 
   network_profile {
-    network_plugin    = "kubenet"
+    #network_plugin    = "kubenet"
+    network_plugin    = "azure"
     load_balancer_sku = "standard"
   }
+
+
+  windows_profile {
+    admin_username    = var.windows_user_name
+    admin_password    = var.windows_password 
+  }
+
+
   service_principal {
     client_id     = var.aks_service_principal_app_id
     client_secret = var.aks_service_principal_client_secret

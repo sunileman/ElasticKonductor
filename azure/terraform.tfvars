@@ -18,7 +18,7 @@ tags = {
     "division" = "field"
     "org" = "sa"
     "team" = "amer"
-    "project" = "sunman" # Project name (shared) or username (individual)
+    "project" = "username" # Project name (shared) or username (individual)
 }
 
 resource_group_location="eastus"
@@ -106,6 +106,21 @@ resource_group_location="eastus"
 #ml_instance_type= "standard_D16ads_v5"
 #ml_instance_k8s_label= {"nodetype"="ml"}
 #ml_accept_ingest=false
+
+#logstash_instance_count= 0
+#logstash_max_instance_count= 0
+#logstash_instance_type= "standard_D16ads_v5"
+#logstash_instance_k8s_label= {"nodetype"="ml"}
+
+#windows_instance_count= 1
+#windows_max_instance_count= 0
+#windows_instance_type= "standard_D16ads_v5"
+#windows_instance_k8s_label= {"nodetype"="windows"}
+#windows_os_type = "Windows"
+#windows_os_sku = "Windows2022"
+#windows_os_disk_size_gb" = 30
+#windows_user_name = "azureuser"
+#windows_password = "P@ssw0rd1234!"
 
 
 #util_instance_count= 1

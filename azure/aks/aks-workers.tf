@@ -151,3 +151,25 @@ resource "azurerm_kubernetes_cluster_node_pool" "logstash" {
 
   node_labels = var.logstash_instance_k8s_label
 }
+
+resource "azurerm_kubernetes_cluster_node_pool" "windws" {
+  name                  = "windws"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = var.windows_instance_type
+
+  enable_auto_scaling = true
+  min_count           = var.windows_instance_count
+  max_count           = var.windows_max_instance_count
+
+  os_type             = var.windows_os_type
+  os_sku              = var.windows_os_sku
+  os_disk_size_gb     = var.windows_os_disk_size_gb
+
+
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
+
+  node_labels = var.windows_instance_k8s_label
+}

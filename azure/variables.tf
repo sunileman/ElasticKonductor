@@ -270,6 +270,63 @@ variable "logstash_instance_k8s_label" {
   default     = {"nodetype"="logstash"}
 }
 
+
+variable "windows_instance_count" {
+  description = "Number of windows instances"
+  type        = number
+  default     = 0
+}
+
+variable "windows_max_instance_count" {
+  description = "Max Number of windows instances"
+  type        = number
+  default     = 10
+}
+
+variable "windows_instance_type" {
+  description = "windows instance type"
+  type        = string
+  default     =  "standard_F32s_v2"
+}
+
+variable "windows_instance_k8s_label" {
+  description = "windows instance k8s label"
+  type        = map
+  default     = {"nodetype"="windows"}
+}
+
+variable "windows_os_type" {
+  description = "windows os type"
+  type        = string
+  default     = "Windows"
+}
+
+variable "windows_os_sku" {
+  description = "windows os sku"
+  type        = string
+  default     = "Windows2022"
+}
+
+variable "windows_os_disk_size_gb" {
+  description = "windows instance os storage"
+  type        = number
+  default     = 30
+}
+
+variable "windows_user_name" {
+  description = "windows  os sku"
+  type        = string
+  default     = "azureuser"
+}
+
+variable "windows_password" {
+  description = "windows instance os storage"
+  type        = string
+  default     = "P@ssw0rd12abc6ad34!"
+}
+
+
+
 variable "es_version" {
   description = "elasticsearch version"
   type = string
