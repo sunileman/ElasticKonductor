@@ -206,6 +206,6 @@ resource_group_location="eastus"
 #export TF_VAR_es_apm_url="xxxx"
 #export TF_VAR_es_apm_token="xxxx"
 
-#es_apm_url= "xxxelastic-cloud.com:443"
-#es_apm_token="xxx"
+#es_apm_url= "xxxelastic-cloud.com:443" without https:// prefix
+#es_apm_token="xxx" your Elastic APM secret token
 #otel_chart_version= "0.19.5"

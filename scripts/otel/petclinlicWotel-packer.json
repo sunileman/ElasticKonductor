@@ -1,0 +1,41 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "aws_region": "us-east-1",
+    "source_ami": "ami-0a760c97fd29d9f60",
+    "disk_size": "1000",
+    "instance_type": "t2.large",
+    "volume_type": "gp2",
+    "ami_name": "sunman-apm-pc-with-otel-workshop"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "{{ user `aws_region` }}",
+      "source_ami": "{{ user `source_ami` }}",
+      "instance_type": "{{ user `instance_type` }}",
+      "ssh_username": "ubuntu",
+      "ami_name": "{{ user `ami_name` }}-{{timestamp}}",
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": "{{ user `disk_size` }}",
+          "volume_type": "{{ user `volume_type` }}",
+          "delete_on_termination": true
+        }
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "git clone https://github.com/elastic/opentelemetry-demo.git"
+      ]
+    }
+  ]
+}

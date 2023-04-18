@@ -1,58 +1,55 @@
 opentelemetry-collector:
-  resources:
-    limits:
-      memory: "2Gi"
-    requests:
-      memory: "1Gi"
-  config: 
+  extraEnvs:
+    - name: ELASTIC_APM_ENDPOINT
+      valueFrom:
+        secretKeyRef:
+          name: elastic-secret
+          key: elastic_apm_endpoint
+    - name: ELASTIC_APM_SECRET_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: elastic-secret
+          key: elastic_apm_secret_token
+  config:
+    exporters:
+      otlp/elastic:
+        endpoint: ${ELASTIC_APM_ENDPOINT}
+        headers:
+          Authorization: Bearer ${ELASTIC_APM_SECRET_TOKEN}
     receivers:
       otlp:
         protocols:
           grpc:
+            endpoint: ${MY_POD_IP}:4317
           http:
             cors:
               allowed_origins:
-                - "http://*"
-                - "https://*"
-      hostmetrics:
-        scrapers:
-          cpu:
-          disk:
-          load:
-          filesystem:
-          memory:
-          network:
-          paging:
-          processes:
-
-    exporters:
-      otlphttp/elastic:
-        #endpoint: "https://xxxxx.elastic-cloud.com:443"
-        endpoint: "${es_apm_url}"
-        compression: none
-        headers:
-          #Authorization: "Bearer xxxx"
-          Authorization: "Bearer ${es_apm_token}"
-
-      logging:
-
-    processors:
-      batch:
-
+              - http://*
+              - https://*
+            endpoint: ${MY_POD_IP}:4318
     service:
       pipelines:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [logging, otlphttp/elastic]
+          exporters: [otlp/elastic]
         metrics:
-          receivers: [otlp, hostmetrics]
+          receivers: [otlp]
           processors: [batch]
-          exporters: [logging, otlphttp/elastic]
+          exporters: [otlp/elastic]
         logs:
           receivers: [otlp]
           processors: [batch]
-          exporters: [logging, otlphttp/elastic]
+          exporters: [otlp/elastic]
+grafana:
+  enabled: false
+
+jaeger:
+  enabled: false
+
+prometheus:
+  enabled: false
+  
 components:
   quoteService:
     resources:
@@ -66,7 +63,19 @@ components:
     resources:
       limits:
         memory: 1Gi
+  frontend:
+    resources:
+      limits:
+        memory: 1Gi
   accountingService:
     resources:
       limits:
         memory: 1Gi
+  accountingService:
+    resources:
+      limits:
+        memory: 1Gi
+opentelemetry-collector:
+  resources:
+    limits:
+      memory: 1Gi

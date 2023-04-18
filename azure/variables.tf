@@ -310,7 +310,7 @@ variable "windows_os_sku" {
 variable "windows_os_disk_size_gb" {
   description = "windows instance os storage"
   type        = number
-  default     = 30
+  default     = 35
 }
 
 variable "windows_user_name" {
@@ -676,7 +676,7 @@ variable "otel_chart_version" {
   description = "Otel chart version"
   type = string
   #https://github.com/open-telemetry/opentelemetry-helm-charts/releases
-  default = "0.19.5"
+  default = "0.21.1"
 }
 
 variable "es_apm_token" {
