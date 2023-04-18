@@ -1,3 +1,14 @@
+default:
+  schedulingRules:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: nodetype
+              operator: In
+              values:
+              - otel 
 opentelemetry-collector:
   extraEnvs:
     - name: ELASTIC_APM_ENDPOINT

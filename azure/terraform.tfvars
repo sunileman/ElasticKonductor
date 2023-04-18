@@ -201,6 +201,9 @@ resource_group_location="eastus"
 
 
 #----------------------- Open Telemetry ---------------------------------
+#otel_instance_count= 0
+#otel_instance_type =  "standard_F32s_v2"
+#otel_instance_k8s_label = {"nodetype"="otel"}
 
 ##high recommended to use env variables instead of setting the url and token in a file
 #export TF_VAR_es_apm_url="xxxx"

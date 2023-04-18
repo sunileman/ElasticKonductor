@@ -325,7 +325,23 @@ variable "windows_password" {
   default     = "P@ssw0rd12abc6ad34!"
 }
 
+variable "otel_instance_count" {
+  description = "Number of otel instances"
+  type        = number
+  default     = 0
+}
 
+variable "otel_instance_type" {
+  description = "otel instance type"
+  type        = string
+  default     =  "standard_F32s_v2"
+}
+
+variable "otel_instance_k8s_label" {
+  description = "otel instance k8s label"
+  type        = map
+  default     = {"nodetype"="otel"}
+}
 
 variable "es_version" {
   description = "elasticsearch version"

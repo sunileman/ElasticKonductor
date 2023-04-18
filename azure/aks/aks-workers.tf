@@ -173,3 +173,20 @@ resource "azurerm_kubernetes_cluster_node_pool" "windws" {
 
   node_labels = var.windows_instance_k8s_label
 }
+
+
+resource "azurerm_kubernetes_cluster_node_pool" "otel" {
+  name                  = "otel"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = var.otel_instance_type
+  node_count            = var.otel_instance_count
+
+  enable_auto_scaling = false
+
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
+
+  node_labels = var.otel_instance_k8s_label
+}
