@@ -28,7 +28,7 @@ variable "resource_group_name_prefix" {
 variable "aks_version" {
   description = "AKS Version"
   type        = string
-  default     = "1.25.6"
+  default     = "1.26.3"
 }
 
 variable "eck_version" {
@@ -686,6 +686,13 @@ variable "openebs_helm_chart_version" {
   description = "OpenEBS chart version"
   type = string
   default = "3.3.1"
+}
+
+variable "ksm_helm_chart_version" {
+  description = "KSM chart version"
+  type = string
+  default = "4.32.0"
+  ##https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
 }
 
 variable "otel_chart_version" {

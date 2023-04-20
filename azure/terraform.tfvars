@@ -44,7 +44,7 @@ resource_group_location="eastus"
 #export TF_VAR_aks_service_principal_app_id=""
 #export TF_VAR_aks_service_principal_client_secret=""
 
-#aks_version= "1.24.6"
+#aks_version= "1.26.3"
 
 #dns_prefix= "oneclickeck"
 #resource_group_location= "eastus"
@@ -128,6 +128,9 @@ resource_group_location="eastus"
 #util_instance_k8s_label= {"nodetype"="util"}
 
 #openebs_helm_chart_version="3.3.1"
+
+#https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
+#ksm_helm_chart_version="4.32.0" 
 
 #======================= Elastic Stack =========================================
 
