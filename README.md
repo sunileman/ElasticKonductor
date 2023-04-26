@@ -101,6 +101,8 @@ Required Arguments
 `-b` [all|k8s|otel] 
 #otel option will create K8s and open telemetry demo
 
+Set `otel_instance_count` to a value `> 0`
+
 `-d` Destroy all assets created by the automation
 
 `-r` disable openebs
@@ -372,4 +374,20 @@ Error: Get "https://oneclickeck-eyawmryu.hcp.eastus.azmk8s.io:443/api/v1/namespa
 Rerun the automation
 
 
+Otel helm fails to installs
+```
+│ Warning: Helm release "open-telemetry" was created but has a failed status. Use the `helm` command to investigate the error, correct it, then run Terraform again.
+│ 
+│   with helm_release.otel,
+│   on otel.tf line 1, in resource "helm_release" "otel":
+│    1: resource "helm_release" "otel" {
+│ 
+╵
+╷
+│ Error: Get "https://xxxx/api/v1/namespaces/default/services/open-telemetry-loadgenerator": dial tcp xxx:443: connect: connection refused
+│ 
+│   with helm_release.otel,
+│   on otel.tf line 1, in resource "helm_release" "otel":
+│    1: resource "helm_release" "otel" {
 
+set `otel_instance_count` to a value `> 0`  in terraform.tfvars as otel pods are created in the otel k8s node group

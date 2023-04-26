@@ -759,3 +759,10 @@ variable "openebs_helm_chart_version" {
   type = string
   default = "3.3.1"
 }
+
+variable "ksm_helm_chart_version" {
+  description = "KSM chart version"
+  type = string
+  default = "4.32.0"
+  ##https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
+}

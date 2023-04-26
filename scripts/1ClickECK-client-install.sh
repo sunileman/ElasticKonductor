@@ -33,7 +33,7 @@ sudo apt-get update && sudo apt-get install google-cloud-cli
 ##installing kubectl
 ##releases snap info kubectl
 sudo apt update
-sudo apt install snapd
+sudo apt install snapd -y
 sudo snap install kubectl --channel=1.24/stable --classic
 sudo snap install helm --classic
 
@@ -47,3 +47,13 @@ libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-d
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" -y
 sudo apt-get update && sudo apt-get install packer
+
+git clone https://gist.github.com/capsulecorplab/2d1998522c36f84a070380e766b0423a pyenv_installer/
+(cd pyenv_installer/; bash pyenv_install.sh)
+
+##install pyton 3.8.13
+pyenv install 3.8.13
+pyenv global 3.8.13
+
+pip install boto3
+pip install python-hcl2

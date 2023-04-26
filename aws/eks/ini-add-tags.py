@@ -13,13 +13,14 @@ args = parser.parse_args()
 with open("terraform.tfvars", "r") as file:
     tfvars = hcl2.load(file)
     tags = tfvars["tags"]
+    region = tfvars["region"]
 
 # Add the "createdate" tag
 tags["createdate"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # Connect to AWS services
-ec2 = boto3.resource("ec2")
-autoscaling = boto3.client("autoscaling")
+ec2 = boto3.resource("ec2", region_name=region)
+autoscaling = boto3.client("autoscaling", region_name=region)
 
 # Get instances in the ASG
 response = autoscaling.describe_auto_scaling_groups(AutoScalingGroupNames=[args.asg_name])
