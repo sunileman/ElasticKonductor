@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ${cold_pod_storage_class_name}
+provisioner: ebs.csi.aws.com
+parameters:
+  type: ${cold_pod_storage_class}
+  iops: "${cold_pod_storage_class_iops}"
+  throughput: "${cold_pod_storage_class_throughput}"
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer

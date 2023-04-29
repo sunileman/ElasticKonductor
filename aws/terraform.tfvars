@@ -25,6 +25,7 @@ tags = {
 region= "us-east-1"
 
 
+
 #----------------------- Cloud Provider ----------------------------------------
 #automation_name= "1ClickECK"
 
@@ -128,6 +129,9 @@ region= "us-east-1"
 
 #openebs_helm_chart_version="3.3.1"
 
+#https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
+#ksm_helm_chart_version="4.32.0" 
+
 #======================= Elastic Stack =========================================
 
 # Elastic-specific configuraiton options
@@ -151,7 +155,7 @@ region= "us-east-1"
 #master_pod_memory= "11264Mi"
 #master_pod_roles= "master"
 #master_pod_storage= "140Gi"
-#master_pod_storage_class = "openebs-hostpath"
+#master_pod_storage_class = "local-storage"
 
 #hot_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #hot_pod_count= 3
@@ -159,7 +163,10 @@ region= "us-east-1"
 #hot_pod_memory= "53248Mi"
 #hot_pod_roles= "data_hot, data_content, ingest"
 #hot_pod_storage= "1600Gi"
+#hot_pod_storage_class_name = "hot-gp3" #must prefix with hot.  For local storage use local-storage 
 #hot_pod_storage_class = "gp3"
+#hot_pod_storage_class_iops = 3000
+#hot_pod_storage_class_throughput = 125 ##in mb
 
 #warm_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #warm_pod_count= 1
@@ -167,7 +174,11 @@ region= "us-east-1"
 #warm_pod_memory= "53248Mi"
 #warm_pod_roles= "data_warm, data_content"
 #warm_pod_storage= "5000Gi"
-#warm_pod_storage_class = "openebs-hostpath"
+#warm_pod_storage_class = "local-storage"
+#warm_pod_storage_class_name = "warm-gp3" #must prefix with warm.  For local storage use local-storage 
+#warm_pod_storage_class = "gp3"
+#warm_pod_storage_class_iops = 3000
+#warm_pod_storage_class_throughput = 125 ##in mb
 
 
 #cold_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
@@ -176,7 +187,11 @@ region= "us-east-1"
 #cold_pod_memory= "11264Mi"
 #cold_pod_roles= "data_cold"
 #cold_pod_storage= "140Gi"
-#cold_pod_storage_class = "openebs-hostpath"
+#cold_pod_storage_class = "local-storage"
+#cold_pod_storage_class_name = "cold-gp3" #must prefix with cold.  For local storage use local-storage 
+#cold_pod_storage_class = "gp3"
+#cold_pod_storage_class_iops = 3000
+#cold_pod_storage_class_throughput = 125 ##in mb
 
 
 #frozen_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
@@ -185,8 +200,11 @@ region= "us-east-1"
 #frozen_pod_memory= "11264Mi"
 #frozen_pod_roles= "data_frozen"
 #frozen_pod_storage= "140Gi"
-#frozen_pod_storage_class = "openebs-hostpath"
-
+#frozen_pod_storage_class = "local-storage"
+#frozen_pod_storage_class_name = "frozen-gp3" #must prefix with frozen.  For local storage use local-storage 
+#frozen_pod_storage_class = "gp3"
+#frozen_pod_storage_class_iops = 3000
+#frozen_pod_storage_class_throughput = 125 ##in mb
 
 #ml_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #ml_pod_count= 1
@@ -194,8 +212,11 @@ region= "us-east-1"
 #ml_pod_memory= "11264Mi"
 #ml_pod_roles= "ml, remote_cluster_client"
 #ml_pod_storage= "140Gi"
-#ml_pod_storage_class = "openebs-hostpath"
-
+#ml_pod_storage_class = "local-storage"
+#ml_pod_storage_class_name = "ml-gp3" #must prefix with ml.  For local storage use local-storage 
+#ml_pod_storage_class = "gp3"
+#ml_pod_storage_class_iops = 3000
+#ml_pod_storage_class_throughput = 125 ##in mb
 
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"

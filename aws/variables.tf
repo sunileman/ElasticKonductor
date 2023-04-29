@@ -473,8 +473,27 @@ variable "master_accept_ingest" {
 variable "master_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "openebs-hostpath"
+  default = "local-storage"
 }
+
+variable "master_pod_storage_class_name" {
+  description = "pod storage class_name"
+  type = string
+  default = "local-storage"
+}
+
+variable "master_pod_storage_class_iops" {
+  description = "pod storage class iops"
+  type = string
+  default = "3000"
+}
+
+variable "master_pod_storage_class_throughput" {
+  description = "pod storage class throughput in mb"
+  type = string
+  default = "125"
+}
+
 
 variable "kibana_pod_cpu" {
   description = "kibana pod cpu request"
@@ -531,11 +550,32 @@ variable "hot_accept_ingest" {
   default = "true"
 }
 
+
+variable "hot_pod_storage_class_name" {
+  description = "pod storage class_name"
+  type = string
+  default = "local-storage"
+}
+
+
 variable "hot_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "openebs-hostpath"
+  default = "local-storage"
 }
+
+variable "hot_pod_storage_class_iops" {
+  description = "pod storage class iops"
+  type = string
+  default = "3000"
+}
+
+variable "hot_pod_storage_class_throughput" {
+  description = "pod storage class throughput in mb"
+  type = string
+  default = "125"
+}
+
 
 variable "warm_pod_count" {
   description = "number of warm pods"
@@ -577,8 +617,27 @@ variable "warm_accept_ingest" {
 variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "openebs-hostpath"
+  default = "local-storage"
 }
+
+variable "warm_pod_storage_class_name" {
+  description = "pod storage class_name"
+  type = string
+  default = "local-storage"
+}
+
+variable "warm_pod_storage_class_iops" {
+  description = "pod storage class iops"
+  type = string
+  default = "3000"
+}
+
+variable "warm_pod_storage_class_throughput" {
+  description = "pod storage class throughput in mb"
+  type = string
+  default = "125"
+}
+
 
 variable "cold_pod_count" {
   description = "number of cold pods"
@@ -620,8 +679,28 @@ variable "cold_accept_ingest" {
 variable "cold_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "openebs-hostpath"
+  default = "local-storage"
 }
+
+variable "cold_pod_storage_class_name" {
+  description = "pod storage class_name"
+  type = string
+  default = "local-storage"
+}
+
+variable "cold_pod_storage_class_iops" {
+  description = "pod storage class iops"
+  type = string
+  default = "3000"
+}
+
+variable "cold_pod_storage_class_throughput" {
+  description = "pod storage class throughput in mb"
+  type = string
+  default = "125"
+}
+
+
 
 variable "frozen_pod_count" {
   description = "number of frozen pods"
@@ -663,7 +742,25 @@ variable "frozen_accept_ingest" {
 variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "openebs-hostpath"
+  default = "local-storage"
+}
+
+variable "frozen_pod_storage_class_name" {
+  description = "pod storage class_name"
+  type = string
+  default = "local-storage"
+}
+
+variable "frozen_pod_storage_class_iops" {
+  description = "pod storage class iops"
+  type = string
+  default = "3000"
+}
+
+variable "frozen_pod_storage_class_throughput" {
+  description = "pod storage class throughput in mb"
+  type = string
+  default = "125"
 }
 
 
@@ -707,8 +804,27 @@ variable "ml_accept_ingest" {
 variable "ml_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "openebs-hostpath"
+  default = "local-storage"
 }
+
+variable "ml_pod_storage_class_name" {
+  description = "pod storage class_name"
+  type = string
+  default = "local-storage"
+}
+
+variable "ml_pod_storage_class_iops" {
+  description = "pod storage class iops"
+  type = string
+  default = "3000"
+}
+
+variable "ml_pod_storage_class_throughput" {
+  description = "pod storage class throughput in mb"
+  type = string
+  default = "125"
+}
+
 
 
 

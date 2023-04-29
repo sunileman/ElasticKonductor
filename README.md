@@ -232,18 +232,22 @@ Latest release of ES, if jvm arguments aren't spplied for heap size, half the av
 Take this into consideration if the defaults aren't acceptables
 
 ## Storage Class
-By default ECK will mount openebs storage class to ES pods.  To use a different storage class is simple
+By default ECK will mount local storage class to ES pods.  To use a different storage class is simple
 
 Run `kubeclt get sc` to retrieve available storage classes.  
 
-GKE Example
+GKE
 `[master|hot|warm|cold|frozen|ml]_pod_storage_class = "premium-rwo"`
 
-AWS Example
-`[master|hot|warm|cold|frozen|ml]_pod_storage_class = "gp3"`
+AWS
+To use gp3, io1, or io2 set the following
+`hot_pod_storage_class_name = "hot-gp3"  #must bre prefixed with pod type <master|hot|warm|cold|frozen|ml>`
+`hot_pod_storage_class = "gp3"`
+`hot_pod_storage_class_iops = "3000"`
+`hot_pod_storage_class_throughput = "125" ##in mb`
 
 
-Azure Example
+Azure
 `[master|hot|warm|cold|frozen|ml]_pod_storage_class = "managed-csi-premium"`
 
 Run the automation with `r` option to disable openebs

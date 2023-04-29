@@ -9,5 +9,9 @@ resource "helm_release" "openebs" {
     name  = "localprovisioner.basePath"
     value = "/srv/local"
   }
+  set {
+    name  = "localprovisioner.hostpathClass.name"
+    value = "local-storage"
+  }
 }
 

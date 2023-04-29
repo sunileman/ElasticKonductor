@@ -29,3 +29,6 @@ echo "Destroying ES Pods"
 terraform destroy -auto-approve
 
 (cd ./es-operator ; bash ./1ClickECKOperatorDestroy.sh)
+
+#delete ebs volumes
+bash delete-ebs-volumes.sh
