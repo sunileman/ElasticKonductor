@@ -232,7 +232,7 @@ Latest release of ES, if jvm arguments aren't spplied for heap size, half the av
 Take this into consideration if the defaults aren't acceptables
 
 ## Storage Class
-By default ECK will mount local storage class to ES pods.  To use a different storage class is simple
+By default ECK will mount local storage class to ES pods.  To use a different storage class is simple.  It is important to note that if network/remote storage will be used instead of local storage, use the `-r`.  For example `./1ClickECK -c gcp -b all -r`
 
 Run `kubeclt get sc` to retrieve available storage classes.  
 
@@ -263,29 +263,13 @@ To reset your local kubeclt, run
 ```bash
   /1ClickECK/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
 ```
-## OpenEBS / Storage Options
-OpenEBS is a automatic disk provisioner for K8s.  There may be scanerios the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
+## OpenEBS / Local Storage
+OpenEBS is a automatic local disk provisioner for K8s.  There may be scanerios (ie using network storage) the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
 
 ```
 ./1ClickECK -c gcp -b k8s -r
 ```
 
-If openEBS exist on K8s cluster and to remove run this
-```
-./1ClickECK/<aws|gcp|azure>/create-gke/addons/openebs/1ClickRemoveOpenEBS.sh
-```
-
-If additional storage classes are available and need to be leverage, set the following variables with the storage class name
-
-```
-[master|hot|warm|cold|frozen|ml]_pod_storage_class = <Storage Class Name>
-```
-
-`AWS GPE`
-The automation installs EBS CSI along with required IAM permissions. Additionally the automation will create a stroage calls `gp3`.  It can be used by setting 
-```
-[master|hot|warm|cold|frozen|ml]_pod_storage_class = gp3
-```
 ## Troubleshooting
 
 Azure AKS bash into pod

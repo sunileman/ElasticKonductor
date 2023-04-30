@@ -260,7 +260,7 @@ resource "aws_eks_node_group" "util" {
 
 # EKS Node IAM Role
 resource "aws_iam_role" "node" {
-  name = "${local.project}-Worker-Role"
+  name = "${random_pet.name.id}-Worker-Role"
 
   assume_role_policy = <<POLICY
 {

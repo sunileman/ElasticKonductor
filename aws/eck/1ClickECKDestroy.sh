@@ -31,4 +31,4 @@ terraform destroy -auto-approve
 (cd ./es-operator ; bash ./1ClickECKOperatorDestroy.sh)
 
 #delete ebs volumes
-bash delete-ebs-volumes.sh
+#bash delete-ebs-volumes.sh

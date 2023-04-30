@@ -13,5 +13,9 @@ resource "helm_release" "openebs" {
     name  = "localprovisioner.hostpathClass.name"
     value = "local-storage"
   }
+  set {
+    name  = "localprovisioner.deviceClass.enabled"
+    value = "false"
+  }
 }
 
