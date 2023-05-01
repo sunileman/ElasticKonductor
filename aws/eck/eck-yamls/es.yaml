@@ -76,7 +76,7 @@ spec:
          resources:
            requests:
              storage: ${master_pod_storage}
-         storageClassName: ${master_pod_storage_class_name}
+         storageClassName: ${master_pod_storage_class}
   - name: hot
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -157,7 +157,7 @@ spec:
          resources:
            requests:
              storage: ${hot_pod_storage}
-         storageClassName: ${hot_pod_storage_class_name}
+         storageClassName: ${hot_pod_storage_class}
   - name: warm
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -238,7 +238,7 @@ spec:
          resources:
            requests:
              storage: ${warm_pod_storage}
-         storageClassName: ${warm_pod_storage_class_name}
+         storageClassName: ${warm_pod_storage_class}
   - name: cold
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -319,7 +319,7 @@ spec:
          resources:
            requests:
              storage: ${cold_pod_storage}
-         storageClassName: ${cold_pod_storage_class_name}
+         storageClassName: ${cold_pod_storage_class}
   - name: frozen
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -400,7 +400,7 @@ spec:
          resources:
            requests:
              storage: ${frozen_pod_storage}
-         storageClassName: ${frozen_pod_storage_class_name}
+         storageClassName: ${frozen_pod_storage_class}
   - name: ml
     config:
       # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
@@ -481,7 +481,7 @@ spec:
          resources:
            requests:
              storage: ${ml_pod_storage}
-         storageClassName: ${ml_pod_storage_class_name}
+         storageClassName: ${ml_pod_storage_class}
   # # inject secure settings into Elasticsearch nodes from k8s secrets references
   # secureSettings:
   # - secretName: ref-to-secret

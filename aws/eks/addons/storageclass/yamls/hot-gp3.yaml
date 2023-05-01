@@ -1,10 +1,10 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: ${hot_pod_storage_class_name}
+  name: "hot-gp3"
 provisioner: ebs.csi.aws.com
 parameters:
-  type: ${hot_pod_storage_class}
+  type: gp3
   iops: "${hot_pod_storage_class_iops}"
   throughput: "${hot_pod_storage_class_throughput}"
 reclaimPolicy: Delete

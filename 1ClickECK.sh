@@ -221,6 +221,7 @@ start=$SECONDS
 
 export KUBE_CONFIG_PATH=~/.kube/config
 if [ $cloud == "aws" ]; then
+    (cd aws; python prechecks.py)
     if [ $getClusterInfo == true ]; then
        echo "Get cluster Info"
        (cd ./aws; bash ./getClusterInfo.sh)
@@ -251,6 +252,7 @@ if [ $cloud == "aws" ]; then
        echo "    destroy"
     fi
 elif [[ $cloud == azure ]]; then
+    (cd azure; python prechecks.py)
     if [ $getClusterInfo == true ]; then
        echo "Get cluster Info"
        (cd ./azure; bash ./getClusterInfo.sh)
@@ -298,6 +300,7 @@ elif [[ $cloud == azure ]]; then
        echo "    destroy"
     fi
 elif [[ $cloud == gcp ]]; then
+    (cd gcp; python prechecks.py)
     if [ $getClusterInfo == true ]; then
        echo "Get cluster Info"
        (cd ./gcp; bash ./getClusterInfo.sh)

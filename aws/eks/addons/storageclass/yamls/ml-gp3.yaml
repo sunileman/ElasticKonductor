@@ -1,9 +1,11 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gp3
+  name: "ml-gp3"
 provisioner: ebs.csi.aws.com
 parameters:
   type: gp3
+  iops: "${ml_pod_storage_class_iops}"
+  throughput: "${ml_pod_storage_class_throughput}"
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer

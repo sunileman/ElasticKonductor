@@ -37,3 +37,7 @@ else
     set -e
 
 fi
+
+
+echo "1ClickAddons.sh: Running storageclass addon"
+(cd storageclass; bash ./1ClickAddons.sh)

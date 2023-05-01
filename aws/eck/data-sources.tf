@@ -54,12 +54,12 @@ data "kubectl_path_documents" "es" {
         cold_accept_ingest = var.cold_accept_ingest
         frozen_accept_ingest = var.frozen_accept_ingest
         ml_accept_ingest = var.ml_accept_ingest
-        master_pod_storage_class_name = var.master_pod_storage_class_name
-        hot_pod_storage_class_name = var.hot_pod_storage_class_name
-        warm_pod_storage_class_name = var.warm_pod_storage_class_name
-        cold_pod_storage_class_name = var.cold_pod_storage_class_name
-        frozen_pod_storage_class_name = var.frozen_pod_storage_class_name
-        ml_pod_storage_class_name = var.ml_pod_storage_class_name
+        master_pod_storage_class = var.master_pod_storage_class
+        hot_pod_storage_class = var.hot_pod_storage_class
+        warm_pod_storage_class = var.warm_pod_storage_class
+        cold_pod_storage_class = var.cold_pod_storage_class
+        frozen_pod_storage_class = var.frozen_pod_storage_class
+        ml_pod_storage_class = var.ml_pod_storage_class
     }
 }
 
@@ -111,12 +111,12 @@ data "kubectl_path_documents" "es-count" {
         cold_accept_ingest = ""
         frozen_accept_ingest =""
         ml_accept_ingest = ""
-        master_pod_storage_class_name = ""
-        hot_pod_storage_class_name = ""
-        warm_pod_storage_class_name = ""
-        cold_pod_storage_class_name = ""
-        frozen_pod_storage_class_name =""
-        ml_pod_storage_class_name = ""
+        master_pod_storage_class = ""
+        hot_pod_storage_class = ""
+        warm_pod_storage_class = ""
+        cold_pod_storage_class = ""
+        frozen_pod_storage_class =""
+        ml_pod_storage_class = ""
   }
 }
 
@@ -144,141 +144,6 @@ data "kubectl_path_documents" "kibana-count" {
     }
 }
 
-data "kubectl_path_documents" "gp3" {
-    pattern = "./eck-yamls/gp3-sc.yaml"
-}
-
-
-data "kubectl_path_documents" "gp3-count" {
-    pattern = "./eck-yamls/gp3-sc.yaml"
-}
-
-data "kubectl_path_documents" "master-sc" {
-    pattern = "./eck-yamls/master-sc.yaml"
-    vars = {
-        master_pod_storage_class_name = var.master_pod_storage_class_name
-        master_pod_storage_class = var.master_pod_storage_class
-        master_pod_storage_class_iops = var.master_pod_storage_class_iops
-        master_pod_storage_class_throughput = var.master_pod_storage_class_throughput
-    }
-}
-
-
-data "kubectl_path_documents" "master-sc-count" {
-    pattern = "./eck-yamls/master-sc.yaml"
-    vars = {
-        master_pod_storage_class_name = ""
-        master_pod_storage_class = ""
-        master_pod_storage_class_iops = ""
-        master_pod_storage_class_throughput = ""
-    }
-}
-
-data "kubectl_path_documents" "hot-sc" {
-    pattern = "./eck-yamls/hot-sc.yaml"
-    vars = {
-        hot_pod_storage_class_name = var.hot_pod_storage_class_name
-        hot_pod_storage_class = var.hot_pod_storage_class
-        hot_pod_storage_class_iops = var.hot_pod_storage_class_iops
-        hot_pod_storage_class_throughput = var.hot_pod_storage_class_throughput
-    }
-}
-
-
-data "kubectl_path_documents" "hot-sc-count" {
-    pattern = "./eck-yamls/hot-sc.yaml"
-    vars = {
-        hot_pod_storage_class_name = ""
-        hot_pod_storage_class = ""
-        hot_pod_storage_class_iops = ""
-        hot_pod_storage_class_throughput = ""
-    }
-}
-
-
-data "kubectl_path_documents" "warm-sc" {
-    pattern = "./eck-yamls/warm-sc.yaml"
-    vars = {
-        warm_pod_storage_class_name = var.warm_pod_storage_class_name
-        warm_pod_storage_class = var.warm_pod_storage_class
-        warm_pod_storage_class_iops = var.warm_pod_storage_class_iops
-        warm_pod_storage_class_throughput = var.warm_pod_storage_class_throughput
-    }
-}
-
-
-data "kubectl_path_documents" "warm-sc-count" {
-    pattern = "./eck-yamls/warm-sc.yaml"
-    vars = {
-        warm_pod_storage_class_name = ""
-        warm_pod_storage_class = ""
-        warm_pod_storage_class_iops = ""
-        warm_pod_storage_class_throughput = ""
-    }
-}
-
-data "kubectl_path_documents" "cold-sc" {
-    pattern = "./eck-yamls/cold-sc.yaml"
-    vars = {
-        cold_pod_storage_class_name = var.cold_pod_storage_class_name
-        cold_pod_storage_class = var.cold_pod_storage_class
-        cold_pod_storage_class_iops = var.cold_pod_storage_class_iops
-        cold_pod_storage_class_throughput = var.cold_pod_storage_class_throughput
-    }
-}
-
-
-data "kubectl_path_documents" "cold-sc-count" {
-    pattern = "./eck-yamls/cold-sc.yaml"
-    vars = {
-        cold_pod_storage_class_name = ""
-        cold_pod_storage_class = ""
-        cold_pod_storage_class_iops = ""
-        cold_pod_storage_class_throughput = ""
-    }
-}
-
-data "kubectl_path_documents" "frozen-sc" {
-    pattern = "./eck-yamls/frozen-sc.yaml"
-    vars = {
-        frozen_pod_storage_class_name = var.frozen_pod_storage_class_name
-        frozen_pod_storage_class = var.frozen_pod_storage_class
-        frozen_pod_storage_class_iops = var.frozen_pod_storage_class_iops
-        frozen_pod_storage_class_throughput = var.frozen_pod_storage_class_throughput
-    }
-}
-
-
-data "kubectl_path_documents" "frozen-sc-count" {
-    pattern = "./eck-yamls/frozen-sc.yaml"
-    vars = {
-        frozen_pod_storage_class_name = ""
-        frozen_pod_storage_class = ""
-        frozen_pod_storage_class_iops = ""
-        frozen_pod_storage_class_throughput = ""
-    }
-}
-
-data "kubectl_path_documents" "ml-sc" {
-    pattern = "./eck-yamls/ml-sc.yaml"
-    vars = {
-        ml_pod_storage_class_name = var.ml_pod_storage_class_name
-        ml_pod_storage_class = var.ml_pod_storage_class
-        ml_pod_storage_class_iops = var.ml_pod_storage_class_iops
-        ml_pod_storage_class_throughput = var.ml_pod_storage_class_throughput
-    }
-}
-
-
-data "kubectl_path_documents" "ml-sc-count" {
-    pattern = "./eck-yamls/ml-sc.yaml"
-    vars = {
-        ml_pod_storage_class_name = ""
-        ml_pod_storage_class = ""
-        ml_pod_storage_class_iops = ""
-        ml_pod_storage_class_throughput = ""
-    }
-}
 
 data "kubectl_path_documents" "loadbalancer" {
     pattern = "./eck-yamls/loadbalancer.yaml"

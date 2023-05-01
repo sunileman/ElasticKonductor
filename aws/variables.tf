@@ -109,11 +109,6 @@ variable "master_capacity_type" {
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
 }
 
-variable "master_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 500
-}
 
 variable "master_ami_type" {
   description = "master AMI type"
@@ -157,11 +152,6 @@ variable "kibana_capacity_type" {
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
 }
 
-variable "kibana_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 200
-}
 
 variable "hot_instance_count" {
   description = "Number of hot instances"
@@ -211,11 +201,6 @@ variable "warm_max_instance_count" {
   default     = 10
 }
 
-variable "hot_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 2000
-}
 
 variable "warm_instance_type" {
   description = "warm instance type"
@@ -241,11 +226,7 @@ variable "warm_capacity_type" {
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
 }
 
-variable "warm_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 7500
-}
+
 
 variable "cold_instance_count" {
   description = "Number of cold instances"
@@ -283,11 +264,7 @@ variable "cold_capacity_type" {
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
 }
 
-variable "cold_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 7500
-}
+
 
 variable "frozen_instance_count" {
   description = "Number of frozen instances"
@@ -325,11 +302,7 @@ variable "frozen_capacity_type" {
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
 }
 
-variable "frozen_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 7500
-}
+
 
 variable "ml_instance_count" {
   description = "Number of ml instances"
@@ -367,11 +340,7 @@ variable "ml_capacity_type" {
   default =  "ON_DEMAND"  # ON_DEMAND, SPOT
 }
 
-variable "ml_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 950
-}
+
 
 variable "util_instance_count" {
   description = "Number of util instances"
@@ -403,11 +372,6 @@ variable "util_ami_type" {
   default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
 
-variable "util_ebs_volume" {
-  description = "EBS Volume in GB"
-  type        = number
-  default     = 200
-}
 
 variable "client_access_cidr" {
   description = "client access cidr to include in security group access clearnance"
@@ -473,14 +437,10 @@ variable "master_accept_ingest" {
 variable "master_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "local-storage" 
+  #valid values local-storage|master-gp3|master-io2-be
 }
 
-variable "master_pod_storage_class_name" {
-  description = "pod storage class_name"
-  type = string
-  default = "local-storage"
-}
 
 variable "master_pod_storage_class_iops" {
   description = "pod storage class iops"
@@ -551,17 +511,12 @@ variable "hot_accept_ingest" {
 }
 
 
-variable "hot_pod_storage_class_name" {
-  description = "pod storage class_name"
-  type = string
-  default = "local-storage"
-}
-
 
 variable "hot_pod_storage_class" {
   description = "pod storage class"
   type = string
   default = "local-storage"
+  #valid values local-storage|hot-gp3|hot-io2-be
 }
 
 variable "hot_pod_storage_class_iops" {
@@ -618,12 +573,7 @@ variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
   default = "local-storage"
-}
-
-variable "warm_pod_storage_class_name" {
-  description = "pod storage class_name"
-  type = string
-  default = "local-storage"
+  #valid values local-storage|warm-gp3|warm-io2-be
 }
 
 variable "warm_pod_storage_class_iops" {
@@ -680,13 +630,9 @@ variable "cold_pod_storage_class" {
   description = "pod storage class"
   type = string
   default = "local-storage"
+  #valid values local-storage|cold-gp3|cold-io2-be
 }
 
-variable "cold_pod_storage_class_name" {
-  description = "pod storage class_name"
-  type = string
-  default = "local-storage"
-}
 
 variable "cold_pod_storage_class_iops" {
   description = "pod storage class iops"
@@ -743,13 +689,9 @@ variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
   default = "local-storage"
+  #valid values local-storage|frozen-gp3|frozen-io2-be
 }
 
-variable "frozen_pod_storage_class_name" {
-  description = "pod storage class_name"
-  type = string
-  default = "local-storage"
-}
 
 variable "frozen_pod_storage_class_iops" {
   description = "pod storage class iops"
@@ -805,12 +747,7 @@ variable "ml_pod_storage_class" {
   description = "pod storage class"
   type = string
   default = "local-storage"
-}
-
-variable "ml_pod_storage_class_name" {
-  description = "pod storage class_name"
-  type = string
-  default = "local-storage"
+  #valid values local-storage|ml-gp3|ml-io2-be
 }
 
 variable "ml_pod_storage_class_iops" {
@@ -824,8 +761,6 @@ variable "ml_pod_storage_class_throughput" {
   type = string
   default = "125"
 }
-
-
 
 
 variable "eck_namespace" {

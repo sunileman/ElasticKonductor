@@ -26,3 +26,5 @@ echo "1ClickAddonsDestroy: Running Destroy iscsi addon"
 echo "1ClickAddonsDestroy: Running Destroy OpenEBS addon"
 (cd openebs; bash ./1ClickAddonsDestroy.sh)
 
+echo "1ClickAddonsDestroy: Running Destroy storageclass addon"
+(cd storageclass; bash ./1ClickAddonsDestroy.sh)

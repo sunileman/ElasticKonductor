@@ -26,6 +26,7 @@ region= "us-east-1"
 
 
 
+
 #----------------------- Cloud Provider ----------------------------------------
 #automation_name= "1ClickECK"
 
@@ -55,7 +56,6 @@ region= "us-east-1"
 
 #master_ami_type= "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #master_capacity_type="ON_DEMAND"  # ON_DEMAND, SPOT
-#master_ebs_volume= 500
 #master_instance_count=1
 #master_instance_k8s_label= {"nodetype"="master"}
 #master_instance_type= ["m6g.2xlarge"]
@@ -64,7 +64,6 @@ region= "us-east-1"
 
 #kibana_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #kibana_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#kibana_ebs_volume= 200
 #kibana_instance_count= 2
 #kibana_instance_k8s_label= {"nodetype"="kibana"}
 #kibana_instance_type= ["t2.medium"]
@@ -72,7 +71,6 @@ region= "us-east-1"
 
 #hot_ami_type= "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #hot_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#hot_ebs_volume= 2000
 #hot_instance_count= 3
 #hot_instance_k8s_label= {"nodetype"="hot"}
 #hot_instance_type= ["c6g.8xlarge"]
@@ -82,7 +80,6 @@ region= "us-east-1"
 
 #warm_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #warm_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#warm_ebs_volume= 7500
 #warm_instance_count= 0
 #warm_instance_k8s_label= {"nodetype"="warm"}
 #warm_instance_type= ["r6i.4xlarge"]
@@ -92,7 +89,6 @@ region= "us-east-1"
 
 #cold_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #cold_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#cold_ebs_volume= 750
 #cold_instance_count= 0
 #cold_instance_k8s_label= {"nodetype"="cold"}
 #cold_instance_type= ["r6i.12xlarge"]
@@ -102,7 +98,6 @@ region= "us-east-1"
 
 #frozen_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #frozen_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#frozen_ebs_volume= 7500
 #frozen_instance_count= 0
 #frozen_instance_k8s_label= {"nodetype"="frozen"}
 #frozen_instance_type= ["r6i.24xlarge"]
@@ -112,7 +107,6 @@ region= "us-east-1"
 
 #ml_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #ml_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#ml_ebs_volume= 950
 #ml_instance_count= 0
 #ml_instance_k8s_label= {"nodetype"="ml"}
 #ml_instance_type= ["c6i.4xlarge"]
@@ -122,7 +116,6 @@ region= "us-east-1"
 
 #util_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #util_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#util_ebs_volume= 200
 #util_instance_count= 1
 #util_instance_k8s_label= {"nodetype"="util"}
 #util_instance_type= ["t2.medium"]
@@ -155,7 +148,7 @@ region= "us-east-1"
 #master_pod_memory= "11264Mi"
 #master_pod_roles= "master"
 #master_pod_storage= "140Gi"
-#master_pod_storage_class = "local-storage"
+#master_pod_storage_class = "local-storage" #valid values local-storage|master-gp3|master-io2-be
 
 #hot_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #hot_pod_count= 3
@@ -163,8 +156,7 @@ region= "us-east-1"
 #hot_pod_memory= "53248Mi"
 #hot_pod_roles= "data_hot, data_content, ingest"
 #hot_pod_storage= "1600Gi"
-#hot_pod_storage_class_name = "hot-gp3" #must prefix with hot.  For local storage use local-storage 
-#hot_pod_storage_class = "gp3"
+#hot_pod_storage_class = "local-storage" #valid values local-storage|hot-gp3|hot-io2-be
 #hot_pod_storage_class_iops = 3000
 #hot_pod_storage_class_throughput = 125 ##in mb
 
@@ -174,8 +166,7 @@ region= "us-east-1"
 #warm_pod_memory= "53248Mi"
 #warm_pod_roles= "data_warm, data_content"
 #warm_pod_storage= "5000Gi"
-#warm_pod_storage_class = "local-storage"
-#warm_pod_storage_class_name = "warm-gp3" #must prefix with warm.  For local storage use local-storage 
+#warm_pod_storage_class = "local-storage" #valid values local-storage|warm-gp3|warm-io2-be
 #warm_pod_storage_class = "gp3"
 #warm_pod_storage_class_iops = 3000
 #warm_pod_storage_class_throughput = 125 ##in mb
@@ -187,8 +178,7 @@ region= "us-east-1"
 #cold_pod_memory= "11264Mi"
 #cold_pod_roles= "data_cold"
 #cold_pod_storage= "140Gi"
-#cold_pod_storage_class = "local-storage"
-#cold_pod_storage_class_name = "cold-gp3" #must prefix with cold.  For local storage use local-storage 
+#cold_pod_storage_class = "local-storage" #valid values local-storage|coold-gp3|cold-io2-be
 #cold_pod_storage_class = "gp3"
 #cold_pod_storage_class_iops = 3000
 #cold_pod_storage_class_throughput = 125 ##in mb
@@ -200,8 +190,7 @@ region= "us-east-1"
 #frozen_pod_memory= "11264Mi"
 #frozen_pod_roles= "data_frozen"
 #frozen_pod_storage= "140Gi"
-#frozen_pod_storage_class = "local-storage"
-#frozen_pod_storage_class_name = "frozen-gp3" #must prefix with frozen.  For local storage use local-storage 
+#frozen_pod_storage_class = "local-storage" #valid values local-storage|frozen-gp3|frozen-io2-be
 #frozen_pod_storage_class = "gp3"
 #frozen_pod_storage_class_iops = 3000
 #frozen_pod_storage_class_throughput = 125 ##in mb
@@ -212,8 +201,7 @@ region= "us-east-1"
 #ml_pod_memory= "11264Mi"
 #ml_pod_roles= "ml, remote_cluster_client"
 #ml_pod_storage= "140Gi"
-#ml_pod_storage_class = "local-storage"
-#ml_pod_storage_class_name = "ml-gp3" #must prefix with ml.  For local storage use local-storage 
+#ml_pod_storage_class = "local-storage" #valid values local-storage|ml-gp3|ml-io2-be
 #ml_pod_storage_class = "gp3"
 #ml_pod_storage_class_iops = 3000
 #ml_pod_storage_class_throughput = 125 ##in mb

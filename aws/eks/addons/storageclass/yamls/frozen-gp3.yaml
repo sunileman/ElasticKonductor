@@ -1,10 +1,10 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: ${frozen_pod_storage_class_name}
+  name: "frozen-gp3"
 provisioner: ebs.csi.aws.com
 parameters:
-  type: ${frozen_pod_storage_class}
+  type: gp3
   iops: "${frozen_pod_storage_class_iops}"
   throughput: "${frozen_pod_storage_class_throughput}"
 reclaimPolicy: Delete

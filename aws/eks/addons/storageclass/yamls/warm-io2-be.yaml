@@ -1,11 +1,12 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: ${warm_pod_storage_class_name}
+  name: "warm-io2-be"
 provisioner: ebs.csi.aws.com
 parameters:
-  type: ${warm_pod_storage_class}
+  type: io2
   iops: "${warm_pod_storage_class_iops}"
-  throughput: "${warm_pod_storage_class_throughput}"
+  blockExpress : "true"
+  allowAutoIOPSPerGBIncrease : "true"
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
