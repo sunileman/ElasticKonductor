@@ -4,11 +4,11 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=.71
+oneclickv=.72
 
 usage() {
      echo "Usage: $0 "
-     echo "[-c [aws | azure | gcp ]"
+     echo "[-c [aws | azure | gcp | ess]"
      echo "[-b <all | k8s | otel>] "
      echo "[-d for destroy]"
      echo "[-de for destroy eck]"
@@ -52,6 +52,9 @@ while [[ "$#" -gt 0 ]]; do
       elif [[ "$1" == "gcp" ]]; then
         echo "Cloud: GCP"
         cloud="gcp"
+      elif [[ "$1" == "ess" ]]; then
+        echo "Cloud: ESS"
+        cloud="ess"
       else
       	echo "Not a valid cloud provider. Use: aws|azure|gcp"
         exit 1
@@ -323,6 +326,27 @@ elif [[ $cloud == gcp ]]; then
     elif [[ $destroyeck == true ]]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh destroy ECK"
        (cd ./gcp; bash ./1ClickGCP.sh -de)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    else
+       echo "Please submit a valid argument"
+       echo "Valid arguments:"
+       echo "    create"
+       echo "    destroy"
+    fi
+elif [[ $cloud == ess ]]; then
+    if [ $getClusterInfo == true ]; then
+       echo "Get cluster Info"
+       (cd ./ess; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+    elif [ $createmode == true ] ; then
+       echo "1ClickECK.sh: calling 1ClickESSDeploy.sh"
+       (cd ./ess; bash ./1ClickESSDeploy.sh)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [[ $destroy == true ]]; then
+       echo "1ClickECK.sh: calling 1ClickESSDestroy.sh destroy"
+       (cd ./ess; bash ./1ClickESSDestroy.sh)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     else

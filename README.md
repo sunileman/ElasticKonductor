@@ -96,7 +96,7 @@ This will install all the required libaries and CLIs for the automation.
 
 Required Arguments 
 
-`-c` [aws|azure|gcp]
+`-c` [aws|azure|gcp|ess]
 
 `-b` [all|k8s|otel] 
 #otel option will create K8s and open telemetry demo
@@ -240,9 +240,8 @@ GKE
 `[master|hot|warm|cold|frozen|ml]_pod_storage_class = "premium-rwo"`
 
 AWS
-To use gp3, io1, or io2 set the following
-`hot_pod_storage_class_name = "hot-gp3"  #must bre prefixed with pod type <master|hot|warm|cold|frozen|ml>`
-`hot_pod_storage_class = "gp3"`
+To use gp3 or io2-be set the following
+`hot_pod_storage_class = "hot-gp3" #valid values local-storage|hot-gp3|hot-io2-be
 `hot_pod_storage_class_iops = "3000"`
 `hot_pod_storage_class_throughput = "125" ##in mb`
 
