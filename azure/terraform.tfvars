@@ -164,7 +164,7 @@ resource_group_location="eastus"
 #hot_pod_memory= "53248Mi"
 #hot_pod_roles= "data_hot, data_content, ingest"
 #hot_pod_storage= "1600Gi"
-#hot_pod_storage_class = "openebs-hostpath"
+#hot_pod_storage_class = "local-storage"
 
 #warm_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #warm_pod_count= 1
@@ -172,7 +172,7 @@ resource_group_location="eastus"
 #warm_pod_memory= "53248Mi"
 #warm_pod_roles= "data_warm, data_content"
 #warm_pod_storage= "5000Gi"
-#warm_pod_storage_class = "openebs-hostpath"
+#warm_pod_storage_class = "local-storage"
 
 #cold_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #cold_pod_count= 1

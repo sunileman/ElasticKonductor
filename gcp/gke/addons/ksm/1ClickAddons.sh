@@ -17,7 +17,7 @@ cp -f ../../../terraform.tfvars .
 
 echo "ksm/1ClickAddons.sh: creating addons"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

@@ -16,7 +16,7 @@ cp -f ../../../terraform.tfvars .
 
 echo "openebs/1ClickAddons.sh: creating openebs addon"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

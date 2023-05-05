@@ -19,7 +19,7 @@ cp -f ../../terraform.tfvars .
 
 echo "1ClickWarmDeploy.sh: Creating Warm Nodes"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

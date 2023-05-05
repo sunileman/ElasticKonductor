@@ -17,7 +17,7 @@ set -e
 
 echo "iscsi/1ClickAddons.sh: creating  iscsi"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

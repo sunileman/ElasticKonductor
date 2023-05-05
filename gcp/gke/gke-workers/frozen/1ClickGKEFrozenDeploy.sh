@@ -19,7 +19,7 @@ cp -f ../../terraform.tfvars .
 
 echo "1ClickFrozenDeploy.sh: Creating Frozen Nodes"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

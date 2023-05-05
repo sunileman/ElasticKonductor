@@ -13,7 +13,7 @@ echo "1ClickFrozenDestroy.sh: Copying variable files"
 cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
-terraform init
+terraform init -upgrade
 terraform refresh
 
 echo "1ClickGKEFrozenDestroy.sh: Terraform Destroy"

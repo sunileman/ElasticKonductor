@@ -80,9 +80,9 @@ This will install all the required libaries and CLIs for the automation.
 
 * `GCP`
     * https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#gcloud
-    * run gcloud init to initialize your client
+    * run `gcloud init` to initialize your client
+    * run `gcloud auth application-default login`
     * Note - project must be set in terraform.tfvars.  Project value within tags variable is used to tag instances with project value.  Not the same as gcp project which is set in terrform.tfvars.
-
 ## Deployment
 
 [![2023-02-07-15-28-54.jpg](https://i.postimg.cc/QCkVvX99/2023-02-07-15-28-54.jpg)](https://postimg.cc/1VX9q1Ks)
@@ -378,3 +378,16 @@ Otel helm fails to installs
 │    1: resource "helm_release" "otel" {
 
 set `otel_instance_count` to a value `> 0`  in terraform.tfvars as otel pods are created in the otel k8s node group
+
+
+Error `Failed to install provider`
+```
+╷
+│ Error: Failed to install provider
+│ 
+│ Error while installing hashicorp/google v4.50.0: releases.hashicorp.com:
+│ Get
+│ "https://releases.hashicorp.com/terraform-provider-google/4.50.0/terraform-provider-google_4.50.0_linux_amd64.zip":
+│ net/http: TLS handshake timeout
+╵
+```

@@ -17,9 +17,9 @@ cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
 
-echo "1ClickLotStashDeploy.sh: Creating LogStash Nodes"
+echo "1ClickLogStashDeploy.sh: Creating LogStash Nodes"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

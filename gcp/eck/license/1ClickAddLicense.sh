@@ -2,7 +2,7 @@
 set -e
 echo "1ClickAddLicense.sh: appling enterprise trial license"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

@@ -2,7 +2,7 @@
 
 export KUBE_CONFIG_PATH=~/.kube/config
 
-terraform init
+terraform init -upgrade
 terraform refresh
 
 echo "1ClickGKEDestroy.sh: Terraform Destroy"

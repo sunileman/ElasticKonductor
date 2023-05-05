@@ -21,7 +21,7 @@ cp -f ../terraform.tfvars .
 
 echo "1ClickGKEDeploy.sh: Building GKE Infra"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade -upgrade
 
 # validate terraform configuration
 terraform validate
