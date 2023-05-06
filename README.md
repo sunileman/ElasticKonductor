@@ -1,9 +1,9 @@
 
 # ElasticKonductor
 
-1ClickECK was built to rapidly deploy with ease an K8s (AWS EKS/Azure AKS/GCP GKE) cluster, install ECK, and the ES Stack.   
+ElasticKonductor was built to rapidly deploy with ease an K8s (AWS EKS/Azure AKS/GCP GKE) cluster, install ECK, and the ES Stack.   
 
-Total time from configuration to a fully launched ECK cluster generally should take less than 10 minutes.  The automation; 1ClickECK,  is idempotent.
+Total time from configuration to a fully launched ECK cluster generally should take less than 10 minutes.  The automation; ElasticKonductor,  is idempotent.
 
 Note - Automation deploys OpenEBS which exposes and uses locally attached storage. More info, go to the OpenEBS section
 
