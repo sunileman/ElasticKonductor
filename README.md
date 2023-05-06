@@ -1,5 +1,5 @@
 
-# 1ClickECK
+# ElasticKonductor
 
 1ClickECK was built to rapidly deploy with ease an K8s (AWS EKS/Azure AKS/GCP GKE) cluster, install ECK, and the ES Stack.   
 
