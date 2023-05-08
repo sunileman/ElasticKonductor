@@ -1,0 +1,38 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: petclinic 
+  namespace: default 
+  labels: 
+    app: petclinic 
+    service: petclinic 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: petclinic 
+  template: 
+    metadata: 
+      labels: 
+        app: petclinic 
+        service: petclinic 
+    spec: 
+      dnsPolicy: ClusterFirstWithHostNet 
+      containers: 
+      - name: petclinic
+    ############### Image with agent and agent config ##################  
+        image: eyalkoren/pet-clinic:with-agent 
+        env: 
+        - name: ELASTIC_APM_SERVER_URL 
+          value: "https://xxxxxxx.apm.southcentralus.azure.elastic-cloud.com:443" 
+        - name: ELASTIC_APM_SERVICE_NAME
+          value: "petclinic" 
+        - name: ELASTIC_APM_APPLICATION_PACKAGES 
+          value: "org.springframework.samples.petclinic" 
+        - name: ELASTIC_APM_ENVIRONMENT 
+          value: dev 
+        - name: ELASTIC_APM_LOG_LEVEL 
+          value: DEBUG 
+        - name: ELASTIC_APM_SECRET_TOKEN 
+          value: "xxxxxx"
+    ####################################################################
