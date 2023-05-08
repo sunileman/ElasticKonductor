@@ -7,7 +7,7 @@ Total time from configuration to a fully launched ECK cluster generally should t
 
 Note - Automation deploys OpenEBS which exposes and uses locally attached storage. More info, go to the OpenEBS section
 
-1ClickECK currently deploys
+ElasticKonductor currently deploys
 * EKS, AKS, GKE
 * ECK (Optional)
     * ElasticSearch 
@@ -30,7 +30,7 @@ Does not deploy
 
 `Quick Start`
 Details regarding clients required to run the automtaion are outlined in the following sections.  However if a ubuntu 20.+ instance is available, a quick start client install script is available here 
-`https://github.com/sunileman/1ClickECK/blob/main/scripts/1ClickECK-client-install.sh`
+`https://github.com/sunileman/ElasticKonductor/blob/main/scripts/ElasticKonductor-client-install.sh`
 This will install all the required libaries and CLIs for the automation. 
 
 
@@ -120,7 +120,7 @@ Examples
 
 To run the automation in the background.  Output will be writen to nohup.out. 
 ```bash
-  nohup ./1ClickECK.sh -b all -c [aws|gcp|azure] &
+  nohup ./elastickondoctor.sh -b all -c [aws|gcp|azure] &
 ```
 
 Once the automation completes, Kibana endpoints along with username and password should be displayed.  To retrieve again, simply run<br>
@@ -134,7 +134,7 @@ The automation will set your local kubectl manifest.  Verify by running
 
 Tear Down all assets built by the automation
 ```bash
-  ./1ClickEckOnEKS.sh -d -c [aws|gcp|azure]
+  ./elastickonducor.sh -d -c [aws|gcp|azure]
 ```
 
 
@@ -143,7 +143,7 @@ The automation also has the ability to launch the Open Telemetry Demo found here
 
 Use `-b otel` during the launch process
 For example (Use -r to disable openEBS)
-`./1ClickECK.sh -c azure -b otel -r`
+`./elastickondoctor.sh -c azure -b otel -r`
 
 The demo can send data to ElasticSearch by setting the following env variables
 
@@ -154,7 +154,7 @@ export TF_VAR_es_apm_token="xxxxxx"
 ```
 
 To destroy/tear down Open Telemetry Demo 
-`./1ClickECK.sh -c azure -do -r`
+`./elastickondoctor.sh -c azure -do -r`
 ## Autoscaling
 [![2023-01-30-11-26-51.jpg](https://i.postimg.cc/HszXV6xj/2023-01-30-11-26-51.jpg)](https://postimg.cc/HVJVN4bC)
 ## Terraform Variables
@@ -232,7 +232,7 @@ Latest release of ES, if jvm arguments aren't spplied for heap size, half the av
 Take this into consideration if the defaults aren't acceptables
 
 ## Storage Class
-By default ECK will mount local storage class to ES pods.  To use a different storage class is simple.  It is important to note that if network/remote storage will be used instead of local storage, use the `-r`.  For example `./1ClickECK -c gcp -b all -r`
+By default ECK will mount local storage class to ES pods.  To use a different storage class is simple.  It is important to note that if network/remote storage will be used instead of local storage, use the `-r`.  For example `./elastickonductor.sh -c gcp -b all -r`
 
 Run `kubeclt get sc` to retrieve available storage classes.  
 
@@ -254,19 +254,19 @@ Run the automation with `r` option to disable openebs
 
 
 ## ECK/ES Updates
-The automation; 1ClickECK,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun 1ClickECK with the same -b -c arguments 
+The automation; ElasticKonductor,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun ElasticKonductor with the same -b -c arguments 
 ## kubectl manifest
 Automation will set local kube config (kubectl) after automation run.  If local kube config needs to be reset, simple rerun the automation (even if there is no change) to set local kube config.
 
 To reset your local kubeclt, run
 ```bash
-  /1ClickECK/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
+  /ElasticKonductor/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
 ```
 ## OpenEBS / Local Storage
 OpenEBS is a automatic local disk provisioner for K8s.  There may be scanerios (ie using network storage) the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
 
 ```
-./1ClickECK -c gcp -b k8s -r
+./elastickonductor.sh -c gcp -b k8s -r
 ```
 
 ## Troubleshooting
