@@ -237,7 +237,7 @@ variable "util_instance_count" {
 variable "util_instance_type" {
   description = "util instance type"
   type = string
-  default     = "standard_B2s"
+  default     = "standard_F32s_v2"
 }
 
 variable "util_instance_k8s_label" {
@@ -686,6 +686,20 @@ variable "openebs_helm_chart_version" {
   description = "OpenEBS chart version"
   type = string
   default = "3.3.1"
+}
+
+variable "istio_helm_base_chart_version" {
+  description = "istio chart base version"
+  type = string
+  default = "1.17.2"
+  #helm search repo istio/base --versions
+}
+
+variable "istiod_helm_chart_version" {
+  description = "istiod chart base version"
+  type = string
+  default = "1.17.2"
+  #helm search repo istio/istiod --versions
 }
 
 variable "ksm_helm_chart_version" {

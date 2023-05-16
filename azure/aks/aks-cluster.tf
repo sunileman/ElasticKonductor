@@ -23,7 +23,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     vm_size    = var.util_instance_type
     node_count = var.util_instance_count
     node_labels = var.util_instance_k8s_label
+    temporary_name_for_rotation = "temppool"
   }
+
+
 
   network_profile {
     network_plugin     = var.network_plugin
