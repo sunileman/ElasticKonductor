@@ -22,6 +22,9 @@ echo "1ClickAddons.sh: Running autoscaler addon"
 echo "1ClickAddons.sh: Running iscsi addon"
 (cd iscsi; bash ./1ClickAddons.sh)
 
+echo "1ClickAddons.sh: Running istio addon"
+(cd istio; bash ./1ClickAddons.sh)
+
 ##option to disable openebs
 echo "1ClickAddons.sh: openebs option: $1"
 openebs=$1

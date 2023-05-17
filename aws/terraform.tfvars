@@ -221,3 +221,7 @@ region= "us-east-1"
 #tf_curl_provider_version = "1.0.2"
 #tf_helm_provider_version = "2.9.0"
 
+#----------------------- istio ---------------------------------
+#istio_helm_base_chart_version= "1.17.2" 
+#Run this to find available versions: helm search repo istio/base --versions
+#istiod_helm_chart_version=1.17.2

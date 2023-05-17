@@ -351,7 +351,7 @@ variable "util_instance_count" {
 variable "util_instance_type" {
   description = "util instance type"
   type = list(string)
-  default     = ["t2.medium"]
+  default     = ["t2.large"]
 }
 
 variable "util_instance_k8s_label" {
@@ -816,4 +816,19 @@ variable "ksm_helm_chart_version" {
   type = string
   default = "4.32.0"
   ##https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
+}
+
+
+variable "istio_helm_base_chart_version" {
+  description = "istio chart base version"
+  type = string
+  default = "1.17.2"
+  #helm search repo istio/base --versions
+}
+
+variable "istiod_helm_chart_version" {
+  description = "istiod chart base version"
+  type = string
+  default = "1.17.2"
+  #helm search repo istio/istiod --versions
 }
