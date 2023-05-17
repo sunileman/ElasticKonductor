@@ -903,3 +903,17 @@ variable "openebs_helm_chart_version" {
   type = string
   default = "3.3.1"
 }
+
+variable "istio_helm_base_chart_version" {
+  description = "istio chart base version"
+  type = string
+  default = "1.17.2"
+  #helm search repo istio/base --versions
+}
+
+variable "istiod_helm_chart_version" {
+  description = "istiod chart base version"
+  type = string
+  default = "1.17.2"
+  #helm search repo istio/istiod --versions
+}

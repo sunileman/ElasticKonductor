@@ -198,3 +198,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #kibana_pod_cpu= "1000m"
 #kibana_pod_memory= "1Gi"
 
+#----------------------- istio ---------------------------------
+#istio_helm_base_chart_version= "1.17.2" 
+#Run this to find available versions: helm search repo istio/base --versions
+#istiod_helm_chart_version=1.17.2

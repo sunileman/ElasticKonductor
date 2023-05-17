@@ -13,6 +13,8 @@ ElasticKonductor currently deploys
     * ElasticSearch 
     * Kibana
     * License loading (Bring your own ES license)
+* OpenTelemetry Demo
+* Istio
 
 Does not deploy
 * APM Server
@@ -83,6 +85,7 @@ This will install all the required libaries and CLIs for the automation.
     * run `gcloud init` to initialize your client
     * run `gcloud auth application-default login`
     * Note - project must be set in terraform.tfvars.  Project value within tags variable is used to tag instances with project value.  Not the same as gcp project which is set in terrform.tfvars.
+    * To set your gcp project, run `export TF_VAR_gcp_project="your-project-name"`
 ## Deployment
 
 [![2023-02-07-15-28-54.jpg](https://i.postimg.cc/QCkVvX99/2023-02-07-15-28-54.jpg)](https://postimg.cc/1VX9q1Ks)
@@ -137,6 +140,12 @@ Tear Down all assets built by the automation
   ./elastickonducor.sh -d -c [aws|gcp|azure]
 ```
 
+## Istio
+To check the status of istio run
+```
+helm ls -n istio-system
+helm status istiod -n istio-system
+```
 
 ## Open Telemetry
 The automation also has the ability to launch the Open Telemetry Demo found here: `https://opentelemetry.io/docs/demo/kubernetes-deployment/`
