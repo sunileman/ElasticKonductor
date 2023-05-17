@@ -123,7 +123,7 @@ Examples
 
 To run the automation in the background.  Output will be writen to nohup.out. 
 ```bash
-  nohup ./elastickondoctor.sh -b all -c [aws|gcp|azure] &
+  nohup ./elastickonductor.sh -b all -c [aws|gcp|azure] &
 ```
 
 Once the automation completes, Kibana endpoints along with username and password should be displayed.  To retrieve again, simply run<br>
@@ -152,7 +152,7 @@ The automation also has the ability to launch the Open Telemetry Demo found here
 
 Use `-b otel` during the launch process
 For example (Use -r to disable openEBS)
-`./elastickondoctor.sh -c azure -b otel -r`
+`./elastickonductor.sh -c azure -b otel -r`
 
 The demo can send data to ElasticSearch by setting the following env variables
 
@@ -163,7 +163,7 @@ export TF_VAR_es_apm_token="xxxxxx"
 ```
 
 To destroy/tear down Open Telemetry Demo 
-`./elastickondoctor.sh -c azure -do -r`
+`./elastickonductor.sh -c azure -do -r`
 ## Autoscaling
 [![2023-01-30-11-26-51.jpg](https://i.postimg.cc/HszXV6xj/2023-01-30-11-26-51.jpg)](https://postimg.cc/HVJVN4bC)
 ## Terraform Variables
