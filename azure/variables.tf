@@ -709,13 +709,6 @@ variable "ksm_helm_chart_version" {
   ##https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
 }
 
-variable "otel_chart_version" {
-  description = "Otel chart version"
-  type = string
-  #https://github.com/open-telemetry/opentelemetry-helm-charts/releases
-  default = "0.21.1"
-}
-
 variable "es_apm_token" {
   description = "ElasticSearch APM Token"
   type = string

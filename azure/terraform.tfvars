@@ -208,7 +208,7 @@ resource_group_location="eastus"
 #istiod_helm_chart_version=1.17.2
 
 #----------------------- Open Telemetry ---------------------------------
-#otel_instance_count= 0
+otel_instance_count= 1
 #otel_instance_type =  "standard_F32s_v2"
 #otel_instance_k8s_label = {"nodetype"="otel"}
 
@@ -218,4 +218,3 @@ resource_group_location="eastus"
 
 #es_apm_url= "xxxelastic-cloud.com:443" without https:// prefix
 #es_apm_token="xxx" your Elastic APM secret token
-#otel_chart_version= "0.19.5"

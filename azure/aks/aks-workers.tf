@@ -189,4 +189,5 @@ resource "azurerm_kubernetes_cluster_node_pool" "otel" {
   )
 
   node_labels = var.otel_instance_k8s_label
+
 }

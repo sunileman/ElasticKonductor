@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.5
+oneclickv=1.6
 
 usage() {
      echo "Usage: $0 "
@@ -14,8 +14,9 @@ usage() {
      echo "[-de for destroy eck]"
      echo "[-do for destroy otel]"
      echo "[-r for create without openebs]"
-     echo "[-inf cluster info]"
-     echo "[-i infra info]"
+     echo "[-inf for cluster info]"
+     echo "[-i for infra info]"
+     echo "[-k to set kubectl]"
      echo "[-ic install 1ClickECK client]"
      echo "[-h for help]"
      exit 0;
@@ -34,6 +35,7 @@ cleanup() {
   createOtel=false
   destroyOtel=false
   installclient=false
+  setKubectl=false
 }
 
 
@@ -96,6 +98,11 @@ while [[ "$#" -gt 0 ]]; do
       getInfraInfo=true
       shift
       ;;
+    -k|--setkubectl)
+      echo "Set kubectl"
+      setKubectl=true
+      shift
+      ;;
     -ic|--installclient)
       echo "Install Client"
       installclient=true
@@ -152,7 +159,7 @@ fi
 
 set +e 
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $getInfraInfo != true ] && [ $destroyeck != true ]  && [ $destroyOtel != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $k8sonly != true ] && [ $getClusterInfo != true ] && [ $getInfraInfo != true ] && [ $destroyeck != true ] && [ $setKubectl != true ]  && [ $destroyOtel != true ]; then
     usage
 fi
 
@@ -226,6 +233,11 @@ if [ $cloud == "aws" ]; then
        echo "Get cluster Info"
        (cd ./aws; bash ./getClusterInfo.sh)
        duration=$(( SECONDS - start ))
+    elif [ $setKubectl == true ]; then
+       echo "Set kubectl"
+       (cd ./azure/eks; bash ./setkubectl.sh)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickAWS.sh with all"
        (cd ./aws; bash ./1ClickAWS.sh -b all $openebs_enabled)
@@ -261,6 +273,11 @@ elif [[ $cloud == azure ]]; then
     elif [ $getInfraInfo == true ]; then
        echo "Get Infra Info"
        (cd ./azure/aks; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [ $setKubectl == true ]; then
+       echo "Set kubectl"
+       (cd ./azure/aks; bash ./setkubectl.sh)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == false ]; then
@@ -305,6 +322,11 @@ elif [[ $cloud == gcp ]]; then
        echo "Get cluster Info"
        (cd ./gcp; bash ./getClusterInfo.sh)
        duration=$(( SECONDS - start ))
+    elif [ $setKubectl == true ]; then
+       echo "Set kubectl"
+       (cd ./azure/gke; bash ./setkubectl.sh)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh with all"
        (cd ./gcp; bash ./1ClickGCP.sh -b all $openebs_enabled)
