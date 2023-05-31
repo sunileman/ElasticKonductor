@@ -208,13 +208,13 @@ resource_group_location="eastus"
 #istiod_helm_chart_version=1.17.2
 
 #----------------------- Open Telemetry ---------------------------------
-otel_instance_count= 1
+#otel_instance_count= 1
 #otel_instance_type =  "standard_F32s_v2"
 #otel_instance_k8s_label = {"nodetype"="otel"}
 
 ##high recommended to use env variables instead of setting the url and token in a file
-#export TF_VAR_es_apm_url="xxxx"
+#export TF_VAR_es_apm_url="xxxx" #without https:// prefix
 #export TF_VAR_es_apm_token="xxxx"
 
-#es_apm_url= "xxxelastic-cloud.com:443" without https:// prefix
+#es_apm_url= "xxxelastic-cloud.com:443" #without https:// prefix
 #es_apm_token="xxx" your Elastic APM secret token

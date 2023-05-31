@@ -10,6 +10,9 @@ default:
               values:
               - otel 
 opentelemetry-collector:
+  resources:
+    limits:
+      memory: 1Gi
   extraEnvs:
     - name: ELASTIC_APM_ENDPOINT
       valueFrom:
@@ -60,8 +63,18 @@ jaeger:
 
 prometheus:
   enabled: false
-  
+
 components:
+  frontend:
+    resources:
+      limits:
+        memory: 1Gi
+  frontendProxy:
+    resources:
+      limits:
+        memory: 1Gi
+    service:
+      type: LoadBalancer
   quoteService:
     resources:
       limits:
@@ -70,14 +83,6 @@ components:
     resources:
       limits:
         memory: 1Gi
-  frontendProxy:
-    resources:
-      limits:
-        memory: 1Gi
-  frontend:
-    resources:
-      limits:
-        memory: 1Gi
   accountingService:
     resources:
       limits:
@@ -86,7 +91,3 @@ components:
     resources:
       limits:
         memory: 1Gi
-opentelemetry-collector:
-  resources:
-    limits:
-      memory: 1Gi

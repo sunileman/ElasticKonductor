@@ -3,11 +3,12 @@ resource "helm_release" "otel" {
   namespace      = "default"
   repository     = "https://open-telemetry.github.io/opentelemetry-helm-charts"
   chart          = "opentelemetry-demo"
-  #version        = var.otel_chart_version #https://github.com/open-telemetry/opentelemetry-helm-charts/releases
+  #version        = var.otel_chart_version
+
 
   values = [
     "${file("${path.module}/values.yaml")}"
-  ]  
+  ]
 
   /*Example of supplying values to values.yaml
   values = [templatefile("${path.module}/opentelemetry-demo/kubernetes/elastic-helm/values.yaml", {

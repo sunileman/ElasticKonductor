@@ -16,12 +16,16 @@ echo "1ClickAddonsDestroy: Running Destroy KSM addon"
 (cd ksm; bash ./1ClickAddonsDestroy.sh)
 echo "1ClickAddonsDestroy: Finished running KSM addon"
 
+echo "1ClickAddonsDestroy: Running Destroy opentelemetry-demo addon"
+(cd opentelemetry-demo; bash ./1ClickAddonsDestroy.sh)
+echo "1ClickAddonsDestroy: Finished running opentelemetry-demo addon"
 
 echo "1ClickAddonsDestroy: Running Destroy iscsi addon"
 (cd iscsi; bash ./1ClickAddonsDestroy.sh)
 
-echo "1ClickAddonsDestroy: Running Destroy istio addon"
-(cd istio; bash ./1ClickAddonsDestroy.sh)
+##Removed istio as it is not compatiable with azure cni.
+#echo "1ClickAddonsDestroy: Running Destroy istio addon"
+#(cd istio; bash ./1ClickAddonsDestroy.sh)
 
 echo "1ClickAddonsDestroy: Running Destroy OpenEBS addon"
 (cd openebs; bash ./1ClickAddonsDestroy.sh)

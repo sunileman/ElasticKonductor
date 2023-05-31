@@ -40,14 +40,14 @@ variable "eck_version" {
 variable "project" {
   description = "ClickDeployment Name"
   type = string
-  default = "1ClickECK"
+  default = "konductor"
 }
 
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default = {
-    "project"  = "1ClickECK"
+    "project"  = "konductor"
     "team"     = "someteam"
     "org"      = "sa"
     "division" = "field"
