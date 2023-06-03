@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ##Instructions on install esrally on Ubuntu 20
 ##AMI which preinstalled esrall if you want to skip these steps: ami-0f761f9d67064067f
 
@@ -19,20 +21,3 @@ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 echo 'export PATH="$PYENV_ROOT/bin:~/.local/bin:$PATH"' >> ~/.bashrc
 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -)"\nfi' >> ~/.bashrc
 exec "$SHELL"
-
-##Check yor pyenv version
-pyenv --version
-
-##install pyton 3.8.13
-pyenv install 3.8.13
-pyenv global 3.8.13
-
-
-##Install rally
-python3 -m pip install --user --upgrade pip
-python3 -m pip install --user esrally
-
-
-##Git clone
-git clone git@github.com:elastic/rally-internal-tracks.git
-git clone git@github.com:elastic/rally-tracks.git
