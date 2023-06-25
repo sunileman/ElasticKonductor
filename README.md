@@ -137,7 +137,7 @@ The automation will set your local kubectl manifest.  Verify by running
 
 Tear Down all assets built by the automation
 ```bash
-  ./elastickonducor.sh -d -c [aws|gcp|azure]
+  ./elastickonductor.sh -d -c [aws|gcp|azure]
 ```
 
 ## Istio
