@@ -91,3 +91,11 @@ components:
     resources:
       limits:
         memory: 1Gi
+  featureflagService:
+    resources:
+      limits:
+        memory: 1Gi
+  kafka:
+    resources:
+      limits:
+        memory: 1Gi

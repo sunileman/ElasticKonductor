@@ -34,7 +34,7 @@ variable "aks_version" {
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.7.0"
+  default = "2.8.0"
 }
 
 variable "project" {
@@ -346,7 +346,7 @@ variable "otel_instance_k8s_label" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.6.2"
+  default = "8.8.1"
 }
 
 variable "master_pod_count" {
@@ -637,7 +637,7 @@ variable "eck_namespace" {
 variable "master_pod_roles" {
   description = "master pod roles"
   type = string
-  default = "master"
+  default = "master, remote_cluster_client"
 }
 
 variable "hot_pod_roles" {
