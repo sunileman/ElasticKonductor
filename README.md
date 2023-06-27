@@ -13,14 +13,14 @@ ElasticKonductor currently deploys
     * ElasticSearch 
     * Kibana
     * License loading (Bring your own ES license)
-* OpenTelemetry Demo
+* OpenTelemetry Demo (AKS)
+* Enterprise Search (AKS)
 * Istio
 
 Does not deploy
 * APM Server
 * Fleet
 * Elastic Maps
-* Enterprise Search
 
 [![2023-01-27-19-39-42.jpg](https://i.postimg.cc/wBxBn6C7/2023-01-27-19-39-42.jpg)](https://postimg.cc/WdKjkPbv)
 
@@ -140,12 +140,23 @@ Tear Down all assets built by the automation
   ./elastickonductor.sh -d -c [aws|gcp|azure]
 ```
 
+## Enterprise Search
+By default enterprise search is deployed with Konductor.  To deploy additonal enterprise search pods or K8s nodes set the following variables in `terraform.tfvars`
+
+```
+entsearch_pod_count= 1
+entsearch_instance_count= 1
+```
+To remove enterprise search, simply set both variables to `0`. 
+
+
 ## Istio
 To check the status of istio run
 ```
 helm ls -n istio-system
 helm status istiod -n istio-system
 ```
+
 
 ## Open Telemetry
 The automation also has the ability to launch the Open Telemetry Demo found here: `https://opentelemetry.io/docs/demo/kubernetes-deployment/`

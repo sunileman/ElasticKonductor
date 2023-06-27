@@ -8,6 +8,8 @@ spec:
   count: ${kibana_pod_count}
   elasticsearchRef:
     name: eck
+  enterpriseSearchRef:
+    name: enterprise-search
   podTemplate:
     spec:
       nodeSelector:

@@ -23,8 +23,6 @@ tags = {
 
 resource_group_location="eastus"
 
-
-
 #----------------------- Cloud Provider ----------------------------------------
 
 #automation_name= "1ClickECK"
@@ -107,6 +105,14 @@ resource_group_location="eastus"
 #ml_instance_k8s_label= {"nodetype"="ml"}
 #ml_accept_ingest=false
 
+#entsearch_instance_count= 1
+#entsearch_max_instance_count= 3
+#entsearch_instance_type=  "standard_D32pls_v5"
+#entsearch_instance_k8s_label= {"nodetype"="entsearch"}
+#entsearch_accept_ingest=true
+
+
+
 #logstash_instance_count= 0
 #logstash_max_instance_count= 0
 #logstash_instance_type= "standard_D16ads_v5"
@@ -138,7 +144,7 @@ resource_group_location="eastus"
 
 #----------------------- Elastic Cloud Kubernetes ------------------------------
 
-#eck_version= "2.6.1"
+#eck_version= "2.8.0"
 #eck_namespace= "default"
 
 #----------------------- Elasticsearch Cluster ---------------------------------
@@ -147,7 +153,7 @@ resource_group_location="eastus"
 # Kubernetes pod. The total pod count will be distributed across the k8s
 # instances in the regions defined above.
 
-#es_version= "8.5.3"
+#es_version= "8.8.1"
 
 #master_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #master_pod_count= 1
@@ -198,9 +204,18 @@ resource_group_location="eastus"
 #ml_pod_storage= "140Gi"
 #ml_pod_storage_class = "managed-premium"
 
+
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"
 #kibana_pod_memory= "1Gi"
+
+#entsearch_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
+#entsearch_pod_count= 1
+#entsearch_pod_cpu= "30000m"
+#entsearch_pod_memory= "53248Mi"
+#entsearch_pod_roles= "data_entsearch, data_content, ingest"
+#entsearch_pod_storage= "1600Gi"
+#entsearch_pod_storage_class = "local-storage"
 
 #----------------------- istio ---------------------------------
 #istio_helm_base_chart_version= "1.17.2" 

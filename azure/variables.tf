@@ -670,6 +670,76 @@ variable "ml_pod_roles" {
   default = "ml, remote_cluster_client"
 }
 
+
+variable "entsearch_instance_count" {
+  description = "Number of entsearch instances"
+  type        = number
+  default     = 1
+}
+
+variable "entsearch_max_instance_count" {
+  description = "Max Number of entsearch instances"
+  type        = number
+  default     = 10
+}
+
+variable "entsearch_instance_type" {
+  description = "entsearch instance type"
+  type        = string
+  default     =  "standard_F32s_v2"
+}
+
+variable "entsearch_instance_k8s_label" {
+  description = "entsearch instance k8s label"
+  type        = map
+  default     = {"nodetype"="entsearch"}
+}
+
+variable "entsearch_pod_count" {
+  description = "number of entsearch pods"
+  type = number
+  default = 1
+}
+
+variable "entsearch_pod_cpu" {
+  description = "entsearch pod cpu request"
+  type = string
+  default = "30000m"
+}
+
+variable "entsearch_pod_memory" {
+  description = "entsearch pod memory request"
+  type = string
+  default = "53248Mi"
+}
+
+variable "entsearch_pod_storage" {
+  description = "entsearch pod storage request"
+  type = string
+  default = "1600Gi"
+}
+
+variable "entsearch_pod_ES_JAVA_OPTS" {
+  description = "entsearch pod ES_JAVA_OPTS"
+  type = string
+  default = " "
+  #default = "-Xms8g -Xmx8g"
+}
+
+variable "entsearch_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "entsearch_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "local-storage"
+}
+
+
+
 variable "lbname" {
   description = "Kibana Load Balancer Name"
   type = string
