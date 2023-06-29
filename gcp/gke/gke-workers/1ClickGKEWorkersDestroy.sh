@@ -26,3 +26,6 @@ echo "1ClickGKEDestroy.sh: destroying logstash node pool"
 
 echo "1ClickGKEDestroy.sh: destroying util node pool"
 (cd ./util; bash ./1ClickGKEUtilDestroy.sh)
+
+echo "1ClickGKEDestroy.sh: destroying otel node pool"
+(cd ./otel; bash ./1ClickGKEOtelDestroy.sh)

@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.9
+oneclickv=1.10
 
 usage() {
      echo "Usage: $0 "
@@ -327,14 +327,19 @@ elif [[ $cloud == gcp ]]; then
        (cd ./azure/gke; bash ./setkubectl.sh)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == true ]; then
+       echo "1ClickECK.sh: calling 1ClickGCP.sh with otel"
+       (cd ./gcp; bash ./1ClickGCP.sh -b otel $openebs_enabled)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == false ]; then
+       echo "1ClickECK.sh: calling 1ClickGCP.sh gke only"
+       (cd ./gcp; bash ./1ClickGCP.sh -b gke $openebs_enabled)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh with all"
        (cd ./gcp; bash ./1ClickGCP.sh -b all $openebs_enabled)
-       duration=$(( SECONDS - start ))
-       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
-    elif [ $createmode == true ] && [ $k8sonly == true ]; then
-       echo "1ClickECK.sh: calling 1ClickGCP.sh gke only"
-       (cd ./gcp; bash ./1ClickGCP.sh -b gke $openebs_enabled)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroy == true ]]; then
@@ -345,6 +350,11 @@ elif [[ $cloud == gcp ]]; then
     elif [[ $destroyeck == true ]]; then
        echo "1ClickECK.sh: calling 1ClickGCP.sh destroy ECK"
        (cd ./gcp; bash ./1ClickGCP.sh -de)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [[ $destroyOtel == true ]]; then
+       echo "1ClickECK.sh: Destroying Otel"
+       (cd ./gcp; bash ./1ClickGCP.sh -do)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     else

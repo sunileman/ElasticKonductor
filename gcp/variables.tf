@@ -118,7 +118,7 @@ variable "gke_oauth_scopes" {
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.6.1"
+  default = "2.8.0"
 }
 
 
@@ -506,6 +506,38 @@ variable "ml_create_node_pool" {
 }
 
 
+variable "otel_instance_count" {
+  description = "Number of otel instances"
+  type        = number
+  default     = 0
+}
+
+
+variable "otel_instance_type" {
+  description = "otel instance type"
+  type        = string
+  default     = "e2-standard-32"
+}
+
+variable "otel_instance_k8s_label" {
+  description = "otel instance k8s label"
+  type        = map
+  default     = {"nodetype"="otel"}
+}
+
+variable "otel_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 2000
+}
+
+variable "otel_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
+
+
 variable "util_instance_count" {
   description = "Number of util instances"
   type        = number
@@ -575,7 +607,7 @@ variable "logstash_create_node_pool" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.5.2"
+  default = "8.8.1"
 }
 
 variable "master_pod_count" {
@@ -916,4 +948,18 @@ variable "istiod_helm_chart_version" {
   type = string
   default = "1.17.2"
   #helm search repo istio/istiod --versions
+}
+
+
+
+variable "es_apm_token" {
+  description = "ElasticSearch APM Token"
+  type = string
+  default = ""
+}
+
+variable "es_apm_url" {
+  description = "ElasticSearch APM URL"
+  type = string
+  default = ""
 }

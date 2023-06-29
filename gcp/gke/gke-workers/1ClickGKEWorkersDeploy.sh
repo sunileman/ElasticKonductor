@@ -38,3 +38,7 @@ echo "1ClickGKEDeploy.sh: Building logstash node pool"
 
 echo "1ClickGKEDeploy.sh: Building util node pool"
 (cd ./util; bash ./1ClickGKEUtilDeploy.sh)
+
+
+echo "1ClickGKEDeploy.sh: Building otel node pool"
+(cd ./otel; bash ./1ClickGKEOtelDeploy.sh)

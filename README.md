@@ -150,14 +150,6 @@ entsearch_instance_count= 1
 To remove enterprise search, simply set both variables to `0`. 
 
 
-## Istio
-To check the status of istio run
-```
-helm ls -n istio-system
-helm status istiod -n istio-system
-```
-
-
 ## Open Telemetry
 The automation also has the ability to launch the Open Telemetry Demo found here: `https://opentelemetry.io/docs/demo/kubernetes-deployment/`
 
@@ -175,6 +167,39 @@ export TF_VAR_es_apm_token="xxxxxx"
 
 To destroy/tear down Open Telemetry Demo 
 `./elastickonductor.sh -c azure -do -r`
+
+
+Example `terraform.tfvars` file to run Otel demo on GCP
+```
+tags = {
+    "division" = "field"
+    "org" = "sa"
+    "team" = "amer"
+    "project" = "superman"
+}
+
+
+region= "us-central1"
+zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
+gcp_project="your gcp project"
+
+otel_instance_count=1
+
+es_apm_url="<es apm url without https://>:443"
+es_apm_token="<es apm token>"
+
+master_initial_node_count_per_zone=0
+kibana_instance_count=0
+util_instance_count=0
+hot_initial_node_count_per_zone=0
+warm_initial_node_count_per_zone=0
+cold_initial_node_count_per_zone=0
+frozen_initial_node_count_per_zone=0
+ml_initial_node_count_per_zone=0
+
+```
+
+
 ## Autoscaling
 [![2023-01-30-11-26-51.jpg](https://i.postimg.cc/HszXV6xj/2023-01-30-11-26-51.jpg)](https://postimg.cc/HVJVN4bC)
 ## Terraform Variables

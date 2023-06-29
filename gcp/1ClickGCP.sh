@@ -20,6 +20,8 @@ cleanup() {
   createModeArg=NA
   openebs="openebs-enabled"
   destroyeck=false
+  createOtel=false
+  destroyOtel=false
 }
 
 
@@ -38,6 +40,10 @@ while [[ "$#" -gt 0 ]]; do
       elif [[ "$1" == "gke" ]]; then
 	      gkeonly=true
         echo "Create Mode = GKE Only"
+      elif [[ "$1" == "otel" ]]; then
+	      gkeonly=true
+        createOtel=true
+        echo "Create Mode = AKS & Otel"
       else
         echo "Not a valid option.  Use: all or gke"
         exit 1
@@ -52,6 +58,11 @@ while [[ "$#" -gt 0 ]]; do
     -de|--destroyeck)
       echo "Destroy ECK"
       destroyeck=true
+      shift
+      ;;
+    -do|--destroyotel)
+      echo "Destroy ECK"
+      destroyOtel=true
       shift
       ;;
     -r|--removeopenebs)    
@@ -77,7 +88,7 @@ done
 
 
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $gkeonly != true ] && [ $destroyeck != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $gkeonly != true ] && [ $destroyeck != true ] && [ $destroyOtel != true ]; then
     usage
 fi
 
@@ -144,11 +155,18 @@ if [ $createmode == true ] && [ $gkeonly == false ]; then
    (cd ./eck ; sh ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickGCP.sh: Total deployment time in seconds: $duration
-elif [ $createmode == true ] && [ $gkeonly == true ]; then
+elif [ $createmode == true ] && [ $gkeonly == true ]  && [ $createOtel == true ]; then
    echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
    (cd ./gke ; sh ./1ClickGKEDeploy.sh $openebs)
+   echo "1ClickGCP.sh: invoking Otel Demo"
+   (cd ./gke/addons/opentelemetry-demo; bash ./1ClickAddons.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickGCP.sh: Total deployment time in seconds: $duration
+elif [ $createmode == true ] && [ $gkeonly == true ] && [ $createOtel == false ]; then
+   echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
+   (cd ./gke ; bash ./1ClickGKEDeploy.sh $openebs)
+   duration=$(( SECONDS - start ))
+   echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 elif [[ $destroy == true ]]; then
    echo "1ClickGCP.sh destroy all"
    echo "1ClickGCP.sh: invoking 1ClickECKDestroy.sh"
@@ -161,6 +179,10 @@ elif [[ $destroyeck == true ]]; then
    echo "1ClickGCP.sh destroy eck"
    echo "1ClickGCP.sh: invoking 1ClickECKDestroy.sh"
    (cd ./eck ; bash ./1ClickECKDestroy.sh)
+   echo 1ClickGCP.sh: Total deployment time in seconds: $duration
+elif [[ $destroyOtel == true ]]; then
+   echo "1ClickGCP.sh destroy Otel"
+   (cd ./gke/addons/opentelemetry-demo ; bash ./1ClickAddonsDestroy.sh)
    echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 else
    echo "Please submit a valid arguments"

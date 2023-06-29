@@ -27,6 +27,8 @@ region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
 
+
+
 #----------------------- Cloud Provider ----------------------------------------
 
 #automation_name= "oneClickECK"
@@ -202,3 +204,16 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #istio_helm_base_chart_version= "1.17.2" 
 #Run this to find available versions: helm search repo istio/base --versions
 #istiod_helm_chart_version=1.17.2
+
+
+#----------------------- Open Telemetry ---------------------------------
+#otel_instance_count= 1
+#otel_instance_type =  "e2-standard-32"
+#otel_instance_k8s_label = {"nodetype"="otel"}
+
+##high recommended to use env variables instead of setting the url and token in a file
+#export TF_VAR_es_apm_url="xxxx" #without https:// prefix
+#export TF_VAR_es_apm_token="xxxx"
+
+#es_apm_url= "xxxelastic-cloud.com:443" #without https:// prefix
+#es_apm_token="xxx" #your Elastic APM secret token
