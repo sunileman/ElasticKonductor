@@ -13,7 +13,7 @@ ElasticKonductor currently deploys
     * ElasticSearch 
     * Kibana
     * License loading (Bring your own ES license)
-* OpenTelemetry Demo (AKS)
+* OpenTelemetry Demo (AKS,GKE)
 * Enterprise Search (AKS)
 * Istio
 
@@ -22,7 +22,7 @@ Does not deploy
 * Fleet
 * Elastic Maps
 
-[![2023-01-27-19-39-42.jpg](https://i.postimg.cc/wBxBn6C7/2023-01-27-19-39-42.jpg)](https://postimg.cc/WdKjkPbv)
+[![2023-06-28-21-54-31.jpg](https://i.postimg.cc/pd5qQBNj/2023-06-28-21-54-31.jpg)](https://postimg.cc/Z9Z84p5Y)
 
 
 
@@ -88,8 +88,7 @@ This will install all the required libaries and CLIs for the automation.
     * To set your gcp project, run `export TF_VAR_gcp_project="your-project-name"`
 ## Deployment
 
-[![2023-02-07-15-28-54.jpg](https://i.postimg.cc/QCkVvX99/2023-02-07-15-28-54.jpg)](https://postimg.cc/1VX9q1Ks)
-
+[![2023-06-28-22-08-23.jpg](https://i.postimg.cc/c17ggtzL/2023-06-28-22-08-23.jpg)](https://postimg.cc/7b6YjhDF)
 
 
 [![2023-02-07-15-29-55.jpg](https://i.postimg.cc/BbsnTdYq/2023-02-07-15-29-55.jpg)](https://postimg.cc/qhbr0ZHY)
@@ -97,14 +96,11 @@ This will install all the required libaries and CLIs for the automation.
 
 
 
-Required Arguments 
+#### Required Arguments 
 
 `-c` [aws|azure|gcp|ess]
 
 `-b` [all|k8s|otel] 
-#otel option will create K8s and open telemetry demo
-
-Set `otel_instance_count` to a value `> 0`
 
 `-d` Destroy all assets created by the automation
 
@@ -119,15 +115,15 @@ Set `otel_instance_count` to a value `> 0`
 `int` get cluster infra info 
 Examples
 
-[![2023-02-07-15-36-07.jpg](https://i.postimg.cc/3N72kf2G/2023-02-07-15-36-07.jpg)](https://postimg.cc/r0nDbJny)
+[![2023-06-28-22-01-40.jpg](https://i.postimg.cc/7LzjP4Zj/2023-06-28-22-01-40.jpg)](https://postimg.cc/Ff9TG2cx)
 
 To run the automation in the background.  Output will be writen to nohup.out. 
 ```bash
   nohup ./elastickonductor.sh -b all -c [aws|gcp|azure] &
 ```
 
-Once the automation completes, Kibana endpoints along with username and password should be displayed.  To retrieve again, simply run<br>
-[![2023-02-07-15-32-42.jpg](https://i.postimg.cc/qBtPwbVr/2023-02-07-15-32-42.jpg)](https://postimg.cc/dDYNt9VN)
+Once the automation completes, Kibana endpoints along with username and password should be displayed.  
+
 
 The automation will set your local kubectl manifest.  Verify by running
 ```bash
@@ -139,6 +135,9 @@ Tear Down all assets built by the automation
 ```bash
   ./elastickonductor.sh -d -c [aws|gcp|azure]
 ```
+
+#### Retrieve Kibana/ES URL and username & password
+`./elastickonductor.sh -c [aws|gcp|azure] -i`
 
 ## Enterprise Search
 By default enterprise search is deployed with Konductor.  To deploy additonal enterprise search pods or K8s nodes set the following variables in `terraform.tfvars`
