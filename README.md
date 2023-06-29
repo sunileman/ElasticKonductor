@@ -167,8 +167,8 @@ export TF_VAR_es_apm_token="xxxxxx"
 To destroy/tear down Open Telemetry Demo 
 `./elastickonductor.sh -c azure -do -r`
 
-
-Example `terraform.tfvars` file to run Otel demo on GCP
+#### GCP Open Telemetry Demo 
+Example `terraform.tfvars`  to run  Open Telemetry Demo  on GCP
 ```
 tags = {
     "division" = "field"
