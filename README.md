@@ -93,10 +93,11 @@ This will install all the required libaries and CLIs for the automation.
 
 [![2023-02-07-15-29-55.jpg](https://i.postimg.cc/BbsnTdYq/2023-02-07-15-29-55.jpg)](https://postimg.cc/qhbr0ZHY)
 
+`Note`: The automation requires `tags.project` variable to be set in the `.[aws|azure]/terraform.tfvars`.  Set the variable with your username, no special characters. Keep it short
 
 
 
-#### Required Arguments 
+#### Required Arguments
 
 `-c` [aws|azure|gcp|ess]
 
@@ -113,6 +114,7 @@ This will install all the required libaries and CLIs for the automation.
 `i` get cluster info 
 
 `int` get cluster infra info 
+
 Examples
 
 [![2023-06-28-22-01-40.jpg](https://i.postimg.cc/7LzjP4Zj/2023-06-28-22-01-40.jpg)](https://postimg.cc/Ff9TG2cx)
@@ -203,16 +205,6 @@ ml_initial_node_count_per_zone=0
 [![2023-01-30-11-26-51.jpg](https://i.postimg.cc/HszXV6xj/2023-01-30-11-26-51.jpg)](https://postimg.cc/HVJVN4bC)
 ## Terraform Variables
 
-The automation requires a few variables to be set in the `.[aws|azure]/terraform.tfvars` file<br>
-
-Name of your deployment/project<br>
-`tags.Project`<br>
-Name of owner<br>
-`tags.Owner`<br>
-Name which will be appended to the EKS deployment.  Max 6 characters<br>
-`tags.username`<br>
-
-
 Any variable found in `./[aws|azure]/variables.tf` can be set as an envionrment variable. <br>
 ```bash
 export TF_VAR_<variable name>="your value"
@@ -232,7 +224,7 @@ deploy 4 hot pods on 1 hot K8s instance type.
 [![2023-02-07-15-31-29.jpg](https://i.postimg.cc/nLZSt2PX/2023-02-07-15-31-29.jpg)](https://postimg.cc/v4qtrrMy)
 `./[aws|azure]/variables` file host all possible variables supported by this deployment.  
 If a varialble is not present in `./[aws|azure]/terraform.tfvars`, the default value will be taken from `./[aws|azure]/variables.tf`
-If default value is not acceptable, set the varialble value in `./[aws|azure]/terraform.tfvars`
+If default value is not acceptable, set the varialble value in `./[aws|azure|gcp]/terraform.tfvars`
 
 For example, the default number of es hot instances is 3.  That default value is set in `./[aws|azure]/variables.tf`. To 
 change this value to 10; in `./[aws|azure]/terraform.tfvars` file, set `hot_instance_count` = 10.
