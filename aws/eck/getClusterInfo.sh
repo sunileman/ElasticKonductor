@@ -12,7 +12,7 @@ if test -f ./license/es-license.json; then
   echo License file found and should have been applied to ECK
 else
   echo No license file found. Make sure it is named es-license.json and placed under ./eck/license
-  echo Basic license applied.
+  echo Enterprise Trial license applied.
 fi
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

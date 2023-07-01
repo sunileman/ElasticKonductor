@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.10
+oneclickv=1.11
 
 usage() {
      echo "Usage: $0 "
@@ -235,7 +235,7 @@ if [ $cloud == "aws" ]; then
        duration=$(( SECONDS - start ))
     elif [ $setKubectl == true ]; then
        echo "Set kubectl"
-       (cd ./azure/eks; bash ./setkubectl.sh)
+       (cd ./aws/eks; bash ./setkubectl.sh)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == false ]; then
@@ -324,7 +324,7 @@ elif [[ $cloud == gcp ]]; then
        duration=$(( SECONDS - start ))
     elif [ $setKubectl == true ]; then
        echo "Set kubectl"
-       (cd ./azure/gke; bash ./setkubectl.sh)
+       (cd ./gcp/gke; bash ./setkubectl.sh)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == true ]; then
