@@ -19,7 +19,7 @@ tags = {
     "division" = "field"
     "org" = "sa"
     "team" = "amer"
-    "project" = "username" # Project name (shared) or username (individual)
+    "project" = "sunman" # Project name (shared) or username (individual)
 }
 
 
@@ -27,7 +27,7 @@ region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
 
-
+#gcp_project="your-gcp-project"
 
 #----------------------- Cloud Provider ----------------------------------------
 
@@ -35,7 +35,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
 # Defines where 1ClickECK will deploy the new Kubernetes cluster
 
-#gcp_project="your-gcp-project"
+
 
 #region= "us-central1"
 #zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
