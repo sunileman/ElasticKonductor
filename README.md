@@ -101,7 +101,7 @@ This will install all the required libaries and CLIs for the automation.
 
 `-c` [aws|azure|gcp|ess]
 
-`-b` [all|k8s|otel] 
+`-b` [all|k8s|eck|otel] 
 
 `-d` Destroy all assets created by the automation
 

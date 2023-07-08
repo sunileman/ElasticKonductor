@@ -4,12 +4,12 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.11
+oneclickv=1.12
 
 usage() {
      echo "Usage: $0 "
      echo "[-c [aws | azure | gcp | ess]"
-     echo "[-b <all | k8s | otel>] "
+     echo "[-b <all | k8s | eck | otel>] "
      echo "[-d for destroy]"
      echo "[-de for destroy eck]"
      echo "[-do for destroy otel]"
@@ -36,6 +36,7 @@ cleanup() {
   destroyOtel=false
   installclient=false
   setKubectl=false
+  eckonly=false
 }
 
 
@@ -77,8 +78,12 @@ while [[ "$#" -gt 0 ]]; do
         echo "Build Mode = K8s & Otel"
 	      k8sonly=true
         createOtel=true
+      elif [[ "$1" == "eck" ]]; then
+        echo "Build Mode = ECK only"
+	     eckonly=true
+        createOtel=true
       else
-        echo "Not a valid build option. Use: all or k8s"
+        echo "Not a valid build option. Use: all, k8s, eck, or otel"
         exit 1
       fi
       shift
@@ -196,7 +201,6 @@ echo
 echo
 echo version $oneclickv
 echo author: sunile manjee
-echo last update: 12/22/2022
 echo
 echo Welcome to...
 echo "        _              _    _                _                      _               _               ";
@@ -216,6 +220,7 @@ start=$SECONDS
 
   echo "createmode $createmode"
   echo "k8sonly $k8sonly"
+  echo "eckonly $eckonly"
   echo "destroy $destroy"
   echo "createModeArg $createModeArg"
   echo "cloud $cloud"
@@ -280,7 +285,7 @@ elif [[ $cloud == azure ]]; then
        (cd ./azure/aks; bash ./setkubectl.sh)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
-    elif [ $createmode == true ] && [ $k8sonly == false ]; then
+    elif [ $createmode == true ] && [ $k8sonly == false ] && [ $eckonly == false ]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh with all"
        (cd ./azure; bash ./1ClickAzure.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
@@ -295,6 +300,11 @@ elif [[ $cloud == azure ]]; then
        (cd ./azure; bash ./1ClickAzure.sh -b aks $openebs_enabled)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [ $createmode == true ] && [ $k8sonly == false ] && [ $eckonly == true ]; then
+       echo "1ClickECK.sh: calling 1ClickAzure.sh with eck"
+       (cd ./azure; bash ./1ClickAzure.sh -b eck $openebs_enabled)
+       duration=$(( SECONDS - start ))
+       echo 1ClickECK.sh: Total deployment time in seconds: $duration
     elif [[ $destroy == true ]]; then
        echo "1ClickECK.sh: calling 1ClickAzure.sh destroy"
        (cd ./azure; bash ./1ClickAzure.sh -d )

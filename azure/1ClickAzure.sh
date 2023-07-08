@@ -55,6 +55,7 @@ cleanup() {
   destroyeck=false
   createOtel=false
   destroyOtel=false
+  eckonly=false
 
 }
 
@@ -77,6 +78,9 @@ while [[ "$#" -gt 0 ]]; do
 	      aksonly=true
         createOtel=true
         echo "Create Mode = AKS & Otel"
+      elif [[ "$1" == "eck" ]]; then
+	      eckonly=true
+        echo "Create Mode = ECK Only"
       else
         echo "Not a valid option.  Use: all or aks"
         exit 1
@@ -107,6 +111,7 @@ while [[ "$#" -gt 0 ]]; do
       echo "Options"
       echo "Create all AKS & ECK assets: $0 -b all"
       echo "Create AKS: $0 -b aks"
+      echo "Create ECK: $0 -b eck"
       echo "Create without OpenEBS: $0 -r"
       echo "Destroy all assets build by 1Click: $0 -d "
       exit 0
@@ -118,7 +123,7 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-if [ $createmode != true ] && [ $destroy != true ] && [ $aksonly != true ]  && [ $destroyeck != true ] && [ $destroyOtel != true ]; then
+if [ $createmode != true ] && [ $destroy != true ] && [ $aksonly != true ]  && [ $destroyeck != true ] && [ $destroyOtel != true ] && [ $eckonly != true ]; then
     usage
 fi
 
@@ -139,7 +144,7 @@ start=$SECONDS
 
 set -e
 
-if [ $createmode == true ] && [ $aksonly == false ]; then
+if [ $createmode == true ] && [ $aksonly == false ] && [ $eckonly == false ]; then
    echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
    (cd ./aks ; sh ./1ClickAKSDeploy.sh $openebs)
    echo "1ClickAzure.sh: invoking 1ClickECKDeploy.sh"
@@ -156,6 +161,11 @@ elif [ $createmode == true ] && [ $aksonly == true ] && [ $createOtel == true ];
 elif [ $createmode == true ] && [ $aksonly == true ] && [ $createOtel == false ]; then
    echo "1ClickAzure.sh: invoking 1ClickAKSDeploy.sh"
    (cd ./aks ; bash ./1ClickAKSDeploy.sh $openebs)
+   duration=$(( SECONDS - start ))
+   echo 1ClickAzure.sh: Total deployment time in seconds: $duration
+elif [ $createmode == true ] && [ $eckonly == true ] && [ $aksonly == false ]; then
+   echo "1ClickAzure.sh: invoking 1ClickECKDeploy.sh"
+   (cd ./eck ; bash ./1ClickECKDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
    echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 elif [[ $destroy == true ]]; then
