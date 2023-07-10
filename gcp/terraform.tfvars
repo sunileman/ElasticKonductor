@@ -19,13 +19,12 @@ tags = {
     "division" = "field"
     "org" = "sa"
     "team" = "amer"
-    "project" = "sunman" # Project name (shared) or username (individual)
+    "project" = "username" # Project name (shared) or username (individual)
 }
 
 
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
-
 
 #gcp_project="your-gcp-project"
 
@@ -123,6 +122,14 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #ml_accept_ingest=false
 #ml_create_node_pool=true
 
+
+#entsearch_instance_count = 1
+#entsearch_instance_type= "e2-standard-8"
+#entsearch_instance_k8s_label = {"nodetype"="entsearch"}
+#entsearch_volume = 500
+#entsearch_volume_type = "pd-ssd"
+#entsearch_create_node_pool = true
+
 #util_instance_count= 1
 #util_instance_k8s_label= {"nodetype"="util"}
 #util_instance_type= ""
@@ -199,6 +206,15 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"
 #kibana_pod_memory= "1Gi"
+
+
+#entsearch_pod_count = 1
+#entsearch_pod_cpu = "4"
+#entsearch_pod_memory = "20Gi"
+#entsearch_pod_storage = "200Gi"
+#entsearch_pod_ES_JAVA_OPTS = " "
+#entsearch_accept_ingest = "false"
+#entsearch_pod_storage_class = "local-storage"
 
 #----------------------- istio ---------------------------------
 #istio_helm_base_chart_version= "1.17.2" 

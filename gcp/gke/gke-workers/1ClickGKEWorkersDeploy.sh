@@ -33,6 +33,12 @@ echo "1ClickGKEDeploy.sh: Building frozen node pool"
 echo "1ClickGKEDeploy.sh: Building ml node pool"
 (cd ./ml; bash ./1ClickGKEMLDeploy.sh)
 
+
+echo "1ClickGKEDeploy.sh: Building enterprise search node pool"
+(cd ./enterprise-search; bash ./1ClickGKEEntSearchDeploy.sh)
+
+
+
 echo "1ClickGKEDeploy.sh: Building logstash node pool"
 (cd ./logstash; bash ./1ClickGKELogStashDeploy.sh)
 

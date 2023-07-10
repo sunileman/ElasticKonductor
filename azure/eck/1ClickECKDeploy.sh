@@ -30,7 +30,8 @@ terraform plan -out state.tfplan
 terraform apply state.tfplan
 
 #add entsearch
-echo "1ClickECKDeploy.sh: Add enterprise search"
+echo "1ClickECKDeploy.sh: Add enterprise search. Please wait..."
+sleep 120
 (cd ./enterprise-search ; bash ./KonductorDeploy.sh) 
 
 

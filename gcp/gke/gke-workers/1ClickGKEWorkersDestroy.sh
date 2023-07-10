@@ -21,6 +21,9 @@ echo "1ClickGKEDestroy.sh: destroying frozen node pool"
 echo "1ClickGKEDestroy.sh: destroying ml node pool"
 (cd ./ml; bash ./1ClickGKEMLDestroy.sh)
 
+echo "1ClickGKEDestroy.sh: destroying enterprise search node pool"
+(cd ./enterprise-search; bash ./1ClickGKEEntSearchDestroy.sh)
+
 echo "1ClickGKEDestroy.sh: destroying logstash node pool"
 (cd ./logstash; bash ./1ClickGKELogStashDestroy.sh)
 

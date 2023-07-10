@@ -14,7 +14,7 @@ ElasticKonductor currently deploys
     * Kibana
     * License loading (Bring your own ES license)
 * OpenTelemetry Demo (AKS,GKE)
-* Enterprise Search (AKS)
+* Enterprise Search (AKS,GKE)
 * Istio
 
 Does not deploy

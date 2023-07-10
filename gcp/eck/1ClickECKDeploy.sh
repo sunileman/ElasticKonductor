@@ -29,6 +29,11 @@ terraform plan -out state.tfplan
 # apply terraform plan
 terraform apply state.tfplan
 
+#add entsearch
+echo "1ClickECKDeploy.sh: Add enterprise search.  Please wait..."
+sleep 120
+(cd ./enterprise-search ; bash ./KonductorDeploy.sh) 
+
 echo "1ClickECKDeploy.sh: Appling license"
 #add license file
 (cd ./license ; bash ./1ClickAddLicense.sh) 

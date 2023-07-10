@@ -64,7 +64,8 @@ data "kubectl_path_documents" "es" {
 
 
 data "kubectl_path_documents" "kibana" {
-    pattern = "./eck-yamls/kibana.yaml"
+    #pattern = "./eck-yamls/kibana.yaml"
+    pattern = var.entsearch_pod_count > 0 ? "./eck-yamls/entsearch-kibana.yaml" : "./eck-yamls/kibana.yaml"
     vars = {
         es_version = var.es_version
         eck_namespace = var.eck_namespace

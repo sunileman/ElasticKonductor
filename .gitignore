@@ -29,3 +29,4 @@ testing/
 .DS_Store
 .gitignore
 aws/create-eks/out.plan
+scripts/otel/es-class.model

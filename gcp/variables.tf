@@ -505,6 +505,44 @@ variable "ml_create_node_pool" {
   default     = false
 }
 
+variable "entsearch_instance_count" {
+  description = "Number of entsearch instances"
+  type        = number
+  default     = 1
+}
+
+
+
+variable "entsearch_instance_type" {
+  description = "Kibana instance type"
+  type        = string
+  default     = "e2-standard-8"
+}
+
+variable "entsearch_instance_k8s_label" {
+  description = "entsearch instance k8s label"
+  type        = map
+  default     = {"nodetype"="entsearch"}
+}
+
+variable "entsearch_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 500
+}
+
+variable "entsearch_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
+
+variable "entsearch_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
 
 variable "otel_instance_count" {
   description = "Number of otel instances"
@@ -929,6 +967,53 @@ variable "ml_pod_roles" {
   type = string
   default = "ml, remote_cluster_client"
 }
+
+variable "entsearch_pod_count" {
+  description = "number of entsearch pods"
+  type = number
+  default = 1
+}
+
+variable "entsearch_pod_cpu" {
+  description = "entsearch pod cpu request"
+  type = string
+  default = "4"
+}
+
+variable "entsearch_pod_memory" {
+  description = "entsearch pod memory request"
+  type = string
+  default = "20Gi"
+}
+
+variable "entsearch_pod_storage" {
+  description = "entsearch pod storage request"
+  type = string
+  default = "200Gi"
+}
+
+variable "entsearch_pod_ES_JAVA_OPTS" {
+  description = "entsearch pod ES_JAVA_OPTS"
+  type = string
+  default = " "
+  #default = "-Xms8g -Xmx8g"
+}
+
+variable "entsearch_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "entsearch_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "local-storage"
+}
+
+
+
+
 
 variable "openebs_helm_chart_version" {
   description = "OpenEBS chart version"
