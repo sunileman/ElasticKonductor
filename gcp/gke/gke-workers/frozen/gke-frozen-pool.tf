@@ -28,6 +28,10 @@ resource "google_container_node_pool" "frozen" {
     disk_size_gb = var.frozen_volume
     disk_type    = var.frozen_volume_type
    
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.frozen_local_ssd_count
+    }
+
     labels = var.frozen_instance_k8s_label 
 
     service_account = data.terraform_remote_state.k8s.outputs.gcp_service_account_email

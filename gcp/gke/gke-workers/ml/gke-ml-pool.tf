@@ -27,7 +27,11 @@ resource "google_container_node_pool" "ml" {
     image_type   = var.gke_image_type
     disk_size_gb = var.ml_volume
     disk_type    = var.ml_volume_type
-   
+
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.ml_local_ssd_count
+    }
+
     labels = var.ml_instance_k8s_label 
 
     service_account = data.terraform_remote_state.k8s.outputs.gcp_service_account_email

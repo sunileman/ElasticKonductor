@@ -44,6 +44,25 @@ variable "gke_networking_mode" {
   default     = "VPC_NATIVE"
 }
 
+variable "gke_subnetwork_cidr" {
+  description = "GKE networking mode"
+  type        = string
+  default     = "10.0.0.0/18"
+}
+
+variable "gke_pod_range_cidr" {
+  description = "GKE networking mode"
+  type        = string
+  default     = "10.48.0.0/14"
+}
+
+variable "gke_service_range_cidr" {
+  description = "GKE networking mode"
+  type        = string
+  default     = "10.52.0.0/20"
+}
+
+
 variable "gke_http_load_balancing_disabled" {
   description = "http load balancing disabled"
   type        = bool
@@ -169,6 +188,12 @@ variable "master_instance_type" {
   default     = "e2-standard-8"
 }
 
+variable "master_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
+}
+
 variable "master_instance_k8s_label" {
   description = "master instance k8s label"
   type        = map
@@ -206,6 +231,12 @@ variable "kibana_instance_type" {
   description = "Kibana instance type"
   type        = string
   default     = "e2-standard-8"
+}
+
+variable "kibana_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
 }
 
 variable "kibana_instance_k8s_label" {
@@ -281,6 +312,13 @@ variable "hot_volume_type" {
   default     = "pd-ssd"
 }
 
+variable "hot_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
+}
+
+
 variable "hot_create_node_pool" {
   description = "Whether to create the K8s node pool"
   type        = bool
@@ -315,6 +353,12 @@ variable "warm_instance_type" {
   description = "warm instance type"
   type = string
   default     = "e2-standard-32"
+}
+
+variable "warm_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
 }
 
 variable "warm_instance_k8s_label" {
@@ -369,6 +413,12 @@ variable "cold_instance_type" {
   description = "Cold instance type"
   type = string
   default     = "e2-standard-32"
+}
+
+variable "cold_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
 }
 
 variable "cold_instance_k8s_label" {
@@ -426,6 +476,12 @@ variable "frozen_instance_type" {
   default     = "e2-standard-32"
 }
 
+variable "frozen_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
+}
+
 variable "frozen_instance_k8s_label" {
   description = "frozen instance k8s label"
   type        = map
@@ -481,6 +537,12 @@ variable "ml_instance_type" {
   default     = "e2-standard-32"
 }
 
+variable "ml_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
+}
+
 variable "ml_instance_k8s_label" {
   description = "ml instance k8s label"
   type        = map
@@ -517,6 +579,12 @@ variable "entsearch_instance_type" {
   description = "Kibana instance type"
   type        = string
   default     = "e2-standard-8"
+}
+
+variable "entsearch_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
 }
 
 variable "entsearch_instance_k8s_label" {
@@ -557,6 +625,12 @@ variable "otel_instance_type" {
   default     = "e2-standard-32"
 }
 
+variable "otel_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
+}
+
 variable "otel_instance_k8s_label" {
   description = "otel instance k8s label"
   type        = map
@@ -588,6 +662,12 @@ variable "util_instance_type" {
   default     = "e2-standard-4"
 }
 
+variable "util_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
+}
+
 variable "util_instance_k8s_label" {
   description = "util instance k8s label"
   type        = map
@@ -616,6 +696,12 @@ variable "logstash_instance_type" {
   description = "logstash instance type"
   type        = string
   default     = "e2-standard-32"
+}
+
+variable "logstash_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
 }
 
 variable "logstash_instance_k8s_label" {

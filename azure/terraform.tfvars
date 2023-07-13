@@ -59,7 +59,7 @@ resource_group_location="eastus"
 #
 # This determines the hardware footprint, or billiable size, of the deployment.
 
-#master_instance_count=1
+#master_instance_count=3
 #master_max_instance_count=1
 #master_instance_type= "standard_D8ads_v5"
 #master_instance_k8s_label= {"nodetype"="master"}

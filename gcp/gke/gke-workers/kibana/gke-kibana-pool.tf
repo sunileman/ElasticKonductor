@@ -18,7 +18,10 @@ resource "google_container_node_pool" "kibana" {
     image_type   = var.gke_image_type
     disk_size_gb = var.kibana_volume
     disk_type    = var.kibana_volume_type
-    
+
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.kibana_local_ssd_count
+    }
 
     labels = var.kibana_instance_k8s_label
 

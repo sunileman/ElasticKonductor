@@ -24,6 +24,9 @@ resource "google_container_node_pool" "logstash" {
     disk_size_gb = var.logstash_volume
     disk_type    = var.logstash_volume_type
 
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.logstash_local_ssd_count
+    }
 
     labels = var.logstash_instance_k8s_label
 

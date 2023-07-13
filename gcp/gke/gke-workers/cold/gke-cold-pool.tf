@@ -27,6 +27,11 @@ resource "google_container_node_pool" "cold" {
     image_type   = var.gke_image_type
     disk_size_gb = var.cold_volume
     disk_type    = var.cold_volume_type
+
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.cold_local_ssd_count
+    }
+   
    
     labels = var.cold_instance_k8s_label 
 

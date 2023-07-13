@@ -21,6 +21,9 @@ resource "google_container_node_pool" "util" {
     disk_size_gb = var.util_volume
     disk_type    = var.util_volume_type
 
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.util_local_ssd_count
+    }
 
     labels = var.util_instance_k8s_label
 

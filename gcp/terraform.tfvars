@@ -26,7 +26,7 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
-#gcp_project="your-gcp-project"
+gcp_project="replace-with-your-gcp-project"
 
 #----------------------- Cloud Provider ----------------------------------------
 
@@ -47,6 +47,13 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #gke_auto_repair=false
 #gke_image_type="UBUNTU_CONTAINERD"
 
+
+
+#gke_subnetwork_cidr = "10.136.32.0/20"
+#gke_pod_range_cidr = "10.136.144.0/20"
+#gke_service_range_cidr = "10.136.109.192/26"
+
+
 #----------------------- Kubernetes Environment --------------------------------
 
 # Cloud provider-specific options that define the shape and size of the k8s
@@ -59,8 +66,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #master_initial_node_count_per_zone=1
 #master_instance_count_per_zone=1
 #master_instance_k8s_label= {"nodetype"="master"}
-#master_instance_type= ""
-#master_instance_zones=["us-central1-a", "us-central1-b"]
+#master_instance_type= "n2-standard-8"
 #master_max_instance_count_per_zone=10
 #master_surge_count=10
 #master_volume_type= "pd-ssd"
@@ -73,15 +79,16 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #kibana_volume_type= "pd-ssd"
 #kibana_create_node_pool=true
 
-#hot_initial_node_count_per_zone=1
-#hot_instance_count_per_zone=1
+#hot_initial_node_count_per_zone=2
+#hot_instance_count_per_zone=2
 #hot_instance_k8s_label= {"nodetype"="hot"}
-#hot_instance_type=  ""
+#hot_instance_type=  "n2-standard-32"
 #hot_max_instance_count_per_zone=10
 #hot_surge_count=10
 #hot_volume_type= "pd-ssd"
 #hot_accept_ingest=true
 #hot_create_node_pool=true
+#hot_local_ssd_count = 0
 
 #warm_initial_node_count_per_zone=1
 #warm_instance_count_per_zone=1
@@ -91,6 +98,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #warm_volume_type= "pd-ssd"
 #warm_accept_ingest=true
 #warm_create_node_pool=true
+#warm_local_ssd_count = 0
 
 #cold_initial_node_count_per_zone=1
 #cold_instance_count_per_zone=1
@@ -101,6 +109,8 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #cold_volume_type= "pd-ssd"
 #cold_accept_ingest=false
 #cold_create_node_pool=true
+#cold_local_ssd_count = 0
+
 
 #frozen_initial_node_count_per_zone=1
 #frozen_instance_count_per_zone=1
@@ -111,29 +121,33 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #frozen_volume_type= "pd-ssd"
 #frozen_accept_ingest=false
 #frozen_create_node_pool=true
+#frozen_local_ssd_count = 0
 
 #ml_initial_node_count_per_zone=1
 #ml_instance_count_per_zone=1
 #ml_instance_k8s_label= {"nodetype"="ml"}
-#ml_instance_type= ""
+#ml_instance_type= "crazyinstancetype"
 #ml_max_instance_count_per_zone=10
 #ml_surge_count=10
 #ml_volume_type= "pd-ssd"
 #ml_accept_ingest=false
 #ml_create_node_pool=true
+#ml_local_ssd_count = 1
 
 
-#entsearch_instance_count = 1
-#entsearch_instance_type= "e2-standard-8"
+#entsearch_instance_count = 3
+#entsearch_instance_type= "n2-standard-32"
 #entsearch_instance_k8s_label = {"nodetype"="entsearch"}
 #entsearch_volume = 500
 #entsearch_volume_type = "pd-ssd"
 #entsearch_create_node_pool = true
+#entsearch_local_ssd_count = 1
 
 #util_instance_count= 1
 #util_instance_k8s_label= {"nodetype"="util"}
 #util_instance_type= ""
 #util_volume_type= "pd-ssd"
+#util_local_ssd_count = 1
 
 
 #openebs_helm_chart_version="3.3.1"
@@ -156,7 +170,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #es_version= "8.5.3"
 
 #master_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
-#master_pod_count= 1
+#master_pod_count= 3
 #master_pod_cpu= "6500m"
 #master_pod_memory= "11264Mi"
 #master_pod_roles= "master"
@@ -172,7 +186,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #hot_pod_storage_class = "local-storage"
 
 #warm_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
-#warm_pod_count= 1
+#warm_pod_count= 0
 #warm_pod_cpu= "14000m"
 #warm_pod_memory= "53248Mi"
 #warm_pod_roles= "data_warm, data_content"
@@ -180,7 +194,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #warm_pod_storage_class = "local-storage"
 
 #cold_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
-#cold_pod_count= 1
+#cold_pod_count= 0
 #cold_pod_cpu= "46000m"
 #cold_pod_memory= "11264Mi"
 #cold_pod_roles= "data_cold"
@@ -188,7 +202,7 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 #cold_pod_storage_class = "local-storage"
 
 #frozen_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
-#frozen_pod_count= 1
+#frozen_pod_count= 0
 #frozen_pod_cpu= "94000m"
 #frozen_pod_memory= "11264Mi"
 #frozen_pod_roles= "data_frozen"

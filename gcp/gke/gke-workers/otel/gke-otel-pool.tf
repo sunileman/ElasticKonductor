@@ -21,6 +21,9 @@ resource "google_container_node_pool" "otel" {
     disk_size_gb = var.otel_volume
     disk_type    = var.otel_volume_type
 
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.otel_local_ssd_count
+    }
 
     labels = var.otel_instance_k8s_label
 

@@ -28,6 +28,10 @@ resource "google_container_node_pool" "hot" {
     image_type   = var.gke_image_type
     disk_size_gb = var.hot_volume
     disk_type    = var.hot_volume_type
+
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.hot_local_ssd_count
+    }
    
     labels = var.hot_instance_k8s_label 
 

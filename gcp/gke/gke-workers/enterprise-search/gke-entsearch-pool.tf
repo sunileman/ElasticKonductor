@@ -22,6 +22,9 @@ resource "google_container_node_pool" "entsearch" {
     disk_size_gb = var.entsearch_volume
     disk_type    = var.entsearch_volume_type
     
+    local_nvme_ssd_block_config {
+      local_ssd_count = var.entsearch_local_ssd_count
+    }
 
     labels = var.entsearch_instance_k8s_label
 
