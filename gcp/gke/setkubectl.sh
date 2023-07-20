@@ -5,7 +5,10 @@ clusternameraw=$(terraform output cluster_name)
 clustername=${clusternameraw//\"/}
 regionraw=$(terraform output region)
 region=${regionraw//\"/}
+projectraw=$(terraform output gcp_project)
+projectraw=${projectraw//\"/}
 echo $clustername
 echo $region
-gcloud container clusters get-credentials $clustername --region=$region
+echo $project
+gcloud container clusters get-credentials $clustername --region=$region --project=$project
 echo "setkubectl.sh: finished setting local kubectl"
