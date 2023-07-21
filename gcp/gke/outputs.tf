@@ -17,3 +17,8 @@ output "gke_cluster_id" {
 output "gcp_service_account_email" {
   value = google_service_account.kubernetes.email
 }
+
+
+output "gcp_project" {
+  value = var.gcp_project
+}

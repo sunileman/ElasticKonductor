@@ -26,13 +26,15 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
-gcp_project="replace-with-your-gcp-project"
+gcp_project="your gcp project"
+
+
 
 #----------------------- Cloud Provider ----------------------------------------
 
-#automation_name= "oneClickECK"
+#automation_name= "konductor"
 
-# Defines where 1ClickECK will deploy the new Kubernetes cluster
+# Defines where konductor will deploy the new Kubernetes cluster
 
 
 
@@ -94,7 +96,8 @@ gcp_project="replace-with-your-gcp-project"
 #warm_instance_count_per_zone=1
 #warm_instance_k8s_label= {"nodetype"="warm"}
 #warm_max_instance_count_per_zone=10
-#warm_surge_count=10#warm_instance_type= ""
+#warm_surge_count=10
+#warm_instance_type= ""
 #warm_volume_type= "pd-ssd"
 #warm_accept_ingest=true
 #warm_create_node_pool=true
