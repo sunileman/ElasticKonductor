@@ -15,6 +15,7 @@ ElasticKonductor currently deploys
     * License loading (Bring your own ES license)
 * OpenTelemetry Demo (AKS,GKE)
 * Enterprise Search (AKS,GKE)
+* ElasticSearch Service (ESS)
 * Istio
 
 Does not deploy
@@ -149,6 +150,20 @@ entsearch_pod_count= 1
 entsearch_instance_count= 1
 ```
 To remove enterprise search, simply set both variables to `0`. 
+
+## ElasticSearch Service (ESS)
+To deploy ESS set variables in `terraform.tfvars` under the folder `ess`.  Additinoal set your ESS api key via environment variables 
+`export EC_API_KEY="your ess api key"`
+
+To deploy ESS
+`./elastickonductor.sh -c ess -b all`
+
+ESS username/password will be displayed via stdout once deployment completes.  To retrieve username/password
+`.elastickonductor.sh -c ess -i`
+
+
+To destroy ESS
+`.elastickonductor.sh -c ess -d`
 
 
 ## Open Telemetry

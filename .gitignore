@@ -13,9 +13,13 @@ terraform.tfstate
 terraform.tfstate.backup
 
 # Script-generated copies of files in subdirectories of aws/gcp/azure
-*/**/terraform.tfvars
-*/**/variables.tf
-*/**/variables.tfvars
+#*/**/terraform.tfvars
+#*/**/variables.tf
+#*/**/variables.tfvars
+
+*/*/**/terraform.tfvars
+*/*/**/variables.tf
+*/*/**/variables.tfvars
 
 # User-generated working files
 *.not-in-use

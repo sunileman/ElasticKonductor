@@ -4,7 +4,7 @@ data "ec_stack" "latest" {
 }
 
 resource "ec_deployment" "ess_cluster" {
-  region                 = "us-east-1"
+  region                 = data.ec_stack.latest.region
   version                = data.ec_stack.latest.version
 
   name = var.deployment_name
