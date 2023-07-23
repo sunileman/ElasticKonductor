@@ -170,8 +170,6 @@ To destroy ESS
 The automation also has the ability to launch the Open Telemetry Demo found here: `https://opentelemetry.io/docs/demo/kubernetes-deployment/`
 
 Use `-b otel` during the launch process
-For example (Use -r to disable openEBS)
-`./elastickonductor.sh -c azure -b otel -r`
 
 The demo can send data to ElasticSearch by setting the following env variables
 
@@ -182,7 +180,7 @@ export TF_VAR_es_apm_token="xxxxxx"
 ```
 
 To destroy/tear down Open Telemetry Demo 
-`./elastickonductor.sh -c azure -do -r`
+`./elastickonductor.sh -c azure -do`
 
 #### GCP Open Telemetry Demo 
 Example `terraform.tfvars`  to run  Open Telemetry Demo  on GCP
