@@ -1,6 +1,6 @@
 ######################## Terraform Variables ###################################
 
-# This file is required to succesfully deploy 1ClickECK. To customize the
+# This file is required to succesfully deploy ElasticKonductor. To customize the
 # deployment just uncomment the variable below and change its value.
 # 
 # NOTE: Your gcp cloud cli must be set with your credentials for the automation

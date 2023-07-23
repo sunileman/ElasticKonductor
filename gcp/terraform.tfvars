@@ -1,6 +1,6 @@
 ######################## Terraform Variables ###################################
 
-# This file is required to succesfully deploy 1ClickECK. To customize the
+# This file is required to succesfully deploy ElasticKonductor. To customize the
 # deployment just uncomment the variable below and change its value.
 # 
 # NOTE: Your gcp cloud cli must be set with your credentials for the automation
@@ -29,7 +29,6 @@ zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 gcp_project="your gcp project"
 
 
-
 #----------------------- Cloud Provider ----------------------------------------
 
 #automation_name= "konductor"
@@ -43,7 +42,7 @@ gcp_project="your gcp project"
 
 #release_channel= "STABLE"
 
-#gke_version="1.24." ##must have dot after major release number as the automation fetches minor version
+#gke_version="1.25." ##must have dot after major release number as the automation fetches minor version
 
 #gke_auto_upgrade=true
 #gke_auto_repair=false

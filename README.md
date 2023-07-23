@@ -195,21 +195,24 @@ tags = {
 
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
-gcp_project="your gcp project"
 
-otel_instance_count=1
+gcp_project="your-gcp-project"
 
-es_apm_url="<es apm url without https://>:443"
-es_apm_token="<es apm token>"
+otel_instance_count= 1
 
 master_initial_node_count_per_zone=0
-kibana_instance_count=0
-util_instance_count=0
 hot_initial_node_count_per_zone=0
 warm_initial_node_count_per_zone=0
 cold_initial_node_count_per_zone=0
-frozen_initial_node_count_per_zone=0
+frozen_instance_count_per_zone=0
 ml_initial_node_count_per_zone=0
+entsearch_instance_count = 0
+util_instance_count=0
+kibana_instance_count=0
+
+
+es_apm_url= "your-es-apm.elastic-cloud.com:443" #without https:// prefix
+es_apm_token="your es apm token" #your Elastic APM secret token
 
 ```
 
