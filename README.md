@@ -459,3 +459,11 @@ Error `Failed to install provider`
 │ net/http: TLS handshake timeout
 ╵
 ```
+
+
+
+Error with kubectl
+```kubectl get nodes
+ couldn't get current server API group list: Get "http://localhost:8080/api?timeout=32s": dial tcp 127.0.0.1:8080: connect: connection refused
+```
+Run `./elastickonductor.sh -c <gcp|azure|aws> -k` to set your local kubectl config
