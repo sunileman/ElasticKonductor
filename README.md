@@ -182,6 +182,21 @@ export TF_VAR_es_apm_token="xxxxxx"
 To destroy/tear down Open Telemetry Demo 
 `./elastickonductor.sh -c azure -do`
 
+####  Open Telemetry UI
+Once Otel demo has been deployed, the UI will be available on port `8080` via cloud native load balancer.
+
+To retrieve the load balancer IP, run
+```
+kubectl get service open-telemetry-frontendproxy
+```
+That will return something similar to this
+```
+NAME                           TYPE           CLUSTER-IP   EXTERNAL-IP     PORT(S)          AGE
+open-telemetry-frontendproxy   LoadBalancer   10.52.5.6    30.300.30.300   8080:30658/TCP   32m
+```
+
+Using the external IP (The example returned `30.300.30.300`), otel demo UI will be availale at `30.300.30.300:8080`.  Please replace `30.300.30.300` with your external IP.
+
 #### GCP Open Telemetry Demo 
 Example `terraform.tfvars`  to run  Open Telemetry Demo  on GCP
 ```
@@ -213,6 +228,7 @@ kibana_instance_count=0
 
 es_apm_url= "your-es-apm.elastic-cloud.com:443" #without https:// prefix
 es_apm_token="your es apm token" #your Elastic APM secret token
+
 
 ```
 
