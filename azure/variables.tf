@@ -12,7 +12,7 @@ variable "aks_service_principal_client_secret" {
 }
 
 variable "dns_prefix" {
-  default = "oneclickeck"
+  default = "konductor"
 }
 
 variable "resource_group_location" {
@@ -34,7 +34,7 @@ variable "aks_version" {
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.8.0"
+  default = "2.9.0"
 }
 
 variable "project" {
@@ -346,7 +346,7 @@ variable "otel_instance_k8s_label" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.8.1"
+  default = "8.8.2"
 }
 
 variable "master_pod_count" {
@@ -686,7 +686,7 @@ variable "entsearch_max_instance_count" {
 variable "entsearch_instance_type" {
   description = "entsearch instance type"
   type        = string
-  default     =  "standard_F32s_v2"
+  default     =  "Standard_D4_v5"
 }
 
 variable "entsearch_instance_k8s_label" {
@@ -704,19 +704,19 @@ variable "entsearch_pod_count" {
 variable "entsearch_pod_cpu" {
   description = "entsearch pod cpu request"
   type = string
-  default = "30000m"
+  default = "1"
 }
 
 variable "entsearch_pod_memory" {
   description = "entsearch pod memory request"
   type = string
-  default = "53248Mi"
+  default = "8Gi"
 }
 
 variable "entsearch_pod_storage" {
   description = "entsearch pod storage request"
   type = string
-  default = "1600Gi"
+  default = "300Gi"
 }
 
 variable "entsearch_pod_ES_JAVA_OPTS" {
@@ -735,7 +735,7 @@ variable "entsearch_accept_ingest" {
 variable "entsearch_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "managed-premium"
 }
 
 
