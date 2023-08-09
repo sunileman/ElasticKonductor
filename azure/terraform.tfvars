@@ -1,6 +1,6 @@
 ######################## Terraform Variables ###################################
 
-# This file is required to succesfully deploy 1ClickECK. To customize the
+# This file is required to succesfully deploy ElasticKonductor. To customize the
 # deployment just uncomment the variable below and change its value.
 # 
 # NOTE: Your gcp cloud cli must be set with your credentials for the automation
@@ -223,7 +223,7 @@ resource_group_location="eastus"
 #istiod_helm_chart_version=1.17.2
 
 #----------------------- Open Telemetry ---------------------------------
-#otel_instance_count= 1
+#otel_instance_count= 0
 #otel_instance_type =  "standard_F32s_v2"
 #otel_instance_k8s_label = {"nodetype"="otel"}
 
@@ -231,5 +231,5 @@ resource_group_location="eastus"
 #export TF_VAR_es_apm_url="xxxx" #without https:// prefix
 #export TF_VAR_es_apm_token="xxxx"
 
-#es_apm_url= "xxxelastic-cloud.com:443" #without https:// prefix
-#es_apm_token="xxx" your Elastic APM secret token
+es_apm_url= "your.ess.apm.elastic-cloud.com:443" #without https:// prefix
+es_apm_token="your ess apm token" #your Elastic APM secret token

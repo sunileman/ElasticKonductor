@@ -23,7 +23,7 @@ variable "zones" {
 variable "gke_version" {
   description = "GKE Version"
   type        = string
-  default     = "1.24." ##must have dot after major release number as the automation fetches minor version
+  default     = "1.25." ##must have dot after major release number as the automation fetches minor version
 }
 
 variable "gke_logging_service" {

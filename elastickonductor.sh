@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.14
+oneclickv=1.16.4
 
 usage() {
      echo "Usage: $0 "
@@ -238,6 +238,11 @@ if [ $cloud == "aws" ]; then
        echo "Get cluster Info"
        (cd ./aws; bash ./getClusterInfo.sh)
        duration=$(( SECONDS - start ))
+    elif [ $getInfraInfo == true ]; then
+       echo "Get Infra Info"
+       (cd ./aws/eks; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $setKubectl == true ]; then
        echo "Set kubectl"
        (cd ./aws/eks; bash ./setkubectl.sh)
@@ -332,6 +337,11 @@ elif [[ $cloud == gcp ]]; then
        echo "Get cluster Info"
        (cd ./gcp; bash ./getClusterInfo.sh)
        duration=$(( SECONDS - start ))
+    elif [ $getInfraInfo == true ]; then
+       echo "Get Infra Info"
+       (cd ./gcp/gke; bash ./getClusterInfo.sh)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $setKubectl == true ]; then
        echo "Set kubectl"
        (cd ./gcp/gke; bash ./setkubectl.sh)

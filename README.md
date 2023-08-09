@@ -15,6 +15,7 @@ ElasticKonductor currently deploys
     * License loading (Bring your own ES license)
 * OpenTelemetry Demo (AKS,GKE)
 * Enterprise Search (AKS,GKE)
+* ElasticSearch Service (ESS)
 * Istio
 
 Does not deploy
@@ -150,13 +151,25 @@ entsearch_instance_count= 1
 ```
 To remove enterprise search, simply set both variables to `0`. 
 
+## ElasticSearch Service (ESS)
+To deploy ESS set variables in `terraform.tfvars` under the folder `ess`.  Additinoal set your ESS api key via environment variables 
+`export EC_API_KEY="your ess api key"`
+
+To deploy ESS
+`./elastickonductor.sh -c ess -b all`
+
+ESS username/password will be displayed via stdout once deployment completes.  To retrieve username/password
+`.elastickonductor.sh -c ess -i`
+
+
+To destroy ESS
+`.elastickonductor.sh -c ess -d`
+
 
 ## Open Telemetry
 The automation also has the ability to launch the Open Telemetry Demo found here: `https://opentelemetry.io/docs/demo/kubernetes-deployment/`
 
 Use `-b otel` during the launch process
-For example (Use -r to disable openEBS)
-`./elastickonductor.sh -c azure -b otel -r`
 
 The demo can send data to ElasticSearch by setting the following env variables
 
@@ -167,7 +180,22 @@ export TF_VAR_es_apm_token="xxxxxx"
 ```
 
 To destroy/tear down Open Telemetry Demo 
-`./elastickonductor.sh -c azure -do -r`
+`./elastickonductor.sh -c azure -do`
+
+####  Open Telemetry UI
+Once Otel demo has been deployed, the UI will be available on port `8080` via cloud native load balancer.
+
+To retrieve the load balancer IP, run
+```
+kubectl get service open-telemetry-frontendproxy
+```
+That will return something similar to this
+```
+NAME                           TYPE           CLUSTER-IP   EXTERNAL-IP     PORT(S)          AGE
+open-telemetry-frontendproxy   LoadBalancer   10.52.5.6    30.300.30.300   8080:30658/TCP   32m
+```
+
+Using the external IP (The example returned `30.300.30.300`), otel demo UI will be availale at `30.300.30.300:8080`.  Please replace `30.300.30.300` with your external IP.
 
 #### GCP Open Telemetry Demo 
 Example `terraform.tfvars`  to run  Open Telemetry Demo  on GCP
@@ -182,21 +210,25 @@ tags = {
 
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
-gcp_project="your gcp project"
 
-otel_instance_count=1
+gcp_project="your-gcp-project"
 
-es_apm_url="<es apm url without https://>:443"
-es_apm_token="<es apm token>"
+otel_instance_count= 1
 
 master_initial_node_count_per_zone=0
-kibana_instance_count=0
-util_instance_count=0
 hot_initial_node_count_per_zone=0
 warm_initial_node_count_per_zone=0
 cold_initial_node_count_per_zone=0
-frozen_initial_node_count_per_zone=0
+frozen_instance_count_per_zone=0
 ml_initial_node_count_per_zone=0
+entsearch_instance_count = 0
+util_instance_count=0
+kibana_instance_count=0
+
+
+es_apm_url= "your-es-apm.elastic-cloud.com:443" #without https:// prefix
+es_apm_token="your es apm token" #your Elastic APM secret token
+
 
 ```
 
@@ -427,3 +459,11 @@ Error `Failed to install provider`
 │ net/http: TLS handshake timeout
 ╵
 ```
+
+
+
+Error with kubectl
+```kubectl get nodes
+ couldn't get current server API group list: Get "http://localhost:8080/api?timeout=32s": dial tcp 127.0.0.1:8080: connect: connection refused
+```
+Run `./elastickonductor.sh -c <gcp|azure|aws> -k` to set your local kubectl config
