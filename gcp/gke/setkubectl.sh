@@ -7,7 +7,7 @@ regionraw=$(terraform output region)
 region=${regionraw//\"/}
 
 projectraw=$(terraform output gcp_project)
-projectraw=${projectraw//\"/}
+project=${projectraw//\"/}
 echo $clustername
 echo $region
 echo $project
