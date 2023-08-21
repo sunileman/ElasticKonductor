@@ -26,7 +26,8 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
-gcp_project="your gcp project"
+gcp_project="elastic-sa"
+
 
 
 #----------------------- Cloud Provider ----------------------------------------
@@ -89,7 +90,7 @@ gcp_project="your gcp project"
 #hot_volume_type= "pd-ssd"
 #hot_accept_ingest=true
 #hot_create_node_pool=true
-#hot_local_ssd_count = 0
+#hot_local_ssd_count = 0  ##each unit will provide 375 GB
 
 #warm_initial_node_count_per_zone=1
 #warm_instance_count_per_zone=1

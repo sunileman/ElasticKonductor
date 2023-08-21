@@ -137,14 +137,14 @@ variable "gke_oauth_scopes" {
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.8.0"
+  default = "2.9.0"
 }
 
 
 variable "automation_name" {
   description = "ClickDeployment Name"
   type = string
-  default = "oneClickECK"
+  default = "konductor"
 }
 
 variable "tags" {
@@ -731,7 +731,7 @@ variable "logstash_create_node_pool" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.8.1"
+  default = "8.9.1"
 }
 
 variable "master_pod_count" {
