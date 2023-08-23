@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.16.6
+oneclickv=1.16.7
 
 usage() {
      echo "Usage: $0 "
@@ -258,11 +258,15 @@ if [ $cloud == "aws" ]; then
        (cd ./aws; bash ./1ClickAWS.sh -b eks $openebs_enabled)
        duration=$(( SECONDS - start ))
     elif [[ $destroy == true ]]; then
+       echo "Set kubectl"
+       (cd ./aws/eks; bash ./setkubectl.sh)
        echo "1ClickECK.sh: calling 1ClickAWS.sh destroy"
        (cd ./aws; bash ./1ClickAWS.sh -d)
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
     elif [[ $destroyeck == true ]]; then
+       echo "Set kubectl"
+       (cd ./aws/eks; bash ./setkubectl.sh)
        echo "1ClickECK.sh: calling 1ClickAWS.sh destroy ECK"
        (cd ./aws; bash ./1ClickAWS.sh -de)
        duration=$(( SECONDS - start ))
@@ -311,11 +315,15 @@ elif [[ $cloud == azure ]]; then
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
     elif [[ $destroy == true ]]; then
+       echo "Set kubectl"
+       (cd ./azure/aks; bash ./setkubectl.sh)
        echo "1ClickECK.sh: calling 1ClickAzure.sh destroy"
        (cd ./azure; bash ./1ClickAzure.sh -d )
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroyeck == true ]]; then
+       echo "Set kubectl"
+       (cd ./azure/aks; bash ./setkubectl.sh)
        echo "1ClickECK.sh: calling 1ClickAzure.sh destroy ECK"
        (cd ./azure; bash ./1ClickAzure.sh -de)
        duration=$(( SECONDS - start ))
@@ -363,11 +371,15 @@ elif [[ $cloud == gcp ]]; then
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroy == true ]]; then
+       echo "Set kubectl"
+       (cd ./gcp/gke; bash ./setkubectl.sh)
        echo "1ClickECK.sh: calling 1ClickGCP.sh destroy all"
        (cd ./gcp; bash ./1ClickGCP.sh -d)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroyeck == true ]]; then
+       echo "Set kubectl"
+       (cd ./gcp/gke; bash ./setkubectl.sh)
        echo "1ClickECK.sh: calling 1ClickGCP.sh destroy ECK"
        (cd ./gcp; bash ./1ClickGCP.sh -de)
        duration=$(( SECONDS - start ))
