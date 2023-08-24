@@ -30,9 +30,18 @@ terraform plan -out state.tfplan
 terraform apply state.tfplan
 
 #add entsearch
-echo "1ClickECKDeploy.sh: Add enterprise search.  Please wait..."
-sleep 120
-(cd ./enterprise-search ; bash ./KonductorDeploy.sh) 
+echo "1ClickECKDeploy.sh: checking enterprise search count"
+count=$(grep -E '^#?entsearch_instance_count' terraform.tfvars | head -1 | awk -F '=' '{print $2}' | tr -d '[:space:]')
+echo "Entsearch count: $count"
+if [[ $count -gt 0 ]]; then
+    echo "1ClickECKDeploy.sh: Add enterprise search.  Please wait..."
+    sleep 120
+    (cd ./enterprise-search ; bash ./KonductorDeploy.sh) 
+else
+    echo "1ClickECKDeploy.sh: Skipping building entsearch pods due to entsearch_instance_count being 0 or not set."
+fi
+
+
 
 echo "1ClickECKDeploy.sh: Appling license"
 #add license file

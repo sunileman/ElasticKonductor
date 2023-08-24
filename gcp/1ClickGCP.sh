@@ -152,7 +152,7 @@ if [ $createmode == true ] && [ $gkeonly == false ]; then
    echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
    (cd ./gke ; sh ./1ClickGKEDeploy.sh $openebs)
    echo "1ClickGCP.sh: invoking 1ClickECKDeploy.sh"
-   (cd ./eck ; sh ./1ClickECKDeploy.sh)
+   (cd ./eck ; bash ./1ClickECKDeploy.sh)
    duration=$(( SECONDS - start ))
    echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $gkeonly == true ]  && [ $createOtel == true ]; then
@@ -164,7 +164,7 @@ elif [ $createmode == true ] && [ $gkeonly == true ]  && [ $createOtel == true ]
    echo 1ClickGCP.sh: Total deployment time in seconds: $duration
 elif [ $createmode == true ] && [ $gkeonly == true ] && [ $createOtel == false ]; then
    echo "1ClickGCP.sh: invoking 1ClickGKEDeploy.sh"
-   (cd ./gke ; bash ./1ClickGKEDeploy.sh $openebs)
+   (cd ./gke ; sh ./1ClickGKEDeploy.sh $openebs)
    duration=$(( SECONDS - start ))
    echo 1ClickAzure.sh: Total deployment time in seconds: $duration
 elif [[ $destroy == true ]]; then

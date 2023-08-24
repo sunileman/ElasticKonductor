@@ -576,7 +576,7 @@ variable "entsearch_instance_count" {
 
 
 variable "entsearch_instance_type" {
-  description = "Kibana instance type"
+  description = "EnterpriseSearch  instance type"
   type        = string
   default     = "e2-standard-8"
 }
