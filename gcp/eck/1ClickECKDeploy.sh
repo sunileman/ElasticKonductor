@@ -47,7 +47,13 @@ echo "1ClickECKDeploy.sh: Appling license"
 #add license file
 (cd ./license ; bash ./1ClickAddLicense.sh) 
 
-
 echo Please wait....
-sleep 120
+total_duration=300
+interval=30
+
+for (( i=0; i<$total_duration; i+=$interval )); do
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Please wait..."
+    sleep $interval
+done
+
 ./getClusterInfo.sh
