@@ -46,6 +46,5 @@ fi
 echo "1ClickECKDeploy.sh: Adding trial license"
 (cd ./license ; bash ./1ClickAddLicense.sh) 
 
-echo Please wait....
-sleep 60
+echo "1ClickECKDeploy.sh: Calling eck/getClusterInfo.sh"
 ./getClusterInfo.sh
