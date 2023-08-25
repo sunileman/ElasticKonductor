@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.16.11
+oneclickv=1.16.12
 
 usage() {
     echo
@@ -24,8 +24,8 @@ usage() {
     
     echo
     echo "Deployment Information Options:"
-    printf "  %-28s %s\n" "-inf" "Get cluster information."
-    printf "  %-28s %s\n" "-i" "Get infrastructure information."
+    printf "  %-28s %s\n" "-inf" "Get cluster infrastructure information."
+    printf "  %-28s %s\n" "-i" "Get ECK & infrastructure information."
     
     echo
     echo "Miscellaneous Options:"
