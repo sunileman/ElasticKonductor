@@ -26,7 +26,7 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
-gcp_project="elastic-sa"
+gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 
 
 
@@ -161,7 +161,7 @@ gcp_project="elastic-sa"
 
 #----------------------- Elastic Cloud Kubernetes ------------------------------
 
-#eck_version= "2.6.1"
+#eck_version= "2.9.0"
 #eck_namespace= "default"
 
 #----------------------- Elasticsearch Cluster ---------------------------------
@@ -170,7 +170,7 @@ gcp_project="elastic-sa"
 # Kubernetes pod. The total pod count will be distributed across the k8s
 # instances in the regions defined above.
 
-#es_version= "8.5.3"
+#es_version= "8.9.1"
 
 #master_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #master_pod_count= 3
@@ -240,7 +240,7 @@ gcp_project="elastic-sa"
 
 
 #----------------------- Open Telemetry ---------------------------------
-#otel_instance_count= 1
+#otel_instance_count= 0
 #otel_instance_type =  "e2-standard-32"
 #otel_instance_k8s_label = {"nodetype"="otel"}
 

@@ -246,6 +246,8 @@ export TF_VAR_variable_<list variable type>='["value", "value"]'
 Envionrment variables and setting variables in terraform.tfvars can be used together. 
 Consider terraform variable order of Precedence: `https://developer.hashicorp.com/terraform/language/values/variables#variable-definition-precedence`
 
+**Note** Refrain from altering the region and/or zone in conjunction with the -d option. Doing so prompts the automation to attempt the destruction of assets in the modified region that may not be present. First, employ the -d option to dismantle assets, and subsequently, modify the region/zone.
+
 **Note** - Instance and pod count <br>
 Instance count = Number of K8s nodes per type (hot/warm/etc)) <br>
 Pod count = Number of pods per type (hot/warm/etc) which will be deployed on the instance type.  <br>
