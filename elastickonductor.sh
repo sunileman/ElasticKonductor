@@ -4,23 +4,39 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.16.10
+oneclickv=1.16.11
 
 usage() {
-     echo "Usage: $0 "
-     echo "[-c [aws | azure | gcp | ess]"
-     echo "[-b <all | k8s | eck | otel>] "
-     echo "[-d for destroy]"
-     echo "[-de for destroy eck]"
-     echo "[-do for destroy otel]"
-     echo "[-r for create without openebs]"
-     echo "[-inf for cluster info]"
-     echo "[-i for infra info]"
-     echo "[-k to set kubectl]"
-     echo "[-ic install 1ClickECK client]"
-     echo "[-h for help]"
-     exit 0;
+    echo
+    echo
+    echo "Usage: $0 [OPTIONS]"
+    echo
+    echo "Cloud Platforms:"
+    printf "  %-28s %s\n" "-c [aws | azure | gcp | ess]" "Choose the cloud platform."
+    
+    echo 
+    echo "Deployment Options:"
+    printf "  %-28s %s\n" "-b [all | k8s | eck | otel]" "Choose component to deploy."
+    printf "  %-28s %s\n" "-d" "Destroy all components."
+    printf "  %-28s %s\n" "-de" "Destroy eck."
+    printf "  %-28s %s\n" "-do" "Destroy otel."
+    printf "  %-28s %s\n" "-r" "Create without openebs."
+    
+    echo
+    echo "Deployment Information Options:"
+    printf "  %-28s %s\n" "-inf" "Get cluster information."
+    printf "  %-28s %s\n" "-i" "Get infrastructure information."
+    
+    echo
+    echo "Miscellaneous Options:"
+    printf "  %-28s %s\n" "-k" "Set kubectl context."
+    
+    echo 
+    printf "  %-28s %s\n" "-h" "Display this help message."
+    echo 
+    exit 0;
 }
+
 
 cleanup() {
   createmode=false
