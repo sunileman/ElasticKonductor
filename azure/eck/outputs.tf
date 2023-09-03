@@ -1,8 +1,11 @@
 output "lbname" {
   value = data.terraform_remote_state.namegen.outputs.lbname
 }
-output "lb2name" {
-  value = data.terraform_remote_state.namegen.outputs.lb2name
+output "ingestLbName" {
+  value = data.terraform_remote_state.namegen.outputs.ingestLbName
+}
+output "searchLbName" {
+  value = data.terraform_remote_state.namegen.outputs.searchLbName
 }
 output "region" {
   value = data.terraform_remote_state.k8s.outputs.region

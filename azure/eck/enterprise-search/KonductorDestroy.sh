@@ -14,7 +14,7 @@ echo "KonductorDestroy.sh EnterpriseSearch setting kubectl"
 (cd ../../aks; bash ./setkubectl.sh)
 
 
-terraform init
+terraform init -upgrade
 terraform refresh
 
 

@@ -8,7 +8,7 @@ cp -f ../../terraform.tfvars .
 
 echo "1ClickECKOperator.sh: creating ECK Operator"
 # initialize terraform configuration
-terraform init
+terraform init -upgrade
 
 # validate terraform configuration
 terraform validate

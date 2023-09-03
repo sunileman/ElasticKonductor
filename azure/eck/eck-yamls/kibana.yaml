@@ -1,13 +1,13 @@
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
-  name: eck
+  name: eck-kibana
   namespace: ${eck_namespace}
 spec:
   version: ${es_version}
   count: ${kibana_pod_count}
   elasticsearchRef:
-    name: eck
+    name: eck-elasticsearch
   podTemplate:
     spec:
       nodeSelector:

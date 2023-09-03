@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: ${lb2name}
+    service.beta.kubernetes.io/azure-dns-label-name: ${searchLbName}
   labels:
     common.k8s.elastic.co/type: elasticsearch
     elasticsearch.k8s.elastic.co/cluster-name: eck
-  name: eck-external-es-http
+  name: eck-search-es-http-endpoint
   namespace: ${eck_namespace}
 spec:
   externalTrafficPolicy: Local
@@ -17,7 +17,7 @@ spec:
     targetPort: 9200
   selector:
     common.k8s.elastic.co/type: elasticsearch
-    elasticsearch.k8s.elastic.co/cluster-name: "eck"
-    acceptIngest: "true"
+    elasticsearch.k8s.elastic.co/cluster-name: "eck-elasticsearch"
+    acceptSearch: "true"
   sessionAffinity: None
   type: LoadBalancer

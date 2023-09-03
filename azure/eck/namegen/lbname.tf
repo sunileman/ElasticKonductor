@@ -5,7 +5,14 @@ resource "random_string" "lbname" {
   numeric = false
 }
 
-resource "random_string" "lb2name" {
+resource "random_string" "ingestLbName" {
+  length  = 16
+  special = false
+  upper   = false
+  numeric = false
+}
+
+resource "random_string" "searchLbName" {
   length  = 16
   special = false
   upper   = false

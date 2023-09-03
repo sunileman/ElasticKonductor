@@ -1,7 +1,7 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: eck
+  name: eck-elasticsearch
   namespace: ${eck_namespace}
 spec:
   version: ${es_version}
@@ -22,6 +22,7 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${master_accept_ingest}"
+          acceptSearch: "${master_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -87,6 +88,7 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${hot_accept_ingest}"
+          acceptSearch: "${hot_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -162,6 +164,7 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${warm_accept_ingest}"
+          acceptSearch: "${warm_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -237,6 +240,7 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${cold_accept_ingest}"
+          acceptSearch: "${cold_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -312,6 +316,7 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${frozen_accept_ingest}"
+          acceptSearch: "${frozen_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
@@ -387,6 +392,7 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${ml_accept_ingest}"
+          acceptSearch: "${ml_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat

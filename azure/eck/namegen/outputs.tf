@@ -1,6 +1,9 @@
 output "lbname" {
   value = random_string.lbname.result
 }
-output "lb2name" {
-  value = random_string.lb2name.result
+output "ingestLbName" {
+  value = random_string.ingestLbName.result
+}
+output "searchLbName" {
+  value = random_string.searchLbName.result
 }

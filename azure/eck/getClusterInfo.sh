@@ -5,8 +5,11 @@ set -e
 lbnameraw=$(terraform output lbname)
 lbname=${lbnameraw//\"/}
 
-lb2nameraw=$(terraform output lb2name)
-lb2name=${lb2nameraw//\"/}
+ingestLBnameraw=$(terraform output ingestLbName)
+ingestLBname=${ingestLBnameraw//\"/}
+
+searchLBnameraw=$(terraform output searchLbName)
+searchLBname=${searchLBnameraw//\"/}
 
 clusternameraw=$(terraform output clustername)
 clustername=${clusternameraw//\"/}
@@ -25,12 +28,33 @@ else
   echo Enterprise Trial license applied.
 fi
 
-RETRIES=20
+# Function to check if the Kubernetes secret exists
+check_secret() {
+  kubectl get secret eck-elasticsearch-es-elastic-user &>/dev/null
+  return $?
+}
+
 SLEEP_INTERVAL=20 # in seconds
+
+# Check the secret and exit if it doesn't exist after some retries
+SECRET_RETRIES=5
+secret_count=0
+while ! check_secret; do
+  secret_count=$((secret_count + 1))
+  if [ $secret_count -ge $SECRET_RETRIES ]; then
+    echo "Error: Kubernetes secret 'eck-elasticsearch-es-elastic-user' not found after $SECRET_RETRIES attempts."
+    exit 1
+  fi
+  echo "Secret 'eck-elasticsearch-es-elastic-user' not found, retrying in $SLEEP_INTERVAL seconds..."
+  sleep $SLEEP_INTERVAL
+done
+
+
+RETRIES=20
 
 # Function to check if Elasticsearch is ready
 check_es() {
-  RESPONSE=$(curl --insecure -s -u elastic:$(kubectl get secret eck-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode) https://$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '}):9200)
+  RESPONSE=$(curl --insecure -s -u elastic:$(kubectl get secret eck-elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode) https://$(kubectl get service eck-ingest-es-http-endpoint | tail -n -1 | awk {'print $4"" '}):9200)
   if echo "$RESPONSE" | grep -q "You Know, for Search"; then
     echo "$RESPONSE" # If the desired string is found, print the entire payload
     return 0
@@ -52,25 +76,43 @@ until check_es; do
 done
 
 
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo Cluster Info
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo "K8s Cluster Name: $clustername"
-echo "K8s Region: $region"
-echo
-echo ES URL[IP]: https://$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '}):9200
-echo or
-echo ES URL[DNS]: https://$lb2name.$region.cloudapp.azure.com:9200
-echo
-echo Kibana URL[IP]: https://$(kubectl get service eck-kb-http | tail -n -1 | awk {'print $4"" '}):5601
-echo or
-echo Kibana URL[DNS]: https://$lbname.$region.cloudapp.azure.com:5601
-echo
-echo Kibana UserName: elastic
-echo Kibana Password: $(kubectl get secret eck-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode)
-echo PLEASE NOTE: It may take a few minutes for the kibana UI to come up
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Fetch service URLs and credentials
+ingest_ip=$(kubectl get service eck-ingest-es-http-endpoint -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+search_ip=$(kubectl get service eck-search-es-http-endpoint -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+kibana_ip=$(kubectl get service eck-kibana-kb-http -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+kibana_password=$(kubectl get secret eck-elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode)
+
+
+echo "============================================================"
+echo "                      CLUSTER INFO                          "
+echo "============================================================"
+printf "\n"
+
+printf "K8s Cluster Name: %-15s \n" "$clustername"
+printf "K8s Region: %-15s \n" "$region"
+printf "\n"
+
+echo "---------------------- Ingest Endpoint ----------------------"
+printf "IP Address:   https://%s:9200\n" "$ingest_ip"
+printf "DNS Address:  https://%s.%s.cloudapp.azure.com:9200\n" "$ingestLBname" "$region"
+printf "\n"
+
+echo "---------------------- Search Endpoint ----------------------"
+printf "IP Address:   https://%s:9200\n" "$search_ip"
+printf "DNS Address:  https://%s.%s.cloudapp.azure.com:9200\n" "$searchLBname" "$region"
+printf "\n"
+
+echo "------------------------ Kibana URL -------------------------"
+printf "IP Address:   https://%s:5601\n" "$kibana_ip"
+printf "DNS Address:  https://%s.%s.cloudapp.azure.com:5601\n" "$lbname" "$region"
+printf "\n"
+
+echo "---------------------- Kibana Credentials --------------------"
+printf "Username: %-10s\n" "elastic"
+printf "Password: %-10s\n" "$kibana_password"
+printf "\n"
+
+echo "NOTE: It may take a few minutes for the Kibana UI to come up."
+printf "\n"
+echo "============================================================"
+echo "============================================================"
