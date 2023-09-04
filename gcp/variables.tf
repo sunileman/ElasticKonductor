@@ -771,6 +771,12 @@ variable "master_accept_ingest" {
   default = "false"
 }
 
+variable "master_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "false"
+}
+
 variable "master_pod_storage_class" {
   description = "pod storage class"
   type = string
@@ -832,6 +838,12 @@ variable "hot_accept_ingest" {
   default = "true"
 }
 
+variable "hot_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "true"
+}
+
 variable "hot_pod_storage_class" {
   description = "pod storage class"
   type = string
@@ -875,6 +887,12 @@ variable "warm_accept_ingest" {
   default = "true"
 }
 
+variable "warm_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "false"
+}
+
 variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
@@ -914,6 +932,12 @@ variable "cold_pod_ES_JAVA_OPTS" {
 
 variable "cold_accept_ingest" {
   description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "cold_accept_search" {
+  description = "pod accepts search request"
   type = string
   default = "false"
 }
@@ -963,6 +987,12 @@ variable "frozen_accept_ingest" {
   default = "false"
 }
 
+variable "frozen_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "false"
+}
+
 variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
@@ -1002,6 +1032,12 @@ variable "ml_pod_ES_JAVA_OPTS" {
 
 variable "ml_accept_ingest" {
   description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "ml_accept_search" {
+  description = "pod accepts search request"
   type = string
   default = "false"
 }
@@ -1087,6 +1123,12 @@ variable "entsearch_pod_ES_JAVA_OPTS" {
 
 variable "entsearch_accept_ingest" {
   description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "entsearch_accept_search" {
+  description = "pod accepts search request"
   type = string
   default = "false"
 }

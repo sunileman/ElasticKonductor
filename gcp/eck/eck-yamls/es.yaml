@@ -1,11 +1,10 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: eck
+  name: eck-elasticsearch
   namespace: ${eck_namespace}
 spec:
   version: ${es_version}
-  secureSettings:
   nodeSets:
   - name: master
     config:
@@ -23,11 +22,15 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${master_accept_ingest}"
+          acceptSearch: "${master_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
+    ##expose Kubernetes node labels that should be exposed in the Elasticsearch Pods
+    ##exposedNodeSelector:
+   #exposed-node-labels: "nodetype"
       spec:
         affinity:
           nodeAffinity:
@@ -43,10 +46,6 @@ spec:
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
         # initContainers:
-        # - name: sysctl
-        #   securityContext:
-        #     privileged: true
-        #   command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
         ###
         # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
         # automountServiceAccountToken: true
@@ -89,12 +88,14 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${hot_accept_ingest}"
+          acceptSearch: "${hot_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        initContainers:
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -104,7 +105,6 @@ spec:
                   operator: In
                   values:
                   - hot
-        initContainers:
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -164,12 +164,14 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${warm_accept_ingest}"
+          acceptSearch: "${warm_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        initContainers:
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -179,7 +181,6 @@ spec:
                   operator: In
                   values:
                   - warm
-        initContainers:
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -239,12 +240,14 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${cold_accept_ingest}"
+          acceptSearch: "${cold_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        initContainers:
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -254,7 +257,6 @@ spec:
                   operator: In
                   values:
                   - cold
-        initContainers:
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -314,12 +316,14 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${frozen_accept_ingest}"
+          acceptSearch: "${frozen_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        initContainers:
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -329,7 +333,6 @@ spec:
                   operator: In
                   values:
                   - frozen
-        initContainers:
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -389,12 +392,14 @@ spec:
         labels:
           # additional labels for pods
           acceptIngest: "${ml_accept_ingest}"
+          acceptSearch: "${ml_accept_search}"
         annotations:
           #co.elastic.metrics/module: elasticsearch-xpack
           #co.elastic.metrics/username: beat
           #co.elastic.metrics/password: beatbeatbeat
           #co.elastic.metrics/ssl.verification_mode: none
       spec:
+        initContainers:
         affinity:
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
@@ -404,7 +409,6 @@ spec:
                   operator: In
                   values:
                   - ml
-        initContainers:
         # this changes the kernel setting on the node to allow ES to use mmap
         # if you uncomment this init container you will likely also want to remove the
         # "node.store.allow_mmap: false" setting above
@@ -467,4 +471,4 @@ spec:
    tls:
     selfSignedCertificate:
      subjectAltNames:
-     - dns: "*.googleusercontent.com"
+     - dns: "*.cloudapp.azure.com"

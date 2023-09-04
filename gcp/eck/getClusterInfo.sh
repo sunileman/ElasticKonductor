@@ -18,12 +18,31 @@ else
   echo Enterprise Trial license applied.
 fi
 
-RETRIES=20
+# Function to check if the Kubernetes secret exists
+check_secret() {
+  kubectl get secret eck-elasticsearch-es-elastic-user &>/dev/null
+  return $?
+}
+
 SLEEP_INTERVAL=20 # in seconds
+
+# Check the secret and exit if it doesn't exist after some retries
+SECRET_RETRIES=5
+secret_count=0
+while ! check_secret; do
+  secret_count=$((secret_count + 1))
+  if [ $secret_count -ge $SECRET_RETRIES ]; then
+    echo "Error: Kubernetes secret 'eck-elasticsearch-es-elastic-user' not found after $SECRET_RETRIES attempts."
+    exit 1
+  fi
+  echo "Secret 'eck-elasticsearch-es-elastic-user' not found, retrying in $SLEEP_INTERVAL seconds..."
+  sleep $SLEEP_INTERVAL
+done
+
 
 # Function to check if Elasticsearch is ready
 check_es() {
-  RESPONSE=$(curl --insecure -s -u elastic:$(kubectl get secret eck-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode) https://$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '}):9200)
+  RESPONSE=$(curl --insecure -s -u elastic:$(kubectl get secret eck-elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode) https://$(kubectl get service eck-ingest-es-http-endpoint | tail -n -1 | awk {'print $4"" '}):9200)
   if echo "$RESPONSE" | grep -q "You Know, for Search"; then
     echo "$RESPONSE" # If the desired string is found, print the entire payload
     return 0
@@ -31,6 +50,8 @@ check_es() {
     return 1
   fi
 }
+
+RETRIES=20
 
 # Retry mechanism
 count=0
@@ -44,38 +65,75 @@ until check_es; do
   sleep $SLEEP_INTERVAL
 done
 
-echo "getClusterInfo.sh: ip parsing"
-ipsplit() { local IFS=.; echo $*; }
-kurl=$(kubectl get service eck-kb-http | tail -n -1 | awk {'print $4"" '})
-set -- `ipsplit $kurl`
+
+
+ipsplit() {
+    local IFS=.
+    echo $*
+}
+
+get_service_ip() {
+    local service_name="$1"
+    local retries=10
+    local wait_time=20
+
+    for i in $(seq 1 $retries); do
+        ip=$(kubectl get service $service_name -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        if [[ "$ip" != "<pending>" && ! -z "$ip" ]]; then
+            echo $ip
+            return 0
+        fi
+        echo "IP for $service_name is pending. Waiting for $wait_time seconds..."
+        sleep $wait_time
+    done
+    echo "<pending>"
+    return 1
+}
+
+# Use the function to get the IPs
+ingest_ip=$(get_service_ip "eck-ingest-es-http-endpoint")
+search_ip=$(get_service_ip "eck-search-es-http-endpoint")
+kibana_ip=$(get_service_ip "eck-kibana-kb-http")
+
+kibana_password=$(kubectl get secret eck-elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode)
+
+kurl_kibana=$(kubectl get service eck-kibana-kb-http | tail -n -1 | awk '{print $4}')
+set -- `ipsplit $kurl_kibana`
 k1=$4.$3.$2.$1
 
-echo "getClusterInfo.sh: get eck-external-es-http"
-kurl=$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '})
-set -- `ipsplit $kurl`
+kurl_ingest=$(kubectl get service eck-ingest-es-http-endpoint | tail -n -1 | awk '{print $4}')
+set -- `ipsplit $kurl_ingest`
 k2=$4.$3.$2.$1
 
+kurl_search=$(kubectl get service eck-search-es-http-endpoint | tail -n -1 | awk '{print $4}')
+set -- `ipsplit $kurl_search`
+k3=$4.$3.$2.$1
 
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo Cluster Info
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Display information
+echo "================================================="
+echo "                     Cluster Info"
+echo "================================================="
+
 echo "Cluster Name: $clustername"
 echo "Region: $region"
 echo
-echo ES URL: https://$(kubectl get service eck-external-es-http | tail -n -1 | awk {'print $4"" '}):9200
-echo or
-echo ES URL: https://$k2.bc.googleusercontent.com:9200
+
+echo "Elasticsearch Ingest Endpoint:"
+echo "- IP: https://$ingest_ip:9200"
+echo "- DNS: https://$k2.bc.googleusercontent.com:9200"
 echo
-echo Kibana URL: https://$(kubectl get service eck-kb-http | tail -n -1 | awk {'print $4"" '}):5601
-echo or
-echo Kibana URL: https://$k1.bc.googleusercontent.com:5601
+
+echo "Elasticsearch Search Endpoint:"
+echo "- IP: https://$search_ip:9200"
+echo "- DNS: https://$k3.bc.googleusercontent.com:9200"
 echo
+
+echo "Kibana:"
+echo "- URL (IP): https://$kibana_ip:5601"
+echo "- URL (DNS): https://$k1.bc.googleusercontent.com:5601"
+echo "- UserName: elastic"
+echo "- Password: $kibana_password"
 echo
-echo Kibana UserName: elastic
-echo Kibana Password: $(kubectl get secret eck-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode)
-echo PLEASE NOTE: It may take a few minutes for the kibana UI to come up
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+echo "NOTE: It may take a few minutes for the Kibana UI to come up."
+echo "================================================="

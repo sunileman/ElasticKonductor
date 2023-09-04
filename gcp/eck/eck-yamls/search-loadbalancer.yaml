@@ -5,8 +5,8 @@ metadata:
     #service.beta.kubernetes.io/aws-load-balancer-type: nlb
   labels:
     common.k8s.elastic.co/type: elasticsearch
-    elasticsearch.k8s.elastic.co/cluster-name: eck
-  name: eck-external-es-http
+    elasticsearch.k8s.elastic.co/cluster-name: eck-elasticsearch
+  name: eck-search-es-http-endpoint
   namespace: ${eck_namespace}
 spec:
   externalTrafficPolicy: Local
@@ -17,7 +17,7 @@ spec:
     targetPort: 9200
   selector:
     common.k8s.elastic.co/type: elasticsearch
-    elasticsearch.k8s.elastic.co/cluster-name: "eck"
-    acceptIngest: "true"
+    elasticsearch.k8s.elastic.co/cluster-name: "eck-elasticsearch"
+    acceptSearch: "true"
   sessionAffinity: None
   type: LoadBalancer

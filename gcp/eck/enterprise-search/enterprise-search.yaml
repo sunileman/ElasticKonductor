@@ -6,7 +6,7 @@ spec:
   version: ${es_version}
   count: ${entsearch_pod_count}
   elasticsearchRef:
-    name: eck
+    name: eck-elasticsearch
   config:
     kibana.host: https://eck-kb-http.${eck_namespace}.svc:5601
   configRef:

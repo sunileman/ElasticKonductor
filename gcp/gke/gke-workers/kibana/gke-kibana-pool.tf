@@ -10,7 +10,7 @@ resource "google_container_node_pool" "kibana" {
 
 
   node_count = var.kibana_instance_count
-
+  node_locations = [var.zones[0]]
 
   node_config {
     preemptible  = true
