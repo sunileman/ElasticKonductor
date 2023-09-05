@@ -73,6 +73,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #master_surge_count=10
 #master_volume_type= "pd-ssd"
 #master_accept_ingest=false
+#master_accept_search=false
 #master_create_node_pool=true
 
 #kibana_instance_count=1
@@ -89,6 +90,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #hot_surge_count=10
 #hot_volume_type= "pd-ssd"
 #hot_accept_ingest=true
+#hot_accept_search=true
 #hot_create_node_pool=true
 #hot_local_ssd_count = 0  ##each unit will provide 375 GB
 
@@ -100,6 +102,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #warm_instance_type= ""
 #warm_volume_type= "pd-ssd"
 #warm_accept_ingest=true
+#warm_accept_search=false
 #warm_create_node_pool=true
 #warm_local_ssd_count = 0
 
@@ -111,6 +114,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #cold_surge_count=10
 #cold_volume_type= "pd-ssd"
 #cold_accept_ingest=false
+#cold_accept_search=false
 #cold_create_node_pool=true
 #cold_local_ssd_count = 0
 
@@ -123,6 +127,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #frozen_surge_count=10
 #frozen_volume_type= "pd-ssd"
 #frozen_accept_ingest=false
+#frozen_accept_search=false
 #frozen_create_node_pool=true
 #frozen_local_ssd_count = 0
 
@@ -134,6 +139,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #ml_surge_count=10
 #ml_volume_type= "pd-ssd"
 #ml_accept_ingest=false
+#ml_accept_search=false
 #ml_create_node_pool=true
 #ml_local_ssd_count = 1
 
@@ -231,6 +237,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #entsearch_pod_storage = "200Gi"
 #entsearch_pod_ES_JAVA_OPTS = " "
 #entsearch_accept_ingest = "false"
+#entsearch_accept_search=false
 #entsearch_pod_storage_class = "local-storage"
 
 #----------------------- istio ---------------------------------
