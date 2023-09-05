@@ -78,17 +78,22 @@ get_service_ip() {
     local wait_time=20
 
     for i in $(seq 1 $retries); do
-        ip=$(kubectl get service $service_name -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        ip=$(kubectl get service $service_name -o=jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
         if [[ "$ip" != "<pending>" && ! -z "$ip" ]]; then
             echo $ip
             return 0
+        else
+            >&2 echo "IP for $service_name is not ready. Retrying in $wait_time seconds..." 
+            sleep $wait_time
         fi
-        echo "IP for $service_name is pending. Waiting for $wait_time seconds..."
-        sleep $wait_time
     done
-    echo "<pending>"
+
+    >&2 echo "Failed to retrieve IP for $service_name after $retries retries."
+    echo "<unavailable>"
     return 1
 }
+
+
 
 # Use the function to get the IPs
 ingest_ip=$(get_service_ip "eck-ingest-es-http-endpoint")
