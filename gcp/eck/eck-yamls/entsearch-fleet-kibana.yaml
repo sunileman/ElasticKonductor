@@ -1,0 +1,157 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: eck-kibana
+  namespace: ${eck_namespace}
+spec:
+  version: ${es_version}
+  count: ${kibana_pod_count}
+  elasticsearchRef:
+    name: eck-elasticsearch
+  enterpriseSearchRef:
+    name: enterprise-search
+  podTemplate:
+    spec:
+      nodeSelector:
+        nodetype: kibana
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: ${kibana_pod_memory}
+            cpu: ${kibana_pod_cpu}
+  config:
+    xpack.fleet.agents.elasticsearch.hosts: ["https://eck-elasticsearch-es-http.default.svc:9200"]
+    xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-agent-http.default.svc:8220"]
+    xpack.fleet.outputs:
+      - id: fleet-default-output
+        name: default
+        type: elasticsearch
+        hosts: ["https://eck-elasticsearch-es-http.default.svc:9200"]
+        is_default: true
+        is_default_monitoring: true
+        config:
+          ssl:
+            verification_mode: none
+    xpack.fleet.packages:
+    - name: system
+      version: latest
+    - name: elastic_agent
+      version: latest
+    - name: fleet_server
+      version: latest
+    - name: kubernetes
+      version: latest
+    xpack.fleet.agentPolicies:
+    - name: Fleet Server on ECK policy
+      id: eck-fleet-server
+      namespace: default
+      monitoring_enabled:
+      - logs
+      - metrics
+      unenroll_timeout: 900
+      package_policies:
+      - name: fleet_server-1
+        id: fleet_server-1
+        package:
+          name: fleet_server
+    - name: Elastic Agent on ECK policy
+      id: eck-agent
+      namespace: default
+      monitoring_enabled:
+      - logs
+      - metrics
+      unenroll_timeout: 900
+      package_policies:
+      - package:
+          name: system
+        name: system-1
+      - package:
+          name: kubernetes
+        name: kubernetes-1
+  http:
+   service:
+    metadata:
+         annotations:
+    spec:
+         type: LoadBalancer
+   tls:
+    selfSignedCertificate:
+     subjectAltNames:
+     - dns: "*.googleusercontent.com"
+---
+apiVersion: agent.k8s.elastic.co/v1alpha1
+kind: Agent
+metadata:
+  name: fleet-server
+spec:
+  version: ${es_version}
+  kibanaRef:
+    name: eck-kibana
+  elasticsearchRefs:
+  - name: eck-elasticsearch
+  mode: fleet
+  fleetServerEnabled: true
+  policyID: eck-fleet-server
+  deployment:
+    replicas: 1
+    podTemplate:
+      spec:
+        serviceAccountName: fleet-server
+        automountServiceAccountToken: true
+        securityContext:
+          runAsUser: 0
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fleet-server
+rules:
+- apiGroups: [""]
+  resources:
+  - pods
+  - namespaces
+  - nodes
+  verbs:
+  - get
+  - watch
+  - list
+- apiGroups: ["coordination.k8s.io"]
+  resources:
+  - leases
+  verbs:
+  - get
+  - create
+  - update
+- apiGroups: ["apps"]
+  resources:
+  - replicasets
+  verbs:
+  - "list"
+  - "watch"
+- apiGroups: ["batch"]
+  resources:
+  - jobs
+  verbs:
+  - "list"
+  - "watch"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fleet-server
+  namespace: ${eck_namespace}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: fleet-server
+subjects:
+- kind: ServiceAccount
+  name: fleet-server
+  namespace: ${eck_namespace}
+roleRef:
+  kind: ClusterRole
+  name: fleet-server
+  apiGroup: rbac.authorization.k8s.io
+...
