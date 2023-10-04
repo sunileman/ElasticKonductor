@@ -5,6 +5,15 @@ data "terraform_remote_state" "k8s" {
     path = "../gke/terraform.tfstate"
   }
 }
+
+locals {
+    master_roles = var.kibana_fleet_enabled ? "${var.master_pod_roles}, remote_cluster_client" : var.master_pod_roles
+    hot_roles = var.kibana_fleet_enabled ? "${var.hot_pod_roles}, remote_cluster_client" : var.hot_pod_roles
+    warm_roles = var.kibana_fleet_enabled ? "${var.warm_pod_roles}, remote_cluster_client" : var.warm_pod_roles
+    cold_roles = var.kibana_fleet_enabled ? "${var.cold_pod_roles}, remote_cluster_client" : var.cold_pod_roles
+    frozen_roles = var.kibana_fleet_enabled ? "${var.frozen_pod_roles}, remote_cluster_client" : var.frozen_pod_roles
+}
+
 data "kubectl_path_documents" "es" {
     pattern = "./eck-yamls/es.yaml"
     vars = {
@@ -16,11 +25,11 @@ data "kubectl_path_documents" "es" {
         cold_pod_ES_JAVA_OPTS = var.cold_pod_ES_JAVA_OPTS
         frozen_pod_ES_JAVA_OPTS = var.frozen_pod_ES_JAVA_OPTS
         ml_pod_ES_JAVA_OPTS = var.ml_pod_ES_JAVA_OPTS
-        master_pod_roles = var.master_pod_roles
-        hot_pod_roles = var.hot_pod_roles
-        warm_pod_roles = var.warm_pod_roles
-        cold_pod_roles = var.cold_pod_roles
-        frozen_pod_roles = var.frozen_pod_roles
+        master_pod_roles = local.master_roles
+        hot_pod_roles = local.hot_roles
+        warm_pod_roles = local.warm_roles
+        cold_pod_roles = local.cold_roles
+        frozen_pod_roles = local.frozen_roles
         ml_pod_roles = var.ml_pod_roles
         master_pod_cpu = var.master_pod_cpu
         hot_pod_cpu = var.hot_pod_cpu
@@ -67,11 +76,18 @@ data "kubectl_path_documents" "es" {
     }
 }
 
-
+locals {
+  entsearch = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? "" : "./eck-yamls/entsearch-kibana.yaml"
+  entsearchbool = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? false : true
+  kibana = var.kibana_fleet_enabled ? "./eck-yamls/fleet-kibana.yaml" : ""
+  both = (local.entsearchbool && var.kibana_fleet_enabled) ? "./eck-yamls/entsearch-fleet-kibana.yaml" : ""
+  neither = (!(local.entsearchbool || var.kibana_fleet_enabled)) ? "./eck-yamls/kibana.yaml" : ""
+  result = coalesce(local.both, local.entsearch, local.kibana, local.neither)
+}
 
 data "kubectl_path_documents" "kibana" {
     #pattern = "./eck-yamls/kibana.yaml"
-    pattern = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? "./eck-yamls/kibana.yaml" : "./eck-yamls/entsearch-kibana.yaml"
+    pattern = local.result
     vars = {
         es_version = var.es_version
         eck_namespace = var.eck_namespace
@@ -80,8 +96,6 @@ data "kubectl_path_documents" "kibana" {
         kibana_pod_count = var.kibana_pod_count
     }
 }
-
-
 
 data "kubectl_path_documents" "es-count" {
   pattern = "./eck-yamls/es.yaml"
@@ -147,7 +161,7 @@ data "kubectl_path_documents" "es-count" {
 
 
 data "kubectl_path_documents" "kibana-count" {
-    pattern = "./eck-yamls/kibana.yaml"
+    pattern = local.result
     vars = {
         es_version = ""
         eck_namespace = ""
