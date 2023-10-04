@@ -5,7 +5,7 @@ clusternameraw=$(terraform output clustername)
 clustername=${clusternameraw//\"/}
 regionraw=$(terraform output region)
 region=${regionraw//\"/}
-
+fleetyn=$(terraform output fleet)
 
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo Checking if license file is exists
@@ -72,28 +72,54 @@ ipsplit() {
     echo $*
 }
 
+check_fleet() {
+    local retries=20
+    local wait_time=20
+
+    for i in $(seq 1 $retries); do
+        ip=$(kubectl get service fleet-server-agent-http -o=jsonpath='{.spec.clusterIP}' 2>/dev/null)
+        if [[ "$ip" != "<pending>" && ! -z "$ip" ]]; then
+             >&2 echo "Fleet is ready. It may take a few minutes for the Fleet Agent to appear in Kibana."
+            return 0
+        else
+            >&2 echo "Fleet is not ready. Retrying in $wait_time seconds..." 
+            sleep $wait_time
+        fi
+    done
+
+    >&2 echo "Failed to deploy Fleet after $retries retries."
+    echo "<unavailable>"
+    return 1
+}
+
 get_service_ip() {
     local service_name="$1"
     local retries=10
     local wait_time=20
 
     for i in $(seq 1 $retries); do
-        ip=$(kubectl get service $service_name -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        ip=$(kubectl get service $service_name -o=jsonpath='{.status.loadBalancer.ingress[0].ip}' 2>/dev/null)
         if [[ "$ip" != "<pending>" && ! -z "$ip" ]]; then
             echo $ip
             return 0
+        else
+            >&2 echo "IP for $service_name is not ready. Retrying in $wait_time seconds..." 
+            sleep $wait_time
         fi
-        echo "IP for $service_name is pending. Waiting for $wait_time seconds..."
-        sleep $wait_time
     done
-    echo "<pending>"
+
+    >&2 echo "Failed to retrieve IP for $service_name after $retries retries."
+    echo "<unavailable>"
     return 1
 }
+
+
 
 # Use the function to get the IPs
 ingest_ip=$(get_service_ip "eck-ingest-es-http-endpoint")
 search_ip=$(get_service_ip "eck-search-es-http-endpoint")
 kibana_ip=$(get_service_ip "eck-kibana-kb-http")
+
 
 kibana_password=$(kubectl get secret eck-elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode)
 
@@ -135,5 +161,13 @@ echo "- UserName: elastic"
 echo "- Password: $kibana_password"
 echo
 
+if [[ $fleetyn == true ]]; then
+    echo "Fleet Status:" 
+    $(check_fleet)
+fi
+echo
 echo "NOTE: It may take a few minutes for the Kibana UI to come up."
 echo "================================================="
+
+
+
