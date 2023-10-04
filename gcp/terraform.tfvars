@@ -32,6 +32,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 
 #----------------------- Cloud Provider ----------------------------------------
 
+
 #automation_name= "konductor"
 
 # Defines where konductor will deploy the new Kubernetes cluster
@@ -81,6 +82,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #kibana_instance_type= ""
 #kibana_volume_type= "pd-ssd"
 #kibana_create_node_pool=true
+#kibana_fleet_enabled=true
 
 #hot_initial_node_count_per_zone=2
 #hot_instance_count_per_zone=2
