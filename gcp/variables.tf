@@ -225,7 +225,11 @@ variable "kibana_instance_count" {
   default     = 1
 }
 
-
+variable "kibana_fleet_enabled" {
+  description = "fleet enabled"
+  type = bool
+  default = true
+}
 
 variable "kibana_instance_type" {
   description = "Kibana instance type"
