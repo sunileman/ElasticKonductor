@@ -1,8 +1,9 @@
-data "curl" "iscsi" {
-  http_method = "GET"
-  uri = "https://raw.githubusercontent.com/longhorn/longhorn/v1.4.0/deploy/prerequisite/longhorn-iscsi-installation.yaml"
+# Read the content of the local file
+data "local_file" "iscsi" {
+  filename = "${path.module}/yamls/longhorn-iscsi-installation.yaml"
 }
 
+# Use the content of the local file in kubectl_file_documents
 data "kubectl_file_documents" "iscsi_doc" {
-  content = data.curl.iscsi.response
+  content = data.local_file.iscsi.content
 }

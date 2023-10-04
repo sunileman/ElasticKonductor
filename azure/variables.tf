@@ -28,7 +28,7 @@ variable "resource_group_name_prefix" {
 variable "aks_version" {
   description = "AKS Version"
   type        = string
-  default     = "1.26.3"
+  default     = "1.27.3"
 }
 
 variable "eck_version" {
