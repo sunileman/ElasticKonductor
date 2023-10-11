@@ -14,7 +14,7 @@ ElasticKonductor currently deploys
     * Kibana
     * License loading (Bring your own ES license)
 * OpenTelemetry Demo (AKS,GKE)
-* Enterprise Search (AKS,GKE)
+* Enterprise Search
 * ElasticSearch Service (ESS)
 * Istio
 
@@ -115,6 +115,9 @@ This will install all the required libaries and CLIs for the automation.
 `i` get cluster info 
 
 `int` get cluster infra info 
+
+**Note**
+`-b eck` option assumes K8s has been deployed
 
 Examples
 
@@ -231,6 +234,38 @@ es_apm_token="your es apm token" #your Elastic APM secret token
 
 
 ```
+#### Azure Open Telemetry Demo 
+
+```
+tags = {
+    "division" = "field"
+    "org" = "sa"
+    "team" = "amer"
+    "project" = "superman" # Project name (shared) or username (individual)
+}
+
+resource_group_location="eastus"
+
+
+otel_instance_count= 1
+
+master_instance_count=0
+hot_instance_count=0
+kibana_instance_count=0
+warm_instance_count=0
+cold_instance_count=0
+frozen_instance_count=0
+ml_instance_count=0
+entsearch_instance_count=0
+
+
+
+es_apm_url= "your-es-apm.elastic-cloud.com:443" #without https:// prefix
+es_apm_token="your es apm token" #your Elastic APM secret token
+
+```
+
+
 
 
 ## Autoscaling
@@ -321,7 +356,8 @@ Azure
 
 Run the automation with `r` option to disable openebs
 
-
+## Kube State Metrics (KSM)
+ElasticKonductor installs KSM by default with the service name `ksm-kube-state-metrics`. Under the kube-state-metrics integration section for Kubernetes, update the service name to `ksm-kube-state-metrics.kube-system.svc.cluster.local` with port `8080`.
 
 ## ECK/ES Updates
 The automation; ElasticKonductor,  is idempotent.  Therefore if updates to ECK or ES have been applied, simple rerun ElasticKonductor with the same -b -c arguments 
@@ -469,3 +505,10 @@ Error with kubectl
  couldn't get current server API group list: Get "http://localhost:8080/api?timeout=32s": dial tcp 127.0.0.1:8080: connect: connection refused
 ```
 Run `./elastickonductor.sh -c <gcp|azure|aws> -k` to set your local kubectl config
+
+
+Error with aws destroy or create
+```
+An error occurred (AccessDeniedException) when calling the DescribeCluster operation: User: arn:aws:sts::xxx:assumed-role/AmazonSSMRoleForInstancesQuickSetup/xxxxx is not authorized to perform: eks:DescribeCluster on resource: arn:aws:eks:us-east-1:xxxx:cluster/1ClickECK-sunman-tolerant-seagull
+```
+Run `aws configure`.  This is required prior to running konductor

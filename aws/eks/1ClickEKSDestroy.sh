@@ -1,6 +1,6 @@
 #!/bin/bash
 export KUBE_CONFIG_PATH=~/.kube/config
-echo T1ClickEKSDestroy.sh: Terraform Destroy
+echo "1ClickEKSDestroy.sh: Terraform Destroy"
 set -e
 
 echo "1ClickEKSDeploy.shopying variable files"
@@ -11,6 +11,9 @@ set +e
 echo "1ClickEKSDestroy.sh setting kubectl"
 (bash ./setkubectl.sh)
 set -e
+
+echo "1ClickEKSDestroy.sh: Destroying guardduty"
+(cd ./guardduty; bash ./KonductorDestroy.sh)
 
 terraform init -upgrade
 set +e

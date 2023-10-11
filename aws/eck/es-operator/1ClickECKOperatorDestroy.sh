@@ -17,3 +17,9 @@ terraform refresh
 
 echo "1CLickECKOperatorDestroy.sh: Terraform Destroy"
 terraform destroy -auto-approve
+
+
+echo "1ClickECKOperator.sh Destroying ECK operator"
+set +e
+kubectl delete -f ./eck-yamls/operator.yaml
+set -e

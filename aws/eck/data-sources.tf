@@ -54,6 +54,12 @@ data "kubectl_path_documents" "es" {
         cold_accept_ingest = var.cold_accept_ingest
         frozen_accept_ingest = var.frozen_accept_ingest
         ml_accept_ingest = var.ml_accept_ingest
+        master_accept_search = var.master_accept_search
+        hot_accept_search = var.hot_accept_search
+        warm_accept_search = var.warm_accept_search
+        cold_accept_search = var.cold_accept_search
+        frozen_accept_search = var.frozen_accept_search
+        ml_accept_search = var.ml_accept_search
         master_pod_storage_class = var.master_pod_storage_class
         hot_pod_storage_class = var.hot_pod_storage_class
         warm_pod_storage_class = var.warm_pod_storage_class
@@ -111,6 +117,12 @@ data "kubectl_path_documents" "es-count" {
         cold_accept_ingest = ""
         frozen_accept_ingest =""
         ml_accept_ingest = ""
+        master_accept_search = ""
+        hot_accept_search = ""
+        warm_accept_search = ""
+        cold_accept_search = ""
+        frozen_accept_search =""
+        ml_accept_search = ""
         master_pod_storage_class = ""
         hot_pod_storage_class = ""
         warm_pod_storage_class = ""
@@ -120,9 +132,9 @@ data "kubectl_path_documents" "es-count" {
   }
 }
 
-
 data "kubectl_path_documents" "kibana" {
-    pattern = "./eck-yamls/kibana.yaml"
+    #pattern = "./eck-yamls/kibana.yaml"
+    pattern = var.entsearch_pod_count > 0 ? "./eck-yamls/entsearch-kibana.yaml" : "./eck-yamls/kibana.yaml"
     vars = {
         es_version = var.es_version
         eck_namespace = var.eck_namespace
@@ -132,9 +144,9 @@ data "kubectl_path_documents" "kibana" {
     }
 }
 
-
 data "kubectl_path_documents" "kibana-count" {
-    pattern = "./eck-yamls/kibana.yaml"
+    #pattern = "./eck-yamls/kibana.yaml"
+    pattern = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? "./eck-yamls/kibana.yaml" : "./eck-yamls/entsearch-kibana.yaml"
     vars = {
         es_version = ""
         eck_namespace = ""
@@ -144,23 +156,34 @@ data "kubectl_path_documents" "kibana-count" {
     }
 }
 
-
-data "kubectl_path_documents" "loadbalancer" {
-    pattern = "./eck-yamls/loadbalancer.yaml"
+data "kubectl_path_documents" "ingest-loadbalancer" {
+    pattern = "./eck-yamls/ingest-loadbalancer.yaml"
     vars = {
         eck_namespace = var.eck_namespace
     }
 }
 
-
-
-data "kubectl_path_documents" "loadbalancer-count" {
-    pattern = "./eck-yamls/loadbalancer.yaml"
+data "kubectl_path_documents" "ingest-loadbalancer-count" {
+    pattern = "./eck-yamls/ingest-loadbalancer.yaml"
     vars = {
         eck_namespace = ""
     }
 }
 
+
+data "kubectl_path_documents" "search-loadbalancer" {
+    pattern = "./eck-yamls/search-loadbalancer.yaml"
+    vars = {
+        eck_namespace = var.eck_namespace
+    }
+}
+
+data "kubectl_path_documents" "search-loadbalancer-count" {
+    pattern = "./eck-yamls/search-loadbalancer.yaml"
+    vars = {
+        eck_namespace = ""
+    }
+}
 
 
 data "kubectl_path_documents" "aws-secrets" {

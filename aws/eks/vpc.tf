@@ -112,4 +112,3 @@ resource "aws_route" "main" {
   nat_gateway_id         = aws_nat_gateway.main.id
   destination_cidr_block = "0.0.0.0/0"
 }
-

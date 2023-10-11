@@ -818,7 +818,7 @@ variable "istiod_helm_chart_version" {
 variable "ksm_helm_chart_version" {
   description = "KSM chart version"
   type = string
-  default = "4.32.0"
+  default = "5.12.1"
   ##https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
 }
 

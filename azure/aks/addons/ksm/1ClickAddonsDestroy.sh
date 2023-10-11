@@ -6,6 +6,8 @@ nowtime=`date +"%m_%d_%Y_%s"`
 export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-destroy-$nowtime.log"
 
+export KUBE_CONFIG_PATH=~/.kube/config
+
 set -e
 
 echo "ksm/1ClickAddonsDestroy.sh: coping variable files"

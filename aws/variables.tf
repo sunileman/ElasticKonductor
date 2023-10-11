@@ -14,13 +14,13 @@ variable "aws_secret_key" {
 variable "eks_version" {
   description = "EKS Version"
   type        = string
-  default = "1.24"
+  default = "1.27"
 }
 
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.6.1"
+  default = "2.9.0"
 }
 
 variable "region" {
@@ -36,9 +36,9 @@ variable "availability_zones_count" {
 }
 
 variable "automation_name" {
-  description = "ClickDeployment Name"
+  description = "Deployment Name"
   type = string
-  default = "1ClickECK"
+  default = "konductor"
 }
 
 variable "vpc_id" {
@@ -373,6 +373,44 @@ variable "util_ami_type" {
 }
 
 
+variable "entsearch_instance_count" {
+  description = "Number of entsearch instances"
+  type        = number
+  default     = 1
+}
+
+variable "entsearch_max_instance_count" {
+  description = "max Number of entsearch instances"
+  type        = number
+  default     = 10
+}
+
+variable "entsearch_instance_type" {
+  description = "entsearch instance type"
+  type = list(string)
+  default     = ["c6g.8xlarge"]
+}
+
+variable "entsearch_instance_k8s_label" {
+  description = "entsearch instance k8s label"
+  type        = map
+  default     = {"nodetype"="entsearch"}
+}
+
+variable "entsearch_ami_type" {
+  description = "entsearch AMI type"
+  type = string
+  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+}
+
+variable "entsearch_capacity_type" {
+  description = "entsearch capacity type"
+  type = string
+  default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+
+
 variable "client_access_cidr" {
   description = "client access cidr to include in security group access clearnance"
   type = list(string)
@@ -430,6 +468,12 @@ variable "master_pod_ES_JAVA_OPTS" {
 
 variable "master_accept_ingest" {
   description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "master_accept_search" {
+  description = "pod accepts search request"
   type = string
   default = "false"
 }
@@ -510,6 +554,11 @@ variable "hot_accept_ingest" {
   default = "true"
 }
 
+variable "hot_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "true"
+}
 
 
 variable "hot_pod_storage_class" {
@@ -569,6 +618,12 @@ variable "warm_accept_ingest" {
   default = "true"
 }
 
+variable "warm_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "false"
+}
+
 variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
@@ -622,6 +677,12 @@ variable "cold_pod_ES_JAVA_OPTS" {
 
 variable "cold_accept_ingest" {
   description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "cold_accept_search" {
+  description = "pod accepts search request"
   type = string
   default = "false"
 }
@@ -685,6 +746,12 @@ variable "frozen_accept_ingest" {
   default = "false"
 }
 
+variable "frozen_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "false"
+}
+
 variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
@@ -743,6 +810,12 @@ variable "ml_accept_ingest" {
   default = "false"
 }
 
+variable "ml_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "false"
+}
+
 variable "ml_pod_storage_class" {
   description = "pod storage class"
   type = string
@@ -761,6 +834,71 @@ variable "ml_pod_storage_class_throughput" {
   type = string
   default = "125"
 }
+
+
+variable "entsearch_pod_count" {
+  description = "number of entsearch pods"
+  type = number
+  default = 1
+}
+
+variable "entsearch_pod_cpu" {
+  description = "entsearch pod cpu request"
+  type = string
+  default = "30000m"
+}
+
+variable "entsearch_pod_memory" {
+  description = "entsearch pod memory request"
+  type = string
+  default = "53248Mi"
+}
+
+variable "entsearch_pod_storage" {
+  description = "entsearch pod storage request"
+  type = string
+  default = "140Gi"
+}
+
+variable "entsearch_pod_ES_JAVA_OPTS" {
+  description = "entsearch pod ES_JAVA_OPTS"
+  type = string
+  default = " "
+  #default = "-Xms8g -Xmx8g"
+}
+
+variable "entsearch_accept_ingest" {
+  description = "pod accepts ingest"
+  type = string
+  default = "false"
+}
+
+variable "entsearch_accept_search" {
+  description = "pod accepts search request"
+  type = string
+  default = "false"
+}
+
+variable "entsearch_pod_storage_class" {
+  description = "pod storage class"
+  type = string
+  default = "local-storage" 
+  #valid values local-storage|entsearch-gp3|entsearch-io2-be
+}
+
+
+variable "entsearch_pod_storage_class_iops" {
+  description = "pod storage class iops"
+  type = string
+  default = "3000"
+}
+
+variable "entsearch_pod_storage_class_throughput" {
+  description = "pod storage class throughput in mb"
+  type = string
+  default = "125"
+}
+
 
 
 variable "eck_namespace" {

@@ -8,6 +8,8 @@ spec:
   count: ${kibana_pod_count}
   elasticsearchRef:
     name: eck-elasticsearch
+  enterpriseSearchRef:
+    name: enterprise-search
   podTemplate:
     spec:
       nodeSelector:
@@ -22,10 +24,9 @@ spec:
    service:
     metadata:
          annotations:
-            service.beta.kubernetes.io/aws-load-balancer-type: nlb
     spec:
          type: LoadBalancer
    tls:
     selfSignedCertificate:
      subjectAltNames:
-     - dns: "*.us-east-1.elb.amazonaws.com"
+     - dns: "*.googleusercontent.com"

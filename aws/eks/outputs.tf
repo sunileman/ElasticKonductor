@@ -49,3 +49,10 @@ output "region" {
   value       = var.region
 }
 
+output "eck_version" {
+  value = var.eck_version
+}
+
+output "eks-vpc_id" {
+  value = aws_vpc.eksvpc.id
+}

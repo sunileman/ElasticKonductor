@@ -19,16 +19,13 @@ tags = {
     "org" = "sa"
     "team" = "amer"
     "project" = "username" # Project name (shared) or username (individual)
-    "enddate" = "05012023" #MMDDYYYY
+    "enddate" = "05012024" #MMDDYYYY
 }
 
 region= "us-east-1"
 
-
-
-
 #----------------------- Cloud Provider ----------------------------------------
-#automation_name= "1ClickECK"
+#automation_name= "konductor"
 
 # Optinally set aws creds here (less secure) 
 #aws_access_key="your-key"
@@ -61,6 +58,7 @@ region= "us-east-1"
 #master_instance_type= ["m6g.2xlarge"]
 #master_max_instance_count=2
 #master_accept_ingest=false
+#master_accept_search=false
 
 #kibana_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #kibana_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -76,6 +74,8 @@ region= "us-east-1"
 #hot_instance_type= ["c6g.8xlarge"]
 #hot_max_instance_count=10
 #hot_accept_ingest=true
+#hot_accept_search=true
+
 
 
 #warm_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -85,6 +85,7 @@ region= "us-east-1"
 #warm_instance_type= ["r6i.4xlarge"]
 #warm_max_instance_count=10
 #warm_accept_ingest=true
+#warm_accept_search=false
 
 
 #cold_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -94,6 +95,7 @@ region= "us-east-1"
 #cold_instance_type= ["r6i.12xlarge"]
 #cold_max_instance_count=10
 #cold_accept_ingest=false
+#cold_accept_search=false
 
 
 #frozen_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -103,6 +105,7 @@ region= "us-east-1"
 #frozen_instance_type= ["r6i.24xlarge"]
 #frozen_max_instance_count=10
 #frozen_accept_ingest=false
+#frozen_accept_search=false
 
 
 #ml_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
@@ -112,7 +115,16 @@ region= "us-east-1"
 #ml_instance_type= ["c6i.4xlarge"]
 #ml_max_instance_count=10
 #ml_accept_ingest=false
+#ml_accept_search=false
 
+#entsearch_ami_type= "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+#entsearch_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
+#entsearch_instance_count= 1
+#entsearch_instance_k8s_label= {"nodetype"="entsearch"}
+#entsearch_instance_type= ["c6g.8xlarge"]
+#entsearch_max_instance_count=10
+#entsearch_accept_ingest=true
+#entsearch_accept_search=false
 
 #util_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #util_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -205,6 +217,19 @@ region= "us-east-1"
 #ml_pod_storage_class = "gp3"
 #ml_pod_storage_class_iops = 3000
 #ml_pod_storage_class_throughput = 125 ##in mb
+
+
+
+#entsearch_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
+#entsearch_pod_count= 1
+#entsearch_pod_cpu= "30000m"
+#entsearch_pod_memory= "53248Mi"
+#entsearch_pod_roles= "data_entsearch, data_content, ingest"
+#entsearch_pod_storage= "1600Gi"
+#entsearch_pod_storage_class = "local-storage" #valid values local-storage|entsearch-gp3|entsearch-io2-be
+#entsearch_pod_storage_class_iops = 3000
+#entsearch_pod_storage_class_throughput = 125 ##in mb
+
 
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"

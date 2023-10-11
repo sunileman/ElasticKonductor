@@ -12,7 +12,7 @@ data "kubectl_path_documents" "enterprise-search" {
         entsearch_pod_cpu = var.entsearch_pod_cpu
         entsearch_pod_count = var.entsearch_pod_count
         entsearch_accept_ingest = var.entsearch_accept_ingest
-        entsearch_accept_search = var.entsearch_accept_search
+        entsearch_accept_search = var.entsearch_accept_search      
         entsearch_pod_ES_JAVA_OPTS = var.entsearch_pod_ES_JAVA_OPTS
 
     }

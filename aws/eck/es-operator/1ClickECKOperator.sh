@@ -28,4 +28,7 @@ terraform plan -out state.tfplan
 # apply terraform plan
 terraform apply state.tfplan
 
+echo "1ClickECKOperator.sh Apply ECK operator"
+kubectl apply -f ./eck-yamls/operator.yaml
+
 echo "1ClickECKOperator.sh: Finished creating ECK Operator"

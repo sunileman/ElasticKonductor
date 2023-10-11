@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+
 echo "setkubectl.sh: setting local kubectl"
 clusternameraw=$(terraform output cluster_name)
 clustername=${clusternameraw//\"/}
