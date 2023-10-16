@@ -6,14 +6,6 @@ data "terraform_remote_state" "k8s" {
   }
 }
 
-locals {
-    master_roles = var.kibana_fleet_enabled ? "${var.master_pod_roles}, remote_cluster_client" : var.master_pod_roles
-    hot_roles = var.kibana_fleet_enabled ? "${var.hot_pod_roles}, remote_cluster_client" : var.hot_pod_roles
-    warm_roles = var.kibana_fleet_enabled ? "${var.warm_pod_roles}, remote_cluster_client" : var.warm_pod_roles
-    cold_roles = var.kibana_fleet_enabled ? "${var.cold_pod_roles}, remote_cluster_client" : var.cold_pod_roles
-    frozen_roles = var.kibana_fleet_enabled ? "${var.frozen_pod_roles}, remote_cluster_client" : var.frozen_pod_roles
-}
-
 data "kubectl_path_documents" "es" {
     pattern = "./eck-yamls/es.yaml"
     vars = {
@@ -25,11 +17,11 @@ data "kubectl_path_documents" "es" {
         cold_pod_ES_JAVA_OPTS = var.cold_pod_ES_JAVA_OPTS
         frozen_pod_ES_JAVA_OPTS = var.frozen_pod_ES_JAVA_OPTS
         ml_pod_ES_JAVA_OPTS = var.ml_pod_ES_JAVA_OPTS
-        master_pod_roles = local.master_roles
-        hot_pod_roles = local.hot_roles
-        warm_pod_roles = local.warm_roles
-        cold_pod_roles = local.cold_roles
-        frozen_pod_roles = local.frozen_roles
+        master_pod_roles = var.master_pod_roles
+        hot_pod_roles = var.hot_pod_roles
+        warm_pod_roles = var.warm_pod_roles
+        cold_pod_roles = var.cold_pod_roles
+        frozen_pod_roles = var.frozen_pod_roles
         ml_pod_roles = var.ml_pod_roles
         master_pod_cpu = var.master_pod_cpu
         hot_pod_cpu = var.hot_pod_cpu
