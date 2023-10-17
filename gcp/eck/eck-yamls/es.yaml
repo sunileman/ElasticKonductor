@@ -471,4 +471,4 @@ spec:
    tls:
     selfSignedCertificate:
      subjectAltNames:
-     - dns: "*.cloudapp.azure.com"
+     - dns: "*.googleusercontent.com"
