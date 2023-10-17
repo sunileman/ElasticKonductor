@@ -5,6 +5,7 @@ data "terraform_remote_state" "k8s" {
     path = "../gke/terraform.tfstate"
   }
 }
+
 data "kubectl_path_documents" "es" {
     pattern = "./eck-yamls/es.yaml"
     vars = {
@@ -67,11 +68,18 @@ data "kubectl_path_documents" "es" {
     }
 }
 
-
+locals {
+  entsearch = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? "" : "./eck-yamls/entsearch-kibana.yaml"
+  entsearchbool = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? false : true
+  kibana = var.kibana_fleet_enabled ? "./eck-yamls/fleet-kibana.yaml" : ""
+  both = (local.entsearchbool && var.kibana_fleet_enabled) ? "./eck-yamls/entsearch-fleet-kibana.yaml" : ""
+  neither = (!(local.entsearchbool || var.kibana_fleet_enabled)) ? "./eck-yamls/kibana.yaml" : ""
+  result = coalesce(local.both, local.entsearch, local.kibana, local.neither)
+}
 
 data "kubectl_path_documents" "kibana" {
     #pattern = "./eck-yamls/kibana.yaml"
-    pattern = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? "./eck-yamls/kibana.yaml" : "./eck-yamls/entsearch-kibana.yaml"
+    pattern = local.result
     vars = {
         es_version = var.es_version
         eck_namespace = var.eck_namespace
@@ -80,8 +88,6 @@ data "kubectl_path_documents" "kibana" {
         kibana_pod_count = var.kibana_pod_count
     }
 }
-
-
 
 data "kubectl_path_documents" "es-count" {
   pattern = "./eck-yamls/es.yaml"
@@ -147,7 +153,7 @@ data "kubectl_path_documents" "es-count" {
 
 
 data "kubectl_path_documents" "kibana-count" {
-    pattern = "./eck-yamls/kibana.yaml"
+    pattern = local.result
     vars = {
         es_version = ""
         eck_namespace = ""

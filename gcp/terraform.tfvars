@@ -32,6 +32,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 
 #----------------------- Cloud Provider ----------------------------------------
 
+
 #automation_name= "konductor"
 
 # Defines where konductor will deploy the new Kubernetes cluster
@@ -81,6 +82,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #kibana_instance_type= ""
 #kibana_volume_type= "pd-ssd"
 #kibana_create_node_pool=true
+#kibana_fleet_enabled=true
 
 #hot_initial_node_count_per_zone=2
 #hot_instance_count_per_zone=2
@@ -182,7 +184,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #master_pod_count= 3
 #master_pod_cpu= "6500m"
 #master_pod_memory= "11264Mi"
-#master_pod_roles= "master"
+#master_pod_roles= "master, remote_cluster_client"
 #master_pod_storage= "140Gi"
 #master_pod_storage_class = "local-storage"
 
@@ -190,7 +192,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #hot_pod_count= 3
 #hot_pod_cpu= "30000m"
 #hot_pod_memory= "53248Mi"
-#hot_pod_roles= "data_hot, data_content, ingest"
+#hot_pod_roles= "data_hot, data_content, ingest, remote_cluster_client"
 #hot_pod_storage= "1600Gi"
 #hot_pod_storage_class = "local-storage"
 
@@ -198,7 +200,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #warm_pod_count= 0
 #warm_pod_cpu= "14000m"
 #warm_pod_memory= "53248Mi"
-#warm_pod_roles= "data_warm, data_content"
+#warm_pod_roles= "data_warm, data_content, remote_cluster_client"
 #warm_pod_storage= "5000Gi"
 #warm_pod_storage_class = "local-storage"
 
@@ -206,7 +208,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #cold_pod_count= 0
 #cold_pod_cpu= "46000m"
 #cold_pod_memory= "11264Mi"
-#cold_pod_roles= "data_cold"
+#cold_pod_roles= "data_cold, remote_cluster_client"
 #cold_pod_storage= "140Gi"
 #cold_pod_storage_class = "local-storage"
 
@@ -214,7 +216,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #frozen_pod_count= 0
 #frozen_pod_cpu= "94000m"
 #frozen_pod_memory= "11264Mi"
-#frozen_pod_roles= "data_frozen"
+#frozen_pod_roles= "data_frozen, remote_cluster_client"
 #frozen_pod_storage= "140Gi"
 #frozen_pod_storage_class = "local-storage"
 
