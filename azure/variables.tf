@@ -334,7 +334,7 @@ variable "otel_instance_count" {
 variable "otel_instance_type" {
   description = "otel instance type"
   type        = string
-  default     =  "standard_F32s_v2"
+  default     =  "Standard_F48s_v2"
 }
 
 variable "otel_instance_k8s_label" {

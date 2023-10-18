@@ -34,3 +34,6 @@ testing/
 .gitignore
 aws/create-eks/out.plan
 scripts/otel/es-class.model
+aws/eck/es-operator/eck-yamls/operator.yaml
+aws/eck/es-operator/eck-yamls/operator.yaml
+azure/eck/es-operator/modified_operator.yaml
