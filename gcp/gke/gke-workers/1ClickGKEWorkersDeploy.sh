@@ -34,6 +34,10 @@ echo "1ClickGKEDeploy.sh: Building ml node pool"
 (cd ./ml; bash ./1ClickGKEMLDeploy.sh)
 
 
+echo "1ClickGKEDeploy.sh: Building fleet node pool"
+(cd ./fleet; bash ./1ClickGKEFleetDeploy.sh)
+
+
 echo "1ClickGKEDeploy.sh: Building enterprise search node pool"
 (cd ./enterprise-search; bash ./1ClickGKEEntSearchDeploy.sh)
 

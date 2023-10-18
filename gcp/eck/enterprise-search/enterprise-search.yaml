@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         acceptIngest: "${entsearch_accept_ingest}"
+        acceptSearch: "${entsearch_accept_search}"
     spec:
       affinity:
         nodeAffinity:

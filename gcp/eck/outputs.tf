@@ -4,7 +4,3 @@ output "clustername" {
 output "region" {
   value = data.terraform_remote_state.k8s.outputs.region
 }
-
-output "fleet" {
-  value = var.kibana_fleet_enabled
-}

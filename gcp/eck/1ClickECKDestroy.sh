@@ -35,5 +35,5 @@ terraform destroy -auto-approve
 echo "1ClickECKDestroy.sh finished Destroying ES Pods"
 
 echo "1ClickECKDestroy.sh Destroying Operator"
-(cd ./es-operator; ./1ClickECKOperatorDestroy.sh)
+(cd ./es-operator; bash ./1ClickECKOperatorDestroy.sh)
 echo "1ClickECKDestroy.sh finished Destroying Operator"

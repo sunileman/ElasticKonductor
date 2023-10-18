@@ -69,23 +69,41 @@ data "kubectl_path_documents" "es" {
 }
 
 locals {
-  entsearch = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? "" : "./eck-yamls/entsearch-kibana.yaml"
-  entsearchbool = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? false : true
-  kibana = var.kibana_fleet_enabled ? "./eck-yamls/fleet-kibana.yaml" : ""
-  both = (local.entsearchbool && var.kibana_fleet_enabled) ? "./eck-yamls/entsearch-fleet-kibana.yaml" : ""
-  neither = (!(local.entsearchbool || var.kibana_fleet_enabled)) ? "./eck-yamls/kibana.yaml" : ""
-  result = coalesce(local.both, local.entsearch, local.kibana, local.neither)
+  kibana_entsearch_yaml = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? "" : "./eck-yamls/entsearch-kibana.yaml"
+  entsearch_enabled = (var.entsearch_pod_count < 1 || var.entsearch_instance_count < 1) ? false : true
+  fleet_enabled = (var.fleet_pod_count < 1 || var.fleet_instance_count < 1) ? false : true
+  kibana_fleet_yaml = local.fleet_enabled ? "./eck-yamls/fleet-kibana.yaml" : ""
+  fleet_entsearch_enabled = (local.entsearch_enabled && local.fleet_enabled) ? "./eck-yamls/entsearch-fleet-kibana.yaml" : ""
+  kibana_bare_yaml = (!(local.entsearch_enabled || local.fleet_enabled)) ? "./eck-yamls/kibana.yaml" : ""
+  kibana_yaml = coalesce(local.fleet_entsearch_enabled, local.kibana_entsearch_yaml, local.kibana_fleet_yaml, local.kibana_bare_yaml)
 }
 
 data "kubectl_path_documents" "kibana" {
     #pattern = "./eck-yamls/kibana.yaml"
-    pattern = local.result
+    pattern = local.kibana_yaml
     vars = {
         es_version = var.es_version
         eck_namespace = var.eck_namespace
         kibana_pod_memory = var.kibana_pod_memory
         kibana_pod_cpu = var.kibana_pod_cpu
         kibana_pod_count = var.kibana_pod_count
+        fleet_pod_memory = var.fleet_pod_memory
+        fleet_pod_cpu = var.fleet_pod_cpu
+        fleet_pod_count = var.fleet_pod_count
+    }
+}
+
+data "kubectl_path_documents" "kibana-count" {
+    pattern = local.kibana_yaml
+    vars = {
+        es_version = ""
+        eck_namespace = ""
+        kibana_pod_memory = ""
+        kibana_pod_cpu = ""
+        kibana_pod_count = ""
+        fleet_pod_memory = ""
+        fleet_pod_cpu = ""
+        fleet_pod_count = ""
     }
 }
 
@@ -152,16 +170,7 @@ data "kubectl_path_documents" "es-count" {
 }
 
 
-data "kubectl_path_documents" "kibana-count" {
-    pattern = local.result
-    vars = {
-        es_version = ""
-        eck_namespace = ""
-        kibana_pod_memory = ""
-        kibana_pod_cpu = ""
-        kibana_pod_count = ""
-    }
-}
+
 
 data "kubectl_path_documents" "ingest-loadbalancer" {
     pattern = "./eck-yamls/ingest-loadbalancer.yaml"

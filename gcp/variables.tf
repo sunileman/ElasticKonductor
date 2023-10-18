@@ -23,7 +23,7 @@ variable "zones" {
 variable "gke_version" {
   description = "GKE Version"
   type        = string
-  default     = "1.25." ##must have dot after major release number as the automation fetches minor version
+  default     = "1.27." ##must have dot after major release number as the automation fetches minor version
 }
 
 variable "gke_logging_service" {
@@ -225,11 +225,7 @@ variable "kibana_instance_count" {
   default     = 1
 }
 
-variable "kibana_fleet_enabled" {
-  description = "fleet enabled"
-  type = bool
-  default = true
-}
+
 
 variable "kibana_instance_type" {
   description = "Kibana instance type"
@@ -610,6 +606,51 @@ variable "entsearch_volume_type" {
 }
 
 variable "entsearch_create_node_pool" {
+  description = "Whether to create the K8s node pool"
+  type        = bool
+  default     = true
+}
+
+
+
+variable "fleet_instance_count" {
+  description = "Number of fleet instances"
+  type        = number
+  default     = 1
+}
+
+
+variable "fleet_instance_type" {
+  description = "Fleet instance type"
+  type        = string
+  default     = "e2-standard-8"
+}
+
+variable "fleet_local_ssd_count" {
+  description = "Number of nvme ssd disk, come in blocks of 375 gb"
+  type        = number
+  default     = 0
+}
+
+variable "fleet_instance_k8s_label" {
+  description = "fleet instance k8s label"
+  type        = map
+  default     = {"nodetype"="fleet"}
+}
+
+variable "fleet_volume" {
+  description = "Volume in GB"
+  type        = number
+  default     = 200
+}
+
+variable "fleet_volume_type" {
+  description = "disk type"
+  type        = string
+  default     = "pd-ssd"
+}
+
+variable "fleet_create_node_pool" {
   description = "Whether to create the K8s node pool"
   type        = bool
   default     = true
@@ -1051,6 +1092,27 @@ variable "ml_pod_storage_class" {
   type = string
   default = "local-storage"
 }
+
+
+variable "fleet_pod_cpu" {
+  description = "fleet pod cpu request"
+  type = string
+  default = "4"
+}
+
+variable "fleet_pod_memory" {
+  description = "fleet pod memory request"
+  type = string
+  default = "20Gi"
+}
+
+variable "fleet_pod_count" {
+  description = "number of fleet pods"
+  type = number
+  default = 1
+}
+
+
 
 variable "eck_namespace" {
   description = "eck namespace"

@@ -99,6 +99,21 @@ spec:
         automountServiceAccountToken: true
         securityContext:
           runAsUser: 0
+        containers:
+        - name: agent
+          resources:
+            requests:
+              memory: ${fleet_pod_memory}
+              cpu: ${fleet_pod_cpu}
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: nodetype
+                  operator: In
+                  values:
+                  - fleet
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole

@@ -1,22 +1,23 @@
 #!/bin/bash
 
-##terraform logs
+##terraform log
 nowtime=`date +"%m_%d_%Y_%s"`
 (mkdir -p ./tflogs)
 export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 
+export KUBE_CONFIG_PATH=~/.kube/config
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
 set -e
 
-echo "1ClickECKOperator.sh: Copying variable files"
+echo "1ClickFleetDeploy.sh: Copying variable files"
 cp -f ../../variables.tf .
 cp -f ../../terraform.tfvars .
 
 
-export KUBE_CONFIG_PATH=~/.kube/config
-echo "1ClickECKOperator.sh creating ECK Operator"
+echo "1ClickFleetDeploy.sh: Creating Fleet Nodes"
 # initialize terraform configuration
 terraform init -upgrade
 
@@ -28,8 +29,3 @@ terraform plan -out state.tfplan
 
 # apply terraform plan
 terraform apply state.tfplan
-
-echo "1ClickECKOperator.sh Calling create operator"
-(cd ./create-operator; bash KonductorDeploy.sh)
-
-echo "1ClickECKOperator.sh: Finished creating ECK Operator"
