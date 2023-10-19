@@ -5,7 +5,8 @@ clusternameraw=$(terraform output clustername)
 clustername=${clusternameraw//\"/}
 regionraw=$(terraform output region)
 region=${regionraw//\"/}
-fleetyn=$(terraform output fleet)
+fleet_inst=$(terraform output fleet_pod)
+fleet_pod=$(terraform output fleet_instance)
 
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo Checking if license file is exists
@@ -161,7 +162,7 @@ echo "- UserName: elastic"
 echo "- Password: $kibana_password"
 echo
 
-if [[ $fleetyn == true ]]; then
+if [[ $fleet_inst > 0 || $fleet_pod > 0 ]]; then
     echo "Fleet Status:" 
     $(check_fleet)
 fi
