@@ -1123,31 +1123,31 @@ variable "eck_namespace" {
 variable "master_pod_roles" {
   description = "master pod roles"
   type = string
-  default = "master"
+  default = "master, remote_cluster_client"
 }
 
 variable "hot_pod_roles" {
   description = "hot pod roles"
   type = string
-  default = "data_hot, data_content, ingest"
+  default = "data_hot, data_content, ingest, remote_cluster_client"
 }
 
 variable "warm_pod_roles" {
   description = "warm pod roles"
   type = string
-  default = "data_warm, data_content"
+  default = "data_warm, data_content, remote_cluster_client"
 }
 
 variable "cold_pod_roles" {
   description = "cold pod roles"
   type = string
-  default = "data_cold"
+  default = "data_cold, remote_cluster_client"
 }
 
 variable "frozen_pod_roles" {
   description = "frozen pod roles"
   type = string
-  default = "data_frozen"
+  default = "data_frozen, remote_cluster_client"
 }
 
 variable "ml_pod_roles" {
