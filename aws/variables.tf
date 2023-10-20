@@ -360,6 +360,13 @@ variable "util_instance_k8s_label" {
   default     = {"nodetype"="util"}
 }
 
+variable "eck_operator_instance_affinity" {
+  description = "eck operator placement based on instance tag"
+  type = string
+  default = "util"
+}
+
+
 variable "util_capacity_type" {
   description = "util capacity type"
   type = string
@@ -459,6 +466,12 @@ variable "master_pod_storage" {
   default = "140Gi"
 }
 
+variable "master_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "master"
+}
+
 variable "master_pod_ES_JAVA_OPTS" {
   description = "master pod ES_JAVA_OPTS"
   type = string
@@ -517,6 +530,12 @@ variable "kibana_pod_count" {
   default = 1
 }
 
+variable "kibana_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "kibana"
+}
+
 variable "hot_pod_count" {
   description = "number of hot pods"
   type = number
@@ -547,6 +566,13 @@ variable "hot_pod_ES_JAVA_OPTS" {
   default = " "
   #default = "-Xms8g -Xmx8g"
 }
+
+variable "hot_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "hot"
+}
+
 
 variable "hot_accept_ingest" {
   description = "pod accepts ingest"
@@ -597,6 +623,13 @@ variable "warm_pod_memory" {
   description = "warm pod memory request"
   type = string
   default = "53248Mi"
+}
+
+
+variable "warm_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "warm"
 }
 
 variable "warm_pod_storage" {
@@ -660,6 +693,12 @@ variable "cold_pod_memory" {
   description = "cold pod memory request"
   type = string
   default = "11264Mi"
+}
+
+variable "cold_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "cold"
 }
 
 variable "cold_pod_storage" {
@@ -727,6 +766,12 @@ variable "frozen_pod_memory" {
   default = "11264Mi"
 }
 
+variable "frozen_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "frozen"
+}
+
 variable "frozen_pod_storage" {
   description = "frozen pod storage request"
   type = string
@@ -791,6 +836,12 @@ variable "ml_pod_memory" {
   default = "11264Mi"
 }
 
+variable "ml_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "ml"
+}
+
 variable "ml_pod_storage" {
   description = "ml pod storage request"
   type = string
@@ -846,6 +897,12 @@ variable "entsearch_pod_cpu" {
   description = "entsearch pod cpu request"
   type = string
   default = "30000m"
+}
+
+variable "entsearch_pod_instance_affinity" {
+  description = "pod instance placement based on instance tag"
+  type = string
+  default = "entsearch"
 }
 
 variable "entsearch_pod_memory" {

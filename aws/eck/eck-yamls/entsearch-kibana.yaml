@@ -13,7 +13,7 @@ spec:
   podTemplate:
     spec:
       nodeSelector:
-        nodetype: kibana
+        nodetype: ${kibana_pod_instance_affinity}
       containers:
       - name: kibana
         resources:
@@ -29,4 +29,4 @@ spec:
    tls:
     selfSignedCertificate:
      subjectAltNames:
-     - dns: "*.googleusercontent.com"
+     - dns: "*.amazonaws.com"

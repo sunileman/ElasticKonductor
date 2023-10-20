@@ -66,6 +66,12 @@ data "kubectl_path_documents" "es" {
         cold_pod_storage_class = var.cold_pod_storage_class
         frozen_pod_storage_class = var.frozen_pod_storage_class
         ml_pod_storage_class = var.ml_pod_storage_class
+        master_pod_instance_affinity = var.master_pod_instance_affinity
+        hot_pod_instance_affinity = var.hot_pod_instance_affinity
+        warm_pod_instance_affinity = var.warm_pod_instance_affinity
+        cold_pod_instance_affinity = var.cold_pod_instance_affinity
+        frozen_pod_instance_affinity = var.frozen_pod_instance_affinity
+        ml_pod_instance_affinity = var.ml_pod_instance_affinity
     }
 }
 
@@ -129,6 +135,12 @@ data "kubectl_path_documents" "es-count" {
         cold_pod_storage_class = ""
         frozen_pod_storage_class =""
         ml_pod_storage_class = ""
+        master_pod_instance_affinity = ""
+        hot_pod_instance_affinity = ""
+        warm_pod_instance_affinity = ""
+        cold_pod_instance_affinity = ""
+        frozen_pod_instance_affinity = ""
+        ml_pod_instance_affinity = ""
   }
 }
 
@@ -141,6 +153,7 @@ data "kubectl_path_documents" "kibana" {
         kibana_pod_memory = var.kibana_pod_memory
         kibana_pod_cpu = var.kibana_pod_cpu
         kibana_pod_count = var.kibana_pod_count
+        kibana_pod_instance_affinity = var.kibana_pod_instance_affinity
     }
 }
 
@@ -153,6 +166,8 @@ data "kubectl_path_documents" "kibana-count" {
         kibana_pod_memory = ""
         kibana_pod_cpu = ""
         kibana_pod_count = ""
+        kibana_pod_instance_affinity = ""
+
     }
 }
 

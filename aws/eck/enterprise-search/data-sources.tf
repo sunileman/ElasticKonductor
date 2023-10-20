@@ -14,6 +14,7 @@ data "kubectl_path_documents" "enterprise-search" {
         entsearch_accept_ingest = var.entsearch_accept_ingest
         entsearch_accept_search = var.entsearch_accept_search      
         entsearch_pod_ES_JAVA_OPTS = var.entsearch_pod_ES_JAVA_OPTS
+        entsearch_pod_instance_affinity= var.entsearch_pod_instance_affinity
 
     }
 }
@@ -30,5 +31,6 @@ data "kubectl_path_documents" "enterprise-search-count" {
         entsearch_accept_ingest = ""
         entsearch_accept_search = ""
         entsearch_pod_ES_JAVA_OPTS = ""
+        entsearch_pod_instance_affinity= ""
     }
 }

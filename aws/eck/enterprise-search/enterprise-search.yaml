@@ -25,7 +25,7 @@ spec:
               - key: nodetype
                 operator: In
                 values:
-                - entsearch
+                - ${entsearch_pod_instance_affinity}
       containers:
       - name: enterprise-search
         resources:
