@@ -24,6 +24,10 @@ tags = {
 
 region= "us-east-1"
 
+
+
+
+
 #----------------------- Cloud Provider ----------------------------------------
 #automation_name= "konductor"
 
@@ -161,6 +165,8 @@ region= "us-east-1"
 #master_pod_roles= "master"
 #master_pod_storage= "140Gi"
 #master_pod_storage_class = "local-storage" #valid values local-storage|master-gp3|master-io2-be
+#master_pod_instance_affinity="master"
+
 
 #hot_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #hot_pod_count= 3
@@ -171,6 +177,8 @@ region= "us-east-1"
 #hot_pod_storage_class = "local-storage" #valid values local-storage|hot-gp3|hot-io2-be
 #hot_pod_storage_class_iops = 3000
 #hot_pod_storage_class_throughput = 125 ##in mb
+#hot_pod_instance_affinity="hot"
+
 
 #warm_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #warm_pod_count= 1
@@ -182,6 +190,8 @@ region= "us-east-1"
 #warm_pod_storage_class = "gp3"
 #warm_pod_storage_class_iops = 3000
 #warm_pod_storage_class_throughput = 125 ##in mb
+#warm_pod_instance_affinity="warm"
+
 
 
 #cold_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
@@ -194,6 +204,8 @@ region= "us-east-1"
 #cold_pod_storage_class = "gp3"
 #cold_pod_storage_class_iops = 3000
 #cold_pod_storage_class_throughput = 125 ##in mb
+#cold_pod_instance_affinity="cold"
+
 
 
 #frozen_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
@@ -206,6 +218,8 @@ region= "us-east-1"
 #frozen_pod_storage_class = "gp3"
 #frozen_pod_storage_class_iops = 3000
 #frozen_pod_storage_class_throughput = 125 ##in mb
+#frozen_pod_instance_affinity="frozen"
+
 
 #ml_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #ml_pod_count= 1
@@ -217,6 +231,8 @@ region= "us-east-1"
 #ml_pod_storage_class = "gp3"
 #ml_pod_storage_class_iops = 3000
 #ml_pod_storage_class_throughput = 125 ##in mb
+#ml_pod_instance_affinity="ml"
+
 
 
 
@@ -229,11 +245,16 @@ region= "us-east-1"
 #entsearch_pod_storage_class = "local-storage" #valid values local-storage|entsearch-gp3|entsearch-io2-be
 #entsearch_pod_storage_class_iops = 3000
 #entsearch_pod_storage_class_throughput = 125 ##in mb
+#entsearch_pod_instance_affinity="entsearch"
 
 
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"
 #kibana_pod_memory= "1Gi"
+#kibana_pod_instance_affinity="kibana"
+
+#eck_operator_instance_affinity="util"
+
 
 
 

@@ -1,4 +1,22 @@
 import yaml
+import sys
+import json
+import hcl
+
+
+# Get the input from the 'query'
+input_data = json.load(sys.stdin)
+original_yaml = input_data['yaml_content']
+
+# Read the input YAML. Note: This now handles multiple documents.
+documents = list(yaml.safe_load_all(original_yaml))
+
+def read_tfvars(file_path, variable_name):
+    with open(file_path, 'r') as file:
+        parsed_vars = hcl.load(file)
+        return parsed_vars.get(variable_name, None)
+
+eck_operator_instance_affinity = read_tfvars('./terraform.tfvars', 'eck_operator_instance_affinity')
 
 # Define the affinity block
 affinity = {
@@ -10,7 +28,7 @@ affinity = {
                         {
                             "key": "nodetype",
                             "operator": "In",
-                            "values": ["util"]
+                            "values": [eck_operator_instance_affinity]
                         }
                     ]
                 }
@@ -19,17 +37,17 @@ affinity = {
     }
 }
 
-# Load all documents from the YAML file
-with open("./eck-yamls/operator.yaml", 'r') as file:
-    all_docs = list(yaml.safe_load_all(file))
+# Modify each document in the YAML
+for data in documents:
+    # Locate the StatefulSet with the name 'elastic-operator'
+    if isinstance(data, dict) and data.get('kind') == 'StatefulSet' and data.get('metadata', {}).get('name') == 'elastic-operator':
+        data['spec']['template']['spec']['affinity'] = affinity
 
-# Modify each document as needed
-for data in all_docs:
-    if isinstance(data, dict):  # Check if the loaded document is a dictionary
-        if data.get('kind') == 'StatefulSet' and data['metadata']['name'] == 'elastic-operator':
-            data['spec']['template']['spec']['affinity'] = affinity
+# Return the modified YAML as a single string with documents separated by ---
+modified_yaml = "\n---\n".join([yaml.safe_dump(doc) for doc in documents])
 
-# Save the modified data back to the YAML file
-with open("./eck-yamls/operator.yaml", 'w') as file:
-    for doc in all_docs:
-        yaml.safe_dump(doc, file, explicit_start=True)  # explicit_start ensures each document starts with '---'
+output = {
+    "modified_yaml": modified_yaml
+}
+
+print(json.dumps(output))
