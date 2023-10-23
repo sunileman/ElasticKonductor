@@ -1,7 +1,7 @@
 import yaml
 import sys
 import json
-import hcl
+import hcl2
 
 
 # Get the input from the 'query'
@@ -13,7 +13,7 @@ documents = list(yaml.safe_load_all(original_yaml))
 
 def read_tfvars(file_path, variable_name):
     with open(file_path, 'r') as file:
-        parsed_vars = hcl.load(file)
+        parsed_vars = hcl2.load(file)
         return parsed_vars.get(variable_name, None)
 
 eck_operator_instance_affinity = read_tfvars('./terraform.tfvars', 'eck_operator_instance_affinity')
