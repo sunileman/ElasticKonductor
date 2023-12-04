@@ -83,7 +83,7 @@ printf "IP Address:   https://%s:5601\n" "$kibana_ip"
 printf "Hostname:     https://%s:5601\n" "$kibana_hostname"
 printf "\n"
 
-echo "---------------------- Kibana Credentials --------------------"
+echo "---------------------- Elasticsearch Credentials --------------------"
 printf "Username: %-10s\n" "elastic"
 printf "Password: %-10s\n" "$kibana_password"
 printf "\n"

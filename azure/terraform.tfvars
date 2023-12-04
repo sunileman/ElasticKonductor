@@ -18,10 +18,12 @@ tags = {
     "division" = "field"
     "org" = "sa"
     "team" = "amer"
+    "purpose" = "testing"
     "project" = "username" # Project name (shared) or username (individual)
 }
 
 resource_group_location="eastus"
+
 
 
 #----------------------- Cloud Provider ----------------------------------------

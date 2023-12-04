@@ -44,7 +44,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 
 #release_channel= "STABLE"
 
-#gke_version="1.25." ##must have dot after major release number as the automation fetches minor version
+#gke_version="1.27." ##must have dot after major release number as the automation fetches minor version
 
 #gke_auto_upgrade=true
 #gke_auto_repair=false
@@ -82,7 +82,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #kibana_instance_type= ""
 #kibana_volume_type= "pd-ssd"
 #kibana_create_node_pool=true
-#kibana_fleet_enabled=true
 
 #hot_initial_node_count_per_zone=2
 #hot_instance_count_per_zone=2
@@ -153,6 +152,14 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #entsearch_volume_type = "pd-ssd"
 #entsearch_create_node_pool = true
 #entsearch_local_ssd_count = 1
+
+
+#fleet_instance_count=1
+#fleet_instance_k8s_label= {"nodetype"="fleet"}
+#fleet_instance_type= "e2-standard-8"
+#fleet_volume_type= "pd-ssd"
+#fleet_create_node_pool=true
+
 
 #util_instance_count= 1
 #util_instance_k8s_label= {"nodetype"="util"}
@@ -241,6 +248,15 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #entsearch_accept_ingest = "false"
 #entsearch_accept_search=false
 #entsearch_pod_storage_class = "local-storage"
+
+
+
+#fleet_pod_cpu= "4"
+#fleet_pod_memory = "20Gi"
+#fleet_pod_count= 1
+
+
+
 
 #----------------------- istio ---------------------------------
 #istio_helm_base_chart_version= "1.17.2" 

@@ -107,7 +107,7 @@ printf "IP Address:   https://%s:5601\n" "$kibana_ip"
 printf "DNS Address:  https://%s.%s.cloudapp.azure.com:5601\n" "$lbname" "$region"
 printf "\n"
 
-echo "---------------------- Kibana Credentials --------------------"
+echo "---------------------- Elasticsearch Credentials --------------------"
 printf "Username: %-10s\n" "elastic"
 printf "Password: %-10s\n" "$kibana_password"
 printf "\n"

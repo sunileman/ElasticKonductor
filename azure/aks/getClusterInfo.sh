@@ -11,6 +11,8 @@ clusternameraw=$(terraform output cluster_name)
 clustername=${clusternameraw//\"/}
 
 rgname=$(terraform output resource_group_name)
+rgname=${rgname//\"/}  # Removes any quotation marks from the 'rgname' variable
+
 # Clear screen for clean output
 clear
 

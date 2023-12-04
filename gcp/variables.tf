@@ -776,7 +776,7 @@ variable "logstash_create_node_pool" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.9.1"
+  default = "8.11.1"
 }
 
 variable "master_pod_count" {
@@ -1141,13 +1141,13 @@ variable "warm_pod_roles" {
 variable "cold_pod_roles" {
   description = "cold pod roles"
   type = string
-  default = "data_cold, remote_cluster_client"
+  default = "data_cold, remote_cluster_client, data_content"
 }
 
 variable "frozen_pod_roles" {
   description = "frozen pod roles"
   type = string
-  default = "data_frozen, remote_cluster_client"
+  default = "data_frozen, remote_cluster_client, data_content"
 }
 
 variable "ml_pod_roles" {

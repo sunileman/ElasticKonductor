@@ -7,7 +7,6 @@ export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 set -e
 
 echo "1ClickECKOperator.sh: Copying variable files"

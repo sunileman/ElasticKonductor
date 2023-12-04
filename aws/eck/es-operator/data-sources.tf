@@ -23,7 +23,7 @@ data "external" "modify_yaml" {
 
 resource "local_file" "modified_operator_yaml" {
   content  = data.external.modify_yaml.result.modified_yaml
-  filename = "${path.module}/modified_operator.yaml"
+  filename = "${path.module}/eck-yamls/modified_operator.yaml"
 }
 
 data "kubectl_file_documents" "elastic_operator_doc" {

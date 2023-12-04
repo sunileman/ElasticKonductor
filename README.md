@@ -227,6 +227,7 @@ ml_initial_node_count_per_zone=0
 entsearch_instance_count = 0
 util_instance_count=0
 kibana_instance_count=0
+fleet_instance_count=0
 
 
 es_apm_url= "your-es-apm.elastic-cloud.com:443" #without https:// prefix

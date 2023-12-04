@@ -28,6 +28,8 @@ region= "us-east-1"
 
 
 
+
+
 #----------------------- Cloud Provider ----------------------------------------
 #automation_name= "konductor"
 
@@ -253,7 +255,7 @@ region= "us-east-1"
 #kibana_pod_memory= "1Gi"
 #kibana_pod_instance_affinity="kibana"
 
-#eck_operator_instance_affinity="util"
+eck_operator_instance_affinity="util"
 
 
 

@@ -346,7 +346,7 @@ variable "otel_instance_k8s_label" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.8.2"
+  default = "8.11.1"
 }
 
 variable "master_pod_count" {
@@ -680,25 +680,25 @@ variable "master_pod_roles" {
 variable "hot_pod_roles" {
   description = "hot pod roles"
   type = string
-  default = "data_hot, data_content, ingest"
+  default = "data_hot, remote_cluster_client, data_content, ingest"
 }
 
 variable "warm_pod_roles" {
   description = "warm pod roles"
   type = string
-  default = "data_warm, data_content"
+  default = "data_warm, remote_cluster_client, data_content"
 }
 
 variable "cold_pod_roles" {
   description = "cold pod roles"
   type = string
-  default = "data_cold"
+  default = "data_cold, remote_cluster_client, data_content"
 }
 
 variable "frozen_pod_roles" {
   description = "frozen pod roles"
   type = string
-  default = "data_frozen"
+  default = "data_frozen, remote_cluster_client, data_content"
 }
 
 variable "ml_pod_roles" {
