@@ -54,6 +54,12 @@ variable "tags" {
   }
 }
 
+variable "eck_operator_instance_affinity" {
+  description = "eck operator placement based on instance tag"
+  type = string
+  default = "util"
+}
+
 variable "k8s_master_instance_type" {
   description = "k8s Master instance type"
   type        = string

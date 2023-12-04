@@ -13,9 +13,21 @@ documents = list(yaml.safe_load_all(original_yaml))
 
 def read_tfvars(file_path, variable_name):
     with open(file_path, 'r') as file:
-        parsed_vars = hcl2.load(file)
-        return parsed_vars.get(variable_name, None)
+        for line in file:
+            # Check if the line contains the variable name (commented or uncommented)
+            if variable_name in line or f"#{variable_name}" in line:
+                # Extract the value after the '=' sign
+                value = line.split('=')[1].strip()
 
+                # Remove extra quotation marks if present
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1]
+                elif value.startswith("'") and value.endswith("'"):
+                    value = value[1:-1]
+
+                return value
+
+# Attempt to read the variable
 eck_operator_instance_affinity = read_tfvars('./terraform.tfvars', 'eck_operator_instance_affinity')
 
 # Define the affinity block

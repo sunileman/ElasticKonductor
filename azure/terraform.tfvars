@@ -225,6 +225,9 @@ resource_group_location="eastus"
 #entsearch_pod_storage= "300Gi"
 #entsearch_pod_storage_class = "managed-premium"
 
+
+#eck_operator_instance_affinity="util"
+
 #----------------------- istio ---------------------------------
 #istio_helm_base_chart_version= "1.17.2" 
 #Run this to find available versions: helm search repo istio/base --versions

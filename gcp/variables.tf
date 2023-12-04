@@ -779,6 +779,12 @@ variable "es_version" {
   default = "8.11.1"
 }
 
+variable "eck_operator_instance_affinity" {
+  description = "eck operator placement based on instance tag"
+  type = string
+  default = "util"
+}
+
 variable "master_pod_count" {
   description = "number of master pods"
   type = number

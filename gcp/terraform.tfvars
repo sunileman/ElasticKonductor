@@ -257,6 +257,7 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 
 
 
+#eck_operator_instance_affinity="util"
 
 #----------------------- istio ---------------------------------
 #istio_helm_base_chart_version= "1.17.2" 
