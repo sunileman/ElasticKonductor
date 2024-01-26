@@ -20,7 +20,7 @@ variable "eks_version" {
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.9.0"
+  default = "2.11.0"
 }
 
 variable "region" {
@@ -168,7 +168,7 @@ variable "hot_max_instance_count" {
 variable "hot_instance_type" {
   description = "Hot instance type"
   type = list(string)
-  default     = ["c6g.8xlarge"]
+  default     = ["c6gd.8xlarge"]
 }
 
 variable "hot_instance_k8s_label" {
@@ -205,7 +205,7 @@ variable "warm_max_instance_count" {
 variable "warm_instance_type" {
   description = "warm instance type"
   type = list(string)
-  default     = ["r6i.4xlarge"]
+  default     = ["r6id.4xlarge"]
 }
 
 variable "warm_instance_k8s_label" {
@@ -243,7 +243,7 @@ variable "cold_max_instance_count" {
 variable "cold_instance_type" {
   description = "Cold instance type"
   type = list(string)
-  default     = ["r6i.12xlarge"]
+  default     = ["r6id.12xlarge"]
 }
 
 variable "cold_instance_k8s_label" {
@@ -281,7 +281,7 @@ variable "frozen_max_instance_count" {
 variable "frozen_instance_type" {
   description = "frozen instance type"
   type = list(string)
-  default     = ["r6i.24xlarge"]
+  default     = ["r6id.24xlarge"]
 }
 
 variable "frozen_instance_k8s_label" {
@@ -319,7 +319,7 @@ variable "ml_max_instance_count" {
 variable "ml_instance_type" {
   description = "ML instance type"
   type = list(string)
-  default     = ["c6i.4xlarge"]
+  default     = ["c6id.4xlarge"]
 }
 
 variable "ml_instance_k8s_label" {
@@ -395,7 +395,7 @@ variable "entsearch_max_instance_count" {
 variable "entsearch_instance_type" {
   description = "entsearch instance type"
   type = list(string)
-  default     = ["c6g.8xlarge"]
+  default     = ["c6gd.8xlarge"]
 }
 
 variable "entsearch_instance_k8s_label" {
@@ -439,7 +439,7 @@ variable "endpoint_public_access" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.11.1"
+  default = "8.12.0"
 }
 
 variable "master_pod_count" {

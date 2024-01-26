@@ -149,7 +149,7 @@ region= "us-east-1"
 
 #----------------------- Elastic Cloud Kubernetes ------------------------------
 
-#eck_version= "2.6.1"
+#eck_version= "2.11.0"
 #eck_namespace= "default"
 
 #----------------------- Elasticsearch Cluster ---------------------------------
