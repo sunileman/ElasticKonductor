@@ -259,7 +259,37 @@ resource "aws_eks_node_group" "entsearch" {
   ]
 }
 
+resource "aws_eks_node_group" "otel" {
+  cluster_name    = aws_eks_cluster.OneClick.name
+  node_group_name = "otel"
+  node_role_arn   = aws_iam_role.node.arn
+  subnet_ids      = flatten([aws_subnet.private[*].id])
+  scaling_config {
+    desired_size = var.otel_instance_count
+    max_size     = var.otel_instance_count+1
+    min_size     = var.otel_instance_count
+  }
 
+
+  ami_type       = var.otel_ami_type
+  capacity_type  = var.otel_capacity_type
+  instance_types = var.otel_instance_type
+  disk_size      =  500
+
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
+
+  labels = merge(var.k8s_all_worker_labels, var.otel_instance_k8s_label)
+
+  depends_on = [
+    aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
+    aws_nat_gateway.main
+  ]
+}
 
 resource "aws_eks_node_group" "util" {
   cluster_name    = aws_eks_cluster.OneClick.name

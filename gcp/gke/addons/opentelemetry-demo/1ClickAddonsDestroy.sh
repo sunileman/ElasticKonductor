@@ -10,12 +10,12 @@ export TF_LOG_PATH="./tflogs/terraform-destroy-$nowtime.log"
 
 set -e
 
-echo "opentelemtry-demo/1ClickAddonsDestroy.sh: coping variable files"
+echo "opentelemetry-demo/1ClickAddonsDestroy.sh: coping variable files"
 cp -f ../../../variables.tf .
 cp -f ../../../terraform.tfvars .
 
 terraform init
 terraform refresh
 
-echo "opentelemtry-demo/1CLickAddonsDestroy.sh: Terraform Destroy"
+echo "opentelemetry-demo/1CLickAddonsDestroy.sh: Terraform Destroy"
 terraform destroy -auto-approve

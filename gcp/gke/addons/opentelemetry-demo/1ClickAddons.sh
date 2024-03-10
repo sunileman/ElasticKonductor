@@ -1,7 +1,7 @@
 #!/bin/bash
 export KUBE_CONFIG_PATH=~/.kube/config
 
-echo "opentelemtry-demo/1ClickAddons.sh: adding opentelemtry-demo"
+echo "opentelemetry-demo/1ClickAddons.sh: adding opentelemetry-demo"
 ##terraform logs
 nowtime=`date +"%m_%d_%Y_%s"`
 (mkdir -p ./tflogs)
@@ -13,11 +13,11 @@ set -e
 helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
 
 
-echo "opentelemtry-demo/1ClickAddons.sh: coping variable files"
+echo "opentelemetry-demo/1ClickAddons.sh: coping variable files"
 cp -f ../../../variables.tf .
 cp -f ../../../terraform.tfvars .
 
-echo "opentelemtry-demo/1ClickAddons.sh: creating opentelemtry-demo"
+echo "opentelemetry-demo/1ClickAddons.sh: creating opentelemetry-demo"
 ##terraform logs
 # initialize terraform configuration
 terraform init
@@ -30,4 +30,4 @@ terraform plan -out state.tfplan
 
 # apply terraform plan
 terraform apply state.tfplan
-echo "opentelemtry-demo/1ClickAddons.sh: finished creating opentelemtry-demo"
+echo "opentelemetry-demo/1ClickAddons.sh: finished creating opentelemetry-demo"

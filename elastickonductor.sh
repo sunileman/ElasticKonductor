@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.18.1
+oneclickv=1.18.5
 
 usage() {
     echo
@@ -269,10 +269,16 @@ if [ $cloud == "aws" ]; then
        (cd ./aws; bash ./1ClickAWS.sh -b all $openebs_enabled)
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
-    elif [ $createmode == true ] && [ $k8sonly == true ]; then
-       echo "1ClickECK.sh: calling 1ClickAWS.sh eks only"
-       (cd ./aws; bash ./1ClickAWS.sh -b eks $openebs_enabled)
+    elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == true ]; then
+       echo "1ClickECK.sh: calling 1ClickAWS.sh with otel"
+       (cd ./aws; bash ./1ClickAWS.sh -b otel $openebs_enabled)
        duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
+    elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == false ]; then
+       echo "1ClickECK.sh: calling 1ClickAWS.sh aks only"
+       (cd ./aws; bash ./1ClickAWS.sh -b aks $openebs_enabled)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroy == true ]]; then
        echo "Set kubectl"
        (cd ./aws/eks; bash ./setkubectl.sh)
@@ -287,6 +293,11 @@ if [ $cloud == "aws" ]; then
        (cd ./aws; bash ./1ClickAWS.sh -de)
        duration=$(( SECONDS - start ))
        echo 1ClickECK.sh: Total deployment time in seconds: $duration
+    elif [[ $destroyOtel == true ]]; then
+       echo "1ClickECK.sh: Destroying Otel"
+       (cd ./aws; bash ./1ClickAWS.sh -do)
+       duration=$(( SECONDS - start ))
+       echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     else
        echo "Please submit a valid argument"
        echo "Valid arguments:"

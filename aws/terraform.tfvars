@@ -19,11 +19,10 @@ tags = {
     "org" = "sa"
     "team" = "amer"
     "project" = "username" # Project name (shared) or username (individual)
-    "enddate" = "05012024" #MMDDYYYY
+    "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }
 
 region= "us-east-1"
-
 
 
 
@@ -273,3 +272,18 @@ region= "us-east-1"
 #istio_helm_base_chart_version= "1.17.2" 
 #Run this to find available versions: helm search repo istio/base --versions
 #istiod_helm_chart_version=1.17.2
+
+#----------------------- Open Telemetry ---------------------------------
+#otel_instance_count= 0
+#otel_instance_type =  "standard_F32s_v2"
+#otel_instance_k8s_label = {"nodetype"="otel"}
+#otel_ami_type= "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+#otel_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
+
+
+##high recommended to use env variables instead of setting the url and token in a file
+#export TF_VAR_es_apm_url="xxxx" #without https:// prefix
+#export TF_VAR_es_apm_token="xxxx"
+
+#es_apm_url= "your.ess.apm.elastic-cloud.com:443" #without https:// prefix
+#es_apm_token="your ess apm token" #your Elastic APM secret token

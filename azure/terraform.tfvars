@@ -20,9 +20,12 @@ tags = {
     "team" = "amer"
     "purpose" = "testing"
     "project" = "username" # Project name (shared) or username (individual)
+    "keep-until" = " 2024-12-31" #yyyy-mm-dd
+    
 }
 
 resource_group_location="eastus"
+
 
 
 

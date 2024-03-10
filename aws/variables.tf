@@ -1027,3 +1027,47 @@ variable "istiod_helm_chart_version" {
   default = "1.17.2"
   #helm search repo istio/istiod --versions
 }
+
+variable "otel_instance_count" {
+  description = "Number of otel instances"
+  type        = number
+  default     = 0
+}
+
+variable "otel_instance_type" {
+  description = "Otel instance type"
+  type = list(string)
+  default     = ["c6gd.8xlarge"]
+}
+
+
+variable "otel_instance_k8s_label" {
+  description = "otel instance k8s label"
+  type        = map
+  default     = {"nodetype"="otel"}
+}
+
+variable "otel_ami_type" {
+  description = "Otel AMI type"
+  type = string
+  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
+}
+
+
+variable "otel_capacity_type" {
+  description = "Otel capacity type"
+  type = string
+  default =  "ON_DEMAND"  # ON_DEMAND, SPOT
+}
+
+variable "es_apm_token" {
+  description = "ElasticSearch APM Token"
+  type = string
+  default = ""
+}
+
+variable "es_apm_url" {
+  description = "ElasticSearch APM URL"
+  type = string
+  default = ""
+}
