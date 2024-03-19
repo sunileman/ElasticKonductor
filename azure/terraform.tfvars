@@ -21,10 +21,12 @@ tags = {
     "purpose" = "testing"
     "project" = "username" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
-    
 }
 
 resource_group_location="eastus"
+
+entsearch_pod_count = 0
+entsearch_instance_count = 0
 
 
 
@@ -47,7 +49,7 @@ resource_group_location="eastus"
 #export TF_VAR_aks_service_principal_app_id=""
 #export TF_VAR_aks_service_principal_client_secret=""
 
-#aks_version= "1.26.3"
+#aks_version= "1.27.9"
 
 #dns_prefix= "oneclickeck"
 #resource_group_location= "eastus"

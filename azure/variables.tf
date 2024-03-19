@@ -28,7 +28,7 @@ variable "resource_group_name_prefix" {
 variable "aks_version" {
   description = "AKS Version"
   type        = string
-  default     = "1.27.3"
+  default     = "1.27.9"
 }
 
 variable "eck_version" {
@@ -63,7 +63,7 @@ variable "eck_operator_instance_affinity" {
 variable "k8s_master_instance_type" {
   description = "k8s Master instance type"
   type        = string
-  default     = "Standard_D2_v2"
+  default     = "Standard_D8ads_v5"
 }
 
 variable "master_instance_count" {
@@ -129,7 +129,7 @@ variable "hot_max_instance_count" {
 variable "hot_instance_type" {
   description = "Hot instance type"
   type        = string
-  default     =  "standard_F32s_v2"
+  default     =  "standard_D32plds_v5"
 }
 
 variable "hot_instance_k8s_label" {
@@ -443,7 +443,7 @@ variable "hot_pod_memory" {
 variable "hot_pod_storage" {
   description = "hot pod storage request"
   type = string
-  default = "1600Gi"
+  default = "1000Gi"
 }
 
 variable "hot_pod_ES_JAVA_OPTS" {
