@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.18.6
+oneclickv=1.18.7
 
 usage() {
     echo
@@ -276,7 +276,7 @@ if [ $cloud == "aws" ]; then
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [ $createmode == true ] && [ $k8sonly == true ] && [ $createOtel == false ]; then
        echo "1ClickECK.sh: calling 1ClickAWS.sh aks only"
-       (cd ./aws; bash ./1ClickAWS.sh -b aks $openebs_enabled)
+       (cd ./aws; bash ./1ClickAWS.sh -b eks $openebs_enabled)
        duration=$(( SECONDS - start ))
        echo "1ClickECK.sh: Total deployment time in seconds:" $duration
     elif [[ $destroy == true ]]; then

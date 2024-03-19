@@ -94,7 +94,7 @@ variable "master_max_instance_count" {
 variable "master_instance_type" {
   description = "Master instance type"
   type = list(string)
-  default     = ["m6g.2xlarge"]
+  default     = ["c6gd.2xlarge"]
 }
 
 variable "master_instance_k8s_label" {
@@ -463,7 +463,7 @@ variable "master_pod_memory" {
 variable "master_pod_storage" {
   description = "master pod storage request"
   type = string
-  default = "140Gi"
+  default = "200Gi"
 }
 
 variable "master_pod_instance_affinity" {
