@@ -1,9 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool
 resource "google_container_node_pool" "frozen" {
+  count           = var.frozen_initial_node_count_per_zone >= 1 ? 1 : 0
   
-  #will create node pool if 1
-  count = var.frozen_create_node_pool == true ? 1 : 0
-
   name       = "frozen"
   cluster    = data.terraform_remote_state.k8s.outputs.gke_cluster_id
   version = "${data.google_container_engine_versions.zone.latest_node_version}"

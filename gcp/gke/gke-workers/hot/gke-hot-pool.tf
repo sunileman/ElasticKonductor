@@ -1,8 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool
 resource "google_container_node_pool" "hot" {
+  count           = var.hot_initial_node_count_per_zone >= 1 ? 1 : 0
   
-  #will create node pool if 1
-  count = var.hot_create_node_pool == true ? 1 : 0
 
   name       = "hot"
 
@@ -29,9 +28,15 @@ resource "google_container_node_pool" "hot" {
     disk_size_gb = var.hot_volume
     disk_type    = var.hot_volume_type
 
-    local_nvme_ssd_block_config {
-      local_ssd_count = var.hot_local_ssd_count
+    # local_nvme_ssd_block_config {
+    #   local_ssd_count = var.hot_local_ssd_count
+    # }
+    
+    ephemeral_storage_config {
+      local_ssd_count = 2
     }
+
+
    
     labels = var.hot_instance_k8s_label 
 

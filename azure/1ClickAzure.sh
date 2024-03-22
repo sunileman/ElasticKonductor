@@ -51,7 +51,7 @@ cleanup() {
   destroy=false
   aksonly=false
   createModeArg=NA
-  openebs="openebs-enabled"
+  openebs="openebs-disabled"
   destroyeck=false
   createOtel=false
   destroyOtel=false
@@ -102,9 +102,9 @@ while [[ "$#" -gt 0 ]]; do
       destroyOtel=true
       shift
       ;;
-    -r|--removeopenebs)
-      echo "Disable OpenEBS"
-      openebs="openebs-disabled"
+    --openebs)
+      echo "Enable OpenEBS"
+      openebs="openebs-enabled"
       shift
       ;;
     -h|--help)
@@ -112,7 +112,7 @@ while [[ "$#" -gt 0 ]]; do
       echo "Create all AKS & ECK assets: $0 -b all"
       echo "Create AKS: $0 -b aks"
       echo "Create ECK: $0 -b eck"
-      echo "Create without OpenEBS: $0 -r"
+      echo "Create with OpenEBS: $0 --openebs"
       echo "Destroy all assets build by 1Click: $0 -d "
       exit 0
       ;;

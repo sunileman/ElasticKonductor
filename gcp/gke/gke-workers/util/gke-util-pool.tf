@@ -1,4 +1,5 @@
 resource "google_container_node_pool" "util" {
+  count      = var.util_instance_count >= 1 ? 1 : 0
   
   name    = "util"
   cluster  = data.terraform_remote_state.k8s.outputs.gke_cluster_id

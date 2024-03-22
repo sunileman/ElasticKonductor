@@ -63,7 +63,7 @@ variable "eck_operator_instance_affinity" {
 variable "k8s_master_instance_type" {
   description = "k8s Master instance type"
   type        = string
-  default     = "Standard_D8ads_v5"
+  default     = "Standard_F8s_v2"
 }
 
 variable "master_instance_count" {
@@ -129,7 +129,7 @@ variable "hot_max_instance_count" {
 variable "hot_instance_type" {
   description = "Hot instance type"
   type        = string
-  default     =  "standard_D32plds_v5"
+  default     =  "standard_F32s_v2"
 }
 
 variable "hot_instance_k8s_label" {
@@ -153,7 +153,7 @@ variable "warm_max_instance_count" {
 variable "warm_instance_type" {
   description = "warm instance type"
   type = string
-  default     = "standard_E16ads_v5"
+  default     = "standard_E32s_v3"
 }
 
 variable "warm_instance_k8s_label" {
@@ -177,7 +177,7 @@ variable "cold_max_instance_count" {
 variable "cold_instance_type" {
   description = "Cold instance type"
   type = string
-  default     = "standard_E48ads_v5"
+  default     = "standard_E32s_v3"
 }
 
 variable "cold_instance_k8s_label" {
@@ -201,7 +201,7 @@ variable "frozen_max_instance_count" {
 variable "frozen_instance_type" {
   description = "frozen instance type"
   type = string
-  default     = "standard_E96ads_v5"
+  default     = "standard_E32s_v3"
 }
 
 variable "frozen_instance_k8s_label" {
@@ -225,7 +225,7 @@ variable "ml_max_instance_count" {
 variable "ml_instance_type" {
   description = "ML instance type"
   type = string
-  default     = "standard_D16ads_v5"
+  default     = "standard_E32s_v3"
 }
 
 variable "ml_instance_k8s_label" {
@@ -352,7 +352,7 @@ variable "otel_instance_k8s_label" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.11.1"
+  default = "8.12.2"
 }
 
 variable "master_pod_count" {
@@ -401,7 +401,7 @@ variable "master_accept_search" {
 variable "master_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "managed-premium"
 }
 
 variable "kibana_pod_cpu" {
@@ -468,7 +468,7 @@ variable "hot_accept_search" {
 variable "hot_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "managed-premium"
 }
 
 variable "warm_pod_count" {
@@ -517,7 +517,7 @@ variable "warm_accept_search" {
 variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "managed-premium"
 }
 
 
@@ -567,7 +567,7 @@ variable "cold_accept_search" {
 variable "cold_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "managed-premium"
 }
 
 
@@ -617,7 +617,7 @@ variable "frozen_accept_search" {
 variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "managed-premium"
 }
 
 
@@ -668,7 +668,7 @@ variable "ml_accept_search" {
 variable "ml_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "managed-premium"
 }
 
 variable "eck_namespace" {

@@ -1,8 +1,6 @@
 resource "google_container_node_pool" "logstash" {
-  
+  count           = var.logstash_instance_count >= 1 ? 1 : 0
   name    = "logstash"
-
-  count = var.logstash_create_node_pool == true ? 1 : 0
   
   cluster  = data.terraform_remote_state.k8s.outputs.gke_cluster_id
   

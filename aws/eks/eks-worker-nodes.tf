@@ -2,6 +2,8 @@
 
 resource "aws_eks_node_group" "master" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.master_instance_count >= 1 ? 1 : 0
+
   node_group_name = "master"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id]) 
@@ -35,6 +37,8 @@ resource "aws_eks_node_group" "master" {
 
 resource "aws_eks_node_group" "kibana" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.kibana_instance_count >= 1 ? 1 : 0
+
   node_group_name = "kibana"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.public[*].id])
@@ -68,6 +72,8 @@ resource "aws_eks_node_group" "kibana" {
 
 resource "aws_eks_node_group" "hot" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.hot_instance_count >= 1 ? 1 : 0
+
   node_group_name = "hot"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id])
@@ -100,6 +106,8 @@ resource "aws_eks_node_group" "hot" {
 
 resource "aws_eks_node_group" "warm" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.warm_instance_count >= 1 ? 1 : 0
+
   node_group_name = "warm"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id])
@@ -133,6 +141,8 @@ resource "aws_eks_node_group" "warm" {
 
 resource "aws_eks_node_group" "cold" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.cold_instance_count >= 1 ? 1 : 0
+
   node_group_name = "cold"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id]) 
@@ -165,6 +175,8 @@ resource "aws_eks_node_group" "cold" {
 
 resource "aws_eks_node_group" "frozen" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.frozen_instance_count >= 1 ? 1 : 0
+
   node_group_name = "frozen"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id])
@@ -197,6 +209,8 @@ resource "aws_eks_node_group" "frozen" {
 
 resource "aws_eks_node_group" "ml" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.ml_instance_count >= 1 ? 1 : 0
+
   node_group_name = "ml"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id])
@@ -229,6 +243,8 @@ resource "aws_eks_node_group" "ml" {
 
 resource "aws_eks_node_group" "entsearch" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.entsearch_instance_count >= 1 ? 1 : 0
+
   node_group_name = "entsearch"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id])
@@ -261,6 +277,8 @@ resource "aws_eks_node_group" "entsearch" {
 
 resource "aws_eks_node_group" "otel" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.otel_instance_count >= 1 ? 1 : 0
+
   node_group_name = "otel"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.private[*].id])
@@ -293,6 +311,8 @@ resource "aws_eks_node_group" "otel" {
 
 resource "aws_eks_node_group" "util" {
   cluster_name    = aws_eks_cluster.OneClick.name
+  count           = var.util_instance_count >= 1 ? 1 : 0
+  
   node_group_name = "util"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = flatten([aws_subnet.public[*].id])

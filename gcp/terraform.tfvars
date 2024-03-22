@@ -19,7 +19,7 @@ tags = {
     "division" = "field"
     "org" = "sa"
     "team" = "amer"
-    "project" = "username" # Project name (shared) or username (individual)
+    "project" = "sunman" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }
 
@@ -27,7 +27,14 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
-gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
+master_local_ssd_count  = 1
+hot_local_ssd_count = 2
+
+entsearch_instance_count=0
+entsearch_pod_count=0
+fleet_instance_count = 0
+
+gcp_project="elastic-sa"
 
 
 
@@ -76,13 +83,13 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #master_volume_type= "pd-ssd"
 #master_accept_ingest=false
 #master_accept_search=false
-#master_create_node_pool=true
+
 
 #kibana_instance_count=1
 #kibana_instance_k8s_label= {"nodetype"="kibana"}
 #kibana_instance_type= ""
 #kibana_volume_type= "pd-ssd"
-#kibana_create_node_pool=true
+
 
 #hot_initial_node_count_per_zone=2
 #hot_instance_count_per_zone=2
@@ -93,7 +100,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #hot_volume_type= "pd-ssd"
 #hot_accept_ingest=true
 #hot_accept_search=true
-#hot_create_node_pool=true
 #hot_local_ssd_count = 0  ##each unit will provide 375 GB
 
 #warm_initial_node_count_per_zone=1
@@ -105,7 +111,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #warm_volume_type= "pd-ssd"
 #warm_accept_ingest=true
 #warm_accept_search=false
-#warm_create_node_pool=true
 #warm_local_ssd_count = 0
 
 #cold_initial_node_count_per_zone=1
@@ -117,7 +122,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #cold_volume_type= "pd-ssd"
 #cold_accept_ingest=false
 #cold_accept_search=false
-#cold_create_node_pool=true
 #cold_local_ssd_count = 0
 
 
@@ -130,7 +134,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #frozen_volume_type= "pd-ssd"
 #frozen_accept_ingest=false
 #frozen_accept_search=false
-#frozen_create_node_pool=true
 #frozen_local_ssd_count = 0
 
 #ml_initial_node_count_per_zone=1
@@ -142,7 +145,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #ml_volume_type= "pd-ssd"
 #ml_accept_ingest=false
 #ml_accept_search=false
-#ml_create_node_pool=true
 #ml_local_ssd_count = 1
 
 
@@ -151,7 +153,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #entsearch_instance_k8s_label = {"nodetype"="entsearch"}
 #entsearch_volume = 500
 #entsearch_volume_type = "pd-ssd"
-#entsearch_create_node_pool = true
 #entsearch_local_ssd_count = 1
 
 
@@ -159,7 +160,6 @@ gcp_project="REPLACE-WITH-YOUR-GCP-PROJECT"
 #fleet_instance_k8s_label= {"nodetype"="fleet"}
 #fleet_instance_type= "e2-standard-8"
 #fleet_volume_type= "pd-ssd"
-#fleet_create_node_pool=true
 
 
 #util_instance_count= 1

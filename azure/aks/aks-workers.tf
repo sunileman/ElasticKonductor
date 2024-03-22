@@ -1,5 +1,7 @@
 resource "azurerm_kubernetes_cluster_node_pool" "master" {
   name                  = "master"
+  count                 = var.master_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.master_instance_type
   #node_count            = var.master_instance_count
@@ -21,6 +23,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "master" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "kibana" {
   name                  = "kibana"
+  count                 = var.kibana_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.kibana_instance_type
   #node_count            = var.kibana_instance_count
@@ -40,6 +44,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "kibana" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "hot" {
   name                  = "hot"
+  count                 = var.hot_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.hot_instance_type
   #node_count            = var.hot_instance_count
@@ -59,6 +65,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "hot" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "warm" {
   name                  = "warm"
+  count                 = var.warm_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.warm_instance_type
   #node_count            = var.warm_instance_count
@@ -79,6 +87,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "warm" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "cold" {
   name                  = "cold"
+  count                 = var.cold_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.cold_instance_type
   #node_count            = var.cold_instance_count
@@ -97,6 +107,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "cold" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "frozen" {
   name                  = "frozen"
+  count                 = var.frozen_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.frozen_instance_type
   #node_count            = var.frozen_instance_count
@@ -116,6 +128,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "frozen" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "ml" {
   name                  = "ml"
+  count                 = var.ml_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.ml_instance_type
   #node_count            = var.ml_instance_count
@@ -136,6 +150,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "ml" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "logstash" {
   name                  = "logstash"
+  count                 = var.logstash_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.logstash_instance_type
   #node_count            = var.logstash_instance_count
@@ -154,6 +170,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "logstash" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "windws" {
   name                  = "windws"
+  count                 = var.windows_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.windows_instance_type
 
@@ -177,6 +195,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "windws" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "otel" {
   name                  = "otel"
+  count                 = var.otel_instance_count >= 1 ? 1 : 0
+
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.otel_instance_type
   node_count            = var.otel_instance_count
@@ -195,6 +215,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "otel" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "entsearch" {
   name                  = "entsearch"
+  count                 = var.entsearch_instance_count >= 1 ? 1 : 0
+  
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.entsearch_instance_type
   #node_count            = var.entsearch_instance_count

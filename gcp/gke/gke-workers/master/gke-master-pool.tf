@@ -1,8 +1,6 @@
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool
 resource "google_container_node_pool" "master" {
-    
-  #will create node pool if 1
-  count = var.master_create_node_pool == true ? 1 : 0
+  count           = var.master_initial_node_count_per_zone >= 1 ? 1 : 0
 
   name       = "master"
   cluster    = data.terraform_remote_state.k8s.outputs.gke_cluster_id

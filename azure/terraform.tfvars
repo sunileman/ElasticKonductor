@@ -25,11 +25,6 @@ tags = {
 
 resource_group_location="eastus"
 
-entsearch_pod_count = 0
-entsearch_instance_count = 0
-
-
-
 
 #----------------------- Cloud Provider ----------------------------------------
 

@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=1.18.7
+oneclickv=1.19.0
 
 usage() {
     echo
@@ -20,7 +20,7 @@ usage() {
     printf "  %-28s %s\n" "-d" "Destroy all components."
     printf "  %-28s %s\n" "-de" "Destroy eck."
     printf "  %-28s %s\n" "-do" "Destroy otel."
-    printf "  %-28s %s\n" "-r" "Create without openebs."
+    printf "  %-28s %s\n" "--openebs" "Enable OpenEBS"
     
     echo
     echo "Deployment Information Options:"
@@ -44,7 +44,7 @@ cleanup() {
   destroy=false
   createModeArg=NA
   cloud=NA
-  openebs_enabled=""
+  openebs_option=""
   getClusterInfo=false
   getInfraInfo=false
   destroyeck=false
@@ -104,9 +104,9 @@ while [[ "$#" -gt 0 ]]; do
       fi
       shift
       ;;
-    -r|--removeopenebs)
-      echo "Disable OpenEBS"
-      openebs_enabled="-r"
+    --openebs)
+      echo "Enable OpenEBS"
+      openebs_enabled="--openebs"
       shift
       ;;
     -i|--getClusterInfo)

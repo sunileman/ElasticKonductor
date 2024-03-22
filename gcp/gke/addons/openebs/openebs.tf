@@ -6,15 +6,11 @@ resource "helm_release" "openebs" {
   version        = var.openebs_helm_chart_version
   create_namespace = true
   set {
-    name  = "localprovisioner.basePath"
-    value = "/srv/local"
-  }
-  set {
-    name  = "localprovisioner.hostpathClass.name"
+    name  = "localprovisioner.deviceClass.name"
     value = "local-storage"
   }
   set {
-    name  = "localprovisioner.deviceClass.enabled"
+    name  = "localprovisioner.hostpathClass.enabled"
     value = "false"
   }
 }

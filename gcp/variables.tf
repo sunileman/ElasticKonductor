@@ -185,7 +185,7 @@ variable "master_max_instance_count_per_zone" {
 variable "master_instance_type" {
   description = "Master instance type"
   type        = string
-  default     = "e2-standard-8"
+  default     = "c3-standard-4-lssd"
 }
 
 variable "master_local_ssd_count" {
@@ -210,12 +210,6 @@ variable "master_volume_type" {
   description = "disk type"
   type        = string
   default     = "pd-ssd"
-}
-
-variable "master_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = true
 }
 
 
@@ -257,12 +251,6 @@ variable "kibana_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "kibana_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = true
-}
-
 
 variable "hot_surge_count" {
   description = "autoscale surge count"
@@ -291,7 +279,7 @@ variable "hot_max_instance_count_per_zone" {
 variable "hot_instance_type" {
   description = "Hot instance type"
   type        = string
-  default     = "e2-standard-32"
+  default     = "c3-standard-8-lssd"
 }
 
 variable "hot_instance_k8s_label" {
@@ -318,12 +306,6 @@ variable "hot_local_ssd_count" {
   default     = 0
 }
 
-
-variable "hot_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = true
-}
 
 variable "warm_surge_count" {
   description = "autoscale surge count"
@@ -379,11 +361,6 @@ variable "warm_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "warm_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = false
-}
 
 variable "cold_surge_count" {
   description = "autoscale surge count"
@@ -439,11 +416,6 @@ variable "cold_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "cold_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = false
-}
 
 
 variable "frozen_surge_count" {
@@ -500,11 +472,6 @@ variable "frozen_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "frozen_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = false
-}
 
 
 variable "ml_surge_count" {
@@ -561,11 +528,6 @@ variable "ml_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "ml_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = false
-}
 
 variable "entsearch_instance_count" {
   description = "Number of entsearch instances"
@@ -605,12 +567,6 @@ variable "entsearch_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "entsearch_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = true
-}
-
 
 
 variable "fleet_instance_count" {
@@ -648,12 +604,6 @@ variable "fleet_volume_type" {
   description = "disk type"
   type        = string
   default     = "pd-ssd"
-}
-
-variable "fleet_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = true
 }
 
 
@@ -767,11 +717,6 @@ variable "logstash_volume_type" {
   default     = "pd-ssd"
 }
 
-variable "logstash_create_node_pool" {
-  description = "Whether to create the K8s node pool"
-  type        = bool
-  default     = false
-}
 
 variable "es_version" {
   description = "elasticsearch version"
@@ -794,13 +739,13 @@ variable "master_pod_count" {
 variable "master_pod_cpu" {
   description = "master pod cpu request"
   type = string
-  default = "6500m"
+  default = "2"
 }
 
 variable "master_pod_memory" {
   description = "master pod memory request"
   type = string
-  default = "11264Mi"
+  default = "12Gi"
 }
 
 variable "master_pod_storage" {
@@ -861,19 +806,19 @@ variable "hot_pod_count" {
 variable "hot_pod_cpu" {
   description = "hot pod cpu request"
   type = string
-  default = "30000m"
+  default = "6"
 }
 
 variable "hot_pod_memory" {
   description = "hot pod memory request"
   type = string
-  default = "53248Mi"
+  default = "26Gi"
 }
 
 variable "hot_pod_storage" {
   description = "hot pod storage request"
   type = string
-  default = "1600Gi"
+  default = "300Gi"
 }
 
 variable "hot_pod_ES_JAVA_OPTS" {
@@ -1218,7 +1163,7 @@ variable "entsearch_pod_storage_class" {
 variable "openebs_helm_chart_version" {
   description = "OpenEBS chart version"
   type = string
-  default = "3.3.1"
+  default = "3.10.0"
 }
 
 variable "istio_helm_base_chart_version" {
