@@ -20,3 +20,6 @@ terraform refresh
 export KUBE_CONFIG_PATH=~/.kube/config
 echo "openebs/1ClickAddonsDestroy.sh Terraform Destroy"
 terraform destroy -auto-approve
+
+echo "openebs/1ClickAddonsDestroy.sh remove openebs block devices"
+(bash ./delete_openebs_bds.sh)

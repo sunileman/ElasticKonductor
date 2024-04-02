@@ -106,8 +106,6 @@ This will install all the required libaries and CLIs for the automation.
 
 `-d` Destroy all assets created by the automation
 
-`-r` disable openebs
-
 `de` destroy ECK
 
 `do` destroy Open Telemetry
@@ -115,6 +113,8 @@ This will install all the required libaries and CLIs for the automation.
 `i` get cluster info 
 
 `int` get cluster infra info 
+
+`--openebs` Enable OpenEBS
 
 **Note**
 `-b eck` option assumes K8s has been deployed
@@ -355,7 +355,6 @@ To use gp3 or io2-be set the following
 Azure
 `[master|hot|warm|cold|frozen|ml]_pod_storage_class = "managed-csi-premium"`
 
-Run the automation with `r` option to disable openebs
 
 ## Kube State Metrics (KSM)
 ElasticKonductor installs KSM by default with the service name `ksm-kube-state-metrics`. Under the kube-state-metrics integration section for Kubernetes, update the service name to `ksm-kube-state-metrics.kube-system.svc.cluster.local` with port `8080`.
@@ -370,7 +369,7 @@ To reset your local kubeclt, run
   /ElasticKonductor/[gpc|aws|azure]/create-[eks|aks|gke]/setkubectl.sh
 ```
 ## OpenEBS / Local Storage
-OpenEBS is a automatic local disk provisioner for K8s.  There may be scanerios (ie using network storage) the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `-r` option to disable openEBS
+OpenEBS is a automatic local disk provisioner for K8s.  There may be scanerios (ie using network storage) the defaults from OpenEBS are not useful. To handle these scanerios, run the automation with `--openebs` to Enable OpenEBS
 
 ```
 ./elastickonductor.sh -c gcp -b k8s -r
@@ -409,8 +408,7 @@ If one of the pods is stuck in `init` stage run
 ```
 kubectl describe pod <podname>
 ```
-That should give you an idea on what went wrong.  If the mount fails due to `srv/local` not available, rerun openEBS.  
-
+That should give you an idea on what went wrong.  Often with openEBS the issue is the blockdevice has not been released. To resolve run `azure|gcp|aws/aks|gke|eks/addons/openebs/delete_openebs_bds.sh` to delete the block devices.  However it is recommended to destroy cluster and start over as removing block devices manually has proven to provide unpredictable results.
 
 How to enter pod within GKE nodes
 ```
