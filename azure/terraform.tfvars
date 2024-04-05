@@ -19,27 +19,12 @@ tags = {
     "org" = "sa"
     "team" = "amer"
     "purpose" = "testing"
-    "project" = "sunman" # Project name (shared) or username (individual)
+    "project" = "username" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }
 
 resource_group_location="eastus"
 
-master_instance_count = 1
-hot_instance_count = 1
-entsearch_instance_count = 1
-
-master_pod_count = 1
-hot_pod_count = 1
-entsearch_pod_count = 1
-
-fleet_instance_count= 1
-fleet_pod_count = 1
-
-apmserver_instance_count=1
-
-deploy_elastic_agent="true"
-elastic_agent_deployment_type = "deployment"
 #----------------------- Cloud Provider ----------------------------------------
 
 

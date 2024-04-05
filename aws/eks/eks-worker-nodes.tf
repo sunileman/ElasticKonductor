@@ -2,7 +2,7 @@
 
 resource "aws_eks_node_group" "master" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.master_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "master"
   node_role_arn   = aws_iam_role.node.arn
@@ -37,7 +37,7 @@ resource "aws_eks_node_group" "master" {
 
 resource "aws_eks_node_group" "kibana" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.kibana_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "kibana"
   node_role_arn   = aws_iam_role.node.arn
@@ -72,7 +72,7 @@ resource "aws_eks_node_group" "kibana" {
 
 resource "aws_eks_node_group" "hot" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.hot_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "hot"
   node_role_arn   = aws_iam_role.node.arn
@@ -106,7 +106,7 @@ resource "aws_eks_node_group" "hot" {
 
 resource "aws_eks_node_group" "warm" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.warm_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "warm"
   node_role_arn   = aws_iam_role.node.arn
@@ -141,7 +141,7 @@ resource "aws_eks_node_group" "warm" {
 
 resource "aws_eks_node_group" "cold" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.cold_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "cold"
   node_role_arn   = aws_iam_role.node.arn
@@ -175,7 +175,7 @@ resource "aws_eks_node_group" "cold" {
 
 resource "aws_eks_node_group" "frozen" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.frozen_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "frozen"
   node_role_arn   = aws_iam_role.node.arn
@@ -209,7 +209,7 @@ resource "aws_eks_node_group" "frozen" {
 
 resource "aws_eks_node_group" "ml" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.ml_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "ml"
   node_role_arn   = aws_iam_role.node.arn
@@ -243,7 +243,7 @@ resource "aws_eks_node_group" "ml" {
 
 resource "aws_eks_node_group" "entsearch" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.entsearch_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "entsearch"
   node_role_arn   = aws_iam_role.node.arn
@@ -277,7 +277,7 @@ resource "aws_eks_node_group" "entsearch" {
 
 resource "aws_eks_node_group" "otel" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.otel_instance_count >= 1 ? 1 : 0
+  
 
   node_group_name = "otel"
   node_role_arn   = aws_iam_role.node.arn
@@ -311,7 +311,7 @@ resource "aws_eks_node_group" "otel" {
 
 resource "aws_eks_node_group" "util" {
   cluster_name    = aws_eks_cluster.OneClick.name
-  count           = var.util_instance_count >= 1 ? 1 : 0
+  
   
   node_group_name = "util"
   node_role_arn   = aws_iam_role.node.arn
@@ -389,7 +389,6 @@ resource "aws_iam_role_policy_attachment" "oneclick-workernodes-autoscale-policy
 
 
 resource "aws_autoscaling_group_tag" "master_asg_tag" {
-  count           = var.master_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.master.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -401,7 +400,6 @@ resource "aws_autoscaling_group_tag" "master_asg_tag" {
 
 
 resource "aws_autoscaling_group_tag" "kibana_asg_tag" {
-  count           = var.kiban_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.kibana.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -413,7 +411,6 @@ resource "aws_autoscaling_group_tag" "kibana_asg_tag" {
 
 
 resource "aws_autoscaling_group_tag" "hot_asg_tag" {
-  count                  = var.hot_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.hot.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -424,7 +421,6 @@ resource "aws_autoscaling_group_tag" "hot_asg_tag" {
 }
 
 resource "aws_autoscaling_group_tag" "warm_asg_tag" {
-  count                  = var.warm_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.warm.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -436,7 +432,6 @@ resource "aws_autoscaling_group_tag" "warm_asg_tag" {
 
 
 resource "aws_autoscaling_group_tag" "cold_asg_tag" {
-  count                  = var.cold_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.cold.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -447,7 +442,6 @@ resource "aws_autoscaling_group_tag" "cold_asg_tag" {
 }
 
 resource "aws_autoscaling_group_tag" "frozen_asg_tag" {
-  count                  = var.frozen_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.frozen.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -459,7 +453,6 @@ resource "aws_autoscaling_group_tag" "frozen_asg_tag" {
 
 
 resource "aws_autoscaling_group_tag" "ml_asg_tag" {
-  count                  = var.ml_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.ml.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -471,7 +464,6 @@ resource "aws_autoscaling_group_tag" "ml_asg_tag" {
 
 
 resource "aws_autoscaling_group_tag" "util_asg_tag" {
-  count                  = var.util_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.util.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -483,7 +475,6 @@ resource "aws_autoscaling_group_tag" "util_asg_tag" {
 
 
 resource "aws_autoscaling_group_tag" "entsearch_asg_tag" {
-  count                  = var.entsearch_instance_count >= 1 ? 1 : 0
   autoscaling_group_name = aws_eks_node_group.entsearch.resources[0].autoscaling_groups[0].name
 
   tag {
@@ -495,7 +486,6 @@ resource "aws_autoscaling_group_tag" "entsearch_asg_tag" {
 
 
 resource "null_resource" "apply_master_ini_asg_tags" {
-  count      = var.master_instance_count >= 1 ? 1 : 0
   depends_on = [aws_eks_node_group.master]
 
   provisioner "local-exec" {
@@ -505,7 +495,6 @@ resource "null_resource" "apply_master_ini_asg_tags" {
 
 
 resource "null_resource" "apply_kibana_ini_asg_tags" {
-  count      = var.kibana_instance_count >= 1 ? 1 : 0
   depends_on = [aws_eks_node_group.kibana]
 
   provisioner "local-exec" {
@@ -514,7 +503,7 @@ resource "null_resource" "apply_kibana_ini_asg_tags" {
 }
 
 resource "null_resource" "apply_hot_ini_asg_tags" {
-  count      = var.hot_instance_count >= 1 ? 1 : 0
+  
   depends_on = [aws_eks_node_group.hot]
 
   provisioner "local-exec" {
@@ -524,7 +513,7 @@ resource "null_resource" "apply_hot_ini_asg_tags" {
 
 
 resource "null_resource" "apply_warm_ini_asg_tags" {
-    count      = var.warm_instance_count >= 1 ? 1 : 0
+    
   depends_on = [aws_eks_node_group.warm]
 
   provisioner "local-exec" {
@@ -533,7 +522,7 @@ resource "null_resource" "apply_warm_ini_asg_tags" {
 }
 
 resource "null_resource" "apply_cold_ini_asg_tags" {
-  count      = var.cold_instance_count >= 1 ? 1 : 0
+  
   depends_on = [aws_eks_node_group.cold]
 
   provisioner "local-exec" {
@@ -542,7 +531,7 @@ resource "null_resource" "apply_cold_ini_asg_tags" {
 }
 
 resource "null_resource" "apply_frozen_ini_asg_tags" {
-  count      = var.frozen_instance_count >= 1 ? 1 : 0
+  
   depends_on = [aws_eks_node_group.frozen]
 
   provisioner "local-exec" {
@@ -551,7 +540,7 @@ resource "null_resource" "apply_frozen_ini_asg_tags" {
 }
 
 resource "null_resource" "apply_ml_ini_asg_tags" {
-  count      = var.ml_instance_count >= 1 ? 1 : 0
+  
   depends_on = [aws_eks_node_group.ml]
 
   provisioner "local-exec" {
@@ -560,7 +549,7 @@ resource "null_resource" "apply_ml_ini_asg_tags" {
 }
 
 resource "null_resource" "apply_util_ini_asg_tags" {
-  count      = var.util_instance_count >= 1 ? 1 : 0
+  
 
   depends_on = [aws_eks_node_group.util]
 
@@ -571,7 +560,7 @@ resource "null_resource" "apply_util_ini_asg_tags" {
 
 
 resource "null_resource" "apply_entsearch_ini_asg_tags" {
-  count      = var.entsearch_instance_count >= 1 ? 1 : 0
+  
 
   depends_on = [aws_eks_node_group.entsearch]
 

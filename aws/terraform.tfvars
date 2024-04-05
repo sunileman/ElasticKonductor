@@ -28,7 +28,6 @@ region= "us-east-1"
 
 
 
-
 #----------------------- Cloud Provider ----------------------------------------
 #automation_name= "konductor"
 
