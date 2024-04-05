@@ -13,6 +13,10 @@ terraform {
       source = "anschoewe/curl"
       version = "1.0.2"
     }
+    helm = {
+      source = "hashicorp/helm"
+      version = "2.12.1"
+    }
   }
 }
 

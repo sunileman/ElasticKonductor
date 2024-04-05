@@ -8,7 +8,11 @@ spec:
   elasticsearchRef:
     name: eck-elasticsearch
   config:
-    kibana.host: https://eck-kb-http.${eck_namespace}.svc:5601
+    ##testing how to add app search UI, this seems to work
+    #kibana.host: https://whfvxwgqcqispuzv.eastus.cloudapp.azure.com:5601
+    #ent_search.external_url: https://ablkjasdlifjas.eastus.cloudapp.azure.com:3002
+    #elasticsearch.username: "elastic"
+    #elasticsearch.password: "xxxx"
   configRef:
     secretName: es-credentials
   podTemplate:
@@ -35,3 +39,15 @@ spec:
         env:
         - name: JAVA_OPTS
           value: ${entsearch_pod_ES_JAVA_OPTS}
+  ###commented out as this is generally not used.  This is for the app search ui
+  # http:
+  #  service:
+  #   metadata:
+  #        annotations:
+  #           service.beta.kubernetes.io/azure-dns-label-name: "ablkjasdlifjas"
+  #   spec:
+  #        type: LoadBalancer
+  #  tls:
+  #   selfSignedCertificate:
+  #    subjectAltNames:
+  #    - dns: "*.cloudapp.azure.com"

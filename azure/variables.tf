@@ -349,6 +349,66 @@ variable "otel_instance_k8s_label" {
   default     = {"nodetype"="otel"}
 }
 
+variable "fleet_instance_count" {
+  description = "Number of fleet instances"
+  type        = number
+  default     = 0
+}
+
+variable "fleet_instance_type" {
+  description = "fleet instance type"
+  type        = string
+  default     =  "Standard_F4s_v2"
+}
+
+variable "fleet_instance_k8s_label" {
+  description = "fleet instance k8s label"
+  type        = map
+  default     = {"nodetype"="fleet"}
+}
+
+variable "deploy_elastic_agent" {
+  description = "deploy elastic agent"
+  type = string
+  default = "false"
+}
+
+variable "elastic_agent_deployment_type" {
+  description = "K8s deployment type of deployment|daemonSet|statefulSet"
+  type = string
+  default = "deployment"
+}
+
+variable "elastic_agent_pod_memory" {
+  description = "elastic agent pod memory"
+  type = string
+  default = "200Mi"
+}
+
+variable "elastic_agent_pod_cpu" {
+  description = "elastic agent pod cpu"
+  type = string
+  default = "500m"
+}
+
+variable "apmserver_instance_count" {
+  description = "Number of apmserver instances"
+  type        = number
+  default     = 0
+}
+
+variable "apmserver_instance_type" {
+  description = "apmserver instance type"
+  type        = string
+  default     =  "Standard_F4s_v2"
+}
+
+variable "apmserver_instance_k8s_label" {
+  description = "apmserver instance k8s label"
+  type        = map
+  default     = {"nodetype"="apmserver"}
+}
+
 variable "es_version" {
   description = "elasticsearch version"
   type = string
@@ -787,6 +847,53 @@ variable "entsearch_pod_storage_class" {
   default = "managed-premium"
 }
 
+variable "fleet_pod_count" {
+  description = "number of fleet pods"
+  type = number
+  default = 0
+}
+
+variable "fleet_pod_cpu" {
+  description = "fleet pod cpu request"
+  type = string
+  default = "2"
+}
+
+variable "fleet_pod_memory" {
+  description = "fleet pod memory request"
+  type = string
+  default = "4Gi"
+}
+
+variable "fleet_chart_version" {
+  description = "fleet chart version"
+  type = string
+  default = "0.10.0"
+}
+
+variable "apmserver_pod_count" {
+  description = "number of apmserver pods"
+  type = number
+  default = 0
+}
+
+variable "apmserver_pod_cpu" {
+  description = "apmserver pod cpu request"
+  type = string
+  default = "2"
+}
+
+variable "apmserver_pod_memory" {
+  description = "apmserver pod memory request"
+  type = string
+  default = "4Gi"
+}
+
+variable "apmserver_chart_version" {
+  description = "apmserver chart version"
+  type = string
+  default = "0.10.0"
+}
 
 
 variable "lbname" {
@@ -827,6 +934,39 @@ variable "ksm_helm_chart_version" {
   default = "5.12.1"
   ##https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
 }
+
+
+variable "es_operator_chart_version" {
+  description = "es operator chart version"
+  type = string
+  default = "2.12.1"
+}
+
+variable "es_chart_version" {
+  description = "elasticsearch chart version"
+  type = string
+  default = "0.10.0"
+}
+
+variable "kibana_chart_version" {
+  description = "kibana chart version"
+  type = string
+  default = "0.10.0"
+}
+
+variable "es_agent_chart_version" {
+  description = "es agent chart version"
+  type = string
+  default = "0.10.0"
+}
+
+variable "fleet_server_chart_version" {
+  description = "fleet server chart version"
+  type = string
+  default = "0.10.0"
+}
+
+
 
 variable "es_apm_token" {
   description = "ElasticSearch APM Token"

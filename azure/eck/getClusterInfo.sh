@@ -1,20 +1,17 @@
 #!/bin/bash
 
 set -e
-##get variables from terraform state
-lbnameraw=$(terraform output lbname)
-lbname=${lbnameraw//\"/}
 
-ingestLBnameraw=$(terraform output ingestLbName)
+ingestLBnameraw=$(cd loadbalancers; terraform output ingestLbName)
 ingestLBname=${ingestLBnameraw//\"/}
 
-searchLBnameraw=$(terraform output searchLbName)
+searchLBnameraw=$(cd loadbalancers; terraform output searchLbName)
 searchLBname=${searchLBnameraw//\"/}
 
-clusternameraw=$(terraform output clustername)
+clusternameraw=$(cd loadbalancers; terraform output clustername)
 clustername=${clusternameraw//\"/}
 
-regionraw=$(terraform output region)
+regionraw=$(cd loadbalancers; terraform output region)
 region=${regionraw//\"/}
 
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,6 +72,9 @@ until check_es; do
   sleep $SLEEP_INTERVAL
 done
 
+
+
+lbname=$(python ./helm-deployment/eck-kibana/getLbName.py)
 
 # Fetch service URLs and credentials
 ingest_ip=$(kubectl get service eck-ingest-es-http-endpoint -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')

@@ -494,7 +494,7 @@ variable "master_accept_search" {
 variable "master_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage" 
+  default = "master-gp3" 
   #valid values local-storage|master-gp3|master-io2-be
 }
 
@@ -590,7 +590,7 @@ variable "hot_accept_search" {
 variable "hot_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "hot-gp3"
   #valid values local-storage|hot-gp3|hot-io2-be
 }
 
@@ -660,7 +660,7 @@ variable "warm_accept_search" {
 variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "warm-gp3"
   #valid values local-storage|warm-gp3|warm-io2-be
 }
 
@@ -729,7 +729,7 @@ variable "cold_accept_search" {
 variable "cold_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "cold-gp3"
   #valid values local-storage|cold-gp3|cold-io2-be
 }
 
@@ -800,7 +800,7 @@ variable "frozen_accept_search" {
 variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "frozen-gp3"
   #valid values local-storage|frozen-gp3|frozen-io2-be
 }
 
@@ -870,7 +870,7 @@ variable "ml_accept_search" {
 variable "ml_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "ml-gp3"
   #valid values local-storage|ml-gp3|ml-io2-be
 }
 
@@ -939,8 +939,8 @@ variable "entsearch_accept_search" {
 variable "entsearch_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage" 
-  #valid values local-storage|entsearch-gp3|entsearch-io2-be
+  default = "gp2" 
+  #valid values local-storage|gp2
 }
 
 

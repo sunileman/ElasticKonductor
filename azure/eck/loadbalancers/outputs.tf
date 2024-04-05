@@ -1,6 +1,4 @@
-output "lbname" {
-  value = data.terraform_remote_state.namegen.outputs.lbname
-}
+
 output "ingestLbName" {
   value = data.terraform_remote_state.namegen.outputs.ingestLbName
 }

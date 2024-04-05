@@ -19,13 +19,27 @@ tags = {
     "org" = "sa"
     "team" = "amer"
     "purpose" = "testing"
-    "project" = "username" # Project name (shared) or username (individual)
+    "project" = "sunman" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }
 
 resource_group_location="eastus"
 
+master_instance_count = 1
+hot_instance_count = 1
+entsearch_instance_count = 1
 
+master_pod_count = 1
+hot_pod_count = 1
+entsearch_pod_count = 1
+
+fleet_instance_count= 1
+fleet_pod_count = 1
+
+apmserver_instance_count=1
+
+deploy_elastic_agent="true"
+elastic_agent_deployment_type = "deployment"
 #----------------------- Cloud Provider ----------------------------------------
 
 
@@ -119,7 +133,13 @@ resource_group_location="eastus"
 #entsearch_accept_ingest=true
 #entsearch_accept_search=false
 
+#fleet_instance_count= 0
+#fleet_instance_type =  "Standard_F4s_v2"
+#fleet_instance_k8s_label = {"nodetype"="fleet"}
 
+#apmserver_instance_count= 0
+#apmserver_instance_type =  "Standard_F4s_v2"
+#apmserver_instance_k8s_label = {"nodetype"="apmserver"}
 
 #logstash_instance_count= 0
 #logstash_max_instance_count= 0
@@ -224,6 +244,32 @@ resource_group_location="eastus"
 #entsearch_pod_roles= "data_entsearch, data_content, ingest"
 #entsearch_pod_storage= "300Gi"
 #entsearch_pod_storage_class = "managed-premium"
+
+#fleet_pod_count = 0
+#fleet_pod_cpu  = "2"
+#fleet_pod_memory = "4Gi"
+#fleet_chart_version = "0.10.0"
+
+#apmserver_pod_count = 0
+#apmserver_pod_cpu  = "2"
+#apmserver_pod_memory = "4Gi"
+
+
+#deploy_elastic_agent = "false"
+#elastic_agent_deployment_type = deployment  ##can by deployment|daemonSet|statefulSet
+#elastic_agent_pod_memory = "500Mi"
+#elastic_agent_pod_cpu = "1"
+
+
+##run helm search repo elastic to find chart version
+#es_operator_chart_version= "2.12.1"
+#es_chart_version = "0.10.0"
+#kibana_chart_version= "0.10.0"
+#es_agent_chart_version= "0.10.0"
+#fleet_server_chart_version = "0.10.0"
+#apmserver_chart_version = "0.10.0"
+
+
 
 
 #eck_operator_instance_affinity="util"

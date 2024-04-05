@@ -1,10 +1,14 @@
 #!/bin/bash
 
+#add license file
+echo "1ClickECKDeploy.sh: set kubectl"
+(cd ../aks/ ; bash ./setkubectl.sh) 
+
 export KUBE_CONFIG_PATH=~/.kube/config
 ##Name Gen Util for AKS Kibana Load Balancer
 
 echo "1ClickECKDeploy.sh: generating name"
-(cd ./namegen; bash ./1ClickNameGen.sh )
+(cd ./namegen; bash ./1ClickNameGen.sh)
 
 set -e
 #copy variables to operator directory
@@ -12,22 +16,25 @@ echo "1ClickECKDeploy.sh: coping variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
-##create elastic CRDs and Operator
+echo "1ClickECKDeploy.sh: Creating Loadbalancers"
+(cd ./loadbalancers/; bash ./KonductorDeploy.sh)
+
 echo "1ClickECKDeploy.sh: Creating Elastic CRDS and Operator"
-(cd ./es-operator ; bash ./1ClickECKOperator.sh)
+(cd ./helm-deployment/eck-operator/; bash ./KonductorDeploy.sh)
 
-echo "1ClickECKDeploy.sh: creating ECK" 
-# initialize terraform configuration
-terraform init -upgrade
 
-# validate terraform configuration
-terraform validate
+echo "1ClickECKDeploy.sh: Creating Elasticsearch"
+(cd ./helm-deployment/eck-elasticsearch/; bash ./KonductorDeploy.sh)
 
-# create terraform plan
-terraform plan -out state.tfplan
+echo "1ClickECKDeploy.sh: Creating Kibana"
+(cd ./helm-deployment/eck-kibana/; bash ./KonductorDeploy.sh)
 
-# apply terraform plan
-terraform apply state.tfplan
+echo "1ClickECKDeploy.sh: Creating Elastic Agent"
+(cd ./helm-deployment/eck-agent/; bash ./KonductorDeploy.sh)
+
+echo "1ClickECKDeploy.sh: Creating Fleet Server"
+(cd ./helm-deployment/eck-fleet-server/; bash ./KonductorDeploy.sh)
+
 
 #add entsearch
 echo "1ClickECKDeploy.sh: checking enterprise search count"

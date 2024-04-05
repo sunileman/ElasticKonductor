@@ -16,12 +16,10 @@ ElasticKonductor currently deploys
 * OpenTelemetry Demo
 * Enterprise Search
 * ElasticSearch Service (ESS)
+* Fleet Server
+* Elastic Agent (APM,K8s Integration)
 * Istio
 
-Does not deploy
-* APM Server
-* Fleet
-* Elastic Maps
 
 [![2023-06-28-21-54-31.jpg](https://i.postimg.cc/pd5qQBNj/2023-06-28-21-54-31.jpg)](https://postimg.cc/Z9Z84p5Y)
 

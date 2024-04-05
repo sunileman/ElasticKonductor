@@ -7,15 +7,15 @@ export TF_LOG="INFO"
 export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-set -e 
-echo "KonductorDeploy.sh create-operator: Copying variable files"
+set -e
+
+echo "KonductorDeploy.sh helm-deployment/eck-fleet: Terraform Destroy Copying variable files"
 cp -f ../../../variables.tf .
 cp -f ../../../terraform.tfvars .
 
 
 export KUBE_CONFIG_PATH=~/.kube/config
-echo "KonductorDeploy.sh create-operator: creating ECK Operator"
+echo "KonductorDeploy.sh helm-deployment/eck-fleet: creating fleet"
 # initialize terraform configuration
 terraform init -upgrade
 
@@ -28,4 +28,4 @@ terraform plan -out state.tfplan
 # apply terraform plan
 terraform apply state.tfplan
 
-echo "KonductorDeploy.sh: Finished creating ECK Operator"
+echo "KonductorDeploy.sh helm-deployment/eck-fleet: Finished creating fleet"

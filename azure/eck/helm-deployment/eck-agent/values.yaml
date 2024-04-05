@@ -1,0 +1,21 @@
+spec:
+  ${deployment_type}:
+    podTemplate:
+      spec:
+        serviceAccountName: elastic-agent
+        automountServiceAccountToken: true
+        securityContext:
+          runAsUser: 0 
+        volumes:
+        - name: agent-data
+          emptyDir: {}
+        containers:
+        - name: agent
+          resources:
+            requests:
+              memory: ${elastic_agent_pod_memory}
+              cpu: ${elastic_agent_pod_cpu}
+            limits:
+              memory: ${elastic_agent_pod_memory}
+              cpu: ${elastic_agent_pod_cpu}
+  elasticsearchRefs: []

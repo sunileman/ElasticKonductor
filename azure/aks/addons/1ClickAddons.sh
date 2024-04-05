@@ -26,11 +26,16 @@ echo "1ClickAddons.sh: Running iscsi addon"
 echo "1ClickAddons.sh: openebs option: $1"
 openebs=$1
 
-if [[ "$1" == "openebs-disabled" ]]; then
-    echo "openebs-disabled"
-    echo "Destroying OpenEBS"
-    (cd openebs; bash ./1ClickAddonsDestroy.sh)
-else
+# if [[ "$1" == "openebs-disabled" ]]; then
+#     echo "openebs-disabled"
+#     echo "Destroying OpenEBS"
+#     (cd openebs; bash ./1ClickAddonsDestroy.sh)
+# else
+#     echo "1ClickAddons.sh: Running OpenEBS addon"
+#     (cd openebs; bash ./1ClickAddons.sh)
+# fi
+
+if [[ "$1" != "openebs-disabled" ]]; then
     echo "1ClickAddons.sh: Running OpenEBS addon"
     (cd openebs; bash ./1ClickAddons.sh)
 fi

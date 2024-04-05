@@ -232,3 +232,42 @@ resource "azurerm_kubernetes_cluster_node_pool" "entsearch" {
 
   node_labels = var.entsearch_instance_k8s_label
 }
+
+
+resource "azurerm_kubernetes_cluster_node_pool" "fleet" {
+  name                  = "fleet"
+  count                 = var.fleet_instance_count >= 1 ? 1 : 0
+
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = var.fleet_instance_type
+  node_count            = var.fleet_instance_count
+
+  enable_auto_scaling = false
+
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
+
+  node_labels = var.fleet_instance_k8s_label
+
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "apmserver" {
+  name                  = "apmserver"
+  count                 = var.apmserver_instance_count >= 1 ? 1 : 0
+
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = var.apmserver_instance_type
+  node_count            = var.apmserver_instance_count
+
+  enable_auto_scaling = false
+
+  tags = merge(
+    var.tags,
+    {env=random_pet.name.id}
+  )
+
+  node_labels = var.apmserver_instance_k8s_label
+
+}

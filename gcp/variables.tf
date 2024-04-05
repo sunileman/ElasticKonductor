@@ -776,7 +776,7 @@ variable "master_accept_search" {
 variable "master_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "pd-ssd"
 }
 
 variable "kibana_pod_cpu" {
@@ -843,7 +843,7 @@ variable "hot_accept_search" {
 variable "hot_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "pd-ssd"
 }
 
 variable "warm_pod_count" {
@@ -892,7 +892,7 @@ variable "warm_accept_search" {
 variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "pd-ssd"
 }
 
 variable "cold_pod_count" {
@@ -942,7 +942,7 @@ variable "cold_accept_search" {
 variable "cold_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "pd-ssd"
 }
 
 
@@ -992,7 +992,7 @@ variable "frozen_accept_search" {
 variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "pd-ssd"
 }
 
 variable "ml_pod_count" {
@@ -1041,7 +1041,7 @@ variable "ml_accept_search" {
 variable "ml_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "pd-ssd"
 }
 
 
@@ -1153,7 +1153,7 @@ variable "entsearch_accept_search" {
 variable "entsearch_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "local-storage"
+  default = "pd-ssd"
 }
 
 
