@@ -34,7 +34,7 @@ resource "helm_release" "kibana" {
 
   set {
     name  = "spec.enterpriseSearchRef.name"
-    value = var.entsearch_pod_count > 0 || var.entsearch_instance_count > 1 ? "enterprise-search" : ""
+    value = var.entsearch_pod_count > 0 || var.entsearch_instance_count > 0 ? "enterprise-search" : ""
   }
 
 

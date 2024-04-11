@@ -352,7 +352,7 @@ variable "otel_instance_k8s_label" {
 variable "fleet_instance_count" {
   description = "Number of fleet instances"
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "fleet_instance_type" {
@@ -850,7 +850,7 @@ variable "entsearch_pod_storage_class" {
 variable "fleet_pod_count" {
   description = "number of fleet pods"
   type = number
-  default = 0
+  default = 1
 }
 
 variable "fleet_pod_cpu" {

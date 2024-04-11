@@ -15,7 +15,6 @@ chmod 700 ./eck/1ClickECKDestroy.sh
 chmod 700 ./eck/getClusterInfo.sh
 chmod 700 ./eck/1ClickECKDeploy.sh
 chmod 700 ./aks/setDataSourceRG.sh
-chmod 700 ./eck/namegen/1ClickNameGen.sh
 chmod 700 ./aks/1ClickAKSDestroy.sh
 chmod 700 ./eck/license/1ClickAddLicense.sh
 chmod 700 ./eck/license/1ClickAddLicenseDestroy.sh

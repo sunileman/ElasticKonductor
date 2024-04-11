@@ -4,6 +4,7 @@ resource "helm_release" "eck-operator" {
   version    = var.es_operator_chart_version
   repository = "https://helm.elastic.co"
   namespace  = "elastic-system"
+  create_namespace  = true
 
   set {
     name  = "installCRDs"
