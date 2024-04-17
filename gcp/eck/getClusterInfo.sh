@@ -159,6 +159,7 @@ echo "Kibana:"
 echo "- URL (IP): https://$kibana_ip:5601"
 echo "- URL (DNS): https://$k1.bc.googleusercontent.com:5601"
 
+echo
 echo "Elasticsearch Credentials:"
 echo "- UserName: elastic"
 echo "- Password: $kibana_password"

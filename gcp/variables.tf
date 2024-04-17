@@ -209,7 +209,7 @@ variable "master_volume" {
 variable "master_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -248,7 +248,7 @@ variable "kibana_volume" {
 variable "kibana_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -297,7 +297,7 @@ variable "hot_volume" {
 variable "hot_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 variable "hot_local_ssd_count" {
@@ -358,7 +358,7 @@ variable "warm_volume" {
 variable "warm_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -413,7 +413,7 @@ variable "cold_volume" {
 variable "cold_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -469,7 +469,7 @@ variable "frozen_volume" {
 variable "frozen_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -525,7 +525,7 @@ variable "ml_volume" {
 variable "ml_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -564,7 +564,7 @@ variable "entsearch_volume" {
 variable "entsearch_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -603,7 +603,7 @@ variable "fleet_volume" {
 variable "fleet_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -641,7 +641,7 @@ variable "otel_volume" {
 variable "otel_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -678,7 +678,7 @@ variable "util_volume" {
 variable "util_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 variable "logstash_instance_count" {
@@ -714,7 +714,7 @@ variable "logstash_volume" {
 variable "logstash_volume_type" {
   description = "disk type"
   type        = string
-  default     = "pd-ssd"
+  default     = "premium-rwo"
 }
 
 
@@ -776,7 +776,7 @@ variable "master_accept_search" {
 variable "master_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "pd-ssd"
+  default = "premium-rwo"
 }
 
 variable "kibana_pod_cpu" {
@@ -843,7 +843,7 @@ variable "hot_accept_search" {
 variable "hot_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "pd-ssd"
+  default = "premium-rwo"
 }
 
 variable "warm_pod_count" {
@@ -892,7 +892,7 @@ variable "warm_accept_search" {
 variable "warm_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "pd-ssd"
+  default = "premium-rwo"
 }
 
 variable "cold_pod_count" {
@@ -942,7 +942,7 @@ variable "cold_accept_search" {
 variable "cold_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "pd-ssd"
+  default = "premium-rwo"
 }
 
 
@@ -992,7 +992,7 @@ variable "frozen_accept_search" {
 variable "frozen_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "pd-ssd"
+  default = "premium-rwo"
 }
 
 variable "ml_pod_count" {
@@ -1041,7 +1041,7 @@ variable "ml_accept_search" {
 variable "ml_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "pd-ssd"
+  default = "premium-rwo"
 }
 
 
@@ -1153,7 +1153,7 @@ variable "entsearch_accept_search" {
 variable "entsearch_pod_storage_class" {
   description = "pod storage class"
   type = string
-  default = "pd-ssd"
+  default = "premium-rwo"
 }
 
 

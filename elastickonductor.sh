@@ -4,7 +4,7 @@ $(mkdir ./logs 2>/dev/null)
 LOG_LOCATION=./logs
 nowtime=`date +"%m_%d_%Y_%s"`
 
-oneclickv=2.1.0
+oneclickv=2.1.1
 
 usage() {
     echo
