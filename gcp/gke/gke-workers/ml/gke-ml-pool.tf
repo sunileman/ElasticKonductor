@@ -26,7 +26,7 @@ resource "google_container_node_pool" "ml" {
     disk_size_gb = var.ml_volume
     disk_type    = var.ml_volume_type
 
-    local_nvme_ssd_block_config {
+    ephemeral_storage_local_ssd_config {
       local_ssd_count = var.ml_local_ssd_count
     }
 
@@ -35,4 +35,11 @@ resource "google_container_node_pool" "ml" {
     service_account = data.terraform_remote_state.k8s.outputs.gcp_service_account_email
     oauth_scopes = var.gke_oauth_scopes
   }
+
+  lifecycle {
+    ignore_changes = [
+      node_config[0].ephemeral_storage_local_ssd_config[0].local_ssd_count,
+    ]
+  }
+  
 }

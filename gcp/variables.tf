@@ -684,7 +684,7 @@ variable "util_volume_type" {
 variable "logstash_instance_count" {
   description = "Number of logstash instances"
   type        = number
-  default     = 1
+  default     = 0
 }
 
 variable "logstash_instance_type" {

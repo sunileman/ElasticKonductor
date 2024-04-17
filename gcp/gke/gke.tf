@@ -10,6 +10,8 @@ resource "google_container_cluster" "k8s" {
   monitoring_service       = var.gke_monitoring_service
   networking_mode          = var.gke_networking_mode
 
+  deletion_protection      = false
+
   min_master_version       = data.google_container_engine_versions.zone.latest_master_version
 
   

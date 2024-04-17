@@ -26,8 +26,8 @@ resource "google_container_node_pool" "warm" {
     disk_size_gb = var.warm_volume
     disk_type    = var.warm_volume_type
    
-    local_nvme_ssd_block_config {
-      local_ssd_count = var.warm_local_ssd_count
+    ephemeral_storage_local_ssd_config {
+      local_ssd_count = var.hot_local_ssd_count
     }
 
     labels = var.warm_instance_k8s_label 
@@ -35,4 +35,11 @@ resource "google_container_node_pool" "warm" {
     service_account = data.terraform_remote_state.k8s.outputs.gcp_service_account_email
     oauth_scopes = var.gke_oauth_scopes
   }
+
+  lifecycle {
+    ignore_changes = [
+      node_config[0].ephemeral_storage_local_ssd_config[0].local_ssd_count,
+    ]
+  }
+  
 }

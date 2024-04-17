@@ -28,16 +28,23 @@ resource "google_container_node_pool" "hot" {
     disk_size_gb = var.hot_volume
     disk_type    = var.hot_volume_type
 
-    local_nvme_ssd_block_config {
+    ephemeral_storage_local_ssd_config {
       local_ssd_count = var.hot_local_ssd_count
     }
     
-
-
    
     labels = var.hot_instance_k8s_label 
 
     service_account = data.terraform_remote_state.k8s.outputs.gcp_service_account_email
     oauth_scopes = var.gke_oauth_scopes
   }
+
+  lifecycle {
+    ignore_changes = [
+      node_config[0].ephemeral_storage_local_ssd_config[0].local_ssd_count,
+    ]
+  }
+
+
+  
 }

@@ -19,7 +19,7 @@ tags = {
     "division" = "field"
     "org" = "sa"
     "team" = "amer"
-    "project" = "sunman" # Project name (shared) or username (individual)
+    "project" = "username" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }
 
@@ -27,12 +27,7 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
-gcp_project="elastic-sa"
-
-master_instance_count=1
-hot_instance_count=3
-
-master_pod_count = 1
+gcp_project="change-me"
 
 
 
@@ -145,6 +140,13 @@ master_pod_count = 1
 #ml_accept_ingest=false
 #ml_accept_search=false
 #ml_local_ssd_count = 1
+
+# logstash_instance_count = 0
+# logstash_instance_type= "e2-standard-32"
+# logstash_local_ssd_count = 0
+# logstash_instance_k8s_label= {"nodetype"="logstash"}
+# logstash_volume=  200
+# logstash_volume_type= "pd-ssd"
 
 
 #entsearch_instance_count = 3
