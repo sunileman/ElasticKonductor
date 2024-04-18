@@ -17,7 +17,7 @@
 tags = {
     "division" = "field"
     "org" = "sa"
-    "team" = "amer"
+    "team" = "amer-strat"
     "project" = "username" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }

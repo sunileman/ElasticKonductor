@@ -31,7 +31,6 @@ gcp_project="change-me"
 
 
 
-
 #----------------------- Cloud Provider ----------------------------------------
 
 
@@ -195,7 +194,7 @@ gcp_project="change-me"
 #master_pod_memory= "11264Mi"
 #master_pod_roles= "master, remote_cluster_client"
 #master_pod_storage= "140Gi"
-#master_pod_storage_class = "pd-ssd"
+#master_pod_storage_class = "premium-rwo"
 
 #hot_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #hot_pod_count= 3
@@ -203,7 +202,7 @@ gcp_project="change-me"
 #hot_pod_memory= "53248Mi"
 #hot_pod_roles= "data_hot, data_content, ingest, remote_cluster_client"
 #hot_pod_storage= "1600Gi"
-#hot_pod_storage_class = "pd-ssd"
+#hot_pod_storage_class = "premium-rwo"
 
 #warm_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #warm_pod_count= 0
@@ -211,7 +210,7 @@ gcp_project="change-me"
 #warm_pod_memory= "53248Mi"
 #warm_pod_roles= "data_warm, data_content, remote_cluster_client"
 #warm_pod_storage= "5000Gi"
-#warm_pod_storage_class = "pd-ssd"
+#warm_pod_storage_class = "premium-rwo"
 
 #cold_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #cold_pod_count= 0
@@ -219,7 +218,7 @@ gcp_project="change-me"
 #cold_pod_memory= "11264Mi"
 #cold_pod_roles= "data_cold, remote_cluster_client"
 #cold_pod_storage= "140Gi"
-#cold_pod_storage_class = "pd-ssd"
+#cold_pod_storage_class = "premium-rwo"
 
 #frozen_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #frozen_pod_count= 0
@@ -227,7 +226,7 @@ gcp_project="change-me"
 #frozen_pod_memory= "11264Mi"
 #frozen_pod_roles= "data_frozen, remote_cluster_client"
 #frozen_pod_storage= "140Gi"
-#frozen_pod_storage_class = "pd-ssd"
+#frozen_pod_storage_class = "premium-rwo"
 
 #ml_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
 #ml_pod_count= 1
@@ -235,7 +234,7 @@ gcp_project="change-me"
 #ml_pod_memory= "11264Mi"
 #ml_pod_roles= "ml, remote_cluster_client"
 #ml_pod_storage= "140Gi"
-#ml_pod_storage_class = "pd-ssd"
+#ml_pod_storage_class = "premium-rwo"
 
 #kibana_pod_count= 1
 #kibana_pod_cpu= "1000m"
@@ -249,7 +248,7 @@ gcp_project="change-me"
 #entsearch_pod_ES_JAVA_OPTS = " "
 #entsearch_accept_ingest = "false"
 #entsearch_accept_search=false
-#entsearch_pod_storage_class = "pd-ssd"
+#entsearch_pod_storage_class = "premium-rwo"
 
 
 

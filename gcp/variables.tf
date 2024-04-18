@@ -209,7 +209,7 @@ variable "master_volume" {
 variable "master_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -248,7 +248,7 @@ variable "kibana_volume" {
 variable "kibana_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -297,7 +297,7 @@ variable "hot_volume" {
 variable "hot_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 variable "hot_local_ssd_count" {
@@ -358,7 +358,7 @@ variable "warm_volume" {
 variable "warm_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -413,7 +413,7 @@ variable "cold_volume" {
 variable "cold_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -469,7 +469,7 @@ variable "frozen_volume" {
 variable "frozen_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -525,7 +525,7 @@ variable "ml_volume" {
 variable "ml_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -564,7 +564,7 @@ variable "entsearch_volume" {
 variable "entsearch_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -603,7 +603,7 @@ variable "fleet_volume" {
 variable "fleet_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -641,7 +641,7 @@ variable "otel_volume" {
 variable "otel_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
@@ -678,7 +678,7 @@ variable "util_volume" {
 variable "util_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 variable "logstash_instance_count" {
@@ -714,7 +714,7 @@ variable "logstash_volume" {
 variable "logstash_volume_type" {
   description = "disk type"
   type        = string
-  default     = "premium-rwo"
+  default     = "pd-ssd"
 }
 
 
