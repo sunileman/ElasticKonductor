@@ -18,7 +18,7 @@
 tags = {
     "division" = "field"
     "org" = "sa"
-    "team" = "amer"
+    "team" = "amer-strat"
     "project" = "username" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }
@@ -28,6 +28,11 @@ region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
 gcp_project="change-me"
+
+fleet_instance_count=0
+fleet_pod_count=0
+entsearch_instance_count=0
+entsearch_pod_count=0
 
 
 
