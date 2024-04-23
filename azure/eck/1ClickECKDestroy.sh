@@ -23,10 +23,6 @@ echo Terraform Destroy
 echo "1ClickECKDestroy: Destroying license"
 (cd ./license; bash ./1ClickAddLicenseDestroy.sh)
 
-#remove entsearch
-echo "1ClickECKDestroy.sh: Destroy enterprise search"
-(cd ./enterprise-search ; bash ./KonductorDestroy.sh) 
-
 
 echo "1ClickECKDeploy.sh: Destroying Elastic Agent"
 (cd ./helm-deployment/eck-agent/; bash ./KonductorDestroy.sh)

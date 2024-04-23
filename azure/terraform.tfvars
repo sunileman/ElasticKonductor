@@ -19,7 +19,7 @@ tags = {
     "org" = "sa"
     "team" = "amer-strat"
     "purpose" = "testing"
-    "project" = "sunman" # Project name (shared) or username (individual)
+    "project" = "username" # Project name (shared) or username (individual)
     "keep-until" = " 2024-12-31" #yyyy-mm-dd
 }
 
@@ -111,13 +111,6 @@ resource_group_location="eastus"
 #ml_instance_k8s_label= {"nodetype"="ml"}
 #ml_accept_ingest=false
 #ml_accept_search=false
-
-#entsearch_instance_count= 1
-#entsearch_max_instance_count= 3
-#entsearch_instance_type=  "Standard_D4_v5"
-#entsearch_instance_k8s_label= {"nodetype"="entsearch"}
-#entsearch_accept_ingest=true
-#entsearch_accept_search=false
 
 #fleet_instance_count= 0
 #fleet_instance_type =  "Standard_F4s_v2"
@@ -223,13 +216,6 @@ resource_group_location="eastus"
 #kibana_pod_cpu= "1000m"
 #kibana_pod_memory= "1Gi"
 
-#entsearch_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
-#entsearch_pod_count= 1
-#entsearch_pod_cpu= "1"
-#entsearch_pod_memory= "8Gi"
-#entsearch_pod_roles= "data_entsearch, data_content, ingest"
-#entsearch_pod_storage= "300Gi"
-#entsearch_pod_storage_class = "managed-premium"
 
 #fleet_pod_count = 0
 #fleet_pod_cpu  = "2"

@@ -32,12 +32,6 @@ resource "helm_release" "kibana" {
     value = "eck-elasticsearch"
   }
 
-  set {
-    name  = "spec.enterpriseSearchRef.name"
-    value = var.entsearch_pod_count > 0 || var.entsearch_instance_count > 0 ? "enterprise-search" : ""
-  }
-
-
 
   set {
     name  = "spec.podTemplate.spec.nodeSelector.nodetype"
