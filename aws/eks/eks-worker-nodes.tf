@@ -241,39 +241,6 @@ resource "aws_eks_node_group" "ml" {
   ]
 }
 
-resource "aws_eks_node_group" "entsearch" {
-  cluster_name    = aws_eks_cluster.OneClick.name
-  
-
-  node_group_name = "entsearch"
-  node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = flatten([aws_subnet.private[*].id])
-  scaling_config {
-    desired_size = var.entsearch_instance_count
-    max_size     = var.entsearch_max_instance_count
-    min_size     = var.entsearch_instance_count
-  }
-
-
-  ami_type       = var.entsearch_ami_type
-  capacity_type  = var.entsearch_capacity_type
-  instance_types = var.entsearch_instance_type
-  disk_size      =  200
-
-  tags = merge(
-    var.tags,
-    {env=random_pet.name.id}
-  )
-
-  labels = merge(var.k8s_all_worker_labels, var.entsearch_instance_k8s_label)
-
-  depends_on = [
-    aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.node_AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.node_AmazonEC2ContainerRegistryReadOnly,
-    aws_nat_gateway.main
-  ]
-}
 
 resource "aws_eks_node_group" "otel" {
   cluster_name    = aws_eks_cluster.OneClick.name
@@ -474,16 +441,6 @@ resource "aws_autoscaling_group_tag" "util_asg_tag" {
 }
 
 
-resource "aws_autoscaling_group_tag" "entsearch_asg_tag" {
-  autoscaling_group_name = aws_eks_node_group.entsearch.resources[0].autoscaling_groups[0].name
-
-  tag {
-    key                 = "k8s.io/cluster-autoscaler/node-template/label/nodetype"
-    value               = "entsearch"
-    propagate_at_launch = false
-  }
-}
-
 
 resource "null_resource" "apply_master_ini_asg_tags" {
   depends_on = [aws_eks_node_group.master]
@@ -558,13 +515,3 @@ resource "null_resource" "apply_util_ini_asg_tags" {
   }
 }
 
-
-resource "null_resource" "apply_entsearch_ini_asg_tags" {
-  
-
-  depends_on = [aws_eks_node_group.entsearch]
-
-  provisioner "local-exec" {
-    command = "python ini-add-tags.py ${aws_eks_node_group.entsearch.resources[0].autoscaling_groups[0].name}"
-  }
-}

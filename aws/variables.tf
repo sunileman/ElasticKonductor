@@ -94,7 +94,7 @@ variable "master_max_instance_count" {
 variable "master_instance_type" {
   description = "Master instance type"
   type = list(string)
-  default     = ["c6gd.2xlarge"]
+  default     = ["c6g.2xlarge"]
 }
 
 variable "master_instance_k8s_label" {
@@ -168,7 +168,7 @@ variable "hot_max_instance_count" {
 variable "hot_instance_type" {
   description = "Hot instance type"
   type = list(string)
-  default     = ["c6gd.8xlarge"]
+  default     = ["c6g.8xlarge"]
 }
 
 variable "hot_instance_k8s_label" {
@@ -378,44 +378,6 @@ variable "util_ami_type" {
   type = string
   default = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 }
-
-
-variable "entsearch_instance_count" {
-  description = "Number of entsearch instances"
-  type        = number
-  default     = 1
-}
-
-variable "entsearch_max_instance_count" {
-  description = "max Number of entsearch instances"
-  type        = number
-  default     = 10
-}
-
-variable "entsearch_instance_type" {
-  description = "entsearch instance type"
-  type = list(string)
-  default     = ["c6gd.8xlarge"]
-}
-
-variable "entsearch_instance_k8s_label" {
-  description = "entsearch instance k8s label"
-  type        = map
-  default     = {"nodetype"="entsearch"}
-}
-
-variable "entsearch_ami_type" {
-  description = "entsearch AMI type"
-  type = string
-  default = "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-}
-
-variable "entsearch_capacity_type" {
-  description = "entsearch capacity type"
-  type = string
-  default =  "ON_DEMAND"  # ON_DEMAND, SPOT
-}
-
 
 
 variable "client_access_cidr" {

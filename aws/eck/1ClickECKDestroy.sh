@@ -25,10 +25,6 @@ set -e
 echo "1ClickECKDestroy: Destroying license"
 (cd ./license; bash ./1ClickAddLicenseDestroy.sh)
 
-#remove entsearch
-echo "1ClickECKDestroy.sh: Destroy enterprise search"
-(cd ./enterprise-search ; bash ./KonductorDestroy.sh) 
-
 
 echo "Destroying ES Pods"
 terraform destroy -auto-approve

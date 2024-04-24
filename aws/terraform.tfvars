@@ -121,14 +121,6 @@ region= "us-east-1"
 #ml_accept_ingest=false
 #ml_accept_search=false
 
-#entsearch_ami_type= "AL2_ARM_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
-#entsearch_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
-#entsearch_instance_count= 1
-#entsearch_instance_k8s_label= {"nodetype"="entsearch"}
-#entsearch_instance_type= ["c6g.8xlarge"]
-#entsearch_max_instance_count=10
-#entsearch_accept_ingest=true
-#entsearch_accept_search=false
 
 #util_ami_type= "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
 #util_capacity_type=  "ON_DEMAND"  # ON_DEMAND, SPOT
@@ -235,17 +227,6 @@ region= "us-east-1"
 
 
 
-
-#entsearch_pod_ES_JAVA_OPTS= "-Xms8g -Xmx8g"
-#entsearch_pod_count= 1
-#entsearch_pod_cpu= "30000m"
-#entsearch_pod_memory= "53248Mi"
-#entsearch_pod_roles= "data_entsearch, data_content, ingest"
-#entsearch_pod_storage= "1600Gi"
-#entsearch_pod_storage_class = "local-storage" #valid values local-storage|entsearch-gp3|entsearch-io2-be
-#entsearch_pod_storage_class_iops = 3000
-#entsearch_pod_storage_class_throughput = 125 ##in mb
-#entsearch_pod_instance_affinity="entsearch"
 
 
 #kibana_pod_count= 1
