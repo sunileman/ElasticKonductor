@@ -13,8 +13,8 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 set -e
 
 echo "1ClickGKEEntSearchDeploy.sh: Copying variable files"
-cp -f ../../variables.tf .
-cp -f ../../terraform.tfvars .
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
 
 
 echo "1ClickGKEEntSearchDeploy.sh: Creating EntSearch Nodes"

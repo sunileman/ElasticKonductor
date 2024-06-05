@@ -1,5 +1,8 @@
 #!/bin/bash
 set -e
+
+(cd ../gke/; ./setkubectl.sh;)
+
 echo "getClusterInfo.sh"
 clusternameraw=$(terraform output clustername)
 clustername=${clusternameraw//\"/}

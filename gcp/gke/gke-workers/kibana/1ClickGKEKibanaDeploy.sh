@@ -13,9 +13,8 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 set -e
 
 echo "1ClickKibanaDeploy.sh: Copying variable files"
-cp -f ../../variables.tf .
-cp -f ../../terraform.tfvars .
-
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
 
 echo "1ClickKibanaDeploy.sh: Creating Kibana Nodes"
 # initialize terraform configuration
