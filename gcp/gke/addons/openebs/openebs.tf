@@ -7,10 +7,18 @@ resource "helm_release" "openebs" {
   create_namespace = true
   set {
     name  = "localprovisioner.deviceClass.name"
+    value = "local-storage-device"
+  }
+  set {
+    name  = "localprovisioner.hostpathClass.name"
     value = "local-storage"
   }
   set {
     name  = "localprovisioner.hostpathClass.enabled"
-    value = "false"
+    value = "true"
+  }
+  set {
+    name  = "localprovisioner.basePath"
+    value = "/mnt/stateful_partition/kube-ephemeral-ssd"
   }
 }
