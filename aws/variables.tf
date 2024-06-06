@@ -413,13 +413,13 @@ variable "master_pod_count" {
 variable "master_pod_cpu" {
   description = "master pod cpu request"
   type = string
-  default = "6500m"
+  default = "4"
 }
 
 variable "master_pod_memory" {
   description = "master pod memory request"
   type = string
-  default = "11264Mi"
+  default = "11Gi"
 }
 
 variable "master_pod_storage" {
@@ -507,13 +507,13 @@ variable "hot_pod_count" {
 variable "hot_pod_cpu" {
   description = "hot pod cpu request"
   type = string
-  default = "30000m"
+  default = "24"
 }
 
 variable "hot_pod_memory" {
   description = "hot pod memory request"
   type = string
-  default = "53248Mi"
+  default = "50Gi"
 }
 
 variable "hot_pod_storage" {
@@ -848,75 +848,6 @@ variable "ml_pod_storage_class_throughput" {
   default = "125"
 }
 
-
-variable "entsearch_pod_count" {
-  description = "number of entsearch pods"
-  type = number
-  default = 1
-}
-
-variable "entsearch_pod_cpu" {
-  description = "entsearch pod cpu request"
-  type = string
-  default = "30000m"
-}
-
-variable "entsearch_pod_instance_affinity" {
-  description = "pod instance placement based on instance tag"
-  type = string
-  default = "entsearch"
-}
-
-variable "entsearch_pod_memory" {
-  description = "entsearch pod memory request"
-  type = string
-  default = "53248Mi"
-}
-
-variable "entsearch_pod_storage" {
-  description = "entsearch pod storage request"
-  type = string
-  default = "140Gi"
-}
-
-variable "entsearch_pod_ES_JAVA_OPTS" {
-  description = "entsearch pod ES_JAVA_OPTS"
-  type = string
-  default = " "
-  #default = "-Xms8g -Xmx8g"
-}
-
-variable "entsearch_accept_ingest" {
-  description = "pod accepts ingest"
-  type = string
-  default = "false"
-}
-
-variable "entsearch_accept_search" {
-  description = "pod accepts search request"
-  type = string
-  default = "false"
-}
-
-variable "entsearch_pod_storage_class" {
-  description = "pod storage class"
-  type = string
-  default = "gp2" 
-  #valid values local-storage|gp2
-}
-
-
-variable "entsearch_pod_storage_class_iops" {
-  description = "pod storage class iops"
-  type = string
-  default = "3000"
-}
-
-variable "entsearch_pod_storage_class_throughput" {
-  description = "pod storage class throughput in mb"
-  type = string
-  default = "125"
-}
 
 
 

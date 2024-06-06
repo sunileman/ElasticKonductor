@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+(cd ../eks/; ./setkubectl.sh;)
+
 ## Get variables from terraform state
 clusternameraw=$(terraform output clustername)
 clustername=${clusternameraw//\"/}

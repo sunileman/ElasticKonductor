@@ -2,6 +2,8 @@
 
 set -e
 
+(cd ../aks/; ./setkubectl.sh;)
+
 ingestLBnameraw=$(cd loadbalancers; terraform output ingestLbName)
 ingestLBname=${ingestLBnameraw//\"/}
 

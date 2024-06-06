@@ -31,7 +31,22 @@ RETRIES=20
 
 # Function to check if Elasticsearch is ready
 check_es() {
-  RESPONSE=$(curl --insecure -s -u elastic:$(kubectl get secret eck-elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' | base64 --decode) https://$(kubectl get service eck-ingest-es-http-endpoint | tail -n -1 | awk {'print $4"" '}):9200)
+  # Attempt to retrieve the password quietly
+  PASSWORD=$(kubectl get secret eck-elasticsearch-es-elastic-user -o=jsonpath='{.data.elastic}' 2>/dev/null | base64 --decode)
+  if [ -z "$PASSWORD" ]; then
+    echo "Failed to retrieve Elasticsearch password from Kubernetes secret."
+    return 1
+  fi
+
+  # Attempt to retrieve the Elasticsearch endpoint quietly
+  ES_ENDPOINT=$(kubectl get service eck-ingest-es-http-endpoint | tail -n -1 | awk {'print $4'} 2>/dev/null)
+  if [ -z "$ES_ENDPOINT" ]; then
+    echo "Failed to retrieve Elasticsearch endpoint from Kubernetes service."
+    return 1
+  fi
+
+  # Make the request to Elasticsearch
+  RESPONSE=$(curl --insecure -s -u elastic:$PASSWORD https://$ES_ENDPOINT:9200)
   if echo "$RESPONSE" | grep -q "You Know, for Search"; then
     echo "$RESPONSE" # If the desired string is found, print the entire payload
     return 0

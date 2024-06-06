@@ -9,13 +9,13 @@ export TF_LOG_PATH="./tflogs/terraform-$nowtime.log"
 
 set -e
 
-echo "1ClickECKOperator.sh: Copying variable files"
-cp -f ../../variables.tf .
-cp -f ../../terraform.tfvars .
+echo "KonductorDeploy.sh helm-deployment/eck-operator:  Copying variable files"
+cp -f ../../../variables.tf .
+cp -f ../../../terraform.tfvars .
 
 
 export KUBE_CONFIG_PATH=~/.kube/config
-echo "1ClickECKOperator.sh creating ECK Operator"
+echo "KonductorDeploy.sh helm-deployment/eck-operator: creating ECK Operator"
 # initialize terraform configuration
 terraform init -upgrade
 
@@ -28,7 +28,4 @@ terraform plan -out state.tfplan
 # apply terraform plan
 terraform apply state.tfplan
 
-echo "1ClickECKOperator.sh Calling create operator"
-(cd ./create-operator; bash KonductorDeploy.sh)
-
-echo "1ClickECKOperator.sh: Finished creating ECK Operator"
+echo "KonductorDeploy.sh helm-deployment/eck-operator: Finished creating ECK Operator"

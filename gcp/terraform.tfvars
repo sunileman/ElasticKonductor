@@ -27,13 +27,7 @@ tags = {
 region= "us-central1"
 zones= ["us-central1-a", "us-central1-b", "us-central1-c"]
 
-gcp_project="change-me"
-
-fleet_instance_count=0
-fleet_pod_count=0
-entsearch_instance_count=0
-entsearch_pod_count=0
-
+gcp_project="CHANGE-ME"
 
 
 #----------------------- Cloud Provider ----------------------------------------
@@ -61,6 +55,10 @@ entsearch_pod_count=0
 #gke_subnetwork_cidr = "10.136.32.0/20"
 #gke_pod_range_cidr = "10.136.144.0/20"
 #gke_service_range_cidr = "10.136.109.192/26"
+
+#----------------------- Helm --------------------------------
+##run helm search repo elastic to find chart version
+#es_operator_chart_version= "2.13.0"
 
 
 #----------------------- Kubernetes Environment --------------------------------

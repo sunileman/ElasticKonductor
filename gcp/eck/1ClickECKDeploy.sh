@@ -6,10 +6,9 @@ cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
 
 set -e
-##create elastic CRDs and Operator
-echo "1ClickECKDeploy.sh: Creating Elastic CRDS and Operator"
-(cd ./es-operator ; sh ./1ClickECKOperator.sh)
 
+echo "1ClickECKDeploy.sh: Creating Elastic CRDS and Operator"
+(cd ./helm-deployment/eck-operator/; bash ./KonductorDeploy.sh)
 
 echo "1ClickECKDeploy.sh Creating ElasticSearch Pods"
 # initialize terraform configuration

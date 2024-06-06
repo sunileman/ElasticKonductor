@@ -6,8 +6,6 @@ set -e
 echo "1ClickECKDestroy.sh Copying variable files"
 cp -f ../variables.tf .
 cp -f ../terraform.tfvars .
-cp -f ../variables.tf ./es-operator/variables.tf
-cp -f ../terraform.tfvars ./es-operator/variables.tfvars
 
 
 echo "1ClickECKDestroy.sh Refreshing GKE state"
@@ -34,6 +32,7 @@ echo "1ClickECKDestroy.sh Destroying ES Pods"
 terraform destroy -auto-approve
 echo "1ClickECKDestroy.sh finished Destroying ES Pods"
 
-echo "1ClickECKDestroy.sh Destroying Operator"
-(cd ./es-operator; bash ./1ClickECKOperatorDestroy.sh)
+echo "1ClickECKDeploy.sh: Destroying Elastic CRDS and Operator"
+(cd ./helm-deployment/eck-operator/; bash ./KonductorDestroy.sh)
+
 echo "1ClickECKDestroy.sh finished Destroying Operator"

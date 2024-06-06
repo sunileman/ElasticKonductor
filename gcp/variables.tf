@@ -140,6 +140,11 @@ variable "eck_version" {
   default = "2.9.0"
 }
 
+variable "es_operator_chart_version" {
+  description = "es operator chart version"
+  type = string
+  default = "2.13.0"
+}
 
 variable "automation_name" {
   description = "ClickDeployment Name"
