@@ -134,8 +134,6 @@ chmod 700 ./eck/1ClickECKDestroy.sh
 chmod 700 ./eck/getClusterInfo.sh
 chmod 700 ./eck/1ClickECKDeploy.sh
 chmod 700 ./eck/1ClickECKDestroy.sh
-chmod 700 ./eck/es-operator/1ClickECKOperator.sh
-chmod 700 ./eck/es-operator/1ClickECKOperatorDestroy.sh
 chmod 700 ./gke/addons/custom/1ClickAddons.sh
 chmod 700 ./gke/addons/custom/1ClickAddonsDestroy.sh
 chmod 700 ./gke/addons/ksm/1ClickAddons.sh
