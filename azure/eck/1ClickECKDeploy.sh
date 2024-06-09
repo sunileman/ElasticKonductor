@@ -11,6 +11,11 @@ echo "1ClickECKDeploy.sh: generating name"
 (cd ./namegen; bash ./1ClickNameGen.sh)
 
 set -e
+echo "1ClickECKDeploy.sh: Fetching helm elastic repo"
+helm repo add elastic https://helm.elastic.co
+helm repo update
+
+
 #copy variables to operator directory
 echo "1ClickECKDeploy.sh: coping variable files"
 cp -f ../variables.tf .
