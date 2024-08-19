@@ -55,6 +55,7 @@ This will install all the required libaries and CLIs for the automation.
     * aws --version
     * aws configure
     * https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions
+    * In the terraform.tfvars, set the AWS access credentials
 
 `GIT`
 * Not required.  If interested in pulling the repo via ssh to keep up with updates applied to this automation

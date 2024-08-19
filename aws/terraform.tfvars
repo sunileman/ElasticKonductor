@@ -33,7 +33,7 @@ region= "us-east-1"
 
 # Optinally set aws creds here (less secure) 
 #aws_access_key="your-key"
-#aws_access_key="your-key"
+#aws_secret_key="your-key"
 
 # Or export these environment variables (more secure)
 #export TF_VAR_aws_access_key="your access key"
