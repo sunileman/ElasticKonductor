@@ -6,7 +6,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "master" {
   vm_size               = var.master_instance_type
   #node_count            = var.master_instance_count
 
-  enable_auto_scaling = false
+  #enable_auto_scaling = false
   #min_count           = var.master_instance_count
   #max_count           = var.master_max_instance_count
   node_count           = var.master_instance_count
@@ -29,7 +29,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "kibana" {
   vm_size               = var.kibana_instance_type
   #node_count            = var.kibana_instance_count
   
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.kibana_instance_count
   max_count           = var.kibana_max_instance_count
 
@@ -50,7 +50,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "hot" {
   vm_size               = var.hot_instance_type
   #node_count            = var.hot_instance_count
 
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.hot_instance_count
   max_count           = var.hot_max_instance_count
 
@@ -72,7 +72,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "warm" {
   #node_count            = var.warm_instance_count
 
 
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.warm_instance_count
   max_count           = var.warm_max_instance_count
 
@@ -93,7 +93,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "cold" {
   vm_size               = var.cold_instance_type
   #node_count            = var.cold_instance_count
 
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.cold_instance_count
   max_count           = var.cold_max_instance_count
 
@@ -113,7 +113,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "frozen" {
   vm_size               = var.frozen_instance_type
   #node_count            = var.frozen_instance_count
 
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.frozen_instance_count
   max_count           = var.frozen_max_instance_count
 
@@ -134,7 +134,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "ml" {
   vm_size               = var.ml_instance_type
   #node_count            = var.ml_instance_count
 
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.ml_instance_count
   max_count           = var.ml_max_instance_count
 
@@ -156,7 +156,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "logstash" {
   vm_size               = var.logstash_instance_type
   #node_count            = var.logstash_instance_count
 
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.logstash_instance_count
   max_count           = var.logstash_max_instance_count
 
@@ -175,7 +175,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "windws" {
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
   vm_size               = var.windows_instance_type
 
-  enable_auto_scaling = true
+  auto_scaling_enabled = true
   min_count           = var.windows_instance_count
   max_count           = var.windows_max_instance_count
 
@@ -201,7 +201,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "otel" {
   vm_size               = var.otel_instance_type
   node_count            = var.otel_instance_count
 
-  enable_auto_scaling = false
+  auto_scaling_enabled = false
 
   tags = merge(
     var.tags,
@@ -222,7 +222,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "fleet" {
   vm_size               = var.fleet_instance_type
   node_count            = var.fleet_instance_count
 
-  enable_auto_scaling = false
+  auto_scaling_enabled = false
 
   tags = merge(
     var.tags,
@@ -241,7 +241,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "apmserver" {
   vm_size               = var.apmserver_instance_type
   node_count            = var.apmserver_instance_count
 
-  enable_auto_scaling = false
+  auto_scaling_enabled = false
 
   tags = merge(
     var.tags,

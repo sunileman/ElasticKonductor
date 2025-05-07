@@ -1,7 +1,9 @@
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
   name     = random_pet.name.id
+  tags     = var.tags
 }
+
 
 resource "azurerm_kubernetes_cluster" "k8s" {
   location            = azurerm_resource_group.rg.location
@@ -14,7 +16,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     {env=random_pet.name.id}
   )
 
-  http_application_routing_enabled = true 
+  #http_application_routing_enabled = true 
 
   kubernetes_version = var.aks_version
 

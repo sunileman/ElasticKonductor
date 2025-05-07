@@ -7,6 +7,10 @@ cp -f ../terraform.tfvars .
 
 set -e
 
+echo "1ClickECKDeploy.sh: Fetching helm elastic repo"
+helm repo add elastic https://helm.elastic.co
+helm repo update
+
 echo "1ClickECKDeploy.sh: Creating Elastic CRDS and Operator"
 (cd ./helm-deployment/eck-operator/; bash ./KonductorDeploy.sh)
 

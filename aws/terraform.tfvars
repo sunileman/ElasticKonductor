@@ -18,12 +18,11 @@ tags = {
     "division" = "field"
     "org" = "sa"
     "team" = "amer-strat"
-    "project" = "username" # Project name (shared) or username (individual)
-    "keep-until" = " 2024-12-31" #yyyy-mm-dd
+    "project" = "sunman" # Project name (shared) or username (individual)
+    "keep-until" = " 2025-12-31" #yyyy-mm-dd
 }
 
 region= "us-east-1"
-
 
 
 

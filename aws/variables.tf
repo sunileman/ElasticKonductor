@@ -14,13 +14,13 @@ variable "aws_secret_key" {
 variable "eks_version" {
   description = "EKS Version"
   type        = string
-  default = "1.27"
+  default = "1.31"
 }
 
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.11.0"
+  default = "2.16.0"
 }
 
 variable "region" {
@@ -401,7 +401,7 @@ variable "endpoint_public_access" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.12.0"
+  default = "8.17.0"
 }
 
 variable "master_pod_count" {
@@ -902,7 +902,7 @@ variable "openebs_helm_chart_version" {
 variable "ksm_helm_chart_version" {
   description = "KSM chart version"
   type = string
-  default = "4.32.0"
+  default = "5.22.1"
   ##https://github.com/kubernetes/kube-state-metrics#compatibility-matrix
 }
 

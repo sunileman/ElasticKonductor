@@ -28,13 +28,13 @@ variable "resource_group_name_prefix" {
 variable "aks_version" {
   description = "AKS Version"
   type        = string
-  default     = "1.27.9"
+  default     = "1.30.11"
 }
 
 variable "eck_version" {
   description = "ECK Version"
   type        = string
-  default = "2.9.0"
+  default = "3.0.0"
 }
 
 variable "project" {
@@ -412,7 +412,7 @@ variable "apmserver_instance_k8s_label" {
 variable "es_version" {
   description = "elasticsearch version"
   type = string
-  default = "8.12.2"
+  default = "8.18.0"
 }
 
 variable "master_pod_count" {
